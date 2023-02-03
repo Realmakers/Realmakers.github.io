@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 11
+			总文章数 12
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,4306 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-python大数据分析与机器学习商业案例实战-part3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/03/python%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%95%86%E4%B8%9A%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98-part3/">Python大数据分析与机器学习商业案例实战-part3</a>
+    </h1>
+  
+
+        
+        <a href="/2023/02/03/python%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%95%86%E4%B8%9A%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98-part3/" class="archive-article-date">
+  	<time datetime="2023-02-03T09:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="11-特征工程之数据预处理"><a href="#11-特征工程之数据预处理" class="headerlink" title="11 特征工程之数据预处理"></a>11 特征工程之数据预处理</h1><p>在实际工作中获取到的数据往往不那么理想，可能会存在非数值类型的文本数据、重复值、缺失值、异常值及数据分布不均衡等问题，因此，在进行数学建模前还需要对这些问题进行处理，这项工作称为特征工程。特征工程通常分为特征使用方案、特征获取方案、特征处理、特征监控几大部分，其中特征处理是特征工程的核心内容，有时称为数据预处理。</p>
+<p>本章可以当成工具手册进行查阅</p>
+<h2 id="11-1-非数值类型数据处理"><a href="#11-1-非数值类型数据处理" class="headerlink" title="11.1 非数值类型数据处理"></a>11.1 非数值类型数据处理</h2><p>有时会包含一些非数值数据，其中最常见的为文本数据，例如性别中的男女，处理时可替换为1和0</p>
+<p>下面介绍python中两种常用的数值类型数据处理方法——Get_dummies哑变量处理和Label Encoding编号处理</p>
+<h3 id="11-1-1-Get-dummies哑变量处理"><a href="#11-1-1-Get-dummies哑变量处理" class="headerlink" title="11.1.1 Get_dummies哑变量处理"></a>11.1.1 Get_dummies哑变量处理</h3><p>哑变量也叫虚拟变量，通常取值为0或1，python中用get_dummies()函数进行哑变量处理，不仅可以处理只有两个分类的简单问题，还可以处理含多个分类的问题</p>
+<p>1.简单示例：“男”和“女”的数值转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;客户编号&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">&#x27;性别&#x27;</span>: [<span class="string">&#x27;男&#x27;</span>, <span class="string">&#x27;女&#x27;</span>, <span class="string">&#x27;男&#x27;</span>]&#125;)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>客户编号</th>
+      <th>性别</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>男</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>女</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>男</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = pd.get_dummies(df, columns=[<span class="string">&#x27;性别&#x27;</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>客户编号</th>
+      <th>性别_女</th>
+      <th>性别_男</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>可以看到，原来的性别列变为“性别_女”和“性别_男”两列，这两列中的数字1表示符合列名，数字0表示不符合列名</p>
+<p>虽然现在已经将文本类型的数据转换成了数字，但是“性别_女”和“性别_男”这两列存在多重共线性，即知道其中一列的内容，就能知道另一列的内容，用公式表达就是：性别_男&#x3D;1-性别_女</p>
+<p>多重共线性会带来一些问题，因此需要用drop()函数删去其中一列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = df.drop(columns=<span class="string">&#x27;性别_女&#x27;</span>) </span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>客户编号</th>
+      <th>性别_男</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>用rename()函数更改列名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = df.rename(columns=&#123;<span class="string">&#x27;性别_男&#x27;</span>:<span class="string">&#x27;性别&#x27;</span>&#125;)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>客户编号</th>
+      <th>性别</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>2.稍复杂点的案例：房屋朝向的数值转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;房屋编号&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], <span class="string">&#x27;朝向&#x27;</span>: [<span class="string">&#x27;东&#x27;</span>, <span class="string">&#x27;南&#x27;</span>, <span class="string">&#x27;西&#x27;</span>, <span class="string">&#x27;北&#x27;</span>, <span class="string">&#x27;南&#x27;</span>]&#125;)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>房屋编号</th>
+      <th>朝向</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>东</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>南</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>西</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>北</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>南</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = pd.get_dummies(df, columns=[<span class="string">&#x27;朝向&#x27;</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>房屋编号</th>
+      <th>朝向_东</th>
+      <th>朝向_北</th>
+      <th>朝向_南</th>
+      <th>朝向_西</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>上表还是同样存在多重共线性（即根据3个朝向的数字就能判断第4个朝向的数字是0还是1），因此需要从新构造出来的4个哑变量中删去一个</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = df.drop(columns=<span class="string">&#x27;朝向_西&#x27;</span>) </span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>房屋编号</th>
+      <th>朝向_东</th>
+      <th>朝向_北</th>
+      <th>朝向_南</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><strong>注意</strong>：构造哑变量容易产生高维数据，因此，哑变量常常和PCA主成分分析一起使用</p>
+<h3 id="11-1-2-Label-Encoding编号处理"><a href="#11-1-2-Label-Encoding编号处理" class="headerlink" title="11.1.2 Label Encoding编号处理"></a>11.1.2 Label Encoding编号处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;编号&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], <span class="string">&#x27;城市&#x27;</span>: [<span class="string">&#x27;北京&#x27;</span>, <span class="string">&#x27;上海&#x27;</span>, <span class="string">&#x27;广州&#x27;</span>, <span class="string">&#x27;深圳&#x27;</span>, <span class="string">&#x27;北京&#x27;</span>]&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>编号</th>
+      <th>城市</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>北京</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>上海</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>广州</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>深圳</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>北京</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line">le = LabelEncoder()</span><br><span class="line">label = le.fit_transform(df[<span class="string">&#x27;城市&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(label)</span><br></pre></td></tr></table></figure>
+
+<pre><code>[1 0 2 3 1]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;城市&#x27;</span>] = label</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>编号</th>
+      <th>城市</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><strong>注意</strong>：可以看到上海和广州的平均值是北京，这个现象其实是没有现实意义的，这也是Label Encoding的一个缺点——可能会产生一些没有意义的关系。不过树模型（如决策树、随机森林及XGBoost等集成算法）能很好地处理这种转化，因此对于树模型来说，这种奇怪的现象是不会影响结果的。</p>
+<p><strong>补充知识点</strong>：pandas库中的replace()函数</p>
+<p>上述Label Encoding函数生成的数字是随机的，如果想按特定的内容进行替换，可以使用replace()函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(&#123;<span class="string">&#x27;编号&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], <span class="string">&#x27;城市&#x27;</span>: [<span class="string">&#x27;北京&#x27;</span>, <span class="string">&#x27;上海&#x27;</span>, <span class="string">&#x27;广州&#x27;</span>, <span class="string">&#x27;深圳&#x27;</span>, <span class="string">&#x27;北京&#x27;</span>]&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;城市&#x27;</span>].value_counts()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>北京    2
+深圳    1
+广州    1
+上海    1
+Name: 城市, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;城市&#x27;</span>] = df[<span class="string">&#x27;城市&#x27;</span>].replace(&#123;<span class="string">&#x27;北京&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;上海&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;广州&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;深圳&#x27;</span>:<span class="number">3</span>&#125;)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>编号</th>
+      <th>城市</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>总结来说，Get_dummies的优点就是它的值只有0和1，缺点是当类别的数量很多时，特征维度会很高，我们可以配合使用下一章即将讲到的PCA主成分分析来减少维度。所以如果Get_dummies类别数目不多时可以优先考虑，其次考虑Label Encoding或replace()函数，但如果是基于树模型的机器学习模型，则是用Label Encoding编号处理则没有太大关系。</p>
+<h2 id="11-2-重复值、缺失值及异常值处理"><a href="#11-2-重复值、缺失值及异常值处理" class="headerlink" title="11.2 重复值、缺失值及异常值处理"></a>11.2 重复值、缺失值及异常值处理</h2><h3 id="11-2-1-重复值处理"><a href="#11-2-1-重复值处理" class="headerlink" title="11.2.1 重复值处理"></a>11.2.1 重复值处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里首先创建一个含有重复值的DataFrame，代码如下：</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.DataFrame([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], columns=[<span class="string">&#x27;c1&#x27;</span>, <span class="string">&#x27;c2&#x27;</span>, <span class="string">&#x27;c3&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此时的data二维列表如下所示，可以看到第一行和第二行是重复的。</span></span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果数据量较大，我们可以通过duplicated()函数来查询重复的内容，代码如下：</span></span><br><span class="line">data[data.duplicated()]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果想统计重复行的数量，可以通过sum()函数进行查看，代码如下，本案例结果为1。</span></span><br><span class="line">data.duplicated().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>1
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 发现有重复行的时候，可以通过drop_duplicates()函数删除重复行，代码如下：</span></span><br><span class="line">data = data.drop_duplicates()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果想按列进行去重，比如说如果c1列出现相同的内容，就把那行代码删掉，可以采用如下代码。这样的筛选条件则不如之前要全部一样才删除严格。</span></span><br><span class="line">data = pd.DataFrame([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], columns=[<span class="string">&#x27;c1&#x27;</span>, <span class="string">&#x27;c2&#x27;</span>, <span class="string">&#x27;c3&#x27;</span>])</span><br><span class="line">data = data.drop_duplicates(<span class="string">&#x27;c1&#x27;</span>)</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h3 id="11-2-2-缺失值处理"><a href="#11-2-2-缺失值处理" class="headerlink" title="11.2.2 缺失值处理"></a>11.2.2 缺失值处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里先构造一个含有缺失值的DataFrame，代码如下：</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">data = pd.DataFrame([[<span class="number">1</span>, np.nan, <span class="number">3</span>], [np.nan, <span class="number">2</span>, np.nan], [<span class="number">1</span>, np.nan, <span class="number">0</span>]], columns=[<span class="string">&#x27;c1&#x27;</span>, <span class="string">&#x27;c2&#x27;</span>, <span class="string">&#x27;c3&#x27;</span>])</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以用isnull()函数或isna()函数（两者作用类似）来查看空值，代码如下：</span></span><br><span class="line">data.isnull()  <span class="comment"># 或者写data.isna()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以对单列查看缺失值情况，代码如下：</span></span><br><span class="line">data[<span class="string">&#x27;c1&#x27;</span>].isnull()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0    False
+1     True
+2    False
+Name: c1, dtype: bool
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果数据量较大，可以通过如下代码筛选某列内容为空值的行，代码如下：</span></span><br><span class="line">data[data[<span class="string">&#x27;c1&#x27;</span>].isnull()]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对于空值有两种常见的处理方式：删除空值和填补空值。常用方法</span></span><br><span class="line"><span class="comment"># 通过dropna()函数可以删除空值，代码如下：</span></span><br><span class="line">a = data.dropna()</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果觉得该删除方法过于激进，可以设置thresh参数，比如将其设置为n，那么其含义是如果该行的非空值少于n个则删除该行，演示代码如下：</span></span><br><span class="line">a = data.dropna(thresh=<span class="number">2</span>)</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>第一行和第三行都有两个非空值，因此不会被删除该行，而第二行只有一个非空值，少于两个，因此会被删除</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过finllna()函数可以填补空值，这里采用的是均值填充法，通过每一列的均值对该列的空值进行填充，也可以把其中的data.mean()换成data.meian()则变为中位数填充。</span></span><br><span class="line">b = data.fillna(data.mean())</span><br><span class="line">b</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处method=&#x27;pad&#x27;代表用缺失值所在列的前一个值填充，如果前一个值不存在或也缺失，则结果不变。运行结果如下：</span></span><br><span class="line">c = data.fillna(method=<span class="string">&#x27;pad&#x27;</span>)</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 还可以采用method=&#x27;backfill&#x27;或method=&#x27;bfill&#x27;用缺失值所在列的后一个值填充，如果后一个值不存在或也缺失，则结果不变。</span></span><br><span class="line">d = data.fillna(method=<span class="string">&#x27;backfill&#x27;</span>)</span><br><span class="line">e = data.fillna(method=<span class="string">&#x27;bfill&#x27;</span>)</span><br><span class="line">e</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h3 id="11-2-3-异常值处理"><a href="#11-2-3-异常值处理" class="headerlink" title="11.2.3 异常值处理"></a>11.2.3 异常值处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里先构造一个含有异常值的数据集：</span></span><br><span class="line">data = pd.DataFrame(&#123;<span class="string">&#x27;c1&#x27;</span>: [<span class="number">3</span>, <span class="number">10</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">69</span>], <span class="string">&#x27;c2&#x27;</span>: [<span class="number">15</span>, <span class="number">16</span>, <span class="number">14</span>, <span class="number">100</span>, <span class="number">19</span>, <span class="number">11</span>, <span class="number">8</span>], <span class="string">&#x27;c3&#x27;</span>: [<span class="number">20</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">21</span>, <span class="number">120</span>, <span class="number">27</span>, <span class="number">29</span>]&#125;, columns=[<span class="string">&#x27;c1&#x27;</span>, <span class="string">&#x27;c2&#x27;</span>, <span class="string">&#x27;c3&#x27;</span>])</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>15</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>10</td>
+      <td>16</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5</td>
+      <td>14</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7</td>
+      <td>100</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>19</td>
+      <td>120</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>9</td>
+      <td>11</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>69</td>
+      <td>8</td>
+      <td>29</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>可以看到第一列的数字69，第二列的数字100，第三列的数字120为比较明显的异常值，那么该如何利用Python来进行异常值的检测呢？下面我们主要通过两种方法来进行检测：利用箱体图观察和利用标准差检测。</p>
+<p><strong>1.利用箱型图观察</strong></p>
+<p>箱体图是一种用于显示一组数据分散情况资料的统计图，可以通过设定标准，将大于或小于箱体图上下界的数值识别为异常值</p>
+<p>如下图所示，将数据的下四分位数记为Q1，即样本中仅有25%的数据小于Q1；将数据的上四分位数记为Q3，即样本中仅有25%的数据大于Q3；将上四分位数和下四分位数的差值记为IQR，记IQR&#x3D;Q3-Q1；令箱体图上界为Q3+1.5xIQR，下界为Q1-1.5xIQR<br><img src="%E4%B8%8B%E8%BD%BD.png" alt="下载"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.boxplot()  <span class="comment"># 画箱型图</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1f64cdd69a0&gt;
+</code></pre>
+<p><img src="output_57_1.png" alt="output_57_1"></p>
+<p>可以明显看到每列数据各有一个异常值</p>
+<p><strong>2.利用标准差检测</strong></p>
+<p>当数据服从标准正态分布时，99%的数值与均值的距离应该在3个标准差之内，95%的数值与均值的距离应该在2个标准差之内，因为三个标准差过于严格，此处将阈值设定为2个标准差，即认为当数值与均值的距离超出2个标准差，则可以认为它是异常值</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(1).png" alt="下载 (1)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = pd.DataFrame()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data.columns:  <span class="comment"># 用for循环以此对数据的每列进行操作</span></span><br><span class="line">    z = (data[i] - data[i].mean()) / data[i].std()  <span class="comment"># 用均值函数和标准差函数将每列数据进行Z-score标准化</span></span><br><span class="line">    a[i] = <span class="built_in">abs</span>(z) &gt; <span class="number">2</span>  <span class="comment"># 如果标准化后的数值大于标准正态分布的标准差1的2倍，那么数值为异常值，返回True，否则返回False</span></span><br></pre></td></tr></table></figure>
+
+<p>Z-score标准化：<br><img src="%E4%B8%8B%E8%BD%BD%20(2).png" alt="下载 (2)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a  <span class="comment"># 打印来看，每一列都有一个异常值</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(3).png" alt="下载 (3)"><br>检测到异常后，如果异常值较少或影响不大，也可以不处理。如果需要处理，可以采用如下几种常见的方式：</p>
+<p>删除含有异常值的记录</p>
+<p>将异常值视为缺失值，利用11.2.2小节介绍的方法进行处理</p>
+<p>利用11.4节讲解的数据分箱的方法进行处理</p>
+<h2 id="11-3-数据标准化"><a href="#11-3-数据标准化" class="headerlink" title="11.3 数据标准化"></a>11.3 数据标准化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构造数据</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">X = pd.DataFrame(&#123;<span class="string">&#x27;酒精含量(%)&#x27;</span>: [<span class="number">50</span>, <span class="number">60</span>, <span class="number">40</span>, <span class="number">80</span>, <span class="number">90</span>], <span class="string">&#x27;苹果酸含量(%)&#x27;</span>: [<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>]&#125;)</span><br><span class="line">y = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">X  <span class="comment"># 查看X</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>酒精含量(%)</th>
+      <th>苹果酸含量(%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>50</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>80</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>90</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h3 id="11-3-1-min-max标准化"><a href="#11-3-1-min-max标准化" class="headerlink" title="11.3.1 min-max标准化"></a>11.3.1 min-max标准化</h3><p>min-max标准化也称为离差标准化，它利用原始数据的最大值和最小值把原始数据转换到[0,1]区间内，转换公式如下：<br><img src="%E4%B8%8B%E8%BD%BD%20(4).png" alt="下载 (4)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">X_new = MinMaxScaler().fit_transform(X)  <span class="comment"># 用fit_transform()函数对原始数据进行min-max标准化</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(X_new)  <span class="comment"># 查看X_new</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[[0.2 0.5]
+ [0.4 0. ]
+ [0.  0. ]
+ [0.8 1. ]
+ [1.  0.5]]
+</code></pre>
+<p>第1列为“酒精含量”标准化后的值，第二列为“苹果酸含量”标准化后的值，可以看到它们都在[0,1]区间内。在实际应用中，通常将所有数据都归一化后，再进行训练集和测试集划分，演示代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X_new, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">123</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-3-2-Z-score标准化"><a href="#11-3-2-Z-score标准化" class="headerlink" title="11.3.2 Z-score标准化"></a>11.3.2 Z-score标准化</h3><p><img src="%E4%B8%8B%E8%BD%BD%20(5).png" alt="下载 (5)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">X_new = StandardScaler().fit_transform(X)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(X_new)  <span class="comment"># 查看X_new</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[[-0.75482941  0.26726124]
+ [-0.21566555 -1.06904497]
+ [-1.29399328 -1.06904497]
+ [ 0.86266219  1.60356745]
+ [ 1.40182605  0.26726124]]
+</code></pre>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(6).png" alt="下载 (6)"></p>
+<h2 id="11-4-数据分箱"><a href="#11-4-数据分箱" class="headerlink" title="11.4 数据分箱"></a>11.4 数据分箱</h2><p>各种贷款业务机构普遍使用信用评分对客户进行评估，相应的模型称为信用评分卡模型。在构建信用评分卡模型的过程中，需要利用WOE值和IV值进行特征筛选，而计算这两个值的第一步就是要进行数据分箱，所以本节先来学习如何对连续型变量进行分箱处理</p>
+<p>数据分箱就是将一个连续型变量离散化，可分为<strong>等宽分箱</strong>和<strong>等深分箱</strong>。<strong>等宽分箱是指每个分箱的差值相等</strong>。例如年龄这一个连续型变量，其取值范围为0~100的连续数值，可以将“年龄”分为0-20、20-40、40-60、60-80、80-100共五个分箱，这五个分箱就可以当成离散的分类样本，每个分箱的年龄差相等都相差20岁。<strong>等深分箱是指每个分箱中的样本数一致</strong>，同样按年龄这一个特征变量进行分箱，例如500个样本分成5箱，那么每个分箱中都是100人，此时对应的5个分箱可能就是0-20、20-25、25-30、30-50、50-100，确保每个分箱中的人数一致。</p>
+<p>实战中用等宽分箱较多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.DataFrame([[<span class="number">22</span>,<span class="number">1</span>],[<span class="number">25</span>,<span class="number">1</span>],[<span class="number">20</span>,<span class="number">0</span>],[<span class="number">35</span>,<span class="number">0</span>],[<span class="number">32</span>,<span class="number">1</span>],[<span class="number">38</span>,<span class="number">0</span>],[<span class="number">50</span>,<span class="number">0</span>],[<span class="number">46</span>,<span class="number">1</span>]], columns=[<span class="string">&#x27;年龄&#x27;</span>, <span class="string">&#x27;是否违约&#x27;</span>])</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年龄</th>
+      <th>是否违约</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>22</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>35</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>32</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>38</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>50</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>46</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过如下代码即可进行等宽数据分箱：</span></span><br><span class="line">data_cut = pd.cut(data[<span class="string">&#x27;年龄&#x27;</span>], <span class="number">3</span>) <span class="comment"># 第一个参数是待分箱的列，第二个参数是分箱个数</span></span><br><span class="line"><span class="built_in">print</span>(data_cut)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0    (19.97, 30.0]
+1    (19.97, 30.0]
+2    (19.97, 30.0]
+3     (30.0, 40.0]
+4     (30.0, 40.0]
+5     (30.0, 40.0]
+6     (40.0, 50.0]
+7     (40.0, 50.0]
+Name: 年龄, dtype: category
+Categories (3, interval[float64]): [(19.97, 30.0] &lt; (30.0, 40.0] &lt; (40.0, 50.0]]
+</code></pre>
+<p>年龄列中数据范围是20-50岁，分为三组恰好为20-30岁，30-40岁，40-50岁，即等宽分箱</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过groupby()函数进行分组，count()函数（详见14.3节补充知识点）进行计数可以获取每个分箱中的样本数目，代码如下：</span></span><br><span class="line">data[<span class="string">&#x27;年龄&#x27;</span>].groupby(data_cut).count()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>年龄
+(19.97, 30.0]    3
+(30.0, 40.0]     3
+(40.0, 50.0]     2
+Name: 年龄, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补充知识点，分箱并进行编号</span></span><br><span class="line"><span class="built_in">print</span>(pd.cut(data[<span class="string">&#x27;年龄&#x27;</span>], <span class="number">3</span>, labels=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>0    1
+1    1
+2    1
+3    2
+4    2
+5    2
+6    3
+7    3
+Name: 年龄, dtype: category
+Categories (3, int64): [1 &lt; 2 &lt; 3]
+</code></pre>
+<h2 id="11-5-特征筛选：WOE值与IV值——根据该指标大小进行特征变量的筛选"><a href="#11-5-特征筛选：WOE值与IV值——根据该指标大小进行特征变量的筛选" class="headerlink" title="11.5 特征筛选：WOE值与IV值——根据该指标大小进行特征变量的筛选"></a>11.5 特征筛选：WOE值与IV值——根据该指标大小进行特征变量的筛选</h2><p>在使用逻辑回归、决策树等模型算法构建分类模型的时候，经常需要对<strong>特征变量</strong>进行筛选。因为有时可能会获得100多个候选特征变量，通常不会直接把这些特征变量放到模型中去进行拟合训练，而是从这些特征变量中<strong>挑选一些</strong>放进模型，构成<strong>入模变量列表</strong>。那么该如何挑选入模变量模型呢？</p>
+<p>挑选入模变量模型需要考虑很多因素，如变量的预测能力、简单性（容易生成和使用）、可解释性等。其中最主要的衡量标准就是<strong>变量的预测能力</strong>，对分类模型来说，即希望变量具有较好的<strong>特征区分度</strong>，可以较准确地将样本进行分类</p>
+<p><strong>WOE和IV值</strong>就是这样的指标，它们可以用来衡量特征变量的<strong>预测能力</strong>，或者说特征变量的特征区分度，类似的指标还有5.1.2小节中提到的基尼系数和信息增益。对于决策树等树模型来说，可以通过基尼系数或信息增益来衡量变量的特征区分度，而对逻辑回归等没有基尼系数等指标的模型而言，可以通过WOE值和IV值进行变量选择。IV值的计算是以WOE值为基础的，而要计算一个变量的WOE值，需要先用上一节所讲的知识对这个变量进行分箱处理。</p>
+<h3 id="11-5-1-WOE值的定义与计算"><a href="#11-5-1-WOE值的定义与计算" class="headerlink" title="11.5.1 WOE值的定义与计算"></a>11.5.1 WOE值的定义与计算</h3><p><strong>1.WOE值的定义</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(7).png" alt="下载 (7)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(8).png" alt="下载 (8)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(9).png" alt="下载 (9)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(10).png" alt="下载 (10)"></p>
+<p>实际应用中，因为数据量通常较大，所以不太可能出现WOE值为+∞或-∞的情况，如果出现了无穷大的WOE值，也是我们不希望看到的，这样会导致基于WOE值的IV值也变成无穷大，不利于进行特征筛选。此时的处理方法有两种：第一种方法是对数据重新进行更合理的分箱，使各个分箱的WOE值不再无穷大；第二种方法是忽略这些无穷大的值，直接让它变为0，这一思路比较简单且易于实现，在11.5.3节会有应用</p>
+<p><strong>2.WOE值的计算过程演示</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(11).png" alt="下载 (11)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(12).png" alt="下载 (12)"></p>
+<h3 id="11-5-2-IV值的定义与计算"><a href="#11-5-2-IV值的定义与计算" class="headerlink" title="11.5.2 IV值的定义与计算"></a>11.5.2 IV值的定义与计算</h3><p>在实战应用中，通过IV值可以评判特征变量的<strong>预测能力</strong>，从而进行特征筛选</p>
+<p><strong>1.IV值的定义</strong></p>
+<p>IV值是Information Value（信息量）的缩写。在进行特征筛选时，IV值能较好地反映特征变量的预测能力，特征变量对预测结果的贡献越大，其价值就越大，对应的IV值就越大，因此，我们可以根据IV值的大小筛选出需要的特征变量</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(13).png" alt="下载 (13)"></p>
+<p><strong>2.IV值的计算过程演示</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(14).png" alt="下载 (14)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(15).png" alt="下载 (15)"></p>
+<p>汇总所有数据，可以得到下表：<br><img src="%E4%B8%8B%E8%BD%BD%20(16).png"></p>
+<p>通过这种方式对样本数据的每个特征变量进行IV值计算并排序后，就可以获得特征变量的决策树能力强弱信息</p>
+<p>一个特征变量的<strong>IV值越高</strong>，说明该特征变量越具有<strong>区分度</strong>。不过IV值也不是越大越好，如果一个特征变量的IV值大于0.5，有时需要对这个特征变量持有疑问，因为它有点过好而显得不够真实。通常会选择IV值在0.1~0.5这个范围内的特征范围。不同应用场景的取值也会有所不同，例如，有些风控团队会将IV值大于0.5的特征变量也纳入考量，这个其实也需要根据实际的建模效果来做进一步判断</p>
+<p><strong>补充：使用IV值而不直接使用WOE值的原因</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(17).png" alt="下载 (17)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(18).png" alt="下载 (18)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(19).png" alt="下载 (19)"></p>
+<h3 id="11-5-3-WOE值与IV值的代码实现"><a href="#11-5-3-WOE值与IV值的代码实现" class="headerlink" title="11.5.3 WOE值与IV值的代码实现"></a>11.5.3 WOE值与IV值的代码实现</h3><p>1.数据分箱</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先通过如下代码构造数据：</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.DataFrame([[<span class="number">22</span>,<span class="number">1</span>],[<span class="number">25</span>,<span class="number">1</span>],[<span class="number">20</span>,<span class="number">0</span>],[<span class="number">35</span>,<span class="number">0</span>],[<span class="number">32</span>,<span class="number">1</span>],[<span class="number">38</span>,<span class="number">0</span>],[<span class="number">50</span>,<span class="number">0</span>],[<span class="number">46</span>,<span class="number">1</span>]], columns=[<span class="string">&#x27;年龄&#x27;</span>, <span class="string">&#x27;是否违约&#x27;</span>])</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年龄</th>
+      <th>是否违约</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>22</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>35</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>32</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>38</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>50</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>46</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有了数据之后，根据“年龄”这一特征变量进行数据分箱，代码如下：</span></span><br><span class="line">data_cut = pd.cut(data[<span class="string">&#x27;年龄&#x27;</span>], <span class="number">3</span>)</span><br><span class="line">data_cut</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>0    (19.97, 30.0]
+1    (19.97, 30.0]
+2    (19.97, 30.0]
+3     (30.0, 40.0]
+4     (30.0, 40.0]
+5     (30.0, 40.0]
+6     (40.0, 50.0]
+7     (40.0, 50.0]
+Name: 年龄, dtype: category
+Categories (3, interval[float64]): [(19.97, 30.0] &lt; (30.0, 40.0] &lt; (40.0, 50.0]]
+</code></pre>
+<p>2.统计各个分箱样本总数、坏样本数和好样本数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计总客户数</span></span><br><span class="line">cut_group_all = data[<span class="string">&#x27;是否违约&#x27;</span>].groupby(data_cut).count() <span class="comment"># 用groupby()函数根据分箱内容进行分类，用count()函数进行计数，可以获得各个分箱中的总客户数</span></span><br><span class="line"><span class="comment"># 统计违约客户</span></span><br><span class="line">cut_y = data[<span class="string">&#x27;是否违约&#x27;</span>].groupby(data_cut).<span class="built_in">sum</span>() <span class="comment"># 用groupby()函数根据分箱内容进行归类，用sum()函数进行求和，因为违约客户的数字是1，未违约客户数字标识为0，所以sum()函数求和结果为违约客户数</span></span><br><span class="line"><span class="comment"># 统计未违约客户</span></span><br><span class="line">cut_n = cut_group_all - cut_y <span class="comment"># 总客户数减去违约客户数得到未违约客户数</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里展示下cut_group_all的结果，如下所示：</span></span><br><span class="line">cut_group_all</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>年龄
+(19.97, 30.0]    3
+(30.0, 40.0]     3
+(40.0, 50.0]     2
+Name: 是否违约, dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过2.2.1节相关知识点将cut_group_all、cut_y、cut_n进行汇总，代码如下，这里我们将违约客户命名为“坏样本”，非违约客户命名为“好样本”。</span></span><br><span class="line">df = pd.DataFrame()  <span class="comment"># 创建一个空DataFrame用来汇总数据</span></span><br><span class="line">df[<span class="string">&#x27;总数&#x27;</span>] = cut_group_all</span><br><span class="line">df[<span class="string">&#x27;坏样本&#x27;</span>] = cut_y</span><br><span class="line">df[<span class="string">&#x27;好样本&#x27;</span>] = cut_n</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>总数</th>
+      <th>坏样本</th>
+      <th>好样本</th>
+    </tr>
+    <tr>
+      <th>年龄</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(19.97, 30.0]</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>(30.0, 40.0]</th>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>(40.0, 50.0]</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>3.统计各分箱中坏样本比率和好样本比率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算坏样本%和好样本%</span></span><br><span class="line">df[<span class="string">&#x27;坏样本%&#x27;</span>] = df[<span class="string">&#x27;坏样本&#x27;</span>] / df[<span class="string">&#x27;坏样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">df[<span class="string">&#x27;好样本%&#x27;</span>] = df[<span class="string">&#x27;好样本&#x27;</span>] / df[<span class="string">&#x27;好样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>总数</th>
+      <th>坏样本</th>
+      <th>好样本</th>
+      <th>坏样本%</th>
+      <th>好样本%</th>
+    </tr>
+    <tr>
+      <th>年龄</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(19.97, 30.0]</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.50</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>(30.0, 40.0]</th>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0.25</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <th>(40.0, 50.0]</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>4.计算WOE值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">df[<span class="string">&#x27;WOE&#x27;</span>] = np.log(df[<span class="string">&#x27;坏样本%&#x27;</span>] / df[<span class="string">&#x27;好样本%&#x27;</span>])  <span class="comment"># 使用对数函数np.log()</span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>总数</th>
+      <th>坏样本</th>
+      <th>好样本</th>
+      <th>坏样本%</th>
+      <th>好样本%</th>
+      <th>WOE</th>
+    </tr>
+    <tr>
+      <th>年龄</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(19.97, 30.0]</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.693147</td>
+    </tr>
+    <tr>
+      <th>(30.0, 40.0]</th>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>-0.693147</td>
+    </tr>
+    <tr>
+      <th>(40.0, 50.0]</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>此外，我们在11.5.1节第一部分也讲过，在实际应用中，我们不希望WOE值出现无穷大（这样会导致之后计算的IV值也变为无穷大，丧失了IV值的意义），但是有的时候可能由于数据特殊性及分箱的原因，它还是出现了WOE值为无穷大的情况（某个分箱中只含有一种类别的数据），此时解决办法是当WOE值为无穷大时，将它替换为0，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df = df.replace(&#123;<span class="string">&#x27;WOE&#x27;</span>: &#123;np.inf: <span class="number">0</span>, -np.inf: <span class="number">0</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这行代码用pandas库中replace()函数将无穷大替换为0，其中np.inf是利用Numpy库构造的正无穷，-np.inf则是负无穷</p>
+<p>5.计算IV值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">&#x27;IV&#x27;</span>] = df[<span class="string">&#x27;WOE&#x27;</span>] * (df[<span class="string">&#x27;坏样本%&#x27;</span>] - df[<span class="string">&#x27;好样本%&#x27;</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>总数</th>
+      <th>坏样本</th>
+      <th>好样本</th>
+      <th>坏样本%</th>
+      <th>好样本%</th>
+      <th>WOE</th>
+      <th>IV</th>
+    </tr>
+    <tr>
+      <th>年龄</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>(19.97, 30.0]</th>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.693147</td>
+      <td>0.173287</td>
+    </tr>
+    <tr>
+      <th>(30.0, 40.0]</th>
+      <td>3</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>-0.693147</td>
+      <td>0.173287</td>
+    </tr>
+    <tr>
+      <th>(40.0, 50.0]</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iv = df[<span class="string">&#x27;IV&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(iv)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.34657359027997264
+</code></pre>
+<p>整理上面计算WOE值和IV值的内容，完整代码如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.构造数据</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.DataFrame([[<span class="number">22</span>,<span class="number">1</span>],[<span class="number">25</span>,<span class="number">1</span>],[<span class="number">20</span>,<span class="number">0</span>],[<span class="number">35</span>,<span class="number">0</span>],[<span class="number">32</span>,<span class="number">1</span>],[<span class="number">38</span>,<span class="number">0</span>],[<span class="number">50</span>,<span class="number">0</span>],[<span class="number">46</span>,<span class="number">1</span>]], columns=[<span class="string">&#x27;年龄&#x27;</span>, <span class="string">&#x27;是否违约&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.数据分箱</span></span><br><span class="line">data_cut = pd.cut(data[<span class="string">&#x27;年龄&#x27;</span>], <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.统计各个分箱样本总数、坏样本数和好样本数并汇总数据</span></span><br><span class="line"><span class="comment"># 统计总客户数</span></span><br><span class="line">cut_group_all = data[<span class="string">&#x27;是否违约&#x27;</span>].groupby(data_cut).count()</span><br><span class="line"><span class="comment"># 统计违约客户</span></span><br><span class="line">cut_y = data[<span class="string">&#x27;是否违约&#x27;</span>].groupby(data_cut).<span class="built_in">sum</span>()</span><br><span class="line"><span class="comment"># 统计未违约客户</span></span><br><span class="line">cut_n = cut_group_all - cut_y</span><br><span class="line"><span class="comment"># 汇总基础数据</span></span><br><span class="line">df = pd.DataFrame()  <span class="comment"># 创建一个空DataFrame用来汇总数据</span></span><br><span class="line">df[<span class="string">&#x27;总数&#x27;</span>] = cut_group_all</span><br><span class="line">df[<span class="string">&#x27;坏样本&#x27;</span>] = cut_y</span><br><span class="line">df[<span class="string">&#x27;好样本&#x27;</span>] = cut_n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.统计坏样本%和好样本%</span></span><br><span class="line">df[<span class="string">&#x27;坏样本%&#x27;</span>] = df[<span class="string">&#x27;坏样本&#x27;</span>] / df[<span class="string">&#x27;坏样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">df[<span class="string">&#x27;好样本%&#x27;</span>] = df[<span class="string">&#x27;好样本&#x27;</span>] / df[<span class="string">&#x27;好样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.计算WOE值</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">df[<span class="string">&#x27;WOE&#x27;</span>] = np.log(df[<span class="string">&#x27;坏样本%&#x27;</span>] / df[<span class="string">&#x27;好样本%&#x27;</span>])</span><br><span class="line">df = df.replace(&#123;<span class="string">&#x27;WOE&#x27;</span>: &#123;np.inf: <span class="number">0</span>, -np.inf: <span class="number">0</span>&#125;&#125;)  <span class="comment"># 替换可能存在的无穷大</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.计算各个分箱的IV值</span></span><br><span class="line">df[<span class="string">&#x27;IV&#x27;</span>] = df[<span class="string">&#x27;WOE&#x27;</span>] * (df[<span class="string">&#x27;坏样本%&#x27;</span>] - df[<span class="string">&#x27;好样本%&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.汇总各个分箱的IV值，获得特征变量的IV值</span></span><br><span class="line">iv = df[<span class="string">&#x27;IV&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line"><span class="built_in">print</span>(iv)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.34657359027997264
+</code></pre>
+<p>在实际应用中，通过类似上面的代码计算出各个特征变量的IV值，然后根据IV值从高到低排序，即可筛选出需要的特征变量</p>
+<h3 id="11-5-4-案例实战：客户流失预警模型的IV值计算"><a href="#11-5-4-案例实战：客户流失预警模型的IV值计算" class="headerlink" title="11.5.4 案例实战：客户流失预警模型的IV值计算"></a>11.5.4 案例实战：客户流失预警模型的IV值计算</h3><p>4.2节中讲解了一个客户流失预警模型，下面就以它作为案例来计算各个特征变量的IV值，并筛选出合适的特征变量</p>
+<p>为了提高代码的通用性，这里将上一节的代码稍加修改，写成如下的自定义函数形式。该函数一共有4个参数：data(原始数据)、cut_num（数据分箱步骤中的分箱的个数）、feature（需要计算IV值的特征变量名称）、target（目标变量名称）。有了这个函数，就能方便地对任意一个数据集计算各个特征变量的IV值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将上面的内容首先定义为一个函数</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">cal_iv</span>(<span class="params">data, cut_num, feature, target</span>):</span><br><span class="line">    <span class="comment"># 1.数据分箱</span></span><br><span class="line">    data_cut = pd.cut(data[feature], cut_num)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2.统计各个分箱样本总数、坏样本数和好样本数</span></span><br><span class="line">    cut_group_all = data[target].groupby(data_cut).count()  <span class="comment"># 总客户数</span></span><br><span class="line">    cut_y = data[target].groupby(data_cut).<span class="built_in">sum</span>()  <span class="comment"># 坏样本数</span></span><br><span class="line">    cut_n = cut_group_all - cut_y  <span class="comment"># 好样本数</span></span><br><span class="line">    <span class="comment"># 汇总基础数据</span></span><br><span class="line">    df = pd.DataFrame()  <span class="comment"># 创建一个空DataFrame用来汇总数据</span></span><br><span class="line">    df[<span class="string">&#x27;总数&#x27;</span>] = cut_group_all</span><br><span class="line">    df[<span class="string">&#x27;坏样本&#x27;</span>] = cut_y</span><br><span class="line">    df[<span class="string">&#x27;好样本&#x27;</span>] = cut_n</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3.统计坏样本%和好样本%</span></span><br><span class="line">    df[<span class="string">&#x27;坏样本%&#x27;</span>] = df[<span class="string">&#x27;坏样本&#x27;</span>] / df[<span class="string">&#x27;坏样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">    df[<span class="string">&#x27;好样本%&#x27;</span>] = df[<span class="string">&#x27;好样本&#x27;</span>] / df[<span class="string">&#x27;好样本&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4.计算WOE值</span></span><br><span class="line">    df[<span class="string">&#x27;WOE&#x27;</span>] = np.log(df[<span class="string">&#x27;坏样本%&#x27;</span>] / df[<span class="string">&#x27;好样本%&#x27;</span>])</span><br><span class="line">    df = df.replace(&#123;<span class="string">&#x27;WOE&#x27;</span>: &#123;np.inf: <span class="number">0</span>, -np.inf: <span class="number">0</span>&#125;&#125;) </span><br><span class="line"></span><br><span class="line">    <span class="comment"># 5.计算各个分箱的IV值</span></span><br><span class="line">    df[<span class="string">&#x27;IV&#x27;</span>] = df[<span class="string">&#x27;WOE&#x27;</span>] * (df[<span class="string">&#x27;坏样本%&#x27;</span>] - df[<span class="string">&#x27;好样本%&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 6.汇总各个分箱的IV值，获得特征变量的IV值</span></span><br><span class="line">    iv = df[<span class="string">&#x27;IV&#x27;</span>].<span class="built_in">sum</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(iv)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有了上面的自动计算IV值的函数后，通过如下代码来读取客户流失预警模型中的相关数据：</span></span><br><span class="line">data = pd.read_excel(<span class="string">&#x27;股票客户流失.xlsx&#x27;</span>)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>账户资金（元）</th>
+      <th>最后一次交易距今时间（天）</th>
+      <th>上月交易佣金（元）</th>
+      <th>本券商使用时长（年）</th>
+      <th>是否流失</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>22686.5</td>
+      <td>297</td>
+      <td>149.25</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>190055.0</td>
+      <td>42</td>
+      <td>284.75</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29733.5</td>
+      <td>233</td>
+      <td>269.25</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>185667.5</td>
+      <td>44</td>
+      <td>211.50</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>33648.5</td>
+      <td>213</td>
+      <td>353.50</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们利用刚刚编好的函数进行第一个特征变量“账户资金（元）”的IV值计算，代码如下：</span></span><br><span class="line">cal_iv(data, <span class="number">4</span>, <span class="string">&#x27;账户资金（元）&#x27;</span>, <span class="string">&#x27;是否流失&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.15205722409339645
+</code></pre>
+<p>其中，第一个参数data就是刚刚读取的股票客户流失数据；设置第二个参数cut_num为4，即将数据分为4个箱；设置第三个参数feature为’账户资金（元）’，即要计算IV值的特征变量；设置第四个参数target为‘是否流失’，即原始表格中的目标变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data.columns[:-<span class="number">1</span>]:</span><br><span class="line">    <span class="built_in">print</span>(i + <span class="string">&#x27;的IV值为：&#x27;</span>)</span><br><span class="line">    cal_iv(data, <span class="number">4</span>, i, <span class="string">&#x27;是否流失&#x27;</span>)  <span class="comment"># 调用函数</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>账户资金（元）的IV值为：
+0.15205722409339645
+最后一次交易距今时间（天）的IV值为：
+0.2508468300174099
+上月交易佣金（元）的IV值为：
+0.30811632146662304
+本券商使用时长（年）的IV值为：
+0.6144219248359752
+</code></pre>
+<p>将上述IV值从高到低排序，结果为：本券商使用时长（年）&gt;上月交易佣金（元）&gt;最后一次交易距今时间（天）&gt;账户资金（元）。可以得出结论：“本券商使用时长（年）”的信息量最大，而“账户资金（元）”的信息量最小，预测能力最低。这其实也是搭建逻辑回归模型时判断特征重要性的一个方式</p>
+<h2 id="11-6-多重共线性的分析与处理"><a href="#11-6-多重共线性的分析与处理" class="headerlink" title="11.6 多重共线性的分析与处理"></a>11.6 多重共线性的分析与处理</h2><h3 id="11-6-1-多重共线性的定义"><a href="#11-6-1-多重共线性的定义" class="headerlink" title="11.6.1 多重共线性的定义"></a>11.6.1 多重共线性的定义</h3><p><img src="%E4%B8%8B%E8%BD%BD%20(20).png" alt="下载 (20)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(21).png" alt="下载 (21)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(22).png" alt="下载 (22)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(23).png" alt="下载 (23)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(24).png" alt="下载 (24)"></p>
+<h3 id="11-6-2-多重共线性的分析与检验"><a href="#11-6-2-多重共线性的分析与检验" class="headerlink" title="11.6.2 多重共线性的分析与检验"></a>11.6.2 多重共线性的分析与检验</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用Pandas库读入一组存在多重共线性的数据，并对其回归作为示例：</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">df = pd.read_excel(<span class="string">&#x27;数据.xlsx&#x27;</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1</th>
+      <th>X2</th>
+      <th>X3</th>
+      <th>Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8</td>
+      <td>16</td>
+      <td>-32</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7</td>
+      <td>14</td>
+      <td>-31</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>9</td>
+      <td>-12</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>2</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>2</td>
+      <td>8</td>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>可以发现X2列中绝大部分数据是X1列中数据的2倍</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对数据集划分特征变量和目标变量：</span></span><br><span class="line">X = df.drop(columns=<span class="string">&#x27;Y&#x27;</span>)</span><br><span class="line">Y = df[<span class="string">&#x27;Y&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>下面我们需要做的就是分析与检验这三个特征变量是否存在多重共线性，这里主要讲解两种判别方法：相关系数判断以及方差膨胀因子法（VIF检验）来检验多重共线性。</p>
+<p><strong>1.相关系数判断</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X.corr()  <span class="comment"># corr()函数可以快速计算不同变量间的相关系数</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1</th>
+      <th>X2</th>
+      <th>X3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X1</th>
+      <td>1.000000</td>
+      <td>0.992956</td>
+      <td>-0.422788</td>
+    </tr>
+    <tr>
+      <th>X2</th>
+      <td>0.992956</td>
+      <td>1.000000</td>
+      <td>-0.410412</td>
+    </tr>
+    <tr>
+      <th>X3</th>
+      <td>-0.422788</td>
+      <td>-0.410412</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(25).png"></p>
+<p>这里用到的相关系数其实是皮尔逊相关系数</p>
+<p>相关系数的判断使用起来非常简单，结论也比较清洗，不过它有一个缺点：简单相关系数只是多重共线性的充分条件，不是必要条件。在有多个特征变量时，相关系数较小的特征变量间也可能存在较严重的多重共线性。为了更加严谨，实战中还经常用到方差膨胀系数（VIF检验）</p>
+<p><strong>2.方差膨胀因子法（VIF检验）</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(26).png" alt="下载 (26)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(27).png" alt="下载 (27)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了检验上述回归中是否存在严重的多重共线性，我们使用Python的VIF检验模块来验证：</span></span><br><span class="line"><span class="keyword">from</span> statsmodels.stats.outliers_influence <span class="keyword">import</span> variance_inflation_factor</span><br><span class="line">vif = [variance_inflation_factor(X.values, X.columns.get_loc(i)) <span class="keyword">for</span> i <span class="keyword">in</span> X.columns]</span><br></pre></td></tr></table></figure>
+
+<p>第一行代码从statsmodels模块引入variance_inflation_factor()函数；第二行代码通过for循环循环依次求得每个特征变量的方差膨胀系数并将结果放入列表中，该行可以看成求VIF值的固定写法，其中X.columns.get_loc(i)返回的是指定列的序号数字，如第一列返回的就是数字0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vif</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[259.6430487184967, 257.6315718292196, 1.302330632715429]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果对上面的快捷写法不太理解，上面的代码也可以写成：</span></span><br><span class="line">vif = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> X.columns:  <span class="comment"># i对应的是每一列的列名</span></span><br><span class="line">    vif.append(variance_inflation_factor(X.values, X.columns.get_loc(i)))</span><br><span class="line">    </span><br><span class="line">vif</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[259.6430487184967, 257.6315718292196, 1.302330632715429]
+</code></pre>
+<p>因为特征变量X2是X1的2倍,所以使用X1对X2和X3回归和使用X2对X1和X3回归时所得的方差膨胀系数会很大，从上述计算结果也可以看出，前2个VIF值均大于100，暗示多重共线性十分严重，应该删掉X1或X2</p>
+<p>下面删掉X2再进行一次回归和VIF检验，看看结果变化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对数据集重新划分特征变量和目标变量：</span></span><br><span class="line">X = df[[<span class="string">&#x27;X1&#x27;</span>, <span class="string">&#x27;X3&#x27;</span>]]</span><br><span class="line">Y = df[<span class="string">&#x27;Y&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进行检验VIF检验：</span></span><br><span class="line"><span class="keyword">from</span> statsmodels.stats.outliers_influence <span class="keyword">import</span> variance_inflation_factor</span><br><span class="line">vif = [variance_inflation_factor(X.values, X.columns.get_loc(i)) <span class="keyword">for</span> i <span class="keyword">in</span> X.columns]</span><br><span class="line"></span><br><span class="line">vif</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[1.289349054516766, 1.2893490545167656]
+</code></pre>
+<p>可以看到，此时两个特征变量的方差膨胀系数都小于10，说明它们之间不存在多重共线性</p>
+<p><strong>总结来说，对于线性回归模型和逻辑回归模型等以线性方程表达式为基础的机器学习模型，需要注意多重共线性的影响。如果存在多重共线性，则需要进行响应处理，如删去某个引起多重共线性的特征变量</strong></p>
+<h2 id="11-7-过采样和欠采样"><a href="#11-7-过采样和欠采样" class="headerlink" title="11.7 过采样和欠采样"></a>11.7 过采样和欠采样</h2><p>建立模型时，可能会遇到正负样本比例极度不均衡的情况。例如，建立信用违约模型时，违约样本的比例远小于不违约样本的比例，此时模型会花更多的精力去拟合不违约的样本，但实际上找出违约样本更为重要。这会导致模型可能在训练集上表现良好，但测试时表现不佳。为了改善样本比例不均衡的问题，可以使用过采样和欠采样的方法。假设建立信用违约模型时，样本数据中有1000个不违约样本和100个违约样本</p>
+<h3 id="11-7-1-过采样"><a href="#11-7-1-过采样" class="headerlink" title="11.7.1 过采样"></a>11.7.1 过采样</h3><p><strong>1.过采样的原理</strong></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(28).png" alt="下载 (28)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(29).png" alt="下载 (29)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(30).png" alt="下载 (30)"></p>
+<p><strong>2.过采样的代码实现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">data = pd.read_excel(<span class="string">&quot;信用卡数据.xlsx&quot;</span>)</span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>编号</th>
+      <th>年龄</th>
+      <th>负债比率</th>
+      <th>月收入</th>
+      <th>贷款数量</th>
+      <th>家属人数</th>
+      <th>分类</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>29</td>
+      <td>0.22</td>
+      <td>7800</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>52</td>
+      <td>0.46</td>
+      <td>4650</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>28</td>
+      <td>0.10</td>
+      <td>3000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>29</td>
+      <td>0.20</td>
+      <td>5916</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>27</td>
+      <td>1.28</td>
+      <td>1300</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>分类指的是是否违约，1代表违约，0代表不违约</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过如下代码提取特征变量并将其赋值给变量X，提取目标变量并将其赋值给变量y：。</span></span><br><span class="line">X = data.drop(columns=<span class="string">&#x27;分类&#x27;</span>)</span><br><span class="line">y = data[<span class="string">&#x27;分类&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 然后使用collections库中的Counter()方法，对目标变量进行计数：</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">Counter(y)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Counter(&#123;0: 1000, 1: 100&#125;)
+</code></pre>
+<p>不违约的样本数有1000个，远远大于违约的样本数100。为了防止建立信用违约模型时，模型着重拟合不违约的样本，而无法找出违约的样本，我们采用过采样的方法来改善样本比例不均衡的问题，这里我们将通过上面讲到的随机过采样和SMOTE法过采样来进行代码实现。</p>
+<p>（1）随机过采样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imblearn.over_sampling <span class="keyword">import</span> RandomOverSampler</span><br><span class="line">ros = RandomOverSampler(random_state=<span class="number">0</span>)</span><br><span class="line">X_oversampled, y_oversampled = ros.fit_resample(X, y)</span><br></pre></td></tr></table></figure>
+
+<p>第一行代码从imblearn库中引入用来进行随机过采样的RandomOverSampler()函数，第二行代码设置函数参数random_state为0（此数字没有特殊含义，可以换成其他数字），使得每次代码运行的结果保持一致，第三行代码使用原始数据的特征变量和目标变量生成过采样数据集，并分别赋给变量X_oversampled和y_oversampled</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用Counter()方法检验一下SMOTE过采样的效果。</span></span><br><span class="line">Counter(y_oversampled)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Counter(&#123;0: 1000, 1: 1000&#125;)
+</code></pre>
+<p>违约的样本数从100上升至不违约的样本数1000，这证明我们的随机过采样有效。同时我们可以打印特征变量X_oversampled的shape来看看特征变量的变化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_oversampled.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(2000, 6)
+</code></pre>
+<p>这里的2000就是1000个违约样本和1000个不违约样本相加得到的，可以看到，随机过采样后特征变量的数据也随之增多。</p>
+<p>（2）SMOTE过采样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过如下代码即可进行SMOTE过采样：</span></span><br><span class="line"><span class="keyword">from</span> imblearn.over_sampling <span class="keyword">import</span> SMOTE</span><br><span class="line">smote = SMOTE(random_state=<span class="number">0</span>)</span><br><span class="line">X_smotesampled, y_smotesampled = smote.fit_resample(X, y)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用Counter()方法检验一下SMOTE过采样的效果。</span></span><br><span class="line">Counter(y_smotesampled)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Counter(&#123;0: 1000, 1: 1000&#125;)
+</code></pre>
+<h3 id="11-7-2-欠采样"><a href="#11-7-2-欠采样" class="headerlink" title="11.7.2 欠采样"></a>11.7.2 欠采样</h3><p><strong>1.欠采样的原理</strong></p>
+<p>欠采样是从1000个不违约样本中随机选取100个样本，和100个违约样本一起构成新的训练集。欠采样抛弃了大部分不违约样本，在搭建模型时有可能产生欠拟合。</p>
+<p><strong>2.欠采样的代码实现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 仍然采用上方的信用违约数据进行欠采样代码的展示：</span></span><br><span class="line"><span class="keyword">from</span> imblearn.under_sampling <span class="keyword">import</span> RandomUnderSampler</span><br><span class="line">rus = RandomUnderSampler(random_state=<span class="number">0</span>)</span><br><span class="line">X_undersampled, y_undersampled = rus.fit_resample(X, y)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用Counter()方法检验一下随机欠采样的效果。</span></span><br><span class="line">Counter(y_undersampled)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Counter(&#123;0: 100, 1: 100&#125;)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不违约的样本数从1000下降至违约的样本数100，这证明我们的随机欠采样有效。同时我们可以打印特征变量X_undersampled的shape来看看特征变量的变化：</span></span><br><span class="line">X_undersampled.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(200, 6)
+</code></pre>
+<p>在实战中处理样本不均衡问题时，如果样本数据量不大，通常使用过采样，因为这样能够更好地利用数据，不会像欠采样那样狠多数据都没有使用到；如果数据量充足，则过采样和欠采样都可以考虑使用</p>
+<h1 id="12-数据降维之PCA"><a href="#12-数据降维之PCA" class="headerlink" title="12 数据降维之PCA"></a>12 数据降维之PCA</h1><p>建立模型分析特征数据时，很可能会面临特征数据维度过大的问题。如收入、年龄、性别、婚姻状况、工作单位等数百个维度的特征。如果将所有特征数据都用来拟合模型，会提高模型的复杂度，造成过拟合风险显著增大，且不同的特征维数间可能存在共线性。此时就需要对数据进行降维，以浓缩特征向量。</p>
+<h2 id="12-1-数据降维"><a href="#12-1-数据降维" class="headerlink" title="12.1 数据降维"></a>12.1 数据降维</h2><p>如果特征变量的数量非常多（如成百上千个特征变量），我们往往需要进行数据降维。</p>
+<p>降维的方法主要有两种：<strong>选择特征</strong>和<strong>抽取特征</strong>两种：选择特征是从原有的特征中挑选出<strong>最佳的特征</strong>；抽取特征是将数据从高维向低维投影，进行坐标的线性转换。PCA（主成分分析）即典型的抽取特征的方法，它不仅是对高维数据进行降维，更重要的是经过降维<strong>去除噪声，发现数据中的模式</strong>。</p>
+<h3 id="12-1-1-PCA的基本原理"><a href="#12-1-1-PCA的基本原理" class="headerlink" title="12.1.1 PCA的基本原理"></a>12.1.1 PCA的基本原理</h3><p>1.二维空间降维</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(31).png" alt="下载 (31)"></p>
+<p>在实际进行数据降维前，需要先对特征数据做零均值化处理，即将每个特征维度的数据减去该特征的均值。例如，此处的二维数据（1，1）、（2，2）、（3，3），其特征X（1，2，3）和特征Y（1，2，3）的均值都是（1+2+3）&#x2F;3&#x3D;2，每个特征都减去均值后，数据被转化为（-1，-1）、（0，0）、（1，1）.再对零均值化后的数据进行线性组合，二维空间中的3个点就依次转化为数轴上的-根号2，0和根号2<br><img src="%E4%B8%8B%E8%BD%BD%20(32).png" alt="下载 (32)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(33).png" alt="下载 (33)"></p>
+<p>2.n维空间降维</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(34).png" alt="下载 (34)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(35).png" alt="下载 (35)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(36).png" alt="下载 (36)"></p>
+<h3 id="12-1-2-PCA的代码实现"><a href="#12-1-2-PCA的代码实现" class="headerlink" title="12.1.2 PCA的代码实现"></a>12.1.2 PCA的代码实现</h3><p><strong>1.二维空间降维的代码实现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">X = np.array([[<span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">3</span>]])</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[1, 1],
+       [2, 2],
+       [3, 3]])
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 也可以通过pandas库来构造数据，效果一样</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">X = pd.DataFrame([[<span class="number">1</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">3</span>]])</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据降维，由二维降至一维</span></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">1</span>) <span class="comment"># 该参数为保留的成分个数，设置为1</span></span><br><span class="line">pca.fit(X)  <span class="comment"># 进行降维模型训练</span></span><br><span class="line">X_transformed = pca.transform(X)  <span class="comment"># 进行数据降维，并赋值给X_transformed</span></span><br><span class="line"></span><br><span class="line">X_transformed  <span class="comment"># 查看降维后的结果</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[-1.41421356],
+       [ 0.        ],
+       [ 1.41421356]])
+</code></pre>
+<p><strong>说明</strong>：n_components设置为1，也就是二维数据降为一维数据。该参数不仅可以设置成降维后成分的个数，还可以设置成降维后保留的信息的百分比，例如，将其设置成0.9就是在降维后保留原特征90%的信息。注意，如果将参数设置为降维后成分的个数，其值不能大于min(n_samples,n_features)，即样本数和特征变量数两者之中的最小值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看此时的维度</span></span><br><span class="line">X_transformed.shape</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(3, 1)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看降维的系数</span></span><br><span class="line">pca.components_  </span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[0.70710678, 0.70710678]])
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看线性组合表达式</span></span><br><span class="line">a = pca.components_[<span class="number">0</span>][<span class="number">0</span>] </span><br><span class="line">b = pca.components_[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(a) + <span class="string">&#x27; * X + &#x27;</span> +  <span class="built_in">str</span>(b) + <span class="string">&#x27; * Y&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.7071067811865476 * X + 0.7071067811865475 * Y
+</code></pre>
+<p><strong>1.三维空间降维的代码实现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">X = pd.DataFrame([[<span class="number">45</span>, <span class="number">0.8</span>, <span class="number">9120</span>], [<span class="number">40</span>, <span class="number">0.12</span>, <span class="number">2600</span>], [<span class="number">38</span>, <span class="number">0.09</span>, <span class="number">3042</span>], [<span class="number">30</span>, <span class="number">0.04</span>, <span class="number">3300</span>], [<span class="number">39</span>, <span class="number">0.21</span>, <span class="number">3500</span>]], columns=[<span class="string">&#x27;年龄(岁)&#x27;</span>, <span class="string">&#x27;负债比率&#x27;</span>, <span class="string">&#x27;月收入(元)&#x27;</span>])</span><br><span class="line">X</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>年龄(岁)</th>
+      <th>负债比率</th>
+      <th>月收入(元)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>45</td>
+      <td>0.80</td>
+      <td>9120</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>40</td>
+      <td>0.12</td>
+      <td>2600</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>38</td>
+      <td>0.09</td>
+      <td>3042</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>30</td>
+      <td>0.04</td>
+      <td>3300</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>39</td>
+      <td>0.21</td>
+      <td>3500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为三个指标数据的量级相差较大，所以可以先进行数据归一化处理</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line">X_new = StandardScaler().fit_transform(X)</span><br><span class="line"></span><br><span class="line">X_new  <span class="comment"># 查看归一化后的数据</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[ 1.36321743,  1.96044639,  1.98450514],
+       [ 0.33047695, -0.47222431, -0.70685302],
+       [-0.08261924, -0.57954802, -0.52440206],
+       [-1.73500401, -0.75842087, -0.41790353],
+       [ 0.12392886, -0.15025319, -0.33534653]])
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">2</span>)  <span class="comment"># 将三维数据降为二维数据</span></span><br><span class="line">pca.fit(X_new)  <span class="comment"># 进行降维模型训练</span></span><br><span class="line">X_transformed = pca.transform(X_new)  <span class="comment"># 进行数据降维，并赋值给X_transformed</span></span><br><span class="line"></span><br><span class="line">X_transformed  <span class="comment"># 查看降维后的结果</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[ 3.08724247,  0.32991205],
+       [-0.52888635, -0.74272137],
+       [-0.70651782, -0.33057258],
+       [-1.62877292,  1.05218639],
+       [-0.22306538, -0.30880449]])
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看降维的系数</span></span><br><span class="line">pca.components_  </span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[ 0.52952108,  0.61328179,  0.58608264],
+       [-0.82760701,  0.22182579,  0.51561609]])
+</code></pre>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(37).png" alt="下载 (37)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dim = [<span class="string">&#x27;年龄(岁)&#x27;</span>, <span class="string">&#x27;负债比率&#x27;</span>, <span class="string">&#x27;月收入(元)&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> pca.components_:</span><br><span class="line">    formula = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(i)):</span><br><span class="line">        formula.append(<span class="built_in">str</span>(i[j]) + <span class="string">&#x27; * &#x27;</span> + dim[j])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; + &quot;</span>.join(formula))</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.529521083916554 * 年龄(岁) + 0.6132817922410683 * 负债比率 + 0.5860826434841946 * 月收入(元)
+-0.8276070105929828 * 年龄(岁) + 0.2218257919336098 * 负债比率 + 0.5156160917294703 * 月收入(元)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不想显示具体的特征名称，可以采用如下的写法</span></span><br><span class="line">dim = [<span class="string">&#x27;X&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;Z&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> pca.components_:</span><br><span class="line">    formula = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(i)):</span><br><span class="line">        formula.append(<span class="built_in">str</span>(i[j]) + <span class="string">&#x27; * &#x27;</span> + dim[j])</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; + &quot;</span>.join(formula))</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.529521083916554 * X + 0.6132817922410683 * Y + 0.5860826434841946 * Z
+-0.8276070105929828 * X + 0.2218257919336098 * Y + 0.5156160917294703 * Z
+</code></pre>
+<h2 id="12-2-案例实战：人脸识别模型"><a href="#12-2-案例实战：人脸识别模型" class="headerlink" title="12.2 案例实战：人脸识别模型"></a>12.2 案例实战：人脸识别模型</h2><h3 id="12-2-1-案例背景"><a href="#12-2-1-案例背景" class="headerlink" title="12.2.1 案例背景"></a>12.2.1 案例背景</h3><p>人脸识别的本质是根据每张人脸图像中不同像素点的颜色进行数据建模与判断。人脸图像的每个像素点的颜色都有不同的值，这些值可以组成人脸的特征向量，不过因为人脸图片的像素点很多，所以特征变量也很多，需要利用PCA进行数据降维</p>
+<h3 id="12-2-2-人脸数据读取、处理与变量提取"><a href="#12-2-2-人脸数据读取、处理与变量提取" class="headerlink" title="12.2.2 人脸数据读取、处理与变量提取"></a>12.2.2 人脸数据读取、处理与变量提取</h3><p>1.读取人脸照片数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">names = os.listdir(<span class="string">&#x27;olivettifaces&#x27;</span>)</span><br><span class="line"></span><br><span class="line">names[<span class="number">0</span>:<span class="number">5</span>]  <span class="comment"># 查看前5项读取的文件名</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[&#39;10_0.jpg&#39;, &#39;10_1.jpg&#39;, &#39;10_2.jpg&#39;, &#39;10_3.jpg&#39;, &#39;10_4.jpg&#39;]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取到文件名称后，便可以通过如下代码在Python中查看这些图片</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img0 = Image.<span class="built_in">open</span>(<span class="string">&#x27;olivettifaces\\&#x27;</span> + names[<span class="number">0</span>])</span><br><span class="line">img0.show()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img0  <span class="comment"># 在Jupyter Notebook中可以直接输入变量名查看图像</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="output_235_0.png" alt="output_235_0"></p>
+<p><strong>2.人脸数据处理 - 特征变量提取</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 图像灰度处理及数值化处理</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">img0 = img0.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">img0 = img0.resize((<span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">arr = np.array(img0)</span><br><span class="line"></span><br><span class="line">arr  <span class="comment"># 查看数值化后的结果</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([[186,  76,  73, ..., 100, 103, 106],
+       [196,  85,  68, ...,  85, 106, 103],
+       [193,  69,  79, ...,  82,  99, 100],
+       ...,
+       [196,  87, 193, ..., 103,  66,  52],
+       [219, 179, 202, ..., 150, 127, 109],
+       [244, 228, 230, ..., 198, 202, 206]], dtype=uint8)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果觉得numpy格式的arr不好观察，则可以通过pandas库将其转为DataFrame格式进行观察</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">pd.DataFrame(arr)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>22</th>
+      <th>23</th>
+      <th>24</th>
+      <th>25</th>
+      <th>26</th>
+      <th>27</th>
+      <th>28</th>
+      <th>29</th>
+      <th>30</th>
+      <th>31</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>186</td>
+      <td>76</td>
+      <td>73</td>
+      <td>87</td>
+      <td>89</td>
+      <td>88</td>
+      <td>75</td>
+      <td>81</td>
+      <td>100</td>
+      <td>102</td>
+      <td>...</td>
+      <td>71</td>
+      <td>75</td>
+      <td>75</td>
+      <td>73</td>
+      <td>76</td>
+      <td>85</td>
+      <td>95</td>
+      <td>100</td>
+      <td>103</td>
+      <td>106</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>196</td>
+      <td>85</td>
+      <td>68</td>
+      <td>78</td>
+      <td>104</td>
+      <td>97</td>
+      <td>100</td>
+      <td>94</td>
+      <td>83</td>
+      <td>87</td>
+      <td>...</td>
+      <td>52</td>
+      <td>59</td>
+      <td>70</td>
+      <td>85</td>
+      <td>62</td>
+      <td>82</td>
+      <td>89</td>
+      <td>85</td>
+      <td>106</td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>193</td>
+      <td>69</td>
+      <td>79</td>
+      <td>92</td>
+      <td>105</td>
+      <td>102</td>
+      <td>112</td>
+      <td>117</td>
+      <td>106</td>
+      <td>94</td>
+      <td>...</td>
+      <td>41</td>
+      <td>45</td>
+      <td>50</td>
+      <td>76</td>
+      <td>59</td>
+      <td>74</td>
+      <td>83</td>
+      <td>82</td>
+      <td>99</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>186</td>
+      <td>67</td>
+      <td>71</td>
+      <td>75</td>
+      <td>85</td>
+      <td>99</td>
+      <td>114</td>
+      <td>115</td>
+      <td>109</td>
+      <td>109</td>
+      <td>...</td>
+      <td>42</td>
+      <td>43</td>
+      <td>40</td>
+      <td>52</td>
+      <td>41</td>
+      <td>61</td>
+      <td>69</td>
+      <td>76</td>
+      <td>76</td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>179</td>
+      <td>46</td>
+      <td>41</td>
+      <td>50</td>
+      <td>53</td>
+      <td>69</td>
+      <td>80</td>
+      <td>91</td>
+      <td>108</td>
+      <td>104</td>
+      <td>...</td>
+      <td>43</td>
+      <td>37</td>
+      <td>30</td>
+      <td>31</td>
+      <td>35</td>
+      <td>43</td>
+      <td>59</td>
+      <td>61</td>
+      <td>56</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>173</td>
+      <td>33</td>
+      <td>43</td>
+      <td>49</td>
+      <td>48</td>
+      <td>53</td>
+      <td>64</td>
+      <td>69</td>
+      <td>72</td>
+      <td>75</td>
+      <td>...</td>
+      <td>38</td>
+      <td>36</td>
+      <td>33</td>
+      <td>32</td>
+      <td>39</td>
+      <td>45</td>
+      <td>68</td>
+      <td>60</td>
+      <td>45</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>173</td>
+      <td>30</td>
+      <td>37</td>
+      <td>41</td>
+      <td>42</td>
+      <td>57</td>
+      <td>81</td>
+      <td>88</td>
+      <td>77</td>
+      <td>64</td>
+      <td>...</td>
+      <td>31</td>
+      <td>32</td>
+      <td>35</td>
+      <td>32</td>
+      <td>35</td>
+      <td>49</td>
+      <td>65</td>
+      <td>64</td>
+      <td>53</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>171</td>
+      <td>24</td>
+      <td>32</td>
+      <td>36</td>
+      <td>42</td>
+      <td>55</td>
+      <td>77</td>
+      <td>101</td>
+      <td>107</td>
+      <td>102</td>
+      <td>...</td>
+      <td>54</td>
+      <td>64</td>
+      <td>63</td>
+      <td>51</td>
+      <td>53</td>
+      <td>60</td>
+      <td>56</td>
+      <td>46</td>
+      <td>49</td>
+      <td>89</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>170</td>
+      <td>21</td>
+      <td>31</td>
+      <td>29</td>
+      <td>28</td>
+      <td>35</td>
+      <td>47</td>
+      <td>62</td>
+      <td>76</td>
+      <td>83</td>
+      <td>...</td>
+      <td>105</td>
+      <td>101</td>
+      <td>89</td>
+      <td>63</td>
+      <td>45</td>
+      <td>42</td>
+      <td>41</td>
+      <td>37</td>
+      <td>61</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>172</td>
+      <td>21</td>
+      <td>22</td>
+      <td>27</td>
+      <td>28</td>
+      <td>30</td>
+      <td>33</td>
+      <td>43</td>
+      <td>46</td>
+      <td>44</td>
+      <td>...</td>
+      <td>129</td>
+      <td>118</td>
+      <td>103</td>
+      <td>74</td>
+      <td>39</td>
+      <td>27</td>
+      <td>36</td>
+      <td>34</td>
+      <td>68</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>171</td>
+      <td>23</td>
+      <td>30</td>
+      <td>21</td>
+      <td>30</td>
+      <td>36</td>
+      <td>44</td>
+      <td>51</td>
+      <td>46</td>
+      <td>41</td>
+      <td>...</td>
+      <td>136</td>
+      <td>126</td>
+      <td>120</td>
+      <td>102</td>
+      <td>70</td>
+      <td>40</td>
+      <td>30</td>
+      <td>35</td>
+      <td>78</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>175</td>
+      <td>21</td>
+      <td>33</td>
+      <td>31</td>
+      <td>42</td>
+      <td>54</td>
+      <td>71</td>
+      <td>73</td>
+      <td>64</td>
+      <td>59</td>
+      <td>...</td>
+      <td>142</td>
+      <td>133</td>
+      <td>122</td>
+      <td>114</td>
+      <td>111</td>
+      <td>77</td>
+      <td>31</td>
+      <td>36</td>
+      <td>95</td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>192</td>
+      <td>42</td>
+      <td>27</td>
+      <td>37</td>
+      <td>63</td>
+      <td>87</td>
+      <td>99</td>
+      <td>111</td>
+      <td>116</td>
+      <td>116</td>
+      <td>...</td>
+      <td>105</td>
+      <td>108</td>
+      <td>108</td>
+      <td>107</td>
+      <td>109</td>
+      <td>104</td>
+      <td>58</td>
+      <td>59</td>
+      <td>100</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>196</td>
+      <td>82</td>
+      <td>41</td>
+      <td>58</td>
+      <td>102</td>
+      <td>112</td>
+      <td>110</td>
+      <td>110</td>
+      <td>107</td>
+      <td>108</td>
+      <td>...</td>
+      <td>70</td>
+      <td>71</td>
+      <td>86</td>
+      <td>102</td>
+      <td>107</td>
+      <td>116</td>
+      <td>84</td>
+      <td>77</td>
+      <td>95</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>192</td>
+      <td>88</td>
+      <td>78</td>
+      <td>95</td>
+      <td>96</td>
+      <td>87</td>
+      <td>81</td>
+      <td>72</td>
+      <td>51</td>
+      <td>40</td>
+      <td>...</td>
+      <td>62</td>
+      <td>73</td>
+      <td>73</td>
+      <td>101</td>
+      <td>116</td>
+      <td>116</td>
+      <td>99</td>
+      <td>80</td>
+      <td>88</td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>190</td>
+      <td>88</td>
+      <td>102</td>
+      <td>114</td>
+      <td>99</td>
+      <td>76</td>
+      <td>55</td>
+      <td>55</td>
+      <td>50</td>
+      <td>37</td>
+      <td>...</td>
+      <td>100</td>
+      <td>112</td>
+      <td>120</td>
+      <td>120</td>
+      <td>125</td>
+      <td>125</td>
+      <td>105</td>
+      <td>97</td>
+      <td>101</td>
+      <td>98</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>189</td>
+      <td>106</td>
+      <td>111</td>
+      <td>113</td>
+      <td>137</td>
+      <td>124</td>
+      <td>113</td>
+      <td>109</td>
+      <td>103</td>
+      <td>96</td>
+      <td>...</td>
+      <td>134</td>
+      <td>137</td>
+      <td>142</td>
+      <td>146</td>
+      <td>134</td>
+      <td>120</td>
+      <td>96</td>
+      <td>115</td>
+      <td>122</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>188</td>
+      <td>106</td>
+      <td>132</td>
+      <td>119</td>
+      <td>142</td>
+      <td>160</td>
+      <td>158</td>
+      <td>153</td>
+      <td>148</td>
+      <td>145</td>
+      <td>...</td>
+      <td>163</td>
+      <td>158</td>
+      <td>156</td>
+      <td>142</td>
+      <td>124</td>
+      <td>110</td>
+      <td>100</td>
+      <td>114</td>
+      <td>108</td>
+      <td>86</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>193</td>
+      <td>83</td>
+      <td>140</td>
+      <td>130</td>
+      <td>122</td>
+      <td>141</td>
+      <td>153</td>
+      <td>160</td>
+      <td>168</td>
+      <td>177</td>
+      <td>...</td>
+      <td>163</td>
+      <td>158</td>
+      <td>148</td>
+      <td>129</td>
+      <td>112</td>
+      <td>103</td>
+      <td>99</td>
+      <td>99</td>
+      <td>78</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>190</td>
+      <td>81</td>
+      <td>117</td>
+      <td>127</td>
+      <td>107</td>
+      <td>120</td>
+      <td>134</td>
+      <td>146</td>
+      <td>163</td>
+      <td>166</td>
+      <td>...</td>
+      <td>157</td>
+      <td>145</td>
+      <td>132</td>
+      <td>117</td>
+      <td>105</td>
+      <td>103</td>
+      <td>90</td>
+      <td>64</td>
+      <td>67</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>193</td>
+      <td>83</td>
+      <td>84</td>
+      <td>106</td>
+      <td>104</td>
+      <td>113</td>
+      <td>122</td>
+      <td>134</td>
+      <td>138</td>
+      <td>143</td>
+      <td>...</td>
+      <td>142</td>
+      <td>129</td>
+      <td>116</td>
+      <td>109</td>
+      <td>105</td>
+      <td>102</td>
+      <td>86</td>
+      <td>55</td>
+      <td>60</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>194</td>
+      <td>78</td>
+      <td>87</td>
+      <td>91</td>
+      <td>92</td>
+      <td>108</td>
+      <td>113</td>
+      <td>122</td>
+      <td>127</td>
+      <td>140</td>
+      <td>...</td>
+      <td>140</td>
+      <td>128</td>
+      <td>118</td>
+      <td>113</td>
+      <td>109</td>
+      <td>101</td>
+      <td>68</td>
+      <td>56</td>
+      <td>56</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>191</td>
+      <td>80</td>
+      <td>89</td>
+      <td>88</td>
+      <td>90</td>
+      <td>104</td>
+      <td>114</td>
+      <td>120</td>
+      <td>131</td>
+      <td>141</td>
+      <td>...</td>
+      <td>130</td>
+      <td>129</td>
+      <td>119</td>
+      <td>108</td>
+      <td>103</td>
+      <td>101</td>
+      <td>50</td>
+      <td>53</td>
+      <td>55</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>189</td>
+      <td>77</td>
+      <td>89</td>
+      <td>91</td>
+      <td>86</td>
+      <td>93</td>
+      <td>111</td>
+      <td>122</td>
+      <td>133</td>
+      <td>129</td>
+      <td>...</td>
+      <td>102</td>
+      <td>113</td>
+      <td>111</td>
+      <td>107</td>
+      <td>101</td>
+      <td>85</td>
+      <td>53</td>
+      <td>51</td>
+      <td>54</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>190</td>
+      <td>86</td>
+      <td>88</td>
+      <td>87</td>
+      <td>87</td>
+      <td>87</td>
+      <td>104</td>
+      <td>115</td>
+      <td>127</td>
+      <td>115</td>
+      <td>...</td>
+      <td>105</td>
+      <td>108</td>
+      <td>104</td>
+      <td>102</td>
+      <td>97</td>
+      <td>55</td>
+      <td>53</td>
+      <td>50</td>
+      <td>53</td>
+      <td>59</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>187</td>
+      <td>74</td>
+      <td>89</td>
+      <td>81</td>
+      <td>93</td>
+      <td>130</td>
+      <td>103</td>
+      <td>96</td>
+      <td>110</td>
+      <td>108</td>
+      <td>...</td>
+      <td>111</td>
+      <td>105</td>
+      <td>103</td>
+      <td>102</td>
+      <td>83</td>
+      <td>50</td>
+      <td>49</td>
+      <td>56</td>
+      <td>51</td>
+      <td>49</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>190</td>
+      <td>79</td>
+      <td>81</td>
+      <td>107</td>
+      <td>166</td>
+      <td>206</td>
+      <td>119</td>
+      <td>88</td>
+      <td>94</td>
+      <td>105</td>
+      <td>...</td>
+      <td>102</td>
+      <td>104</td>
+      <td>99</td>
+      <td>100</td>
+      <td>111</td>
+      <td>111</td>
+      <td>57</td>
+      <td>48</td>
+      <td>52</td>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>192</td>
+      <td>78</td>
+      <td>83</td>
+      <td>173</td>
+      <td>211</td>
+      <td>158</td>
+      <td>114</td>
+      <td>100</td>
+      <td>87</td>
+      <td>94</td>
+      <td>...</td>
+      <td>101</td>
+      <td>98</td>
+      <td>98</td>
+      <td>96</td>
+      <td>116</td>
+      <td>123</td>
+      <td>119</td>
+      <td>52</td>
+      <td>49</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>188</td>
+      <td>70</td>
+      <td>136</td>
+      <td>177</td>
+      <td>198</td>
+      <td>108</td>
+      <td>101</td>
+      <td>119</td>
+      <td>86</td>
+      <td>81</td>
+      <td>...</td>
+      <td>98</td>
+      <td>98</td>
+      <td>93</td>
+      <td>82</td>
+      <td>80</td>
+      <td>123</td>
+      <td>145</td>
+      <td>73</td>
+      <td>43</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>196</td>
+      <td>87</td>
+      <td>193</td>
+      <td>187</td>
+      <td>179</td>
+      <td>113</td>
+      <td>123</td>
+      <td>123</td>
+      <td>110</td>
+      <td>81</td>
+      <td>...</td>
+      <td>95</td>
+      <td>90</td>
+      <td>96</td>
+      <td>77</td>
+      <td>53</td>
+      <td>160</td>
+      <td>124</td>
+      <td>103</td>
+      <td>66</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>219</td>
+      <td>179</td>
+      <td>202</td>
+      <td>196</td>
+      <td>198</td>
+      <td>146</td>
+      <td>122</td>
+      <td>118</td>
+      <td>119</td>
+      <td>94</td>
+      <td>...</td>
+      <td>92</td>
+      <td>90</td>
+      <td>87</td>
+      <td>57</td>
+      <td>89</td>
+      <td>126</td>
+      <td>140</td>
+      <td>150</td>
+      <td>127</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>244</td>
+      <td>228</td>
+      <td>230</td>
+      <td>231</td>
+      <td>233</td>
+      <td>213</td>
+      <td>188</td>
+      <td>195</td>
+      <td>193</td>
+      <td>189</td>
+      <td>...</td>
+      <td>179</td>
+      <td>184</td>
+      <td>177</td>
+      <td>161</td>
+      <td>202</td>
+      <td>182</td>
+      <td>207</td>
+      <td>198</td>
+      <td>202</td>
+      <td>206</td>
+    </tr>
+  </tbody>
+</table>
+<p>32 rows × 32 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面获得的32*32的二维数组，还不利于数据建模，所以我们还需要通过reshape(1, -1)方法将其转换成一行(若reshape(-1,1)则转为一列），也即1*1024格式</span></span><br><span class="line">arr = arr.reshape(<span class="number">1</span>, -<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(arr)  <span class="comment"># 查看转换后的结果，这一行数就是代表那张人脸图片了，其共有32*32=1024列数</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[[186  76  73 ... 198 202 206]]
+</code></pre>
+<p>因为总共有400张照片需要处理，若将400个二维数组堆叠起来会形成三维数组，因为我们需要使用flatten()函数将1*1024的二维数组降维成一维数组，并通过tolist()函数将其转为列表方便之后和其他图片的颜色数值信息一起处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(arr.flatten().tolist())  <span class="comment"># 下面这一行数就是那张人脸转换后的结果了</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[186, 76, 73, 87, 89, 88, 75, 81, 100, 102, 105, 92, 74, 65, 65, 53, 43, 55, 53, 42, 58, 77, 71, 75, 75, 73, 76, 85, 95, 100, 103, 106, 196, 85, 68, 78, 104, 97, 100, 94, 83, 87, 88, 89, 86, 70, 65, 61, 55, 52, 38, 32, 52, 66, 52, 59, 70, 85, 62, 82, 89, 85, 106, 103, 193, 69, 79, 92, 105, 102, 112, 117, 106, 94, 91, 112, 101, 87, 75, 61, 58, 54, 49, 48, 44, 41, 41, 45, 50, 76, 59, 74, 83, 82, 99, 100, 186, 67, 71, 75, 85, 99, 114, 115, 109, 109, 98, 101, 86, 68, 74, 65, 58, 53, 51, 52, 42, 40, 42, 43, 40, 52, 41, 61, 69, 76, 76, 108, 179, 46, 41, 50, 53, 69, 80, 91, 108, 104, 98, 93, 91, 88, 73, 60, 56, 55, 51, 49, 53, 55, 43, 37, 30, 31, 35, 43, 59, 61, 56, 101, 173, 33, 43, 49, 48, 53, 64, 69, 72, 75, 82, 84, 84, 82, 72, 75, 69, 71, 67, 56, 58, 55, 38, 36, 33, 32, 39, 45, 68, 60, 45, 83, 173, 30, 37, 41, 42, 57, 81, 88, 77, 64, 63, 64, 65, 64, 48, 48, 68, 62, 47, 50, 45, 31, 31, 32, 35, 32, 35, 49, 65, 64, 53, 87, 171, 24, 32, 36, 42, 55, 77, 101, 107, 102, 98, 83, 71, 64, 44, 48, 54, 64, 76, 65, 49, 48, 54, 64, 63, 51, 53, 60, 56, 46, 49, 89, 170, 21, 31, 29, 28, 35, 47, 62, 76, 83, 87, 78, 53, 58, 65, 83, 90, 97, 108, 101, 97, 105, 105, 101, 89, 63, 45, 42, 41, 37, 61, 101, 172, 21, 22, 27, 28, 30, 33, 43, 46, 44, 43, 46, 50, 63, 76, 87, 95, 104, 114, 120, 122, 125, 129, 118, 103, 74, 39, 27, 36, 34, 68, 101, 171, 23, 30, 21, 30, 36, 44, 51, 46, 41, 45, 52, 61, 70, 84, 101, 112, 119, 126, 131, 134, 138, 136, 126, 120, 102, 70, 40, 30, 35, 78, 101, 175, 21, 33, 31, 42, 54, 71, 73, 64, 59, 65, 78, 95, 106, 110, 116, 122, 130, 140, 143, 141, 142, 142, 133, 122, 114, 111, 77, 31, 36, 95, 104, 192, 42, 27, 37, 63, 87, 99, 111, 116, 116, 117, 117, 121, 122, 120, 119, 120, 121, 120, 113, 107, 106, 105, 108, 108, 107, 109, 104, 58, 59, 100, 97, 196, 82, 41, 58, 102, 112, 110, 110, 107, 108, 107, 107, 115, 126, 126, 118, 98, 87, 69, 57, 55, 55, 70, 71, 86, 102, 107, 116, 84, 77, 95, 99, 192, 88, 78, 95, 96, 87, 81, 72, 51, 40, 52, 53, 68, 89, 116, 111, 83, 61, 44, 55, 61, 42, 62, 73, 73, 101, 116, 116, 99, 80, 88, 105, 190, 88, 102, 114, 99, 76, 55, 55, 50, 37, 60, 53, 49, 84, 161, 155, 109, 94, 83, 76, 84, 88, 100, 112, 120, 120, 125, 125, 105, 97, 101, 98, 189, 106, 111, 113, 137, 124, 113, 109, 103, 96, 84, 84, 99, 123, 172, 176, 139, 130, 127, 120, 116, 115, 134, 137, 142, 146, 134, 120, 96, 115, 122, 93, 188, 106, 132, 119, 142, 160, 158, 153, 148, 145, 156, 151, 139, 139, 160, 177, 151, 138, 141, 153, 162, 164, 163, 158, 156, 142, 124, 110, 100, 114, 108, 86, 193, 83, 140, 130, 122, 141, 153, 160, 168, 177, 171, 154, 135, 137, 161, 176, 158, 146, 143, 142, 159, 164, 163, 158, 148, 129, 112, 103, 99, 99, 78, 77, 190, 81, 117, 127, 107, 120, 134, 146, 163, 166, 155, 134, 138, 137, 153, 164, 141, 132, 132, 127, 148, 156, 157, 145, 132, 117, 105, 103, 90, 64, 67, 72, 193, 83, 84, 106, 104, 113, 122, 134, 138, 143, 141, 138, 93, 69, 84, 86, 71, 62, 75, 106, 142, 146, 142, 129, 116, 109, 105, 102, 86, 55, 60, 63, 194, 78, 87, 91, 92, 108, 113, 122, 127, 140, 148, 154, 121, 80, 72, 66, 80, 96, 106, 112, 137, 147, 140, 128, 118, 113, 109, 101, 68, 56, 56, 56, 191, 80, 89, 88, 90, 104, 114, 120, 131, 141, 145, 150, 153, 142, 144, 124, 105, 111, 119, 121, 128, 128, 130, 129, 119, 108, 103, 101, 50, 53, 55, 53, 189, 77, 89, 91, 86, 93, 111, 122, 133, 129, 125, 126, 118, 117, 115, 111, 100, 85, 87, 86, 76, 88, 102, 113, 111, 107, 101, 85, 53, 51, 54, 55, 190, 86, 88, 87, 87, 87, 104, 115, 127, 115, 101, 88, 83, 84, 91, 96, 108, 114, 101, 98, 106, 103, 105, 108, 104, 102, 97, 55, 53, 50, 53, 59, 187, 74, 89, 81, 93, 130, 103, 96, 110, 108, 108, 129, 126, 112, 119, 108, 96, 98, 105, 110, 117, 118, 111, 105, 103, 102, 83, 50, 49, 56, 51, 49, 190, 79, 81, 107, 166, 206, 119, 88, 94, 105, 112, 116, 113, 106, 96, 92, 95, 102, 103, 107, 113, 108, 102, 104, 99, 100, 111, 111, 57, 48, 52, 53, 192, 78, 83, 173, 211, 158, 114, 100, 87, 94, 108, 114, 115, 119, 129, 146, 151, 144, 140, 133, 121, 112, 101, 98, 98, 96, 116, 123, 119, 52, 49, 55, 188, 70, 136, 177, 198, 108, 101, 119, 86, 81, 94, 105, 115, 123, 127, 128, 126, 122, 119, 109, 97, 97, 98, 98, 93, 82, 80, 123, 145, 73, 43, 51, 196, 87, 193, 187, 179, 113, 123, 123, 110, 81, 73, 81, 88, 96, 97, 95, 91, 91, 89, 86, 91, 99, 95, 90, 96, 77, 53, 160, 124, 103, 66, 52, 219, 179, 202, 196, 198, 146, 122, 118, 119, 94, 76, 73, 72, 74, 77, 73, 74, 79, 77, 83, 92, 94, 92, 90, 87, 57, 89, 126, 140, 150, 127, 109, 244, 228, 230, 231, 233, 213, 188, 195, 193, 189, 181, 173, 171, 171, 171, 168, 168, 171, 173, 178, 182, 179, 179, 184, 177, 161, 202, 182, 207, 198, 202, 206]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构造所有图片的特征变量</span></span><br><span class="line">X = []  <span class="comment"># 特征变量</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> names:</span><br><span class="line">    img = Image.<span class="built_in">open</span>(<span class="string">&#x27;olivettifaces\\&#x27;</span> + i)</span><br><span class="line">    img = img.convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line">    img = img.resize((<span class="number">32</span>, <span class="number">32</span>))</span><br><span class="line">    arr = np.array(img)</span><br><span class="line">    X.append(arr.reshape(<span class="number">1</span>, -<span class="number">1</span>).flatten().tolist())</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">X = pd.DataFrame(X)</span><br><span class="line"></span><br><span class="line">X  <span class="comment"># 查看400张图片转换后的结果</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>1014</th>
+      <th>1015</th>
+      <th>1016</th>
+      <th>1017</th>
+      <th>1018</th>
+      <th>1019</th>
+      <th>1020</th>
+      <th>1021</th>
+      <th>1022</th>
+      <th>1023</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>186</td>
+      <td>76</td>
+      <td>73</td>
+      <td>87</td>
+      <td>89</td>
+      <td>88</td>
+      <td>75</td>
+      <td>81</td>
+      <td>100</td>
+      <td>102</td>
+      <td>...</td>
+      <td>179</td>
+      <td>184</td>
+      <td>177</td>
+      <td>161</td>
+      <td>202</td>
+      <td>182</td>
+      <td>207</td>
+      <td>198</td>
+      <td>202</td>
+      <td>206</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>196</td>
+      <td>90</td>
+      <td>97</td>
+      <td>98</td>
+      <td>98</td>
+      <td>87</td>
+      <td>101</td>
+      <td>89</td>
+      <td>65</td>
+      <td>73</td>
+      <td>...</td>
+      <td>181</td>
+      <td>167</td>
+      <td>190</td>
+      <td>188</td>
+      <td>203</td>
+      <td>209</td>
+      <td>205</td>
+      <td>198</td>
+      <td>190</td>
+      <td>190</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>193</td>
+      <td>89</td>
+      <td>97</td>
+      <td>99</td>
+      <td>75</td>
+      <td>74</td>
+      <td>83</td>
+      <td>64</td>
+      <td>77</td>
+      <td>86</td>
+      <td>...</td>
+      <td>178</td>
+      <td>178</td>
+      <td>156</td>
+      <td>185</td>
+      <td>195</td>
+      <td>201</td>
+      <td>206</td>
+      <td>201</td>
+      <td>189</td>
+      <td>190</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>192</td>
+      <td>84</td>
+      <td>93</td>
+      <td>89</td>
+      <td>97</td>
+      <td>89</td>
+      <td>66</td>
+      <td>60</td>
+      <td>60</td>
+      <td>57</td>
+      <td>...</td>
+      <td>173</td>
+      <td>151</td>
+      <td>199</td>
+      <td>189</td>
+      <td>203</td>
+      <td>200</td>
+      <td>196</td>
+      <td>186</td>
+      <td>182</td>
+      <td>184</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>194</td>
+      <td>72</td>
+      <td>49</td>
+      <td>45</td>
+      <td>56</td>
+      <td>37</td>
+      <td>44</td>
+      <td>62</td>
+      <td>71</td>
+      <td>71</td>
+      <td>...</td>
+      <td>192</td>
+      <td>194</td>
+      <td>192</td>
+      <td>176</td>
+      <td>174</td>
+      <td>224</td>
+      <td>200</td>
+      <td>218</td>
+      <td>176</td>
+      <td>168</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>395</th>
+      <td>114</td>
+      <td>115</td>
+      <td>115</td>
+      <td>119</td>
+      <td>115</td>
+      <td>120</td>
+      <td>117</td>
+      <td>118</td>
+      <td>113</td>
+      <td>112</td>
+      <td>...</td>
+      <td>190</td>
+      <td>193</td>
+      <td>169</td>
+      <td>141</td>
+      <td>142</td>
+      <td>144</td>
+      <td>143</td>
+      <td>141</td>
+      <td>143</td>
+      <td>215</td>
+    </tr>
+    <tr>
+      <th>396</th>
+      <td>115</td>
+      <td>118</td>
+      <td>117</td>
+      <td>117</td>
+      <td>116</td>
+      <td>118</td>
+      <td>117</td>
+      <td>119</td>
+      <td>117</td>
+      <td>116</td>
+      <td>...</td>
+      <td>187</td>
+      <td>189</td>
+      <td>183</td>
+      <td>216</td>
+      <td>189</td>
+      <td>193</td>
+      <td>148</td>
+      <td>144</td>
+      <td>142</td>
+      <td>212</td>
+    </tr>
+    <tr>
+      <th>397</th>
+      <td>113</td>
+      <td>116</td>
+      <td>113</td>
+      <td>117</td>
+      <td>114</td>
+      <td>121</td>
+      <td>121</td>
+      <td>120</td>
+      <td>121</td>
+      <td>114</td>
+      <td>...</td>
+      <td>184</td>
+      <td>188</td>
+      <td>185</td>
+      <td>221</td>
+      <td>203</td>
+      <td>192</td>
+      <td>144</td>
+      <td>143</td>
+      <td>137</td>
+      <td>212</td>
+    </tr>
+    <tr>
+      <th>398</th>
+      <td>110</td>
+      <td>109</td>
+      <td>109</td>
+      <td>110</td>
+      <td>110</td>
+      <td>112</td>
+      <td>112</td>
+      <td>113</td>
+      <td>113</td>
+      <td>111</td>
+      <td>...</td>
+      <td>172</td>
+      <td>171</td>
+      <td>209</td>
+      <td>212</td>
+      <td>175</td>
+      <td>136</td>
+      <td>142</td>
+      <td>141</td>
+      <td>137</td>
+      <td>213</td>
+    </tr>
+    <tr>
+      <th>399</th>
+      <td>105</td>
+      <td>107</td>
+      <td>111</td>
+      <td>112</td>
+      <td>113</td>
+      <td>113</td>
+      <td>113</td>
+      <td>116</td>
+      <td>116</td>
+      <td>107</td>
+      <td>...</td>
+      <td>181</td>
+      <td>184</td>
+      <td>220</td>
+      <td>188</td>
+      <td>140</td>
+      <td>139</td>
+      <td>142</td>
+      <td>141</td>
+      <td>138</td>
+      <td>213</td>
+    </tr>
+  </tbody>
+</table>
+<p>400 rows × 1024 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(X.shape)  <span class="comment"># 查看此时的表格结构</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>(400, 1024)
+</code></pre>
+<p><strong>3.人脸数据处理 - 目标变量提取</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取目标变量y：第一张图片演示</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(names[<span class="number">0</span>].split(<span class="string">&#x27;_&#x27;</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+
+<pre><code>10
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 批量获取所有图片的目标变量y</span></span><br><span class="line">y = []  <span class="comment"># 目标变量</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> names:</span><br><span class="line">    img = Image.<span class="built_in">open</span>(<span class="string">&#x27;olivettifaces\\&#x27;</span> + i)</span><br><span class="line">    y.append(<span class="built_in">int</span>(i.split(<span class="string">&#x27;_&#x27;</span>)[<span class="number">0</span>]))</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(y)  <span class="comment"># 查看目标变量,也就是对应的人员编号</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+</code></pre>
+<h3 id="12-2-3-数据划分与降维"><a href="#12-2-3-数据划分与降维" class="headerlink" title="12.2.3 数据划分与降维"></a>12.2.3 数据划分与降维</h3><p>1.划分训练集和测试集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>2.PCA数据降维</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据降维模型训练</span></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">100</span>)</span><br><span class="line">pca.fit(X_train)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对训练集和测试集进行数据降维</span></span><br><span class="line">X_train_pca = pca.transform(X_train)</span><br><span class="line">X_test_pca = pca.transform(X_test)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们通过如下代码验证PCA是否降维：</span></span><br><span class="line"><span class="built_in">print</span>(X_train_pca.shape)</span><br><span class="line"><span class="built_in">print</span>(X_test_pca.shape)</span><br></pre></td></tr></table></figure>
+
+<pre><code>(320, 100)
+(80, 100)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果想查看此时降维后的X_train_pca和X_test_pca，可以直接将它们打印出来查看，也可以将它们转为DataFrame格式进行查看，代码如下：</span></span><br><span class="line">pd.DataFrame(X_train_pca).head()</span><br><span class="line"><span class="comment"># pd.DataFrame(X_test_pca).head()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>90</th>
+      <th>91</th>
+      <th>92</th>
+      <th>93</th>
+      <th>94</th>
+      <th>95</th>
+      <th>96</th>
+      <th>97</th>
+      <th>98</th>
+      <th>99</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>843.848468</td>
+      <td>-117.990083</td>
+      <td>341.041562</td>
+      <td>-45.240791</td>
+      <td>-265.560411</td>
+      <td>243.732770</td>
+      <td>280.603780</td>
+      <td>-259.737066</td>
+      <td>216.102416</td>
+      <td>192.380199</td>
+      <td>...</td>
+      <td>-17.946320</td>
+      <td>31.326442</td>
+      <td>34.625376</td>
+      <td>-8.882940</td>
+      <td>24.183872</td>
+      <td>-40.728981</td>
+      <td>8.891023</td>
+      <td>-10.077005</td>
+      <td>-41.382655</td>
+      <td>-15.945479</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-495.124726</td>
+      <td>-937.701751</td>
+      <td>-305.851409</td>
+      <td>4.351306</td>
+      <td>-127.743015</td>
+      <td>504.793986</td>
+      <td>389.144515</td>
+      <td>5.118525</td>
+      <td>-32.353105</td>
+      <td>103.516952</td>
+      <td>...</td>
+      <td>-56.858041</td>
+      <td>-21.676102</td>
+      <td>-37.577951</td>
+      <td>8.156807</td>
+      <td>11.915498</td>
+      <td>-59.731644</td>
+      <td>50.641757</td>
+      <td>-49.858187</td>
+      <td>-19.619541</td>
+      <td>-19.917775</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>201.200905</td>
+      <td>623.575255</td>
+      <td>130.691212</td>
+      <td>22.627082</td>
+      <td>-427.373676</td>
+      <td>-85.786784</td>
+      <td>531.627875</td>
+      <td>95.691712</td>
+      <td>-176.386340</td>
+      <td>-70.070452</td>
+      <td>...</td>
+      <td>-46.574460</td>
+      <td>4.225610</td>
+      <td>-1.518801</td>
+      <td>-28.003457</td>
+      <td>99.331340</td>
+      <td>-33.898140</td>
+      <td>-12.756052</td>
+      <td>-53.757395</td>
+      <td>46.329195</td>
+      <td>-36.555657</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>603.867640</td>
+      <td>-744.880158</td>
+      <td>-626.408564</td>
+      <td>-598.649870</td>
+      <td>-400.044101</td>
+      <td>7.220209</td>
+      <td>-246.688151</td>
+      <td>58.416884</td>
+      <td>-417.199241</td>
+      <td>-121.976573</td>
+      <td>...</td>
+      <td>42.639400</td>
+      <td>8.357066</td>
+      <td>28.521712</td>
+      <td>28.323359</td>
+      <td>39.183447</td>
+      <td>-8.003523</td>
+      <td>-85.881704</td>
+      <td>30.512104</td>
+      <td>-18.756975</td>
+      <td>-24.699085</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>935.882937</td>
+      <td>132.602933</td>
+      <td>441.577563</td>
+      <td>145.548390</td>
+      <td>-260.280190</td>
+      <td>248.876747</td>
+      <td>235.116995</td>
+      <td>-333.232316</td>
+      <td>98.692073</td>
+      <td>75.838782</td>
+      <td>...</td>
+      <td>-33.393869</td>
+      <td>-36.531246</td>
+      <td>43.010484</td>
+      <td>-0.482193</td>
+      <td>-33.761494</td>
+      <td>2.675790</td>
+      <td>-61.477543</td>
+      <td>87.388430</td>
+      <td>-20.888620</td>
+      <td>-82.934200</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 100 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在PCA后面加个“？”运行可以可以看看官方的一些提示</span></span><br><span class="line"><span class="comment"># PCA?</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="12-2-4-模型的搭建与使用"><a href="#12-2-4-模型的搭建与使用" class="headerlink" title="12.2.4 模型的搭建与使用"></a>12.2.4 模型的搭建与使用</h3><p>1.模型搭建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line">knn = KNeighborsClassifier()  <span class="comment"># 建立KNN模型  </span></span><br><span class="line">knn.fit(X_train_pca, y_train)  <span class="comment"># 用降维后的训练集进行训练模型</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>2.模型预测</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y_pred = knn.predict(X_test_pca)  <span class="comment"># 用降维后的测试集进行测试</span></span><br><span class="line"><span class="built_in">print</span>(y_pred)  <span class="comment"># 将对测试集的预测结果打印出来</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>[ 9 21  3 40 26  4 28 37 12 36 26  7 27 21  3 24  7  2 17 24 21 32  8  2
+ 11 19  6 29  6 29 18 10 25 35 10 18 15  5  9 22 34 29  2 16  8 18  8 38
+ 39 35 16 30 30 11 37 36 35 20 33  6  1 16 31 32  5 30  1 39 35 39  2 19
+  5  8 11  4 14 27 22 24]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过和之前章节类似的代码，我们可以将预测值和实际值进行对比：</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">a = pd.DataFrame()  <span class="comment"># 创建一个空DataFrame </span></span><br><span class="line">a[<span class="string">&#x27;预测值&#x27;</span>] = <span class="built_in">list</span>(y_pred)</span><br><span class="line">a[<span class="string">&#x27;实际值&#x27;</span>] = <span class="built_in">list</span>(y_test)</span><br><span class="line"></span><br><span class="line">a.head()  <span class="comment"># 查看表格前5行</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>预测值</th>
+      <th>实际值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>9</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>26</td>
+      <td>26</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看预测准确度 - 方法1</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">score = accuracy_score(y_pred, y_test)</span><br><span class="line"><span class="built_in">print</span>(score)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.9125
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看预测准确度 - 方法2</span></span><br><span class="line">score = knn.score(X_test_pca, y_test)</span><br><span class="line"><span class="built_in">print</span>(score)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.9125
+</code></pre>
+<p>3.模型对比（数据降维与不降维）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line">knn = KNeighborsClassifier()  <span class="comment"># 建立KNN模型  </span></span><br><span class="line">knn.fit(X_train, y_train)  <span class="comment"># 不使用数据降维，直接训练</span></span><br><span class="line">y_pred = knn.predict(X_test)  <span class="comment"># 不使用数据降维，直接测试</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line">score = accuracy_score(y_pred, y_test)</span><br><span class="line"><span class="built_in">print</span>(score)</span><br></pre></td></tr></table></figure>
+
+<pre><code>0.9125
+</code></pre>
+<p>此时获得的准确度评分score为0.91，可以看到使用数据降维对提高模型预测效果还是有一些效果的，这里的数据量并不大，当数据量更大的时候，利用PCA主成分分析进行数据降维则会发挥更大的作用。</p>
+<p>其实看出，在数据量不大的时候，PCA效果不明显</p>
+<h2 id="12-3-人脸识别外部接口调用（学习了解）"><a href="#12-3-人脸识别外部接口调用（学习了解）" class="headerlink" title="12.3 人脸识别外部接口调用（学习了解）"></a>12.3 人脸识别外部接口调用（学习了解）</h2><h3 id="12-3-1-baidu-aip安装"><a href="#12-3-1-baidu-aip安装" class="headerlink" title="12.3.1 baidu-aip安装"></a>12.3.1 baidu-aip安装</h3><h3 id="12-3-2-调用接口进行人脸识别和打分"><a href="#12-3-2-调用接口进行人脸识别和打分" class="headerlink" title="12.3.2 调用接口进行人脸识别和打分"></a>12.3.2 调用接口进行人脸识别和打分</h3><p>进入网址<a target="_blank" rel="noopener" href="https://ai.baidu.com/tech/face">https://ai.baidu.com/tech/face</a> 点击立即使用，点击创建应用，选择响应的选项，点击立即创建，在应用列表中可以看到如下：<br><img src="%E4%B8%8B%E8%BD%BD%20(38).png" alt="下载 (38)"></p>
+<p>这些数据在调用接口时会用到</p>
+<p>AppID：29907061</p>
+<p>API Key：0ascf98uSFUgGHBcbG1GEr79</p>
+<p>Secret Key：C6S8SFnC6zsxwqOZsgd0gnx7ssWZ1xBz</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> aip <span class="keyword">import</span> AipFace</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面3行内容为自己的APP_ID,API_KEY,SECRET_KEY</span></span><br><span class="line">APP_ID = <span class="string">&#x27;29907061&#x27;</span></span><br><span class="line">API_KEY = <span class="string">&#x27;0ascf98uSFUgGHBcbG1GEr79&#x27;</span></span><br><span class="line">SECRET_KEY = <span class="string">&#x27;C6S8SFnC6zsxwqOZsgd0gnx7ssWZ1xBz&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把上面输入的账号信息传入接口</span></span><br><span class="line">aipFace = AipFace(APP_ID, API_KEY, SECRET_KEY)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面一行内容为需要识别的人脸图片的地址，其他地方就不用改了</span></span><br><span class="line">filePath = <span class="string">r&#x27;王宇涵.jpg&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义打开文件的函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_file_content</span>(<span class="params">filePath</span>):</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(filePath, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        content = base64.b64encode(fp.read())</span><br><span class="line">        <span class="keyword">return</span> content.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line">imageType = <span class="string">&quot;BASE64&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择最后要展示的内容，这里展示age（年龄）；gender（性别）；beauty（颜值）</span></span><br><span class="line">options = &#123;&#125;</span><br><span class="line">options[<span class="string">&quot;face_field&quot;</span>] = <span class="string">&quot;age,gender,beauty&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用接口aipFace的detect()函数进行人脸识别，打印结果</span></span><br><span class="line">result = aipFace.detect(get_file_content(filePath), imageType, options)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印具体信息，本质就是列表索引和字典的键值对应</span></span><br><span class="line">age = result[<span class="string">&#x27;result&#x27;</span>][<span class="string">&#x27;face_list&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;age&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;年龄预测为：&#x27;</span> + <span class="built_in">str</span>(age))</span><br><span class="line">gender = result[<span class="string">&#x27;result&#x27;</span>][<span class="string">&#x27;face_list&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;gender&#x27;</span>][<span class="string">&#x27;type&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;性别预测为：&#x27;</span> + gender)</span><br><span class="line">beauty = result[<span class="string">&#x27;result&#x27;</span>][<span class="string">&#x27;face_list&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;beauty&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;颜值评分为：&#x27;</span> + <span class="built_in">str</span>(beauty))</span><br></pre></td></tr></table></figure>
+
+<pre><code>&#123;&#39;error_code&#39;: 0, &#39;error_msg&#39;: &#39;SUCCESS&#39;, &#39;log_id&#39;: 1258602420, &#39;timestamp&#39;: 1674483658, &#39;cached&#39;: 0, &#39;result&#39;: &#123;&#39;face_num&#39;: 1, &#39;face_list&#39;: [&#123;&#39;face_token&#39;: &#39;7c0ca661081a579b2eb47a372a4be16a&#39;, &#39;location&#39;: &#123;&#39;left&#39;: 338.66, &#39;top&#39;: 291.83, &#39;width&#39;: 612, &#39;height&#39;: 637, &#39;rotation&#39;: -1&#125;, &#39;face_probability&#39;: 1, &#39;angle&#39;: &#123;&#39;yaw&#39;: -5.65, &#39;pitch&#39;: 5.96, &#39;roll&#39;: -2.13&#125;, &#39;age&#39;: 22, &#39;gender&#39;: &#123;&#39;type&#39;: &#39;male&#39;, &#39;probability&#39;: 1&#125;, &#39;beauty&#39;: 66.19&#125;]&#125;&#125;
+年龄预测为：22
+性别预测为：male
+颜值评分为：66.19
+</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据科学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/机器学习与深度学习//" class="article-tag-list-link color5">机器学习与深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/02/03/python%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%95%86%E4%B8%9A%E6%A1%88%E4%BE%8B%E5%AE%9E%E6%88%98-part3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-python大数据分析与机器学习商业案例实战-part2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -12211,92 +16511,6 @@ weighted avg       0.78      0.80      0.79      1409
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/01/28/Matplotlib%E5%BA%93%E8%AF%A6%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-自然语言处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
-    </h1>
-  
-
-        
-        <a href="/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/" class="archive-article-date">
-  	<time datetime="2023-01-28T10:13:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="自然语言处理"><a href="#自然语言处理" class="headerlink" title="自然语言处理"></a>自然语言处理</h1><h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><p>内容</p>
-<p><img src="image-20230128181815800.jpg" alt="image-20230128181815800"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">预训练语言模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习与深度学习//" class="article-tag-list-link color5">机器学习与深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">展开全文 >></a>
         </p>
       
 
