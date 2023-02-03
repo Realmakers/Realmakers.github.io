@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 13
+			总文章数 14
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,105 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-股票多因子模型实战" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/01/29/%E8%82%A1%E7%A5%A8%E5%A4%9A%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B%E5%AE%9E%E6%88%98/">股票多因子模型实战</a>
+    </h1>
+  
+
+        
+        <a href="/2023/01/29/%E8%82%A1%E7%A5%A8%E5%A4%9A%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B%E5%AE%9E%E6%88%98/" class="archive-article-date">
+  	<time datetime="2023-01-29T04:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文是《股票多因子模型实战python核心代码解释》一书的核心笔记总结与思考感悟</p>
+</blockquote>
+<h1 id="第一章-量化投资概述"><a href="#第一章-量化投资概述" class="headerlink" title="第一章 量化投资概述"></a>第一章 量化投资概述</h1><h2 id="1-1什么是量化投资"><a href="#1-1什么是量化投资" class="headerlink" title="1.1什么是量化投资"></a>1.1什么是量化投资</h2><p>常见理解：“以<strong>数据</strong>为基础，通过构建交易模型，得到投资决策”。</p>
+<p>相对于传统交易，量化交易不依赖于人，不易受到人情绪的影响，而是依赖于<strong>可量化的数据</strong>。</p>
+<p>由此催生的量化交易师这个职业，要求其具备金融、数学和计算机三方面的知识。对于不同的量化方向，对这三种能力的侧重点也有所不同，例如高频量化交易者，需要更多地运用编程于数学，而对金融市场、经济运行则不需要有过多的了解。</p>
+<p>【注意】：高频交易<strong>在A股市场并不适用</strong>，因为高频交易是通过反复交易，在价格的微小变化获利，A股目前是T+1制度，股票在购买之后要等到第二天才能卖，即不能当日内买卖，不能做高频交易。如果想做高频交易，可以通过<strong>期货和大宗商品期货交易市场</strong>，期货市场是T+0制度，流动性也很好，高频交易容量很大。另外，高频交易数据处理可以和<strong>Flink框架</strong>结合，也许是未来金融大数据的创新所在，此处不再赘述。</p>
+<h3 id="1-1-1股票多因子"><a href="#1-1-1股票多因子" class="headerlink" title="1.1.1股票多因子"></a>1.1.1股票多因子</h3><p>股票多因子模型也叫做股票<strong>Alpha策略</strong>。是目前量化策略里面最成体系的一种量化投资方法。实际上，交易系统包含3个模块——<strong>阿尔法模型</strong>、<strong>风险模型</strong>和<strong>交易成本模型</strong>，其中最核心的是阿尔法模型，这三个模型构成投资组合构建模型的<strong>输入变量</strong>，我们也可以把任何关于风险的要求和认为有必要的限制加入到阿尔法模型中。</p>
+<p>股票多因子模型背后的本质就是通过通过数量化的方法<strong>选择股票</strong>、<strong>构建优化组合</strong>，使得最后的组合可以<strong>跑赢基准指数</strong>。</p>
+<p>相比于其他量化方向，股票多因子具有如下优点：</p>
+<ol>
+<li>体系成熟</li>
+<li>资金容量大</li>
+<li>与基本面相结合</li>
+</ol>
+<h3 id="1-1-2-量化CTA"><a href="#1-1-2-量化CTA" class="headerlink" title="1.1.2 量化CTA"></a>1.1.2 量化CTA</h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">因子投资</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/量化交易//" class="article-tag-list-link color5">量化交易</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/01/29/%E8%82%A1%E7%A5%A8%E5%A4%9A%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B%E5%AE%9E%E6%88%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Matplotlib库详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
