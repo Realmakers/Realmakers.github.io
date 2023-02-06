@@ -1022,7 +1022,105 @@
 <p><strong>可以使用常规的方法来检测模型是否过度拟合</strong>，如利用参数的<strong>敏感性测试</strong>来衡量模型是否过度拟合。如果我们在对参数进行小幅度调整后，发现整个模型的预测和拟合能力都出现了比较大的变化，那么模型往往是过度拟合的，我们应该考虑将模型简化。</p>
 <h3 id="1-3-4-因果性与相关性"><a href="#1-3-4-因果性与相关性" class="headerlink" title="1.3.4 因果性与相关性"></a>1.3.4 因果性与相关性</h3><p>如果两个事件之间是相关关系，则不一定是因果关系；如果两个事件具有因果性，则一定具有相关性。在量化投资中，进行相关性分析必不可少。</p>
 <h3 id="1-3-5-其他问题"><a href="#1-3-5-其他问题" class="headerlink" title="1.3.5 其他问题"></a>1.3.5 其他问题</h3><p>量化投资需要的数据包括行情数据、财务数据、公司数据等，对于数据，要从两个角度考察，一个是准确性，另一个是及时性。</p>
-<h1 id="第二章-量化python基础-略"><a href="#第二章-量化python基础-略" class="headerlink" title="第二章 量化python基础 略"></a>第二章 量化python基础 略</h1><h1 id="第三章-量化的概率统计基础-略"><a href="#第三章-量化的概率统计基础-略" class="headerlink" title="第三章 量化的概率统计基础 略"></a>第三章 量化的概率统计基础 略</h1><h1 id="第四章-单因子测试"><a href="#第四章-单因子测试" class="headerlink" title="第四章 单因子测试"></a>第四章 单因子测试</h1>
+<h1 id="第二章-量化python基础-略"><a href="#第二章-量化python基础-略" class="headerlink" title="第二章 量化python基础 略"></a>第二章 量化python基础 略</h1><h1 id="第三章-量化的概率统计基础-略"><a href="#第三章-量化的概率统计基础-略" class="headerlink" title="第三章 量化的概率统计基础 略"></a>第三章 量化的概率统计基础 略</h1><h1 id="第四章-单因子测试"><a href="#第四章-单因子测试" class="headerlink" title="第四章 单因子测试"></a>第四章 单因子测试</h1><p>一个好的因子不仅在历史数据上与股票收益率之间体现出稳定且持续的相关关系，而且因子的逻辑和因子与股票收益率的关系都可以被<strong>经济逻辑</strong>解释。如果单纯是用统计方法寻找出来的因子，则很可能会陷入数据挖掘的陷阱，导致模型的外推能力很差。</p>
+<h2 id="4-1-因子的来源"><a href="#4-1-因子的来源" class="headerlink" title="4.1 因子的来源"></a>4.1 因子的来源</h2><p>因子的来源这一问题是在回答“什么样的因素会导致股票上涨或下跌？”或者“涨得好（坏）的股票都有什么样的特点？”这两个问题。</p>
+<img src="%E5%9B%A0%E5%AD%90%E7%9A%84%E6%9D%A5%E6%BA%90.png" alt="因子的来源" style="zoom: 33%;">
+
+<h3 id="4-1-1-财务因子"><a href="#4-1-1-财务因子" class="headerlink" title="4.1.1 财务因子"></a>4.1.1 财务因子</h3><p>财务因子最重要的数据来源就是3张财务报表：<strong>资产负债表、利润表和现金流量表</strong>。绝大部分财务因子是利用财务报表中的科目做一些合理的运算、修正、合成而形成的。可以将通过处理财务报表获得的财务因子再分成如下5类：</p>
+<p><strong>1. 估值因子</strong></p>
+<p>最常见的估值因子有PE、D&#x2F;P、PB、PS、PEG等。估值因子背后的逻辑：我们认为市场是非理性的，在很多时候对一些信息会过度解读，导致市场情绪过度反应，从而阶段性地形成对某些个股的高估与低估。而估值存在<strong>均值回复</strong>的特性，所以<strong>定期卖出被高估的股票、买入被低估的股票就可以获得收益</strong>。基于这样的逻辑，通常在多因子模型中会有一些列的估值因子。</p>
+<p><strong>2.盈利因子</strong></p>
+<p>上市公司的核心竞争力就是盈利能力。通常我们会使用ROE、销售净利率这些因子来衡量上市公司的盈利能力，进而构造出盈利类因子。其背后的逻辑也显而易见；盈利能力强的公司，其股票往往具有较大的上涨空间。</p>
+<p>此外，盈利因子还包括由盈利派生出来的因子，例如盈利稳定性因子。其背后的逻辑是：盈利稳定的公司应当具备稳定性溢价，继而可以获得超越市场的收益。</p>
+<p><strong>3. 营运因子</strong></p>
+<p>通常我们衡量一家上市公司的营运能力会使用存货周转率、总资产周转率等指标。同样地，这些指标在计算后可以被直接作为因子，也可以计算这些指标的同比或者环比将其作为因子，例如存货率的变化率等。</p>
+<p><strong>4. 成长因子</strong></p>
+<p>成长因子刻画的是上市公司业绩增长的速度，常用的指标有EPS的同比增长、ROE的同比增长、营业额的同比增长、利润总额的同比增长等。成长因子的逻辑：处于告诉增长期的公司具有更好的前景，因此其股票具有更大的上涨空间。</p>
+<p><strong>5. 现金流因子</strong></p>
+<p>现金流对一家公司来说非常重要，缺少现金流的公司往往是朝不保夕的。从财务的角度来讲，利润表是按照权责发生制来编制的，而现金流表则是根据收付实现制来编制的。通常刻画公司现金流情况的因子有现金流稳定性因子、经营现金流质量因子等。</p>
+<h3 id="4-1-2-分析师一致预期因子"><a href="#4-1-2-分析师一致预期因子" class="headerlink" title="4.1.2 分析师一致预期因子"></a>4.1.2 分析师一致预期因子</h3><p>券商和投行都会有自己的研究所，研究所的卖方分析师的一个重要产出成果就是<strong>卖方研究报告</strong>。分析师们会通过对上市公司调研、分析公开数据和与行业内的专家交流等方式了解上市公司的概况，然后融入自己的逻辑推理，最终写出相应的报告。报告中通常会对上市公司的盈利进行预测，给出股票买入或者卖出等评级。</p>
+<img src="Snipaste_2023-02-06_17-12-13.png" alt="Snipaste_2023-02-06_17-12-13" style="zoom:43%;">
+
+<p>某分析师写了一篇关于“安徽建工”的研究报告，并将该上市公司评级为“买入”。同时，在研究报告下面给出了这家公司数年的盈利预测，如下图：</p>
+<img src="Snipaste_2023-02-06_17-12-51.png" alt="Snipaste_2023-02-06_17-12-51" style="zoom:43%;">
+
+<p>其实分析师群体对一只股票的涨跌是有一定的话语权的。这个话语权来源于两个方面：</p>
+<ol>
+<li>分析师付出了自己的劳动，对公司进行了调研、数据研究等，其预测结果具有一定的增量信息，可以用于辨识公司未来的运营发展情况。</li>
+<li>市场上有投资者会关注分析师的报告，并且参考分析师的意见进行股票的投资，继而影响股价。</li>
+</ol>
+<p>从逻辑上来讲，这一类因子都可能对股票的涨跌具有较好的预测能力。</p>
+<p>因此，我们可以把市场上所有的卖方分析师发布的预测数据整合起来，并做相应的处理，从而构建一些列分析师一致预期因子。包括以下三类，在实际过程中，我们可以进行多种形式的处理，在符合经济逻辑的前提下获得多样化的因子。</p>
+<p><strong>1. EPS一致预期变动</strong></p>
+<p>利用分析师一致预期数据的最简单的方法就是<strong>比较分析师预测出来的EPS数据与已经实现的EPS（每股收益）数据</strong>。如果分析师EPS远高于当前EPS，那么说明市场对这一公司的盈利预期很高，往往有较多投资者看好。反之，则说明公司处于下行通道，股价往往受挫。</p>
+<p><strong>2. 评级变化率</strong></p>
+<p>再国内，卖方分析师的研究报告往往会对股票做出<strong>买入、增持、中性、减持或卖出</strong>这样的评级，示例研报的投资评级为买入，我么可以看到评级说明中买入的具体含义是什么。</p>
+<img src="Snipaste_2023-02-06_17-13-14.png" alt="Snipaste_2023-02-06_17-13-14" style="zoom: 67%;">
+
+<p>对于同一只股票，我么可以收集一下其过去一段时间发布的研报中，每个评级的数量占比。如果负面评级的占比在上升，那么后续该股票可能面临较大的下跌风险。<strong>我么可以根据负面评级的占比变化或者正面评级的占比变化构建“评级变化率因子”</strong>。</p>
+<p><strong>3. 分析师热度变化率</strong></p>
+<p>市场上的卖方分析师的数量在短时间内不会有特别大的变化，所以在短时间内研报的产出数量基本是固定的。如果某只股票的研究报告突然增多了起来，就说明卖方分析师们越来越关注这只股票了。</p>
+<p>基于这样的逻辑，我们可以针对每一只股票计算其某一段时间发布的研究报告<strong>数量总和</strong>的环比变化率，并据此来构建“分析师热度变化率因子”</p>
+<h3 id="4-1-3-技术因子"><a href="#4-1-3-技术因子" class="headerlink" title="4.1.3 技术因子"></a>4.1.3 技术因子</h3><p>技术分析一直处于鄙视链的下游，很不受人待见。技术类因子在经济直觉上不如财务因子和分析师一致预期因子等逻辑清晰，但是在二级市场（对已经发行的证券进行买卖，转让和流通的市场）上，很多股票上涨&#x2F;下跌的理由可能就是简单的资金驱动，比如跌破20日均线造成恐慌导致的下跌等。</p>
+<p>技术因子大部分来自股票自身的价量信息。例如日度频率的因子，在其构造的过程中通常只会用到开盘价、收盘价、最低价、最高价以及成交量、换手率等常见的信息。此外，技术因子更新周期快。财务因子往往以季度为更新频率，而技术因子则可以根据我们需要的频率进行调节，比较灵活。</p>
+<p>最常用的技术因子是动量因子，即过去特定时期累计收益率，例如可以将每一只股票<strong>过去一年的收益</strong>率作为股票的动量因子。这样的因子之所以有效，是因为资金存在<strong>趋势追踪</strong>的特点，市场也往往有强者恒强的特性。</p>
+<h3 id="4-1-4-其他因子"><a href="#4-1-4-其他因子" class="headerlink" title="4.1.4 其他因子"></a>4.1.4 其他因子</h3><p>有许多因子使用的是另类数据</p>
+<p><strong>1. 另类数据因子</strong></p>
+<p>例如在雪球、东方财富股吧、集思录等投资者公开交流的网站中，用户产生的内容可以代表当前市场参与者的情绪；淘宝等电商平台的销售数据往往可以作为部分上市公司产品销量的前瞻指标；招聘网站的招聘数量可能隐藏着公司业务扩张的信息等。</p>
+<p>这些数据往往是非结构化的，需要通过一定的方法进行清洗、处理之后才可以构成因子。</p>
+<p><strong>2. ESG因子</strong></p>
+<p>环境、责任和公司治理。</p>
+<p>ESG因子目前在海外比较流行，而在国内则较少被提及。ESG因子背后的逻辑是公司的价值有一部分会通过对环境的保护、对社会的外部性和公司内部治理的合理性所体现出来。如果公司能够有长远的目标，在ESG方面进行努力，那么该公司往往容易获得市场的认可，从而其股价也能具有较好的表现。</p>
+<h2 id="4-2-大小盘因子"><a href="#4-2-大小盘因子" class="headerlink" title="4.2 大小盘因子"></a>4.2 大小盘因子</h2><h3 id="4-2-1-大小盘因子的定义"><a href="#4-2-1-大小盘因子的定义" class="headerlink" title="4.2.1 大小盘因子的定义"></a>4.2.1 大小盘因子的定义</h3><p>市值（mv）的大小对股票的涨跌是由较大的影响的，这也是为什么会有“盘子太大，涨不起来”这一说法的原因。从历史数据来看，中证500代表的中小市值股票是跑赢上证50代表的大市值股票的，也就是投资者更加偏好小市值股票。从经济逻辑上来讲，对于小市值公司能够获得超额收益这个现象由以下三个原因：</p>
+<ol>
+<li>小市值的公司往往是新兴产业，未来经营具有很大的不确定性，所以投资者投资小市值公司需要获得相应的风险溢价</li>
+<li>我国股市投资者炒作情绪浓重，在一个不能做空的市场，往往炒作情绪越浓重的板块越容易产生超额收益，小盘往往是炒作的对象</li>
+<li>小市值公司往往都是轻资产公司，成长性较好，由更好的前景</li>
+</ol>
+<h3 id="4-2-2-大小盘因子的计算"><a href="#4-2-2-大小盘因子的计算" class="headerlink" title="4.2.2 大小盘因子的计算"></a>4.2.2 大小盘因子的计算</h3><p>计算市值因子，通常会用到公司的总市值</p>
+<p>上市公司的市值大小&#x3D;上市公司发行总股本xA股市场股票价格</p>
+<p>我们抽取任意一个交易日，把根据上述公式获得的上市公司市值大小绘制为直方图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trading_data_2019[trading_data_2019[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>][<span class="string">&#x27;mv&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD.png" alt="下载"></p>
+<p>我们可以发现这个分布严重右偏，这是因为我国中小市值的公司特别多，市值分布极度不均匀。大市值公司数量少。</p>
+<p>此外还有一个问题：小公司和大公司市值相差很大，但是反映在股票市场上，市值因子造成的股票涨跌差距却不会这么大。例如，某一天市场偏好大盘股，那么两只相同行业的股票，其中市值大的股票可能上涨3%，而小盘股可能上涨1.5%，但是这两个公司市值差异可能是100倍甚至1000倍。</p>
+<p>所以需要对因子进行处理来改变这种因子数据分布的不均衡和不合理：对市值取对数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.log(trading_data_2019[trading_data_2019[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>][<span class="string">&#x27;mv&#x27;</span>]).hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(1).png" alt="下载 (1)"></p>
+<p>在聚宽因子库中亦有：</p>
+<img src="Snipaste_2023-02-06_21-00-26.png" alt="Snipaste_2023-02-06_21-00-26" style="zoom:43%;">
+
+<h3 id="4-2-3-大小盘因子的处理流程"><a href="#4-2-3-大小盘因子的处理流程" class="headerlink" title="4.2.3 大小盘因子的处理流程"></a>4.2.3 大小盘因子的处理流程</h3><h3 id="4-2-4-去极值与异常值"><a href="#4-2-4-去极值与异常值" class="headerlink" title="4.2.4 去极值与异常值"></a>4.2.4 去极值与异常值</h3><p>介绍几个概念：</p>
+<ol>
+<li><p>面板数据：在数据集中既有同一时刻下多个不同个体的数据，也有单个个体在不同时刻下的数据，时间维度和个体维度<img src="Snipaste_2023-02-06_21-04-40.png" alt="Snipaste_2023-02-06_21-04-40"><img src="Snipaste_2023-02-06_21-05-25.png" alt="Snipaste_2023-02-06_21-05-25"></p>
+</li>
+<li><p>截面数据：只有一个时刻、多个个体的数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trading_data_2019[trading_data_2019[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>] <span class="comment"># 把2019.5.27这一天的数据单独拿出来考察</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2023-02-06_21-07-39.png" alt="Snipaste_2023-02-06_21-07-39"></p>
+</li>
+<li><p>时间序列数据：只考虑一只股票</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trading_data_2019[trading_data_2019[<span class="string">&#x27;secucode&#x27;</span>] == <span class="string">&#x27;000001.SZ&#x27;</span>] <span class="comment"># 单独获取代码为000001.SZ的股票的时间序列数据</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2023-02-06_21-10-40.png" alt="Snipaste_2023-02-06_21-10-40"></p>
+</li>
+</ol>
+<p>我们在进行因子处理的时候，都是针对<strong>每一个截面</strong>数据的处理。无论是异常值的去除还是因子值的标准化，都在<strong>一个时间点的截面数据</strong>中，将所有股票的因子值作为一个数据对象进行处理。<strong>因子模型的本质就是在某一时刻对股票打分，并通过买入得分高的股票，卖出得分低的股票来获利</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data = trading_data_2019[trading_data_2019[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>] <span class="comment"># 取截面数据</span></span><br><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>] = np.log(sub_trading_data[<span class="string">&#x27;mv&#x27;</span>]) <span class="comment"># 取对数</span></span><br><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>].skew() <span class="comment"># 求偏度</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.2637189510611557</span><br></pre></td></tr></table></figure>
+
+<p>取对数后的市值分布偏度依然达到1.26.这样的偏度是最右侧几个极大市值造成的。</p>
+<p>对于极值进行压缩处理。当因子值大于或小于某一个阈值的时候，我们就将该因子值设为这一阈值。我们以均值为中间点，向左右两边各扩展3倍标准差，作为因子值的最终范围，下面的代码可以计算因子值的上下限。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size_upper = sub_trading_data[<span class="string">&#x27;size&#x27;</span>].mean() + <span class="number">3</span> * sub_trading_data[<span class="string">&#x27;size&#x27;</span>].std()</span><br><span class="line">size_lower = sub_trading_data[<span class="string">&#x27;size&#x27;</span>].mean() - <span class="number">3</span> * sub_trading_data[<span class="string">&#x27;size&#x27;</span>].std()</span><br></pre></td></tr></table></figure>
+
+<p> 在获得因子值上下限后，当因子值大于等于上限值时，我们将因子值强行改为上限值；当因子值小于等于下限值时，我们将因子值强行修改为下限值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>] = sub_trading_data[<span class="string">&#x27;size&#x27;</span>].where(sub_trading_data[<span class="string">&#x27;size&#x27;</span>] &lt; size_upper, size_upper).where(sub_trading_data[<span class="string">&#x27;size&#x27;</span>] &gt; size_lower, size_lower)</span><br><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(2).png" alt="下载 (2)"></p>
+
       
 
       
