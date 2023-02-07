@@ -1022,7 +1022,510 @@
 <p><strong>可以使用常规的方法来检测模型是否过度拟合</strong>，如利用参数的<strong>敏感性测试</strong>来衡量模型是否过度拟合。如果我们在对参数进行小幅度调整后，发现整个模型的预测和拟合能力都出现了比较大的变化，那么模型往往是过度拟合的，我们应该考虑将模型简化。</p>
 <h3 id="1-3-4-因果性与相关性"><a href="#1-3-4-因果性与相关性" class="headerlink" title="1.3.4 因果性与相关性"></a>1.3.4 因果性与相关性</h3><p>如果两个事件之间是相关关系，则不一定是因果关系；如果两个事件具有因果性，则一定具有相关性。在量化投资中，进行相关性分析必不可少。</p>
 <h3 id="1-3-5-其他问题"><a href="#1-3-5-其他问题" class="headerlink" title="1.3.5 其他问题"></a>1.3.5 其他问题</h3><p>量化投资需要的数据包括行情数据、财务数据、公司数据等，对于数据，要从两个角度考察，一个是准确性，另一个是及时性。</p>
-<h1 id="第二章-量化python基础-略"><a href="#第二章-量化python基础-略" class="headerlink" title="第二章 量化python基础 略"></a>第二章 量化python基础 略</h1><h1 id="第三章-量化的概率统计基础-略"><a href="#第三章-量化的概率统计基础-略" class="headerlink" title="第三章 量化的概率统计基础 略"></a>第三章 量化的概率统计基础 略</h1><h1 id="第四章-单因子测试"><a href="#第四章-单因子测试" class="headerlink" title="第四章 单因子测试"></a>第四章 单因子测试</h1><p>一个好的因子不仅在历史数据上与股票收益率之间体现出稳定且持续的相关关系，而且因子的逻辑和因子与股票收益率的关系都可以被<strong>经济逻辑</strong>解释。如果单纯是用统计方法寻找出来的因子，则很可能会陷入数据挖掘的陷阱，导致模型的外推能力很差。</p>
+<h1 id="第二章-量化python基础-略"><a href="#第二章-量化python基础-略" class="headerlink" title="第二章 量化python基础 略"></a>第二章 量化python基础 略</h1><h1 id="第三章-量化的概率统计基础"><a href="#第三章-量化的概率统计基础" class="headerlink" title="第三章 量化的概率统计基础"></a>第三章 量化的概率统计基础</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zgpa_return = pd.read_hdf(<span class="string">&#x27;zgpa_data.h5&#x27;</span>)[<span class="string">&#x27;daily_return&#x27;</span>]  <span class="comment"># .h5是保存模型（科学数据）的一种文件格式</span></span><br><span class="line">zgpa_return.hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(4).png" alt="下载 (4)"></p>
+<h2 id="3-1-分布的四个“矩”"><a href="#3-1-分布的四个“矩”" class="headerlink" title="3.1 分布的四个“矩”"></a>3.1 分布的四个“矩”</h2><h3 id="3-1-1-期望"><a href="#3-1-1-期望" class="headerlink" title="3.1.1 期望"></a>3.1.1 期望</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zgpa_return.mean()  <span class="comment"># 在pandas中</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.0009917178156725495</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-2-方差"><a href="#3-1-2-方差" class="headerlink" title="3.1.2 方差"></a>3.1.2 方差</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zgpa_return.std() <span class="comment"># 在pandas中</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.02012226825613116</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-3-偏度"><a href="#3-1-3-偏度" class="headerlink" title="3.1.3 偏度"></a>3.1.3 偏度</h3><img src="webwxget111111msgimg%20(1).jpg" alt="webwxget111111msgimg (1)" style="zoom:50%;">
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zgpa_return.skew()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.22703851609785625</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-4-峰度"><a href="#3-1-4-峰度" class="headerlink" title="3.1.4 峰度"></a>3.1.4 峰度</h3><p>所谓的黑天鹅事件在统计学上叫做肥尾事件，考察分布的肥尾情况就是考察——峰度。峰度越大，说明尖峰越高，两个尾部有较多的分布点，这就是“尖峰肥尾”分布。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zgpa_return.kurtosis()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.954898995137017</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-正态分布"><a href="#3-2-正态分布" class="headerlink" title="3.2 正态分布"></a>3.2 正态分布</h2><h3 id="3-2-1-正态分布的定义"><a href="#3-2-1-正态分布的定义" class="headerlink" title="3.2.1 正态分布的定义"></a>3.2.1 正态分布的定义</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">normal_dis = np.random.normal(loc=<span class="number">0.0</span>, scale=<span class="number">1.0</span>, size=<span class="number">100000</span>)  <span class="comment"># 生成100000个均值为0，标准差为1的正态分布随机数</span></span><br><span class="line">pd.DataFrame(normal_dis) .hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>) )</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(5).png" alt="下载 (5)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.DataFrame(normal_dis).mean()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0   -0.001984</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.DataFrame(normal_dis).std()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0    1.00236</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.DataFrame(normal_dis).skew()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0   -0.008216</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.DataFrame(normal_dis).kurtosis()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0   -0.006138</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>实际上，尖峰与肥尾是和<strong>正态分布</strong>作比较的</p>
+<p>如果某一个分布与具有相同期望和标准差的正态分布相比，两端的尾部显得相对肥厚，那么我们就称其为肥尾分布，其尖峰数据一定更集中。</p>
+<h2 id="3-3-线性回归"><a href="#3-3-线性回归" class="headerlink" title="3.3 线性回归"></a>3.3 线性回归</h2><h3 id="3-3-1-单元线性回归"><a href="#3-3-1-单元线性回归" class="headerlink" title="3.3.1 单元线性回归"></a>3.3.1 单元线性回归</h3><p>个股的涨跌往往和大盘的走势有很大的相关性。当大盘涨的较好的时候，大部分股票会呈现出上涨的态势。<strong>个股与大盘的这种涨跌比例关系，称为个股的Beta，就是我们常说的“股性”</strong>。股性好的股票，在大盘上涨的时候会体现出很强的上涨特征；同时在大盘下跌的时候，往往下跌幅度也很大。</p>
+<p>为了量化某一只股票的Beta，我们最常用使用的方法就是<strong>单元回归</strong>。</p>
+<p>明确解释变量与被解释变量：</p>
+<p><strong>解释变量</strong>：大盘的涨跌幅——规定使用中证1000指数为大盘指数（实际操作看情况）（X值）</p>
+<p><strong>被解释变量</strong>：某只股票的涨跌幅（Y值）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">zz1000 = pd.read_csv(<span class="string">&#x27;zz1000_daily_return_2019.csv&#x27;</span>)</span><br><span class="line">zz1000[<span class="string">&#x27;data_date&#x27;</span>] = pd.to_datetime(zz1000[<span class="string">&#x27;data_date&#x27;</span>])  <span class="comment"># 日期格式规范化</span></span><br><span class="line">(zz1000.set_index(<span class="string">&#x27;data_date&#x27;</span>)).add(<span class="number">1</span>).cumprod().plot(figsize=(<span class="number">18</span>, <span class="number">9</span>)) <span class="comment"># 根据中证指数的日度收益率计算累计净值，cunprod()用来求矩阵或向量的累积乘积</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(6).png" alt="下载 (6)"></p>
+<p>接下来，我们将<strong>股票行情</strong>在该区间的数据与<strong>大盘行情</strong>数据进行合并，在合并之前我们要先进行时间格式的处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trading_data_2019.data_date = pd.to_datetime(trading_data_2019.data_date) <span class="comment"># 时间格式处理</span></span><br><span class="line">zz1000.data_date = pd.to_datetime(zz1000.data_date)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">beta_df = pd.merge(trading_data_2019, zz1000, on=<span class="string">&#x27;data_date&#x27;</span>, how=<span class="string">&#x27;left&#x27;</span>)</span><br><span class="line">beta_df</span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2023-02-07_17-21-02.png" alt="Snipaste_2023-02-07_17-21-02"></p>
+<p>我们可以看到表格出现两个daily_return，前者x是股票当天收益率，后者是当天大盘收益率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beta_df.rename(columns=&#123;<span class="string">&#x27;daily_return_x&#x27;</span>: <span class="string">&#x27;stock_daily_return&#x27;</span>, <span class="string">&#x27;daily_return_y&#x27;</span>:<span class="string">&#x27;market_daily_return&#x27;</span>&#125;, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以通过机器学习中的线性回归进行拟合，具体不表（可以阅读python大数据分析与机器学习商业实战——线性回归部分）</p>
+<p>通过最小二乘法（带常数项）得到回归方程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stock_daily_return = 0.0013+0.5406*market_daily_return</span><br></pre></td></tr></table></figure>
+
+<p>但是通过假设检验P&gt;|t|可知，常数项的假设检验无法通过，所以在建立回归方程时候不应该加入常数项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stock_daily_return = 0.5463*market_daily_return</span><br></pre></td></tr></table></figure>
+
+<p>但发现，通过该回归方程计算出的的数据还是与真正收益率有很大差异，我们把这一部分叫做<strong>残差</strong><br>$$<br>个股收益率 &#x3D; 股票Beta * 大盘收益率 + 残差项<br>$$<br>残差项的金融学解释就是中国平安这只股票的收益率不能被大盘收益率解释的那一部分，简单来说就是中国平安自己的特性带来的收益率。</p>
+<hr>
+<p>下面获取所有股票的Beta（计算机解释来说就是线性回归方程的一次项系数）：</p>
+<ol>
+<li>编写一个函数用于计算单只股票相对于大盘收益率的回归系数：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> statsmodels.api <span class="keyword">as</span> sm </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">beta_cal</span>(<span class="params">stock_df</span>):</span><br><span class="line">    results = sm.OLS(stock_df[<span class="string">&#x27;stock_daily_return&#x27;</span>], stock_df[<span class="string">&#x27;market_daily_return&#x27;</span>], hasconst=<span class="literal">False</span>).fit()</span><br><span class="line">    <span class="keyword">return</span> results.params.market_daily_return <span class="comment"># params参数获得解释变量的回归系数</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过groupby-apply的组合，计算出每一只股票的Beta</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stock_beta_df = beta_df.groupby(<span class="string">&#x27;secucode&#x27;</span>).apply(beta_cal)</span><br><span class="line">stock_beta_df</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">secucode</span><br><span class="line">000001.SZ    0.697250</span><br><span class="line">000002.SZ    0.614629</span><br><span class="line">000004.SZ    0.811059</span><br><span class="line">000005.SZ    1.016024</span><br><span class="line">000006.SZ    0.928009</span><br><span class="line">000007.SZ    1.194671</span><br><span class="line">000008.SZ    0.941183</span><br><span class="line">000009.SZ    1.269075</span><br><span class="line">000010.SZ    0.986816</span><br><span class="line">000011.SZ    0.841535</span><br><span class="line">000012.SZ    0.958831</span><br><span class="line">000014.SZ    0.920809</span><br><span class="line">000016.SZ    1.179487</span><br><span class="line">000017.SZ    1.258579</span><br><span class="line">000018.SZ    1.121757</span><br><span class="line">000019.SZ    0.821306</span><br><span class="line">000020.SZ    0.956075</span><br><span class="line">000021.SZ    1.316977</span><br><span class="line">000023.SZ    1.196783</span><br><span class="line">000025.SZ    1.009305</span><br><span class="line">000026.SZ    0.902005</span><br><span class="line">000027.SZ    0.668462</span><br><span class="line">000028.SZ    0.537969</span><br><span class="line">000030.SZ    0.729319</span><br><span class="line">000031.SZ    0.878542</span><br><span class="line">000032.SZ    0.994097</span><br><span class="line">000034.SZ    1.158977</span><br><span class="line">000035.SZ    0.817857</span><br><span class="line">000036.SZ    0.824108</span><br><span class="line">000037.SZ    1.091129</span><br><span class="line">               ...   </span><br><span class="line">603956.SH    1.198075</span><br><span class="line">603958.SH    0.847429</span><br><span class="line">603959.SH    1.068579</span><br><span class="line">603960.SH    0.728508</span><br><span class="line">603963.SH    1.256320</span><br><span class="line">603966.SH    1.167754</span><br><span class="line">603967.SH   -0.921370</span><br><span class="line">603968.SH    0.524030</span><br><span class="line">603969.SH    0.909927</span><br><span class="line">603970.SH    0.728876</span><br><span class="line">603976.SH    0.944256</span><br><span class="line">603977.SH    0.743498</span><br><span class="line">603978.SH    0.906288</span><br><span class="line">603979.SH    0.777645</span><br><span class="line">603980.SH    0.907180</span><br><span class="line">603982.SH   -0.424103</span><br><span class="line">603983.SH    0.509774</span><br><span class="line">603985.SH    0.826471</span><br><span class="line">603986.SH    1.387085</span><br><span class="line">603987.SH    0.741106</span><br><span class="line">603988.SH    1.083734</span><br><span class="line">603989.SH    0.751110</span><br><span class="line">603990.SH    0.787278</span><br><span class="line">603991.SH    0.930793</span><br><span class="line">603992.SH    0.848898</span><br><span class="line">603993.SH    0.830078</span><br><span class="line">603996.SH    1.022882</span><br><span class="line">603997.SH    0.820254</span><br><span class="line">603998.SH    1.304249</span><br><span class="line">603999.SH    1.222961</span><br><span class="line">Length: 3661, dtype: float64</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-2-多元线性回归"><a href="#3-3-2-多元线性回归" class="headerlink" title="3.3.2 多元线性回归"></a>3.3.2 多元线性回归</h3><p>多元线性回归中的解释变量的数量为两个或两个以上。</p>
+<p>举例：</p>
+<p>上证50由50个市值最大的股票组合而成，在2019年年中，上证50前十大权重股分别是：中国平安、贵州茅台……民生银行、农业银行。</p>
+<p>在逻辑上，上证50的涨跌可以被这前10大权重股解释很大一部分。所以我们将上述10个权重股的日度涨跌幅作为解释变量（X值），将上证50的涨跌幅作为被解释变量（Y值），进行多元回归。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sz50 = pd.read_csv(<span class="string">&#x27;sz50_daily_return_2019.csv&#x27;</span>)</span><br><span class="line">sz50[<span class="string">&#x27;data_date&#x27;</span>] = pd.to_datetime(sz50[<span class="string">&#x27;data_date&#x27;</span>])</span><br><span class="line">weight_stock_code_list = [<span class="string">&#x27;601318.SH&#x27;</span>, <span class="string">&#x27;600519.SH&#x27;</span>, <span class="string">&#x27;600036.SH&#x27;</span>, <span class="string">&#x27;601166.SH&#x27;</span>, <span class="string">&#x27;600276.SH&#x27;</span>, <span class="string">&#x27;600887.SH&#x27;</span>, <span class="string">&#x27;600030.SH&#x27;</span>,  <span class="string">&#x27;601328.SH&#x27;</span>, <span class="string">&#x27;600016.SH&#x27;</span>, <span class="string">&#x27;601288.SH&#x27;</span>]</span><br><span class="line">trading_data_2019_w = trading_data_2019[trading_data_2019 </span><br><span class="line">.secucode.isin(weight_stock_code_list)]</span><br><span class="line"><span class="comment"># 用pandas自带的透视图方法获取不同交易日下10个权重股的涨跌幅</span></span><br><span class="line">trading_data_2019_w.pivot(index=<span class="string">&#x27;data_date&#x27;</span>, columns=<span class="string">&#x27;secucode&#x27;</span>, values=<span class="string">&#x27;daily_return&#x27;</span>).reset_index().fillna(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right">secucode</th>
+<th align="right">data_date</th>
+<th align="right">600016.SH</th>
+<th align="right">600030.SH</th>
+<th align="right">600036.SH</th>
+<th align="right">600276.SH</th>
+<th align="right">600519.SH</th>
+<th align="right">600887.SH</th>
+<th align="right">601166.SH</th>
+<th align="right">601288.SH</th>
+<th align="right">601318.SH</th>
+<th align="right">601328.SH</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">2019-01-02</td>
+<td align="right">-0.013962</td>
+<td align="right">0.000000</td>
+<td align="right">-0.025000</td>
+<td align="right">0.004171</td>
+<td align="right">0.015203</td>
+<td align="right">-0.017483</td>
+<td align="right">-0.013387</td>
+<td align="right">-0.022222</td>
+<td align="right">-0.016399</td>
+<td align="right">-0.020725</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2019-01-03</td>
+<td align="right">0.003540</td>
+<td align="right">0.000000</td>
+<td align="right">0.012617</td>
+<td align="right">-0.035869</td>
+<td align="right">-0.014992</td>
+<td align="right">-0.008007</td>
+<td align="right">0.007463</td>
+<td align="right">0.005682</td>
+<td align="right">0.009061</td>
+<td align="right">0.019400</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2019-01-04</td>
+<td align="right">0.019400</td>
+<td align="right">0.000000</td>
+<td align="right">0.025322</td>
+<td align="right">0.064226</td>
+<td align="right">0.020339</td>
+<td align="right">0.009865</td>
+<td align="right">0.023569</td>
+<td align="right">0.014124</td>
+<td align="right">0.016343</td>
+<td align="right">0.013841</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">2019-01-07</td>
+<td align="right">-0.003460</td>
+<td align="right">0.000000</td>
+<td align="right">0.000392</td>
+<td align="right">-0.014351</td>
+<td align="right">0.005797</td>
+<td align="right">0.011101</td>
+<td align="right">-0.001974</td>
+<td align="right">-0.005571</td>
+<td align="right">-0.005125</td>
+<td align="right">-0.005119</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2019-01-08</td>
+<td align="right">-0.001736</td>
+<td align="right">0.000000</td>
+<td align="right">-0.011755</td>
+<td align="right">0.007654</td>
+<td align="right">-0.001156</td>
+<td align="right">-0.007466</td>
+<td align="right">0.003955</td>
+<td align="right">-0.011204</td>
+<td align="right">-0.008881</td>
+<td align="right">0.003431</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">2019-01-09</td>
+<td align="right">0.001739</td>
+<td align="right">0.000000</td>
+<td align="right">0.019033</td>
+<td align="right">0.028714</td>
+<td align="right">0.018734</td>
+<td align="right">0.008850</td>
+<td align="right">0.008536</td>
+<td align="right">0.005666</td>
+<td align="right">0.020609</td>
+<td align="right">0.005128</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">2019-01-10</td>
+<td align="right">-0.003472</td>
+<td align="right">0.049344</td>
+<td align="right">0.005837</td>
+<td align="right">0.013326</td>
+<td align="right">0.004301</td>
+<td align="right">0.013158</td>
+<td align="right">-0.001953</td>
+<td align="right">-0.011268</td>
+<td align="right">0.009658</td>
+<td align="right">-0.005102</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">2019-01-11</td>
+<td align="right">0.005226</td>
+<td align="right">0.010119</td>
+<td align="right">0.023598</td>
+<td align="right">-0.005687</td>
+<td align="right">0.027652</td>
+<td align="right">0.017749</td>
+<td align="right">0.004566</td>
+<td align="right">0.005698</td>
+<td align="right">0.009913</td>
+<td align="right">0.011966</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">2019-01-14</td>
+<td align="right">-0.006932</td>
+<td align="right">0.001768</td>
+<td align="right">-0.005669</td>
+<td align="right">-0.028954</td>
+<td align="right">-0.017739</td>
+<td align="right">-0.013611</td>
+<td align="right">-0.011039</td>
+<td align="right">-0.008499</td>
+<td align="right">-0.016360</td>
+<td align="right">-0.005068</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<p>最后通过merge方法将上面的透视表与上证50行情合并在一起，作为回归的数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sz50_regression_df = pd.merge(trading_data_2019_w.pivot(index=<span class="string">&#x27;data_date&#x27;</span>, columns=<span class="string">&#x27;secucode&#x27;</span>, values=<span class="string">&#x27;daily_return&#x27;</span>).reset_index().fillna(<span class="number">0</span>), sz50, on=<span class="string">&#x27;data_date&#x27;</span>, how=<span class="string">&#x27;left&#x27;</span>, suffixes=[<span class="string">&#x27;_stock&#x27;</span>, <span class="string">&#x27;_market&#x27;</span>])</span><br><span class="line"></span><br><span class="line">sz50_regression_df</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">data_date</th>
+<th align="right">600016.SH</th>
+<th align="right">600030.SH</th>
+<th align="right">600036.SH</th>
+<th align="right">600276.SH</th>
+<th align="right">600519.SH</th>
+<th align="right">600887.SH</th>
+<th align="right">601166.SH</th>
+<th align="right">601288.SH</th>
+<th align="right">601318.SH</th>
+<th align="right">601328.SH</th>
+<th>daily_return</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">2019-01-02</td>
+<td align="right">-0.013962</td>
+<td align="right">0.000000</td>
+<td align="right">-0.025000</td>
+<td align="right">0.004171</td>
+<td align="right">0.015203</td>
+<td align="right">-0.017483</td>
+<td align="right">-0.013387</td>
+<td align="right">-0.022222</td>
+<td align="right">-0.016399</td>
+<td align="right">-0.020725</td>
+<td>-0.013217</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2019-01-03</td>
+<td align="right">0.003540</td>
+<td align="right">0.000000</td>
+<td align="right">0.012617</td>
+<td align="right">-0.035869</td>
+<td align="right">-0.014992</td>
+<td align="right">-0.008007</td>
+<td align="right">0.007463</td>
+<td align="right">0.005682</td>
+<td align="right">0.009061</td>
+<td align="right">0.019400</td>
+<td>0.002851</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2019-01-04</td>
+<td align="right">0.019400</td>
+<td align="right">0.000000</td>
+<td align="right">0.025322</td>
+<td align="right">0.064226</td>
+<td align="right">0.020339</td>
+<td align="right">0.009865</td>
+<td align="right">0.023569</td>
+<td align="right">0.014124</td>
+<td align="right">0.016343</td>
+<td align="right">0.013841</td>
+<td>0.020008</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">2019-01-07</td>
+<td align="right">-0.003460</td>
+<td align="right">0.000000</td>
+<td align="right">0.000392</td>
+<td align="right">-0.014351</td>
+<td align="right">0.005797</td>
+<td align="right">0.011101</td>
+<td align="right">-0.001974</td>
+<td align="right">-0.005571</td>
+<td align="right">-0.005125</td>
+<td align="right">-0.005119</td>
+<td>-0.000141</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2019-01-08</td>
+<td align="right">-0.001736</td>
+<td align="right">0.000000</td>
+<td align="right">-0.011755</td>
+<td align="right">0.007654</td>
+<td align="right">-0.001156</td>
+<td align="right">-0.007466</td>
+<td align="right">0.003955</td>
+<td align="right">-0.011204</td>
+<td align="right">-0.008881</td>
+<td align="right">0.003431</td>
+<td>-0.003953</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">2019-01-09</td>
+<td align="right">0.001739</td>
+<td align="right">0.000000</td>
+<td align="right">0.019033</td>
+<td align="right">0.028714</td>
+<td align="right">0.018734</td>
+<td align="right">0.008850</td>
+<td align="right">0.008536</td>
+<td align="right">0.005666</td>
+<td align="right">0.020609</td>
+<td align="right">0.005128</td>
+<td>0.011951</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">2019-01-10</td>
+<td align="right">-0.003472</td>
+<td align="right">0.049344</td>
+<td align="right">0.005837</td>
+<td align="right">0.013326</td>
+<td align="right">0.004301</td>
+<td align="right">0.013158</td>
+<td align="right">-0.001953</td>
+<td align="right">-0.011268</td>
+<td align="right">0.009658</td>
+<td align="right">-0.005102</td>
+<td>-0.000372</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">2019-01-11</td>
+<td align="right">0.005226</td>
+<td align="right">0.010119</td>
+<td align="right">0.023598</td>
+<td align="right">-0.005687</td>
+<td align="right">0.027652</td>
+<td align="right">0.017749</td>
+<td align="right">0.004566</td>
+<td align="right">0.005698</td>
+<td align="right">0.009913</td>
+<td align="right">0.011966</td>
+<td>0.009712</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">2019-01-14</td>
+<td align="right">-0.006932</td>
+<td align="right">0.001768</td>
+<td align="right">-0.005669</td>
+<td align="right">-0.028954</td>
+<td align="right">-0.017739</td>
+<td align="right">-0.013611</td>
+<td align="right">-0.011039</td>
+<td align="right">-0.008499</td>
+<td align="right">-0.016360</td>
+<td align="right">-0.005068</td>
+<td>-0.009923</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">2019-01-15</td>
+<td align="right">0.010471</td>
+<td align="right">0.035294</td>
+<td align="right">0.018624</td>
+<td align="right">0.038837</td>
+<td align="right">0.056644</td>
+<td align="right">0.039241</td>
+<td align="right">0.013132</td>
+<td align="right">0.008571</td>
+<td align="right">0.025735</td>
+<td align="right">0.010187</td>
+<td>0.020262</td>
+</tr>
+<tr>
+<td align="right">10</td>
+<td align="right">2019-01-16</td>
+<td align="right">0.000000</td>
+<td align="right">0.002273</td>
+<td align="right">0.001866</td>
+<td align="right">0.018249</td>
+<td align="right">0.001697</td>
+<td align="right">-0.004149</td>
+<td align="right">0.002592</td>
+<td align="right">-0.002833</td>
+<td align="right">0.002560</td>
+<td align="right">0.001681</td>
+<td>0.001198</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<p>对合并后的回归数据进行回归</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = sm.OLS(sz50_regression_df[<span class="string">&#x27;daily_return&#x27;</span>], sz50_regression_df[weight_stock_code_list], hasconst=<span class="literal">True</span>).fit()</span><br><span class="line">result.summary()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-02-07_20-27-49.png" alt="Snipaste_2023-02-07_20-27-49" style="zoom:43%;">
+
+<img src="Snipaste_2023-02-07_20-28-23.png" alt="Snipaste_2023-02-07_20-28-23" style="zoom:43%;">
+
+<p>可以看到R^2为98.1%，解释度很高，但要考虑这10只股票相互之间的相关性如何，如果某两只或者某几只股票存在很强的相关性，不利于训练，需要将其在训练集中剔除。</p>
+<p>查看相关性矩阵：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sz50_regression_df.corr()</span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2023-02-07_20-32-27.png" alt="Snipaste_2023-02-07_20-32-27"></p>
+<p>可以看到相关性系数普遍高于0.65，变量存在“多重共线性”——多个解释变量（X值）之间的相关性较高，造成回归模型可信度下降。通常VIF（方差膨胀系数）大于5，就可以认为自变量存在较大的多重共线性。</p>
+<p>计算VIF的模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.stats.outliers_influence <span class="keyword">import</span> variance_inflation_factor</span><br><span class="line">vif = pd.DataFrame()</span><br><span class="line">vif[<span class="string">&quot;VIF Factor&quot;</span>] = [variance_inflation_factor(np.array(sz50_regression_df[weight_stock_code_list]), cnt) <span class="keyword">for</span> cnt <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">vif[<span class="string">&quot;features&quot;</span>] = weight_stock_code_list</span><br><span class="line"></span><br><span class="line">vif</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">VIF Factor</th>
+<th align="right">features</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">4.479134</td>
+<td align="right">601318.SH</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2.231453</td>
+<td align="right">600519.SH</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">3.665636</td>
+<td align="right">600036.SH</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">3.847585</td>
+<td align="right">601166.SH</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">1.579713</td>
+<td align="right">600276.SH</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">1.599609</td>
+<td align="right">600887.SH</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">2.032290</td>
+<td align="right">600030.SH</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">5.153225</td>
+<td align="right">601328.SH</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">6.801749</td>
+<td align="right">600016.SH</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">3.744748</td>
+<td align="right">601288.SH</td>
+</tr>
+</tbody></table>
+<h2 id="3-4-业绩评价指标"><a href="#3-4-业绩评价指标" class="headerlink" title="3.4 业绩评价指标"></a>3.4 业绩评价指标</h2><h3 id="3-4-1-年化收益率"><a href="#3-4-1-年化收益率" class="headerlink" title="3.4.1 年化收益率"></a>3.4.1 年化收益率</h3><p>概念自行百度，年化收益率只考虑了收益率这一个特点，而不考虑波动的因素</p>
+<h3 id="3-4-2-夏普比率"><a href="#3-4-2-夏普比率" class="headerlink" title="3.4.2 夏普比率"></a>3.4.2 夏普比率</h3><h3 id="3-4-3-信息比率"><a href="#3-4-3-信息比率" class="headerlink" title="3.4.3 信息比率"></a>3.4.3 信息比率</h3><p>IR是一个衡量组合超额收益的指标，其含义是单位主动风险所带来的超额收益。</p>
+<p>它考虑了投资者的基准、投资者获取超额收益的能力以及获取这一收益的稳定性。</p>
+<h1 id="第四章-单因子测试"><a href="#第四章-单因子测试" class="headerlink" title="第四章 单因子测试"></a>第四章 单因子测试</h1><p>一个好的因子不仅在历史数据上与股票收益率之间体现出稳定且持续的相关关系，而且因子的逻辑和因子与股票收益率的关系都可以被<strong>经济逻辑</strong>解释。如果单纯是用统计方法寻找出来的因子，则很可能会陷入数据挖掘的陷阱，导致模型的外推能力很差。</p>
 <h2 id="4-1-因子的来源"><a href="#4-1-因子的来源" class="headerlink" title="4.1 因子的来源"></a>4.1 因子的来源</h2><p>因子的来源这一问题是在回答“什么样的因素会导致股票上涨或下跌？”或者“涨得好（坏）的股票都有什么样的特点？”这两个问题。</p>
 <img src="%E5%9B%A0%E5%AD%90%E7%9A%84%E6%9D%A5%E6%BA%90.png" alt="因子的来源" style="zoom: 33%;">
 
@@ -1120,7 +1623,251 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>] = sub_trading_data[<span class="string">&#x27;size&#x27;</span>].where(sub_trading_data[<span class="string">&#x27;size&#x27;</span>] &lt; size_upper, size_upper).where(sub_trading_data[<span class="string">&#x27;size&#x27;</span>] &gt; size_lower, size_lower)</span><br><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
 
 <p><img src="%E4%B8%8B%E8%BD%BD%20(2).png" alt="下载 (2)"></p>
+<p>另外，会存在数据失真的情况——异常值的出现，在计算财务因子的时候往往会出现，比如当PE小于0的时候，其实这一指标已经变得没有意义了，应该做相应的处理——一律赋值为上限值或者下限值；将PE最终处理完成后的因子赋值为0，即PE值对公司的最终因子得分情况没有任何影响。</p>
+<h3 id="4-2-5-标准化"><a href="#4-2-5-标准化" class="headerlink" title="4.2.5 标准化"></a>4.2.5 标准化</h3><p>在对异常值处理之后，需要对因子进行标准化——即去除因子的量纲，让每一个因子之间都可以进行比较、相互叠加，因子组合的前提是这些因子具有相同的量纲。对因子进行标准化后不再有单位的概念，而仅是一个被标准化之后的分值（Z-score）。</p>
+<p>标准化公式如下：标准化后的因子值&#x3D;（因子原始值-因子均值）&#x2F;因子的标准差</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>] = (sub_trading_data[<span class="string">&#x27;size&#x27;</span>] - sub_trading_data[<span class="string">&#x27;size&#x27;</span>].mean()) / sub_trading_data[<span class="string">&#x27;size&#x27;</span>].std()</span><br><span class="line">sub_trading_data[<span class="string">&#x27;size&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
 
+<p><img src="%E4%B8%8B%E8%BD%BD%20(3).png" alt="下载 (3)"></p>
+<p>对比可以看到，两张图的形状没有变化，只是横坐标的数值范围和大小发生了变化。后者的因子分布围绕着0，而且正负值都有。</p>
+<h3 id="4-2-6-中性化"><a href="#4-2-6-中性化" class="headerlink" title="4.2.6 中性化"></a>4.2.6 中性化</h3><p>以市值因子为例，有的行业的公司市值就是大，比如银行；有些行业是典型的轻资产成长型行业如传媒，上面计算因子的过程其实如同把所有行业放在一个擂台上进行拳击比赛，显然不公平，为了解决这一问题，提出中性化的概念，对行业进行区分的进一步处理方法叫做“行业中性化”。</p>
+<p>目前市场上使用最多的行业分类有三种：GICS（全球行业分类，标准普尔与大摩公司推出）、申万一级行业（申银万国证券研究所发布）、中信一级行业（中信证券研究所发布）。本文选取申万一级行业分类。</p>
+<p><strong>重要原理</strong>：<strong>中性化即将行业变成哑变量后再作为解释变量（X值），而需要中性化的因子则作为被解析变量（Y值）进行回归。回归的残差项就是被中性化后的因子值。如果用行业哑变量来解释因子值，那么不能被行业解释的那一部分就是剔除了行业因素后的因子值。而剔除了行业因素后的因子值就是回归模型的残差项，这也正是我们希望获得的行业中性化之后的结果。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">industry_neutralization</span>(<span class="params">factor_df, factor_name</span>):  <span class="comment"># 定义计算回归的函数，返回回归模型的残差项</span></span><br><span class="line">    result = sm.OLS(factor_df[factor_name], factor_df[<span class="built_in">list</span>(factor_df.ind_code.unique())], hasconst=<span class="literal">True</span>).fit()</span><br><span class="line">    <span class="keyword">return</span> result.resid</span><br><span class="line"></span><br><span class="line">sub_trading_data = pd.concat([sub_trading_data, pd.get_dummies(sub_trading_data[<span class="string">&#x27;ind_code&#x27;</span>])], axis=<span class="number">1</span>) <span class="comment"># 获得行业哑变量，ind_code行业代码</span></span><br></pre></td></tr></table></figure>
+
+<p>然后用行业中性化函数industry_neutralization实现对这一天市值因子的行业中性化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[<span class="string">&#x27;size_factor_neuted&#x27;</span>] = industry_neutralization(sub_trading_data, <span class="string">&#x27;size&#x27;</span>)</span><br><span class="line">sub_trading_data[[<span class="string">&#x27;data_date&#x27;</span>, <span class="string">&#x27;secucode&#x27;</span>,<span class="string">&#x27;ind_code&#x27;</span>,<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">data_date</th>
+<th align="right">secucode</th>
+<th align="right">ind_code</th>
+<th align="right">size</th>
+<th>size_factor_neuted</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">334461</td>
+<td align="right">2019-05-27</td>
+<td align="right">000001.SZ</td>
+<td align="right">480000</td>
+<td align="right">3.128591</td>
+<td>0.859205</td>
+</tr>
+<tr>
+<td align="right">334462</td>
+<td align="right">2019-05-27</td>
+<td align="right">000002.SZ</td>
+<td align="right">430000</td>
+<td align="right">3.128591</td>
+<td>2.911020</td>
+</tr>
+<tr>
+<td align="right">334463</td>
+<td align="right">2019-05-27</td>
+<td align="right">000004.SZ</td>
+<td align="right">370000</td>
+<td align="right">-1.171737</td>
+<td>-1.323925</td>
+</tr>
+<tr>
+<td align="right">334464</td>
+<td align="right">2019-05-27</td>
+<td align="right">000005.SZ</td>
+<td align="right">410000</td>
+<td align="right">-0.636252</td>
+<td>-0.699192</td>
+</tr>
+<tr>
+<td align="right">334465</td>
+<td align="right">2019-05-27</td>
+<td align="right">000006.SZ</td>
+<td align="right">430000</td>
+<td align="right">0.251347</td>
+<td>0.033776</td>
+</tr>
+<tr>
+<td align="right">334466</td>
+<td align="right">2019-05-27</td>
+<td align="right">000007.SZ</td>
+<td align="right">430000</td>
+<td align="right">-0.905512</td>
+<td>-1.123082</td>
+</tr>
+<tr>
+<td align="right">334467</td>
+<td align="right">2019-05-27</td>
+<td align="right">000008.SZ</td>
+<td align="right">640000</td>
+<td align="right">0.554857</td>
+<td>1.011895</td>
+</tr>
+<tr>
+<td align="right">334468</td>
+<td align="right">2019-05-27</td>
+<td align="right">000009.SZ</td>
+<td align="right">510000</td>
+<td align="right">0.735112</td>
+<td>1.066907</td>
+</tr>
+<tr>
+<td align="right">334469</td>
+<td align="right">2019-05-27</td>
+<td align="right">000010.SZ</td>
+<td align="right">620000</td>
+<td align="right">-0.931866</td>
+<td>-0.879259</td>
+</tr>
+<tr>
+<td align="right">334470</td>
+<td align="right">2019-05-27</td>
+<td align="right">000011.SZ</td>
+<td align="right">430000</td>
+<td align="right">-0.160195</td>
+<td>-0.377766</td>
+</tr>
+<tr>
+<td align="right">334471</td>
+<td align="right">2019-05-27</td>
+<td align="right">000012.SZ</td>
+<td align="right">610000</td>
+<td align="right">0.361988</td>
+<td>0.592587</td>
+</tr>
+<tr>
+<td align="right">334472</td>
+<td align="right">2019-05-27</td>
+<td align="right">000014.SZ</td>
+<td align="right">430000</td>
+<td align="right">-1.121544</td>
+<td>-1.339114</td>
+</tr>
+<tr>
+<td align="right">334473</td>
+<td align="right">2019-05-27</td>
+<td align="right">000016.SZ</td>
+<td align="right">330000</td>
+<td align="right">0.123686</td>
+<td>0.270823</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<p>最后绘制被中性化前后的因子值的分布直方图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[[<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]].hist(bins=<span class="number">100</span>,figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(7).png" alt="下载 (7)"></p>
+<p>左边为被中性化前的因子分布直方图，右边是被中性化后的，单纯从形状上看，做了行业中性化之后的因子值分布更加匀称，但不存在质的变化。</p>
+<p><strong>[注意]：有的因子值在被中性化之后会超过之前设定的-3、+3的阈值。如果有必要，我们可以在中性化之后对部分因子再进行一次去极值处理。</strong></p>
+<p>我们以市值普遍较大的银行业和公司数量较多的化工业为例，来分析以下其市值因子被中性化前后的变化。（银行业的申万一级行业代码为480000，化工行业代码为220000）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[sub_trading_data.ind_code == <span class="string">&#x27;480000&#x27;</span>][[<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span> ,<span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(8).png" alt="下载 (8)"></p>
+<p>可以看到，银行业市值因子被中性化前后没有任何形状的变化，但是对应的横坐标轴的数值发生了改变。</p>
+<p>接下来计算被中性化前后，银行市值因子的均值，在中性化之前，均值达到2.2左右，证实了银行业的上市公司市值普遍较大的情况，被中性化后均值几乎为0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[sub_trading_data.ind_code == <span class="string">&#x27;480000&#x27;</span>][[<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]].mean()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size                  2.269385e+00</span><br><span class="line">size_factor_neuted   -8.187895e-16</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>接下来是化工：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[sub_trading_data.ind_code==<span class="string">&#x27;220000&#x27;</span>][[<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span> ,<span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(9).png" alt="下载 (9)"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[sub_trading_data.ind_code==<span class="string">&#x27;220000&#x27;</span>][[<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]].mean()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size                 -2.150850e-01</span><br><span class="line">size_factor_neuted   -1.959217e-17</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>这个例子让我们理解了中性化的作用和重要性。</p>
+<p>还有一个问题，行情数据中的日期是交易当天的，例如2019年5月27日的因子需要在收盘后才能通过计算获得，实际使用需要等到2019年5月28日。为了避免使用未来信息，就需要将因子数据的时间进行调整——<strong>将日期往后调整一天表征为因子使用时间的日期“factor_date”</strong></p>
+<p>5.27改为5.28</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">size_factor_df = sub_trading_data[[<span class="string">&#x27;data_date&#x27;</span>, <span class="string">&#x27;secucode&#x27;</span>,<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]]</span><br><span class="line">size_factor_df[<span class="string">&#x27;data_date&#x27;</span>] = pd.to_datetime(<span class="string">&#x27;2019-05-28&#x27;</span>)</span><br><span class="line">size_factor_df.rename(columns=&#123;<span class="string">&#x27;data_date&#x27;</span>: <span class="string">&#x27;factor_date&#x27;</span>&#125;, inplace=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">size_factor_df</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">factor_date</th>
+<th align="right">secucode</th>
+<th align="right">size</th>
+<th align="right">size_factor_neuted</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">334461</td>
+<td align="right">2019-05-28</td>
+<td align="right">000001.SZ</td>
+<td align="right">3.128591</td>
+<td align="right">0.859205</td>
+</tr>
+<tr>
+<td align="right">334462</td>
+<td align="right">2019-05-28</td>
+<td align="right">000002.SZ</td>
+<td align="right">3.128591</td>
+<td align="right">2.911020</td>
+</tr>
+<tr>
+<td align="right">334463</td>
+<td align="right">2019-05-28</td>
+<td align="right">000004.SZ</td>
+<td align="right">-1.171737</td>
+<td align="right">-1.323925</td>
+</tr>
+<tr>
+<td align="right">334464</td>
+<td align="right">2019-05-28</td>
+<td align="right">000005.SZ</td>
+<td align="right">-0.636252</td>
+<td align="right">-0.699192</td>
+</tr>
+<tr>
+<td align="right">334465</td>
+<td align="right">2019-05-28</td>
+<td align="right">000006.SZ</td>
+<td align="right">0.251347</td>
+<td align="right">0.033776</td>
+</tr>
+<tr>
+<td align="right">334466</td>
+<td align="right">2019-05-28</td>
+<td align="right">000007.SZ</td>
+<td align="right">-0.905512</td>
+<td align="right">-1.123082</td>
+</tr>
+<tr>
+<td align="right">334467</td>
+<td align="right">2019-05-28</td>
+<td align="right">000008.SZ</td>
+<td align="right">0.554857</td>
+<td align="right">1.011895</td>
+</tr>
+<tr>
+<td align="right">334468</td>
+<td align="right">2019-05-28</td>
+<td align="right">000009.SZ</td>
+<td align="right">0.735112</td>
+<td align="right">1.066907</td>
+</tr>
+<tr>
+<td align="right">334469</td>
+<td align="right">2019-05-28</td>
+<td align="right">000010.SZ</td>
+<td align="right">-0.931866</td>
+<td align="right">-0.879259</td>
+</tr>
+<tr>
+<td align="right">334470</td>
+<td align="right">2019-05-28</td>
+<td align="right">000011.SZ</td>
+<td align="right">-0.160195</td>
+<td align="right">-0.377766</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<p>到这一步，2019年5月27日（市值因子日期为2019年5月28日）这一天的市值因子就计算完成了，可以将其存入数据库或csv文件，方便后期调用。</p>
+<h2 id="4-3-ROE因子"><a href="#4-3-ROE因子" class="headerlink" title="4.3 ROE因子"></a>4.3 ROE因子</h2>
       
 
       
