@@ -8159,7 +8159,7 @@ random(size):在[0,1)内生成随机数
 <p><strong>2. ESG因子</strong></p>
 <p>环境、责任和公司治理。</p>
 <p>ESG因子目前在海外比较流行，而在国内则较少被提及。ESG因子背后的逻辑是公司的价值有一部分会通过对环境的保护、对社会的外部性和公司内部治理的合理性所体现出来。如果公司能够有长远的目标，在ESG方面进行努力，那么该公司往往容易获得市场的认可，从而其股价也能具有较好的表现。</p>
-<h2 id="4-2-大小盘因子"><a href="#4-2-大小盘因子" class="headerlink" title="4.2 大小盘因子"></a>4.2 大小盘因子</h2><h3 id="4-2-1-大小盘因子的定义"><a href="#4-2-1-大小盘因子的定义" class="headerlink" title="4.2.1 大小盘因子的定义"></a>4.2.1 大小盘因子的定义</h3><p>市值（mv）的大小对股票的涨跌是由较大的影响的，这也是为什么会有“盘子太大，涨不起来”这一说法的原因。从历史数据来看，中证500代表的中小市值股票是跑赢上证50代表的大市值股票的，也就是投资者更加偏好小市值股票。从经济逻辑上来讲，对于小市值公司能够获得超额收益这个现象由以下三个原因：</p>
+<h2 id="4-2-大小盘因子（市值因子）"><a href="#4-2-大小盘因子（市值因子）" class="headerlink" title="4.2 大小盘因子（市值因子）"></a>4.2 大小盘因子（市值因子）</h2><h3 id="4-2-1-大小盘因子的定义"><a href="#4-2-1-大小盘因子的定义" class="headerlink" title="4.2.1 大小盘因子的定义"></a>4.2.1 大小盘因子的定义</h3><p>市值（mv）的大小对股票的涨跌是由较大的影响的，这也是为什么会有“盘子太大，涨不起来”这一说法的原因。从历史数据来看，中证500代表的中小市值股票是跑赢上证50代表的大市值股票的，也就是投资者更加偏好小市值股票。从经济逻辑上来讲，对于小市值公司能够获得超额收益这个现象由以下三个原因：</p>
 <ol>
 <li>小市值的公司往往是新兴产业，未来经营具有很大的不确定性，所以投资者投资小市值公司需要获得相应的风险溢价</li>
 <li>我国股市投资者炒作情绪浓重，在一个不能做空的市场，往往炒作情绪越浓重的板块越容易产生超额收益，小盘往往是炒作的对象</li>
@@ -8218,7 +8218,10 @@ random(size):在[0,1)内生成随机数
 <h3 id="4-2-6-中性化"><a href="#4-2-6-中性化" class="headerlink" title="4.2.6 中性化"></a>4.2.6 中性化</h3><p>以市值因子为例，有的行业的公司市值就是大，比如银行；有些行业是典型的轻资产成长型行业如传媒，上面计算因子的过程其实如同把所有行业放在一个擂台上进行拳击比赛，显然不公平，为了解决这一问题，提出中性化的概念，对行业进行区分的进一步处理方法叫做“行业中性化”。</p>
 <p>目前市场上使用最多的行业分类有三种：GICS（全球行业分类，标准普尔与大摩公司推出）、申万一级行业（申银万国证券研究所发布）、中信一级行业（中信证券研究所发布）。本文选取申万一级行业分类。</p>
 <p><strong>重要原理</strong>：<strong>中性化即将行业变成哑变量后再作为解释变量（X值），而需要中性化的因子则作为被解析变量（Y值）进行回归。回归的残差项就是被中性化后的因子值。如果用行业哑变量来解释因子值，那么不能被行业解释的那一部分就是剔除了行业因素后的因子值。而剔除了行业因素后的因子值就是回归模型的残差项，这也正是我们希望获得的行业中性化之后的结果。</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">industry_neutralization</span>(<span class="params">factor_df, factor_name</span>):  <span class="comment"># 定义计算回归的函数，返回回归模型的残差项</span></span><br><span class="line">    result = sm.OLS(factor_df[factor_name], factor_df[<span class="built_in">list</span>(factor_df.ind_code.unique())], hasconst=<span class="literal">True</span>).fit()</span><br><span class="line">    <span class="keyword">return</span> result.resid</span><br><span class="line"></span><br><span class="line">sub_trading_data = pd.concat([sub_trading_data, pd.get_dummies(sub_trading_data[<span class="string">&#x27;ind_code&#x27;</span>])], axis=<span class="number">1</span>) <span class="comment"># 获得行业哑变量，ind_code行业代码</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>行业中性化函数</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">industry_neutralization</span>(<span class="params">factor_df, factor_name</span>):  <span class="comment"># 定义计算回归的函数，返回回归模型的残差项</span></span><br><span class="line">    result = sm.OLS(factor_df[factor_name], factor_df[<span class="built_in">list</span>(factor_df.ind_code.unique())], hasconst=<span class="literal">True</span>).fit()</span><br><span class="line">    <span class="keyword">return</span> result.resid</span><br><span class="line"></span><br><span class="line">sub_trading_data = pd.concat([sub_trading_data, pd.get_dummies(sub_trading_data[<span class="string">&#x27;ind_code&#x27;</span>])], axis=<span class="number">1</span>) <span class="comment"># ind_code为行业代码，get_dummies（）进行行业代码的哑变量化，处理之后和原数据表连接</span></span><br></pre></td></tr></table></figure>
 
 <p>然后用行业中性化函数industry_neutralization实现对这一天市值因子的行业中性化：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub_trading_data[<span class="string">&#x27;size_factor_neuted&#x27;</span>] = industry_neutralization(sub_trading_data, <span class="string">&#x27;size&#x27;</span>)</span><br><span class="line">sub_trading_data[[<span class="string">&#x27;data_date&#x27;</span>, <span class="string">&#x27;secucode&#x27;</span>,<span class="string">&#x27;ind_code&#x27;</span>,<span class="string">&#x27;size&#x27;</span>, <span class="string">&#x27;size_factor_neuted&#x27;</span>]]</span><br></pre></td></tr></table></figure>
@@ -8452,7 +8455,396 @@ random(size):在[0,1)内生成随机数
 </tbody></table>
 <p>…………………………</p>
 <p>到这一步，2019年5月27日（市值因子日期为2019年5月28日）这一天的市值因子就计算完成了，可以将其存入数据库或csv文件，方便后期调用。</p>
-<h2 id="4-3-ROE因子"><a href="#4-3-ROE因子" class="headerlink" title="4.3 ROE因子"></a>4.3 ROE因子</h2>
+<h2 id="4-3-ROE因子"><a href="#4-3-ROE因子" class="headerlink" title="4.3 ROE因子"></a>4.3 ROE因子</h2><p>净资产收益率（ROE），又称为股东权益报酬率，不仅是一个很好的指标，而且是一个长期有效的指标，甚至可以说意味着价值投资的本质。ROE高说明公司在创造价值，是实打实地向社会输出自己的产品，同时换回相应的回报。</p>
+<p>本节以ROE因子为例，介绍财务因子的计算方法。</p>
+<h3 id="4-3-1-ROE因子简介"><a href="#4-3-1-ROE因子简介" class="headerlink" title="4.3.1 ROE因子简介"></a>4.3.1 ROE因子简介</h3><p>本节用近12个月的净利润（TTM）与平均股东权益相除的方式来计算ROE。其中平均股东权益为最新一期财报的股东权益和去年同期财报股东权益的均值。</p>
+<p>ROE &#x3D; 最近12个月（TTM）净利润&#x2F;（0.5 x 最新一期财报股东权益 + 0.5 x 上年同期股东权益）</p>
+<p>由此计算的ROE叫做TTM（最近12个月）的ROE。</p>
+<hr>
+<p>TTM：将过去12个月或四个季度的数据累加求和作为某一财务指标，就可以称其为“某指标的TTM”。</p>
+<h3 id="4-3-2-ROE因子的计算"><a href="#4-3-2-ROE因子的计算" class="headerlink" title="4.3.2 ROE因子的计算"></a>4.3.2 ROE因子的计算</h3><p>其相对于市值因子而言需要考虑的是对异常值的处理</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roe_factor = pd.read_hdf(<span class="string">&#x27;./factor/roe.h5&#x27;</span>)</span><br><span class="line">roe_factor.head()</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">data_date</th>
+<th align="right">secucode</th>
+<th align="right">roe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">2013-01-22</td>
+<td align="right">000001.SZ</td>
+<td align="right">4.30</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2013-01-22</td>
+<td align="right">000002.SZ</td>
+<td align="right">2.43</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2013-01-22</td>
+<td align="right">000004.SZ</td>
+<td align="right">0.49</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">2013-01-22</td>
+<td align="right">000005.SZ</td>
+<td align="right">2.49</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2013-01-22</td>
+<td align="right">000006.SZ</td>
+<td align="right">2.46</td>
+</tr>
+</tbody></table>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roe_factor[roe_factor[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>][<span class="string">&#x27;roe&#x27;</span>].hist(bins=<span class="number">100</span>,figsize=(<span class="number">18</span>, <span class="number">9</span>)) <span class="comment"># 选取2019.5.27日的因子值，绘制ROE数据分布直方图</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B2%E8%BD%BD.png" alt="下2载"></p>
+<p>从这天的ROE分布来看，ROE原始数据有很大的问题：存在极大的ROE数值且有负的ROE指。</p>
+<p>对于ROE数值为负的公司需要谨慎对待，有的公司可能是科技成长型公司，前期就处于亏损的状态，在这种情形下可以设置其<strong>因子值为0</strong>；而有的公司是由于业绩不好、经营不善导致的亏损，这个时候，就应该将这些公司的<strong>因子值变为压缩后的最小阈值</strong>。</p>
+<p>这一部分需要投资者进行主观判断，笔者这里仅采用一种较为合理的方法作为案例供读者参考。</p>
+<hr>
+<p>首先我们进行简单的极值化和标准化处理：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">roe_factor = roe_factor[roe_factor[<span class="string">&#x27;data_date&#x27;</span>] == <span class="string">&#x27;2019-05-27&#x27;</span>]   <span class="comment"># 选择2019年5月27日这一天的数据</span></span><br><span class="line">roe_upper = roe_factor[<span class="string">&#x27;roe&#x27;</span>].mean() + <span class="number">3</span> * roe_factor[<span class="string">&#x27;roe&#x27;</span>].std()</span><br><span class="line">roe_lower = roe_factor[<span class="string">&#x27;roe&#x27;</span>].mean() - <span class="number">3</span> * roe_factor[<span class="string">&#x27;roe&#x27;</span>].std()</span><br><span class="line"></span><br><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>] = roe_factor[<span class="string">&#x27;roe&#x27;</span>].where(roe_factor[<span class="string">&#x27;roe&#x27;</span>] &lt; roe_upper, roe_upper).where(roe_factor[<span class="string">&#x27;roe&#x27;</span>] &gt; roe_lower, roe_lower)</span><br><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p>我们使用和市值因子一样的办法获得了一个截面数据，并制定了以3倍标准差为范围的因子的上下阈值。被常规压缩后的ROE因子值的分布如下：</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(10).png" alt="下载 (10)"></p>
+<p>可以看到对于ROE因子这一阈值选取的并不合理，当我们选取3倍标准差的时候，即使对因子值进行了压缩，最终的分布也不尽如人意。</p>
+<p>实际上，ROE因子是一个财务因子，本身有很强的经济意义，可以直接设置其阈值，我们可以将ROE上边界设定为30%，下边界设定为0.当然这里阈值的设定需要投资者融入自己的观点，可以随市场不同而变化，按照这一方法进行压缩后，因子值的分布直方图如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>] = roe_factor[<span class="string">&#x27;roe&#x27;</span>].where(roe_factor[<span class="string">&#x27;roe&#x27;</span>] &lt; <span class="number">30</span>, <span class="number">30</span>).where(roe_factor[<span class="string">&#x27;roe&#x27;</span>] &gt; <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(11).png" alt="下载 (11)"></p>
+<p>因子标准化：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>] = (roe_factor[<span class="string">&#x27;roe&#x27;</span>] - roe_factor[<span class="string">&#x27;roe&#x27;</span>].mean()) / roe_factor[<span class="string">&#x27;roe&#x27;</span>].std()</span><br><span class="line">roe_factor[<span class="string">&#x27;roe&#x27;</span>].hist(bins=<span class="number">100</span>, figsize=(<span class="number">18</span>, <span class="number">9</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(12).png" alt="下载 (12)"></p>
+<p>该分布虽然不像市值因子那样具有较好的对称性，但是这一数据处理的结果隐含着<strong>投资者的投资观点</strong>，例如，ROE最高限度30%的选取与我国资本市场近十几年来具有长期稳定高ROE公司的ROE平均水平相一致。ROE超过30%的公司，通常是周期行业在周期顶部形成的不可持续的ROE，很难保证公司一直处于高ROE状态。</p>
+<h3 id="4-3-3-市值中性化"><a href="#4-3-3-市值中性化" class="headerlink" title="4.3.3 市值中性化"></a>4.3.3 市值中性化</h3><p>在大小盘因子中我们引入了<strong>行业中性化</strong>，现在我们在<strong>行业中性化</strong>之外引入<strong>市值中性化</strong>的概念。（实际上最常用的两种中性化就是<strong>行业中性化和市值中性化</strong>）</p>
+<p>行业中性化解决了不同行业间因子值天然存在差异的问题。同样地，引入市值因子的中性化是为了避免市值因子对因子本身的影响。</p>
+<p><strong>行业特性</strong>会影响因子，而<strong>市值或者说公司的规模</strong>也会影响因子。例如在同一个行业中，大市值的公司和小市值的公司往往体现出不同的特征。公司<strong>规模大</strong>往往借贷成本低，同时相对于行业中的其他公司来说处于较为成熟的时期，<strong>估值相对会较低</strong>。</p>
+<p>当我们对因子进行“行业+市值”的中性化后，就可以剔除<strong>“公司所处行业”和“公司规模”</strong>这两个因素对因子本身的影响。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roe_factor</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">data_date</th>
+<th align="right">secucode</th>
+<th align="right">roe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">341148</td>
+<td align="right">2019-05-27</td>
+<td align="right">000001.SZ</td>
+<td align="right">0.359087</td>
+</tr>
+<tr>
+<td align="right">341149</td>
+<td align="right">2019-05-27</td>
+<td align="right">000002.SZ</td>
+<td align="right">-0.506468</td>
+</tr>
+<tr>
+<td align="right">341150</td>
+<td align="right">2019-05-27</td>
+<td align="right">000004.SZ</td>
+<td align="right">1.014810</td>
+</tr>
+<tr>
+<td align="right">341151</td>
+<td align="right">2019-05-27</td>
+<td align="right">000005.SZ</td>
+<td align="right">-0.776251</td>
+</tr>
+<tr>
+<td align="right">341152</td>
+<td align="right">2019-05-27</td>
+<td align="right">000006.SZ</td>
+<td align="right">-0.113034</td>
+</tr>
+<tr>
+<td align="right">341153</td>
+<td align="right">2019-05-27</td>
+<td align="right">000007.SZ</td>
+<td align="right">0.928629</td>
+</tr>
+<tr>
+<td align="right">341154</td>
+<td align="right">2019-05-27</td>
+<td align="right">000008.SZ</td>
+<td align="right">-0.716299</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">size_factor_df[[<span class="string">&#x27;secucode&#x27;</span>, <span class="string">&#x27;size&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">secucode</th>
+<th align="right">size</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">334461</td>
+<td align="right">000001.SZ</td>
+<td align="right">3.128591</td>
+</tr>
+<tr>
+<td align="right">334462</td>
+<td align="right">000002.SZ</td>
+<td align="right">3.128591</td>
+</tr>
+<tr>
+<td align="right">334463</td>
+<td align="right">000004.SZ</td>
+<td align="right">-1.171737</td>
+</tr>
+<tr>
+<td align="right">334464</td>
+<td align="right">000005.SZ</td>
+<td align="right">-0.636252</td>
+</tr>
+<tr>
+<td align="right">334465</td>
+<td align="right">000006.SZ</td>
+<td align="right">0.251347</td>
+</tr>
+<tr>
+<td align="right">334466</td>
+<td align="right">000007.SZ</td>
+<td align="right">-0.905512</td>
+</tr>
+<tr>
+<td align="right">334467</td>
+<td align="right">000008.SZ</td>
+<td align="right">0.554857</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<blockquote>
+<p><strong>市值中性化函数</strong></p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">industry_and_size_neutralization</span>(<span class="params">factor_df, factor_name</span>):</span><br><span class="line">    result = sm.OLS(factor_df[factor_name], factor_df[<span class="built_in">list</span>(factor_df.ind_code.unique()) + [<span class="string">&#x27;size&#x27;</span>]], hasconst=<span class="literal">False</span>).fit()   <span class="comment"># size即为市值因子</span></span><br><span class="line">    <span class="keyword">return</span> result.resid</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 利用之前市值因子行业中性化中使用的行情和行业数据来进行数据整合</span></span><br><span class="line">sub_trading_data = pd.concat([sub_trading_data, pd.get_dummies(sub_trading_data[<span class="string">&#x27;ind_code&#x27;</span>])], axis=<span class="number">1</span>) <span class="comment"># ind_code为行业代码，get_dummies（）进行行业代码的哑变量化，处理之后和原数据表连接</span></span><br><span class="line"></span><br><span class="line">roe_neuted_df = pd.merge(sub_trading_data, roe_factor[[<span class="string">&#x27;secucode&#x27;</span>, <span class="string">&#x27;roe&#x27;</span>]])</span><br><span class="line">roe_neuted_df[<span class="string">&#x27;roe_neuted&#x27;</span>] = industry_and_size_neutralization(roe_neuted_df, <span class="string">&#x27;roe&#x27;</span>)</span><br><span class="line"></span><br><span class="line">roe_neuted_df[[<span class="string">&#x27;data_date&#x27;</span>,<span class="string">&#x27;secucode&#x27;</span>, <span class="string">&#x27;roe_neuted&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">data_date</th>
+<th align="right">secucode</th>
+<th align="right">roe_neuted</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">2019-05-27</td>
+<td align="right">000001.SZ</td>
+<td align="right">-0.275693</td>
+</tr>
+<tr>
+<td align="right">1</td>
+<td align="right">2019-05-27</td>
+<td align="right">000002.SZ</td>
+<td align="right">-1.230760</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td align="right">2019-05-27</td>
+<td align="right">000004.SZ</td>
+<td align="right">1.055475</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td align="right">2019-05-27</td>
+<td align="right">000005.SZ</td>
+<td align="right">-0.665597</td>
+</tr>
+<tr>
+<td align="right">4</td>
+<td align="right">2019-05-27</td>
+<td align="right">000006.SZ</td>
+<td align="right">-0.144276</td>
+</tr>
+<tr>
+<td align="right">5</td>
+<td align="right">2019-05-27</td>
+<td align="right">000007.SZ</td>
+<td align="right">1.176042</td>
+</tr>
+<tr>
+<td align="right">6</td>
+<td align="right">2019-05-27</td>
+<td align="right">000008.SZ</td>
+<td align="right">-0.831623</td>
+</tr>
+<tr>
+<td align="right">7</td>
+<td align="right">2019-05-27</td>
+<td align="right">000009.SZ</td>
+<td align="right">-0.437243</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">2019-05-27</td>
+<td align="right">000010.SZ</td>
+<td align="right">-0.311500</td>
+</tr>
+<tr>
+<td align="right">9</td>
+<td align="right">2019-05-27</td>
+<td align="right">000011.SZ</td>
+<td align="right">0.160937</td>
+</tr>
+</tbody></table>
+<h2 id="4-4-RSI因子"><a href="#4-4-RSI因子" class="headerlink" title="4.4 RSI因子"></a>4.4 RSI因子</h2><p>RSI（相对强弱指标）为一种技术因子，以此为例讨论技术类因子的计算与处理，RSI反映的是一定时期内某只股票的市场情绪</p>
+<h3 id="4-4-1-RSI指标计算"><a href="#4-4-1-RSI指标计算" class="headerlink" title="4.4.1 RSI指标计算"></a>4.4.1 RSI指标计算</h3><p>计算过程自行百度；</p>
+<p>在一般的技术分析中，我们通常会查看RSI的数值来判断当下的市场强弱情况，RSI&gt;80 为超买，应该卖出，RSI&lt;20 为超卖，应当买入。</p>
+<h3 id="4-4-2-RSI因子的定义与计算"><a href="#4-4-2-RSI因子的定义与计算" class="headerlink" title="4.4.2 RSI因子的定义与计算"></a>4.4.2 RSI因子的定义与计算</h3><blockquote>
+<p>可以直接使用聚宽中的数据，此处作者是自己编函数求了一遍，较为复杂，实操中可以直接用现成的数据</p>
+</blockquote>
+<blockquote>
+<p>因子的标准化、极值处理、中性化等一些列操作是通用的，实际上这些因子处理方法包括后面的因子IC处理都是可以交给聚宽完成了，方便快捷，不需要重复造轮子</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 聚宽的例子</span></span><br><span class="line"><span class="keyword">from</span> jqlib.technical_analysis <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># 定义股票池列表</span></span><br><span class="line">security_list1 = <span class="string">&#x27;000001.XSHE&#x27;</span></span><br><span class="line">security_list2 = [<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>,<span class="string">&#x27;603100.XSHG&#x27;</span>]</span><br><span class="line"><span class="comment"># 计算并输出 security_list1 的 RSI 值</span></span><br><span class="line">RSI1 = RSI(security_list1, check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, N1=<span class="number">6</span>)</span><br><span class="line"><span class="built_in">print</span>(RSI1[security_list1])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出 security_list2 的 RSI 值</span></span><br><span class="line">RSI2 = RSI(security_list2, check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, N1=<span class="number">6</span>)</span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> security_list2:</span><br><span class="line">    <span class="built_in">print</span>(RSI2[stock])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">51.388877159421064</span><br><span class="line">51.388877159421064</span><br><span class="line">41.293630014150345</span><br><span class="line">55.676122434678376</span><br><span class="line">74.37708402873066</span><br></pre></td></tr></table></figure>
+
+<p>但是这个RSI因子（隶属于技术因子）在聚宽因子库中是没有的，只能在技术指标中找到RSI函数，但这个函数只能求某一天（具体到时分秒）的一只股票或者某几只股票的RSI值。</p>
+<hr>
+<p><strong>下面我们在聚宽因子库中挑选EMA5因子（5日指数移动均线这个指标）来进行展示：</strong></p>
+<p><strong>以下操作非常重要，这是所有因子进行画折线图的通用操作</strong></p>
+<img src="Snipaste_2023-02-10_19-55-24.png" alt="Snipaste_2023-02-10_19-55-24" style="zoom:50%;">
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入函数库</span></span><br><span class="line"><span class="keyword">from</span> jqfactor <span class="keyword">import</span> get_factor_values</span><br><span class="line"><span class="comment"># 取值函数，获取三只股票，2022年一整年的EMA5指标</span></span><br><span class="line">EMA5_factor_data = get_factor_values([<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>], <span class="string">&#x27;EMA5&#x27;</span>, start_date=<span class="string">&#x27;2022-01-01&#x27;</span>, end_date=<span class="string">&#x27;2022-12-31&#x27;</span>)</span><br><span class="line">a = EMA5_factor_data[<span class="string">&#x27;EMA5&#x27;</span>] <span class="comment"># 实际上就是EMA5这个因子在字典中对应的dataframe，输出来是一个表格</span></span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right">code</th>
+<th align="right">000001.XSHE</th>
+<th align="right">000002.XSHE</th>
+<th align="right">601211.XSHG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">2022-01-04</td>
+<td align="right">1.007070</td>
+<td align="right">0.969148</td>
+<td align="right">0.995848</td>
+</tr>
+<tr>
+<td align="right">2022-01-05</td>
+<td align="right">0.985531</td>
+<td align="right">0.958679</td>
+<td align="right">1.003991</td>
+</tr>
+<tr>
+<td align="right">2022-01-06</td>
+<td align="right">0.991505</td>
+<td align="right">0.976096</td>
+<td align="right">1.014214</td>
+</tr>
+<tr>
+<td align="right">2022-01-07</td>
+<td align="right">0.991262</td>
+<td align="right">0.959093</td>
+<td align="right">1.001404</td>
+</tr>
+<tr>
+<td align="right">2022-01-10</td>
+<td align="right">0.994559</td>
+<td align="right">0.964938</td>
+<td align="right">0.991580</td>
+</tr>
+<tr>
+<td align="right">2022-01-11</td>
+<td align="right">0.987994</td>
+<td align="right">0.972586</td>
+<td align="right">0.994387</td>
+</tr>
+<tr>
+<td align="right">2022-01-12</td>
+<td align="right">1.007881</td>
+<td align="right">0.989076</td>
+<td align="right">0.995145</td>
+</tr>
+<tr>
+<td align="right">2022-01-13</td>
+<td align="right">1.006046</td>
+<td align="right">1.008643</td>
+<td align="right">0.999747</td>
+</tr>
+<tr>
+<td align="right">2022-01-14</td>
+<td align="right">1.030727</td>
+<td align="right">1.032724</td>
+<td align="right">1.021094</td>
+</tr>
+<tr>
+<td align="right">2022-01-17</td>
+<td align="right">1.025145</td>
+<td align="right">1.016208</td>
+<td align="right">1.012094</td>
+</tr>
+</tbody></table>
+<p>…………………………</p>
+<p>虽然表格上面第一行看起来和下面数据有一点不对应，但无伤大雅</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">10</span>), dpi=<span class="number">100</span>)  <span class="comment"># 画布大小</span></span><br><span class="line">x = a.index  <span class="comment"># x轴为表格的index，即为日期</span></span><br><span class="line">y1 = a[<span class="string">&#x27;000001.XSHE&#x27;</span>]  <span class="comment"># y轴为各自代码对应的一列</span></span><br><span class="line">y2 = a[<span class="string">&#x27;000002.XSHE&#x27;</span>]</span><br><span class="line">y3 = a[<span class="string">&#x27;601211.XSHG&#x27;</span>]</span><br><span class="line">plt.plot(x, y1,label=<span class="string">&#x27;000001.XSHE EMA5&#x27;</span>) <span class="comment"># 设置图例</span></span><br><span class="line">plt.plot(x, y2,label=<span class="string">&#x27;000002.XSHE EMA5&#x27;</span>)</span><br><span class="line">plt.plot(x, y3,label=<span class="string">&#x27;601211.XSHE EMA5&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>) <span class="comment"># 使图例在最佳位置，否则图例看不到</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(13).png" alt="下载 (13)"></p>
+<hr>
+<p>再练习一个三只股票的营业收入增长率因子的图像绘制</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入函数库</span></span><br><span class="line"><span class="keyword">from</span> jqfactor <span class="keyword">import</span> get_factor_values</span><br><span class="line"><span class="comment"># 取值函数，获取三只股票，2022年一整年的营业收入增长率</span></span><br><span class="line">ORGR_factor_data = get_factor_values([<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>], <span class="string">&#x27;operating_revenue_growth_rate&#x27;</span>, start_date=<span class="string">&#x27;2022-01-01&#x27;</span>, end_date=<span class="string">&#x27;2022-12-31&#x27;</span>)</span><br><span class="line">a = ORGR_factor_data[<span class="string">&#x27;operating_revenue_growth_rate&#x27;</span>] <span class="comment"># 实际上就是这个因子在字典中对应的dataframe，输出来是一个表格</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">10</span>), dpi=<span class="number">100</span>)</span><br><span class="line">x = a.index</span><br><span class="line">y1 = a[<span class="string">&#x27;000001.XSHE&#x27;</span>]</span><br><span class="line">y2 = a[<span class="string">&#x27;000002.XSHE&#x27;</span>]</span><br><span class="line">y3 = a[<span class="string">&#x27;601211.XSHG&#x27;</span>]</span><br><span class="line">plt.plot(x, y1,label=<span class="string">&#x27;000001.XSHE ORGR&#x27;</span>)</span><br><span class="line">plt.plot(x, y2,label=<span class="string">&#x27;000002.XSHE ORGR&#x27;</span>)</span><br><span class="line">plt.plot(x, y3,label=<span class="string">&#x27;601211.XSHE ORGR&#x27;</span>)</span><br><span class="line">plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD%20(14).png" alt="下载 (14)"></p>
+<hr>
+<ul>
+<li><strong>补充：什么是前复权、后复权、不复权？</strong></li>
+</ul>
+<p><strong>转送</strong>：转送就是送股或者转增股票，比如10送10，10送15。</p>
+<p><strong>除权</strong>：上市公司在送股后，股票的数量变多，但是股票价值不变，所以股价变低，在K线图上出现一个缺口，这个缺口叫除权。除权后，股价发生了变化，但实际成本没变，如果我们要想知道<strong>股票的真实价格</strong>就需要对股票进行复权。</p>
+<p><strong>复权</strong>：就是对股价和成交量进行权息修复，按照股票的实际涨跌绘制股价走势图，并把成交量调整为相同的股本口径，然后用相同成本进行比较。复权可以消除由于除权除息造成的价格走势畸变，保持股价走势的<strong>连续性</strong>。所谓不复权，就是除权后，不人工填补股价走势图上的巨大空隙，任由断层存在。</p>
+<p>以花园生物（300401）为例，根据年初的高送转方案，每10股均送转15股，5月4日实施后，股价从50元跌至20.35元。下图一是不复权的走势图，在5月4日股价呈现断崖式下跌。</p>
+<p><strong>【图一：花园生物5月4日除权后不复权走势图</strong> 】</p>
+<p><img src="165f13e3b8c24313fe3059f4.png!800.jpg" alt="165f13e3b8c24313fe3059f4.png!800"></p>
+<p>前复权就是以目前股价为基准，保持现有价位不变，缩减以前价格，把除权前的K线向下平移，使图形吻合，保持股价走势的连续性。简单说就是把除权前的价格按现在的价格换算过来，复权后现在价格不变，以前的价格减少。</p>
+<p><strong>前复权公式：复权后价格&#x3D;(复权前价格-现金红利)&#x2F;(1+流通股份变动比例)</strong></p>
+<p>下图二是花园生物前复权走势，保持现有的20.35元不变，把5月3日的50元复权后变成19.94元。我们同时发现与不复权大幅下跌相比，前复权处理后5月4日股价实际上还上涨了2.06%。</p>
+<p><strong>【图二：花园生物前复权走势】</strong></p>
+<p><img src="165f13f3d5b23b83fe1ef5fb.png!800.jpg" alt="165f13f3d5b23b83fe1ef5fb.png!800"></p>
+<p>后复权是指在K线图上以除权前的价格为基准来测算除权后股票的市场成本价。简单说就是把除权后的价格按以前的价格换算过来，复权后以前的价格不变，现在的价格增加。通过后复权我们可以看出该股上市以来累计涨幅，如果当时买入，参与全部配送、分红，一直持有到目前的价位。</p>
+<p><strong>后复权公式：复权后价格&#x3D;复权前价格×(1+流通股份变动比例)+现金红利</strong></p>
+<p>下图是花园生物后复权走势，5月3日的股价为100.40元，5月4日的收盘价102.46元，同样涨幅2.06%。</p>
+<p><strong>【图三：花园生物后复权走势】</strong></p>
+<p><img src="111113fd93397a.png!800.jpg" alt="111113fd93397a.png!800"></p>
+<p><strong>二、不复权、前复权、后复权的用途</strong></p>
+<p>不复权的话，K线图能真实反应股价历史的除权信息，缺点是会留有大缺口，均线系统被打乱。</p>
+<p>前复权以目前价为基准复权，可以很清楚的看到成本分布情况，如相对最高、最低价，成本密集区域，以及目前股价所处的位置是高还是低。如果进行技术分析，最好用前复权，这样当前的价格是最新的实际价格，且K线均线的走势是连续性的，不影响看盘。</p>
+<p>后复权保持上市第一天的价格不变，根据分红配股数据处理之后的价格，这会导致最后一天的价格显示出来不是实际成交价，但可以看出股票真实价值的增加及持股者的真实收益率。如果进行价值投资，建议采用后复权，这样计算的收益率是相对正确的，查询也比较直观。</p>
+<h2 id="4-5-其他因子的计算"><a href="#4-5-其他因子的计算" class="headerlink" title="4.5 其他因子的计算"></a>4.5 其他因子的计算</h2><h3 id="4-5-1-BTOP因子"><a href="#4-5-1-BTOP因子" class="headerlink" title="4.5.1 BTOP因子"></a>4.5.1 BTOP因子</h3><p>平均市净率PB的倒数即为BTOP。</p>
+<p>PB就是上市公司的市值与上市公司的账面价值的比值。PB值越低说明对应的股票估值越低，言下之意即该股票越值得买入，那么BTOP因子的分值就应该越高。在具体使用财务数据的时候，我们往往会使用最新一期的财务报告中的“不含少数股东权益的股东权益合计”这一项作为账面价值，BTOP的计算公式为：</p>
+<p>BTOP&#x3D;最新一期不含少数股东权益的股东权益合计&#x2F;公司总市值</p>
+<p>对于该因子，要注意：有一些公司的股东权益合计可能为负。从异常值处理的角度出发，此时因子值应该赋值为最小阈值。</p>
+<h3 id="4-5-2-ROE稳定性因子"><a href="#4-5-2-ROE稳定性因子" class="headerlink" title="4.5.2 ROE稳定性因子"></a>4.5.2 ROE稳定性因子</h3><p>除了ROE（净资产收益率）自身之外，ROE的波动性也是一件值得关注的事情</p>
+<p>有些公司近些年的ROE可能一直保持在高位，把时间拉长之后，ROE会体现出忽高忽低的周期性。这一情况在周期性行业上市公司中很常见，例如钢铁、煤炭类公司。周期行业公司的ROE往往波动性较大，在好的年份ROE可以达到100%，而在差的年份几乎全行业亏损。</p>
+<p><img src="webwxgetm%E5%A4%A7%E4%BC%9A%E4%B8%8A%E8%AE%B2%E8%AF%9D%E5%BD%93%E4%BB%8A%E4%B8%96%E7%95%8C%E8%BF%98%E6%98%AF%E5%A4%A7%E5%AE%B6%E5%A5%BD%E5%A4%A7%E5%AE%B6%E5%A5%BDsgimg%20(1).jpg" alt="webwxgetm大会上讲话当今世界还是大家好大家好sgimg (1)"></p>
+<h3 id="4-5-3-EPS一致预期变动率因子"><a href="#4-5-3-EPS一致预期变动率因子" class="headerlink" title="4.5.3 EPS一致预期变动率因子"></a>4.5.3 EPS一致预期变动率因子</h3><h3 id="4-5-4-舆论因子"><a href="#4-5-4-舆论因子" class="headerlink" title="4.5.4 舆论因子"></a>4.5.4 舆论因子</h3><p>舆论因子是衡量<strong>市场情绪</strong>的一个因子，一般是在网络上获取投资者对某些股票的评论，从而分析投资者的情绪。</p>
+<p>目前，国内热度较高的投资者交流社区有雪球网、股吧等。我们也可以从新浪微博等社交媒体处获得相关股票讨论信息，然后经过文本情感分析算法，获得当下投资者对股票的情感信息，进而将其量化为因子。</p>
+<h2 id="4-6-单因子的测试分析"><a href="#4-6-单因子的测试分析" class="headerlink" title="4.6 单因子的测试分析"></a>4.6 单因子的测试分析</h2><h3 id="4-6-1-因子测试的基本逻辑"><a href="#4-6-1-因子测试的基本逻辑" class="headerlink" title="4.6.1 因子测试的基本逻辑"></a>4.6.1 因子测试的基本逻辑</h3><h3 id="4-6-2-Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）"><a href="#4-6-2-Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）" class="headerlink" title="4.6.2 Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）"></a>4.6.2 Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）</h3>
       
 
       
