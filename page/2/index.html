@@ -8966,7 +8966,7 @@ random(size):在[0,1)内生成随机数
 <p>例如，我们把2019年5月27日这一天市场上的股票先按照被测试因子值从小到大排序，然后将其按照数值大小分成一定的股票组别。我们可以规定每组的股票数量相同，也可以指定特定因子值区间为一组。分组测试就是在每一次调仓的时候将之前的分组组合调整为新的分组组合。</p>
 <p>除了因子的预测能力之外，我们还会考察因子的稳定性。如果某一个因子的预测效果很好，但是因子值的变动很大，对股票的打分不断有较大幅度的变化，那么就会造成每次调仓的时候<strong>换手率过高</strong>。过高的换手率会带来更高的交易成本和流动性风险。因此，我们也会检验分组组合的<strong>换手率情况</strong>以及<strong>因子的自相关性</strong>。</p>
 <h3 id="4-6-2-Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）"><a href="#4-6-2-Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）" class="headerlink" title="4.6.2 Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）"></a>4.6.2 Alphalens简介（实操中可以直接用聚宽的因子分析工具，这个作为理论了解）</h3><hr>
-<h3 id="4-6-3-因子IC分析（内含聚宽因子构造加分析实例）"><a href="#4-6-3-因子IC分析（内含聚宽因子构造加分析实例）" class="headerlink" title="4.6.3 因子IC分析（内含聚宽因子构造加分析实例）"></a>4.6.3 因子IC分析（内含聚宽因子构造加分析实例）</h3><p>以《深入浅出python量化交易实战-part2》为例进行一次完整的“瓦氏因子”构建与IC分析实例：</p>
+<h3 id="4-6-3-因子IC分析（内含聚宽因子构造加分析实例）——转补充部份"><a href="#4-6-3-因子IC分析（内含聚宽因子构造加分析实例）——转补充部份" class="headerlink" title="4.6.3 因子IC分析（内含聚宽因子构造加分析实例）——转补充部份"></a>4.6.3 因子IC分析（内含聚宽因子构造加分析实例）——转补充部份</h3><p>以《深入浅出python量化交易实战-part2》为例进行一次因子构建（实际上要在聚宽环境中跑起来需要进行因子自定义因子计算等操作，可以去看“聚宽因子分析教程”）</p>
 <p>说明：如果为了省事可以直接去聚宽因子库里选现成的因子，本例是选取了<strong>股票资金流向数据</strong>（普通股票数据）来进行构造因子的，其余数据同理。</p>
 <p>股票资金流向数据可以看到<strong>主力的实时动向</strong></p>
 <p><img src="Snipaste_2023-02-11_14-46-29.png" alt="Snipaste_2023-02-11_14-46-29"></p>
@@ -9953,7 +9953,8 @@ random(size):在[0,1)内生成随机数
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2021-09-29 2023-2-11</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-3-获取VEMA5因子并分析"><a href="#2-3-获取VEMA5因子并分析" class="headerlink" title="2.3 获取VEMA5因子并分析"></a>2.3 获取VEMA5因子并分析</h3><blockquote>
+<h3 id="2-3-获取VEMA5因子并分析"><a href="#2-3-获取VEMA5因子并分析" class="headerlink" title="2.3 获取VEMA5因子并分析"></a>2.3 获取VEMA5因子并分析</h3><p><strong>注意：以后最好用聚宽因子库中的现成因子就好，这样不会出现IC分析格式不对的情况</strong></p>
+<blockquote>
 <p>函数：analyze_factor（）因子分析函数</p>
 </blockquote>
 <p><img src="%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90API11_19-43-35.png" alt="因子分析API11_19-43-35"></p>
@@ -10212,6 +10213,79 @@ random(size):在[0,1)内生成随机数
 <p>结果分析：因子的IC<strong>绝对值越高</strong>，说明它的预测能力<strong>越好</strong>，然而，IC不是一成不变的。因此我们希望知道，在哪些时段中，因子的IC绝对值最高。</p>
 <p>图中显示的是VEMA5因子的月度均值。其中，颜色越深的部分代表IC在当月的均值绝对值越高。</p>
 <hr>
+<p>在因子值的不同分位，对应持仓股票的变化情况，就是<strong>因子换手率</strong>。因子换手率主要体现的是该因子的<strong>稳定性</strong>————<strong>换手率越低，因子在时间序列层面的持续性越好</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">换手率分析</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">period_1</th>
+<th align="right">period_10</th>
+<th align="right">period_5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">Quantile 1 Mean Turnover</td>
+<td align="right">0.006</td>
+<td align="right">0.013</td>
+<td align="right">0.012</td>
+</tr>
+<tr>
+<td align="right">Quantile 2 Mean Turnover</td>
+<td align="right">0.108</td>
+<td align="right">0.345</td>
+<td align="right">0.269</td>
+</tr>
+<tr>
+<td align="right">Quantile 3 Mean Turnover</td>
+<td align="right">0.114</td>
+<td align="right">0.382</td>
+<td align="right">0.287</td>
+</tr>
+<tr>
+<td align="right">Quantile 4 Mean Turnover</td>
+<td align="right">0.012</td>
+<td align="right">0.050</td>
+<td align="right">0.031</td>
+</tr>
+<tr>
+<td align="right">Quantile 5 Mean Turnover</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+</tbody></table>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(23).png" alt="下载 (23)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(22).png" alt="下载 (22)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(24).png" alt="下载 (24)"></p>
+<p>纵观1，5，10天的换手率，只有2022-11出现50%的换手率，其余各个时间，换手率较低，可以说明该因子是比较稳定的。</p>
+<hr>
+<p>此外，我们还可以对因子进行自相关性分析。简单来说，如果某股票前一天的某因子值很高，而今天的因子值很低，则在这两天的时间范围内，因子的<strong>自相关性就很低</strong>；如果前一天的因子值很高，而今天的因子值也很高，则在这两天的时间范围内，因子的<strong>自相关性就很高</strong></p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right">period_1</th>
+<th align="right">period_5</th>
+<th align="right">period_10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">Mean Factor Rank Autocorrelation</td>
+<td align="right">0.99</td>
+<td align="right">0.971</td>
+<td align="right">0.957</td>
+</tr>
+</tbody></table>
+<p>因子的自相关性越高，其值<strong>越接近于1</strong>，说明这一因子是<strong>比较稳定</strong>的因子，造成换手率必然不会很高；反之，如果因子的自相关性极低，甚至是负相关性，则说明因子的波动性较大，造成的股票换手率必然不低。</p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(25).png" alt="下载 (25)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(26).png" alt="下载 (26)"></p>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(27).png" alt="下载 (27)"></p>
+<hr>
+<p><img src="%E4%B8%8B%E8%BD%BD%20(28).png" alt="下载 (28)"></p>
+<hr>
+<p><strong>注意：我猜测在聚宽因子库中的因子是不需要标准化、去极值和行业中性化的，因为我进行处理之后因子效果很差，所以今后因子分析的时候不要进行这三化，但是在写论文的时候可以凑字数把相关的理论写上</strong></p>
 
       
 
