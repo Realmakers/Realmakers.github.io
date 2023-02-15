@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>自然语言处理 | Hexo</title>
+  <title>PyTorch自然语言处理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="自然语言处理第一节内容">
+  <meta name="description" content="第一章 自然语言处理概述1.1 什么是自然语言处理1.2 自然语言处理中的挑战1.2.4 数据稀疏语料中，除了少数常用词汇出现的频率次数高，还有很多不常用的词汇 代码：显示文本中出现次数最高的100个字 12345678910111213141516from collections import Counter  # Counter 可用来统计可迭代对象中，元素的数量f &#x3D; open(&amp;#x27;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自然语言处理">
+<meta property="og:title" content="PyTorch自然语言处理">
 <meta property="og:url" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="自然语言处理第一节内容">
+<meta property="og:description" content="第一章 自然语言处理概述1.1 什么是自然语言处理1.2 自然语言处理中的挑战1.2.4 数据稀疏语料中，除了少数常用词汇出现的频率次数高，还有很多不常用的词汇 代码：显示文本中出现次数最高的100个字 12345678910111213141516from collections import Counter  # Counter 可用来统计可迭代对象中，元素的数量f &#x3D; open(&amp;#x27;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/image-20230128181815800.jpg">
+<meta property="og:image" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Snipaste_2023-02-14_18-52-39.png">
+<meta property="og:image" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E4%B8%8B%E8%BD%BD.png">
 <meta property="article:published_time" content="2023-01-28T10:13:14.000Z">
-<meta property="article:modified_time" content="2023-01-28T14:42:15.241Z">
+<meta property="article:modified_time" content="2023-02-14T13:54:36.337Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="预训练语言模型">
+<meta property="article:tag" content="NLP基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/image-20230128181815800.jpg">
+<meta name="twitter:image" content="http://example.com/2023/01/28/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Snipaste_2023-02-14_18-52-39.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -67,7 +68,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 20
+			总文章数 21
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -165,7 +166,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      自然语言处理
+      PyTorch自然语言处理
     </h1>
   
 
@@ -178,9 +179,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="自然语言处理"><a href="#自然语言处理" class="headerlink" title="自然语言处理"></a>自然语言处理</h1><h2 id="第一节"><a href="#第一节" class="headerlink" title="第一节"></a>第一节</h2><p>内容</p>
-<p><img src="image-20230128181815800.jpg" alt="image-20230128181815800"></p>
+        <h1 id="第一章-自然语言处理概述"><a href="#第一章-自然语言处理概述" class="headerlink" title="第一章 自然语言处理概述"></a>第一章 自然语言处理概述</h1><h2 id="1-1-什么是自然语言处理"><a href="#1-1-什么是自然语言处理" class="headerlink" title="1.1 什么是自然语言处理"></a>1.1 什么是自然语言处理</h2><h2 id="1-2-自然语言处理中的挑战"><a href="#1-2-自然语言处理中的挑战" class="headerlink" title="1.2 自然语言处理中的挑战"></a>1.2 自然语言处理中的挑战</h2><h3 id="1-2-4-数据稀疏"><a href="#1-2-4-数据稀疏" class="headerlink" title="1.2.4 数据稀疏"></a>1.2.4 数据稀疏</h3><p>语料中，除了少数常用词汇出现的频率次数高，还有很多不常用的词汇</p>
+<p>代码：显示文本中出现次数最高的100个字</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter  <span class="comment"># Counter 可用来统计可迭代对象中，元素的数量</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;从百草园到三味书屋.txt&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>)  <span class="comment"># encoding 要使用和这个文件对应的编码</span></span><br><span class="line">txt = f.read()  <span class="comment"># 读取全部字符</span></span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line">cnt = Counter(txt)  <span class="comment"># 得到每个字符的出现次数</span></span><br><span class="line">char_list = []  <span class="comment"># 定义空的列表</span></span><br><span class="line"><span class="keyword">for</span> char <span class="keyword">in</span> cnt:</span><br><span class="line">    <span class="keyword">if</span> char <span class="keyword">in</span> <span class="string">&quot;\u3000\n 。,:!！“?…”《》，；—（）-：？^~`[]|&quot;</span>:  <span class="comment"># 过滤掉常见的标点和空白字符</span></span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    char_list.append([cnt[char], char])  <span class="comment"># 把字符和字符出现的次数加入列表</span></span><br><span class="line"></span><br><span class="line">char_list.sort(reverse=<span class="literal">True</span>)  <span class="comment"># 降序排序</span></span><br><span class="line"><span class="comment"># 以下代码打印前100的字符和出现次数</span></span><br><span class="line"><span class="keyword">for</span> char <span class="keyword">in</span> char_list:</span><br><span class="line">    <span class="built_in">print</span>(char[<span class="number">0</span>], char[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 
+<img src="Snipaste_2023-02-14_18-52-39.png" alt="Snipaste_2023-02-14_18-52-39" style="zoom:33%;">
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下代码使用 matplotlib 库绘制出现次数前100的字符出现次数分布图</span></span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">x = []</span><br><span class="line">y = []</span><br><span class="line"><span class="keyword">for</span> i, char_cnt <span class="keyword">in</span> <span class="built_in">enumerate</span>(char_list):</span><br><span class="line">    x.append(i)</span><br><span class="line">    y.append(char_cnt[<span class="number">0</span>])</span><br><span class="line">plt.axis((<span class="number">0</span>,<span class="number">100</span>, <span class="number">0</span>, <span class="built_in">max</span>(y)))</span><br><span class="line">plt.bar(x[:<span class="number">100</span>], y[:<span class="number">100</span>], width=<span class="number">1</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E4%B8%8B%E8%BD%BD.png" alt="下载"></p>
+<h2 id="1-3-自然语言处理中的常见技术"><a href="#1-3-自然语言处理中的常见技术" class="headerlink" title="1.3 自然语言处理中的常见技术"></a>1.3 自然语言处理中的常见技术</h2><ol>
+<li>TF-IDF</li>
+</ol>
+<p>词频-逆文本频率，用于评估一个词在一定范围的语料中的重要程度。词频指一个词在一定范围的语料中出现的次数，这个词在某语料中出现的次数越多说明它越重要，但是这个词可能是“的”“了”这样的在所有语料中出现次数都很多的词。所以出现了<strong>逆文本频率</strong>，就是<strong>这个词在某个语料里出现了，但是在整个语料库中出现的很少，就能说明这个词在这个语料中重要</strong>。</p>
+<ol start="2">
+<li>词嵌入</li>
+</ol>
+<p>词嵌入就是用多维向量表示一个词语，这样词语间的关系可以用向量间的关系来反映，词嵌入需要特定的算法，可在语料库上训练得到。</p>
+<ol start="3">
+<li>分词</li>
+<li>循环神经网路RNN</li>
+</ol>
+<p>RNN用于处理序列数据的神经网络，它可以处理不定长度的数据</p>
+<ol start="5">
+<li>Seq2seq</li>
+</ol>
+<p>即序列到序列，是一种输入和输出都是不定长序列的模型</p>
+<ol start="6">
+<li><strong>注意力机制</strong></li>
+</ol>
+<p>注意力机制源于人们对人类视觉机制的研究，人们观察事物时，会把注意力分配到关键的地方，而相对忽视其他细节。在自然语言处理中可以认为，如果使用了注意力机制，<strong>模型会给重要的词语分配更高的权重，或者把句子中某些关系密切的词语关联起来共同考虑。</strong></p>
+<ol start="7">
+<li><strong>预训练</strong></li>
+</ol>
+<p>预训练是一种迁移学习方法，如BERT模型，BERT模型会先在一个大规模的语料库（例如维基百科）上训练，训练时使用的任务是特别设定的，一般是一些比较通用的任务，以得到一个预训练权重，这个权重也是比较通用的。预训练使用了较大规模的语料，模型可以对当前语言有更全面的学习，在特定场景和进行特定数据训练时，可以使用更小的数据集和进行更少的训练得到相对较好的结果</p>
+<ol start="8">
+<li>多模态学习</li>
+</ol>
+<h1 id="第二章-Python自然语言处理基础"><a href="#第二章-Python自然语言处理基础" class="headerlink" title="第二章 Python自然语言处理基础"></a>第二章 Python自然语言处理基础</h1><blockquote>
+<p>安装Numpy、Matplotlib、scikit-learn、NLTK、spaCy、jieba</p>
+</blockquote>
+<h2 id="2-3-用python处理语料"><a href="#2-3-用python处理语料" class="headerlink" title="2.3 用python处理语料"></a>2.3 用python处理语料</h2><h3 id="2-3-1-从文本读取语料"><a href="#2-3-1-从文本读取语料" class="headerlink" title="2.3.1 从文本读取语料"></a>2.3.1 从文本读取语料</h3><h3 id="2-3-2-去重"><a href="#2-3-2-去重" class="headerlink" title="2.3.2 去重"></a>2.3.2 去重</h3><h3 id="2-3-3-停用词"><a href="#2-3-3-停用词" class="headerlink" title="2.3.3 停用词"></a>2.3.3 停用词</h3><h3 id="2-3-4-编辑距离"><a href="#2-3-4-编辑距离" class="headerlink" title="2.3.4 编辑距离"></a>2.3.4 编辑距离</h3><h3 id="2-3-5-文本规范化"><a href="#2-3-5-文本规范化" class="headerlink" title="2.3.5 文本规范化"></a>2.3.5 文本规范化</h3><p>按照某种方法对语料进行转换、清洗和标准化。例如去除语料中多余的白空格和停用词，统一英文语料单词单复数、过去式等形式，去掉或替换带有重音符号的字母</p>
+<h3 id="2-3-6-分词"><a href="#2-3-6-分词" class="headerlink" title="2.3.6 分词"></a>2.3.6 分词</h3><h3 id="2-3-7-词频-逆文本频率"><a href="#2-3-7-词频-逆文本频率" class="headerlink" title="2.3.7 词频-逆文本频率"></a>2.3.7 词频-逆文本频率</h3><h3 id="2-3-8-One-Hot编码"><a href="#2-3-8-One-Hot编码" class="headerlink" title="2.3.8 One-Hot编码"></a>2.3.8 One-Hot编码</h3><p>One-Hot编码是先遍历语料，找出所有的字或词，例如有10个词，对其进行编号（从1到10，每个数字代表一个词语），转换成向量则每个词都是10维向量。即第一个词编号是1，向量是[1,0,0,0,0,0,0,0,0,0]；第二个词编号是2，向量是[0,1,0,0,0,0,0,0,0,0]；最后一个词编号是10，向量是[0,0,0,0,0,0,0,0,0,1]。</p>
+<h1 id="第三章-PyTorch介绍"><a href="#第三章-PyTorch介绍" class="headerlink" title="第三章 PyTorch介绍"></a>第三章 PyTorch介绍</h1><h2 id="3-3-PyTorch环境配置"><a href="#3-3-PyTorch环境配置" class="headerlink" title="3.3 PyTorch环境配置"></a>3.3 PyTorch环境配置</h2><p>安装GPU版本的PyTorch、CUDA</p>
+<p>查看是否安装成功</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">torch.__version__</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;1.13.1+cu116&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.version.cuda</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;11.6&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看显卡是否可用</span></span><br><span class="line">torch.cuda.is_available()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-Transformers安装"><a href="#3-4-Transformers安装" class="headerlink" title="3.4 Transformers安装"></a>3.4 Transformers安装</h2><h2 id="3-5-Apex安装"><a href="#3-5-Apex安装" class="headerlink" title="3.5 Apex安装"></a>3.5 Apex安装</h2><p>Apex用于简化混合精度训练和分布式训练，其中AMP包可以实现自动的混合精度训练，可以减少显存的使用并提高训练速度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/NVIDIA/apex</span><br><span class="line">cd apex</span><br><span class="line">pip install -v --no-cache-dir --global-option=&quot;--cpp_ext&quot; --global-option=&quot;--cuda_ext&quot; ./</span><br></pre></td></tr></table></figure>
+
+<h1 id="第四章-PyTorch基本使用方法"><a href="#第四章-PyTorch基本使用方法" class="headerlink" title="第四章 PyTorch基本使用方法"></a>第四章 PyTorch基本使用方法</h1><h2 id="4-1-张量的使用"><a href="#4-1-张量的使用" class="headerlink" title="4.1 张量的使用"></a>4.1 张量的使用</h2><p>张量Tensor是PyTorch中基础的数据类型，类似于Numpy中的数组Array，张量可以定义在GPU中，并使用GPU进行运算</p>
+<h3 id="4-1-1-创建张量"><a href="#4-1-1-创建张量" class="headerlink" title="4.1.1 创建张量"></a>4.1.1 创建张量</h3>
       
 
       
@@ -219,7 +278,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">预训练语言模型</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NLP基础</a>
         		</li>
       		
 		</ul>
@@ -338,7 +397,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">自然语言处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%8A%82"><span class="toc-number">1.1.</span> <span class="toc-text">第一节</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">第一章 自然语言处理概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 什么是自然语言处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 自然语言处理中的挑战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-4-%E6%95%B0%E6%8D%AE%E7%A8%80%E7%96%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.4 数据稀疏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 自然语言处理中的常见技术</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-Python%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80"><span class="toc-number">2.</span> <span class="toc-text">第二章 Python自然语言处理基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%94%A8python%E5%A4%84%E7%90%86%E8%AF%AD%E6%96%99"><span class="toc-number">2.1.</span> <span class="toc-text">2.3 用python处理语料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E4%BB%8E%E6%96%87%E6%9C%AC%E8%AF%BB%E5%8F%96%E8%AF%AD%E6%96%99"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.3.1 从文本读取语料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%8E%BB%E9%87%8D"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.3.2 去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-%E5%81%9C%E7%94%A8%E8%AF%8D"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.3.3 停用词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-4-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.3.4 编辑距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-5-%E6%96%87%E6%9C%AC%E8%A7%84%E8%8C%83%E5%8C%96"><span class="toc-number">2.1.5.</span> <span class="toc-text">2.3.5 文本规范化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-6-%E5%88%86%E8%AF%8D"><span class="toc-number">2.1.6.</span> <span class="toc-text">2.3.6 分词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-7-%E8%AF%8D%E9%A2%91-%E9%80%86%E6%96%87%E6%9C%AC%E9%A2%91%E7%8E%87"><span class="toc-number">2.1.7.</span> <span class="toc-text">2.3.7 词频-逆文本频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-8-One-Hot%E7%BC%96%E7%A0%81"><span class="toc-number">2.1.8.</span> <span class="toc-text">2.3.8 One-Hot编码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-PyTorch%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">第三章 PyTorch介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-PyTorch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">3.3 PyTorch环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-Transformers%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">3.4 Transformers安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-Apex%E5%AE%89%E8%A3%85"><span class="toc-number">3.3.</span> <span class="toc-text">3.5 Apex安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-PyTorch%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">第四章 PyTorch基本使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%BC%A0%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 张量的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-%E5%88%9B%E5%BB%BA%E5%BC%A0%E9%87%8F"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 创建张量</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -450,10 +509,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">预训练语言模型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据科学</a>
               </li>
              
@@ -479,6 +534,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">聚宽</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">贝叶斯</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NLP基础</a>
               </li>
             
             <div class="clearfix"></div>
