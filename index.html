@@ -277,10 +277,24 @@
 <p>同步  异步</p>
 <ul>
 <li>持久异步通信：提交后立即执行其他程序（电子邮件）</li>
+</ul>
+<img src="Snipaste_2023-02-21_18-09-12.png" alt="Snipaste_2023-02-21_18-09-12" style="zoom: 33%;">
+
+<ul>
 <li>持久同步通信：提交消息后会被阻塞，直到消息已到达并存储在接收主机</li>
+</ul>
+<img src="Snipaste_2023-02-21_18-10-57.png" alt="Snipaste_2023-02-21_18-10-57" style="zoom: 33%;">
+
+<ul>
 <li>暂时异步通信</li>
+</ul>
+<img src="Snipaste_2023-02-21_18-12-08.png" alt="Snipaste_2023-02-21_18-12-08" style="zoom:33%;">
+
+<ul>
 <li>基于接收&#x2F;交付&#x2F;响应的暂时同步通信</li>
 </ul>
+<img src="Snipaste_2023-02-21_18-13-10.png" alt="Snipaste_2023-02-21_18-13-10" style="zoom:33%;">
+
 <h2 id="5-多播通信：反熵和gossiping"><a href="#5-多播通信：反熵和gossiping" class="headerlink" title="5. 多播通信：反熵和gossiping"></a>5. 多播通信：反熵和gossiping</h2><p>多播：允许一个数据包同时发送给多个主机</p>
 <p><strong>反熵传播模型</strong>：服务器P周期的选取一台服务器Q进行交换，方式包括：</p>
 <ul>
@@ -312,7 +326,7 @@
 </ol>
 <p>创建<strong>分层搜索树</strong>，<strong>网格划分</strong>成不重叠的域，每个层次的每个域都有关联的<strong>目录节点</strong>，最高层目录节点存储了实体的地址。</p>
 <h2 id="2-描述分层方法中查找一实体的过程"><a href="#2-描述分层方法中查找一实体的过程" class="headerlink" title="2. 描述分层方法中查找一实体的过程"></a>2. 描述分层方法中查找一实体的过程</h2><p>希望定位实体E的客户向他<strong>所在的叶域D</strong>的<strong>目录节点</strong>发送一个查找请求，如果这个目录节点没有存储该实体位置记录，那么就说明该实体现在不在D中。因此，这个节点会把请求<strong>转发</strong>给他的<strong>父节点</strong>，如果父节点也没有E的位置记录，那么就把该查找请求转发给<strong>更高一层的域</strong>，以此类推。直到找到存储E位置的<strong>节点M</strong>，节点M中包含了一个<strong>指向E子域的指针</strong>，然后，M把请求转发给那个<strong>子域的目录节点</strong>，那个子域会依次进一步向<strong>树的下方</strong>转发请求，直到请求最终到达<strong>叶节点</strong>为止。存储在叶节点的位置记录会包含E在哪一个叶域中的地址。将该地址返回给发送请求的客户。</p>
-<p>​                    </p>
+<h2 id="3-描述分层方法中插入一实体的过程"><a href="#3-描述分层方法中插入一实体的过程" class="headerlink" title="3. 描述分层方法中插入一实体的过程"></a>3. 描述分层方法中插入一实体的过程</h2><p>​                    </p>
 
       
 
