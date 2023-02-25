@@ -218,7 +218,7 @@
 <li>用户接口位于客户端</li>
 <li>部份应用程序移到前端</li>
 <li>大多数应用程序基本上运行在客户端，但所有对文件或数据库的操作位于服务器</li>
-<li>本地硬盘含有部份数据</li>
+<li>本地硬盘含有部分数据</li>
 </ul>
 <h1 id="第三章-分布式进程管理"><a href="#第三章-分布式进程管理" class="headerlink" title="第三章 分布式进程管理"></a>第三章 分布式进程管理</h1><h2 id="1-进程和线程的比较"><a href="#1-进程和线程的比较" class="headerlink" title="1. 进程和线程的比较"></a>1. 进程和线程的比较</h2><p>进程：执行中的程序，是<strong>资源分配</strong>的最小单位</p>
 <p>线程：<strong>CPU调度</strong>的最小单位，拥有线程状态、寄存器上下文和栈这些资源</p>
@@ -261,37 +261,37 @@
 <li><strong>消息传输层</strong>负责将封装好的消息从客户端传输到远程服务器</li>
 <li><strong>服务端</strong>接收到消息之后，将消息<strong>解析</strong>，并找到对应的服务对象及方法</li>
 <li><strong>服务端</strong>执行对应的方法，并将结果<strong>返回给客户端</strong></li>
-<li><strong>消息传输层</strong>将服务短返回的结果传输回客户端</li>
+<li><strong>消息传输层</strong>将服务端返回的结果传输回客户端</li>
 <li><strong>客户端</strong>接收到结果之后，通知本地代理程序，并将结果返回给调用者</li>
 </ul>
 <h2 id="2-消息持久通信与暂时通信的区别"><a href="#2-消息持久通信与暂时通信的区别" class="headerlink" title="2. 消息持久通信与暂时通信的区别"></a>2. 消息持久通信与暂时通信的区别</h2><ul>
-<li>持久通信：消息在发送后可以在消息传递系统中<strong>存储一段时间</strong>，直到接收方成功接收并确认该消息为止，即使在发送方已经退出或者网络中断的情况下，即<strong>不需要消息发送方和接收方在消息的传输过程中都保持激活状态</strong>，通常用<strong>消息队列</strong>系统实现，实时性要求较<strong>低</strong></li>
-<li>暂时通信：消息在发送后只能在传递过程中<strong>存活一定</strong>的时间，一旦达到这个时间限制或者到达目的地后就会被<strong>立即删除</strong>，实时性要求较<strong>高</strong></li>
+<li><strong>持久通信</strong>：消息在发送后可以在消息传递系统中<strong>存储一段时间</strong>，直到接收方成功接收并确认该消息为止，即使在发送方已经退出或者网络中断的情况下，即<strong>不需要消息发送方和接收方在消息的传输过程中都保持激活状态</strong>，通常用<strong>消息队列</strong>系统实现，实时性要求较<strong>低</strong></li>
+<li><strong>暂时通信</strong>：消息在发送后只能在传递过程中<strong>存活一定</strong>的时间，一旦达到这个时间限制或者到达目的地后就会被<strong>立即删除</strong>，实时性要求较<strong>高</strong></li>
 </ul>
 <h2 id="3-消息同步通信与异步通信的区别"><a href="#3-消息同步通信与异步通信的区别" class="headerlink" title="3. 消息同步通信与异步通信的区别"></a>3. 消息同步通信与异步通信的区别</h2><ul>
-<li>同步通信：消息的<strong>发送方</strong>和<strong>接收方</strong>都必须在消息<strong>传递过程</strong>中进行<strong>等待</strong>，直到对方<strong>响应</strong>了消息才能继续执行下一步操作。</li>
-<li>异步通信：消息的发送方和接收方<strong>不需要在同一时间</strong>进行等待和响应，即发送方和接收方可以<strong>独立于</strong>对方进行操作，而<strong>不会阻塞</strong>对方的操作。</li>
+<li><strong>同步通信</strong>：消息的<strong>发送方</strong>和<strong>接收方</strong>都必须在消息<strong>传递过程</strong>中进行<strong>等待</strong>，直到对方<strong>响应</strong>了消息才能继续执行下一步操作。</li>
+<li><strong>异步通信</strong>：消息的发送方和接收方<strong>不需要在同一时间</strong>进行等待和响应，即发送方和接收方可以<strong>独立于</strong>对方进行操作，而<strong>不会阻塞</strong>对方的操作。</li>
 </ul>
 <h2 id="4-能够判断消息通信的类型"><a href="#4-能够判断消息通信的类型" class="headerlink" title="4. 能够判断消息通信的类型"></a>4. 能够判断消息通信的类型</h2><p>持久  暂时</p>
 <p>​	  X</p>
 <p>同步  异步</p>
 <ul>
-<li>持久异步通信：提交后立即执行其他程序（电子邮件）</li>
+<li><strong>持久异步通信</strong>：提交后立即执行其他程序（电子邮件）</li>
 </ul>
 <img src="Snipaste_2023-02-21_18-09-12.png" alt="Snipaste_2023-02-21_18-09-12" style="zoom: 33%;">
 
 <ul>
-<li>持久同步通信：提交消息后会被阻塞，直到消息已到达并存储在接收主机</li>
+<li><strong>持久同步通信</strong>：提交消息后会被阻塞，直到消息已到达并存储在接收主机</li>
 </ul>
 <img src="Snipaste_2023-02-21_18-10-57.png" alt="Snipaste_2023-02-21_18-10-57" style="zoom: 33%;">
 
 <ul>
-<li>暂时异步通信</li>
+<li><strong>暂时异步通信</strong></li>
 </ul>
 <img src="Snipaste_2023-02-21_18-12-08.png" alt="Snipaste_2023-02-21_18-12-08" style="zoom:33%;">
 
 <ul>
-<li>基于接收&#x2F;交付&#x2F;响应的暂时同步通信</li>
+<li><strong>基于接收&#x2F;交付&#x2F;响应的暂时同步通信</strong></li>
 </ul>
 <img src="Snipaste_2023-02-21_18-13-10.png" alt="Snipaste_2023-02-21_18-13-10" style="zoom:33%;">
 
@@ -305,7 +305,7 @@
 </ul>
 <p><strong>Gossiping思想</strong>：</p>
 <ul>
-<li>如果服务器P刚刚因为数据项x而被更新了，那么它联系任意一个其他服务器Q，并试图将更新推入Q。</li>
+<li>如果服务器<strong>P刚刚</strong>因为数据项x而<strong>被更新</strong>了，那么它联系任意一个<strong>其他服务器Q</strong>，并试图将更新<strong>推入Q</strong>。</li>
 <li>如果Q已经被其他服务器更新了，P可能会失去继续扩散的兴趣，变成隔离的（这种可能性是1&#x2F;k）</li>
 </ul>
 <p>这是一种快速传播更新的方法，但<strong>不能保证所有</strong>的服务器都被更新了，可以将gossiping和反熵模型结合</p>
@@ -384,7 +384,7 @@
 </ul>
 <img src="webwx333getmsgimg%20(1).jpg" alt="webwx333getmsgimg (1)" style="zoom: 33%;">
 
-<p>（1.5）线性化一致性</p>
+<p>（1.5）<strong>线性化</strong>一致性</p>
 <ul>
 <li>根据一些列<strong>时钟同步</strong>确定序列顺序（利用时间戳）</li>
 </ul>
@@ -407,7 +407,7 @@
 <p>因果一致性存储允许，但顺序和严格一致性存储不允许的顺序：</p>
 <img src="22222webwxgetmsgimg%20(1).jpg" alt="22222webwxgetmsgimg (1)" style="zoom: 33%;">
 
-<p>（4）FIFO一致性：</p>
+<p>（4）<strong>FIFO</strong>一致性：</p>
 <ul>
 <li>由<strong>某一个</strong>进程完成的写操作可以被<strong>其他所有的进程</strong>按照<strong>顺序</strong>感知到</li>
 <li>从<strong>不同进程</strong>中来的写操作对不同的进程<strong>可以有不同</strong>的顺序</li>
@@ -415,30 +415,30 @@
 <img src="we880808bwxgetmsgimg%20(1).jpg" alt="we880808bwxgetmsgimg (1)" style="zoom: 33%;">
 
 <p><strong>（严格&gt;线性化&gt;顺序&gt;因果&gt;FIFO）</strong></p>
-<h2 id="3-能区分是否符合单调读、单调写、写后读和读后写"><a href="#3-能区分是否符合单调读、单调写、写后读和读后写" class="headerlink" title="3. 能区分是否符合单调读、单调写、写后读和读后写"></a>3. 能区分是否符合单调读、单调写、写后读和读后写</h2><p>（1）单调读：</p>
+<h2 id="3-能区分是否符合单调读、单调写、写后读和读后写"><a href="#3-能区分是否符合单调读、单调写、写后读和读后写" class="headerlink" title="3. 能区分是否符合单调读、单调写、写后读和读后写"></a>3. 能区分是否符合单调读、单调写、写后读和读后写</h2><p>（1）<strong>单调读</strong>：</p>
 <p>一个进程<strong>读</strong>取数据项X的值，那么该进程对X执行的<strong>任何后续读操作</strong>将总是得到<strong>第一次</strong>读取的那个值或更新的值</p>
 <img src="webwxge777tmsgimg%20(1).jpg" alt="webwxge777tmsgimg (1)" style="zoom:33%;">
 
-<p>（2）单调写：<br>一个进程对数据项X执行的<strong>写</strong>操作，必须在该进程对x执行的<strong>任何后续写</strong>操作<strong>之前</strong>完成</p>
+<p>（2）<strong>单调写</strong>：<br>一个进程对数据项X执行的<strong>写</strong>操作，必须在该进程对x执行的<strong>任何后续写</strong>操作<strong>之前</strong>完成</p>
 <img src="w3434ebwxgetmsgimg%20(1).jpg" alt="w3434ebwxgetmsgimg (1)" style="zoom:33%;">
 
-<p>（3）写后读：<br>一个进程对数据项x执行的<strong>写</strong>操作结果总会被该进程对x执行的任何<strong>后续读</strong>操作<strong>看见</strong></p>
+<p>（3）<strong>写后读</strong>：<br>一个进程对数据项x执行的<strong>写</strong>操作结果总会被该进程对x执行的任何<strong>后续读</strong>操作<strong>看见</strong></p>
 <img src="webwxge67676tmsgimg%20(1).jpg" alt="webwxge67676tmsgimg (1)" style="zoom:33%;">
 
-<p>（4）读后写：</p>
+<p>（4）<strong>读后写</strong>：</p>
 <p>同一个进程对数据项x执行的<strong>读</strong>操作之后的<strong>写</strong>操作，保证发生在与x<strong>读取之相同或更新</strong>的值上。</p>
 <img src="webwxge22tmsgimg%20(1).jpg" alt="webwxge22tmsgimg (1)" style="zoom:33%;">
 
 <h2 id="4-基于主备份的协议：远程写协议、本地写协议"><a href="#4-基于主备份的协议：远程写协议、本地写协议" class="headerlink" title="4. 基于主备份的协议：远程写协议、本地写协议"></a>4. 基于主备份的协议：远程写协议、本地写协议</h2><p>在基于主备份的协议中，每个数据项x都有一个<strong>关联的主备份</strong>，负责协调x的写操作。基于<strong>主备份的位置</strong>可分为<strong>远程写协议</strong>和<strong>本地写协议</strong></p>
 <ul>
-<li>远程写协议</li>
+<li><strong>远程写协议</strong></li>
 </ul>
 <p>（1）<strong>所有读和写</strong>操作都被转发到一个<strong>固定</strong>的远程服务器上</p>
 <p>（2）从一致性角度看，允许进程在<strong>本地可用副本</strong>上执行<strong>读</strong>操作，但必须向一个<strong>固定的主副本</strong>上<strong>转发写</strong>操作的协议</p>
 <img src="webw8898xgetmsgimg%20(1).jpg" style="zoom:33%;">
 
 <ul>
-<li>本地写协议</li>
+<li><strong>本地写协议</strong></li>
 </ul>
 <p>（1）每个数据项都只有一个<strong>单一</strong>拷贝，每当一个进程要在某个数据项上执行操作时，先将那个数据项的<strong>单一拷贝传送</strong>到这个进程，然后再执行相应操作</p>
 <p>（2）主备份移动到要<strong>执行更新</strong>的进程那里，并<strong>支持离线</strong>操作</p>
@@ -535,7 +535,25 @@
 <li>权能：对于指定资源的一种不可伪造的数据结构，它确切指定它的拥有者关于该资源的<strong>访问权限</strong>。为了调用一个对象的操作，客户必须将权能传给服务器检查</li>
 <li>委派：将某些访问权限从一个进程传递给另一个进程</li>
 </ul>
-<h1 id="第十章-分布式文件系统"><a href="#第十章-分布式文件系统" class="headerlink" title="第十章 分布式文件系统"></a>第十章 分布式文件系统</h1><h2 id="1-NFS的共享预约"><a href="#1-NFS的共享预约" class="headerlink" title="1. NFS的共享预约"></a>1. NFS的共享预约</h2><h2 id="2-NFS服务器的重复请求高速缓存（重点）"><a href="#2-NFS服务器的重复请求高速缓存（重点）" class="headerlink" title="2. NFS服务器的重复请求高速缓存（重点）"></a>2. NFS服务器的重复请求高速缓存（重点）</h2><h2 id="3-Cada的回叫预约（重点）"><a href="#3-Cada的回叫预约（重点）" class="headerlink" title="3. Cada的回叫预约（重点）"></a>3. Cada的回叫预约（重点）</h2><h2 id="4-Cada的储藏技术"><a href="#4-Cada的储藏技术" class="headerlink" title="4. Cada的储藏技术"></a>4. Cada的储藏技术</h2>
+<h1 id="第十章-分布式文件系统"><a href="#第十章-分布式文件系统" class="headerlink" title="第十章 分布式文件系统"></a>第十章 分布式文件系统</h1><h2 id="1-NFS的共享预约"><a href="#1-NFS的共享预约" class="headerlink" title="1. NFS的共享预约"></a>1. NFS的共享预约</h2><ul>
+<li>一种<strong>锁定文件</strong>的隐含方法</li>
+<li>客户打开文件时，指定它所需的<strong>访问类型</strong>（Read、Write或Both）以及服务器应该拒绝的其他客户的访问类型（None、Read、Write、Both）</li>
+<li>如果服务器不能满足客户的需求，那么该客户的open操作失败</li>
+</ul>
+<h2 id="2-NFS服务器的重复请求高速缓存（重点）"><a href="#2-NFS服务器的重复请求高速缓存（重点）" class="headerlink" title="2. NFS服务器的重复请求高速缓存（重点）"></a>2. NFS服务器的重复请求高速缓存（重点）</h2><p>NFS服务器提供<strong>重复请求高速缓存</strong>：</p>
+<p>每个来自客户的RPC请求头部都有一个唯一的<strong>XID（事务处理标识符）</strong>。当RPC请求到来时，服务器<strong>缓存</strong>其标识符。（只要服务器还没有发出响应，就说明正在处理这个RPC请求）。当服务器处理了某个请求后，也<strong>缓存了</strong>该请求的<strong>关联响应</strong>，此后该响应才返回给客户。现在需处理如下三种情况：</p>
+<img src="1234webwxgetmsgimg%20(1).jpg" alt="1234webwxgetmsgimg (1)" style="zoom:33%;">
+
+<p>（a）客户启动计时器，超时前若客户<strong>没有收到响应</strong>，就使用与原XID<strong>请求重传</strong>。若服务器还没处理完<strong>原先的请求</strong>，<strong>忽略</strong>此重传请求</p>
+<p>（b）服务器刚向客户端返回响应后收到重传请求。如果<strong>重传请求</strong>到达时间与服务器<strong>发送应答</strong>时间<strong>接近</strong>，服务器<strong>忽略</strong>此重传请求。</p>
+<p>（c）响应确实丢失了，向客户端发送<strong>缓存结果</strong>以响应重传的请求</p>
+<h2 id="3-Coda的回叫预约（重点）"><a href="#3-Coda的回叫预约（重点）" class="headerlink" title="3. Coda的回叫预约（重点）"></a>3. Coda的回叫预约（重点）</h2><ul>
+<li>回叫承诺：服务器记录哪些客户在<strong>本地缓存了</strong>文件的拷贝</li>
+<li>如果文件被客户<strong>更改</strong>，会<strong>通知服务器</strong>，后者向其他客户发<strong>无效化信息</strong>（又称<strong>回叫中断</strong>：服务器废弃回叫承诺）【你既然更改了，我就不给你登记了】</li>
+<li>如果客户在服务器上有未被废弃的回叫承诺，它就可以<strong>安全地</strong>在本地访问文件</li>
+</ul>
+<h2 id="4-Coda的储藏技术"><a href="#4-Coda的储藏技术" class="headerlink" title="4. Coda的储藏技术"></a>4. Coda的储藏技术</h2><p>Coda允许客户在<strong>断开连接</strong>时的继续操作。使用<strong>本地备份</strong>，再次连接后<strong>回传</strong>服务器。实际上，两个进程打开相同的文件进行写操作很罕见。为了成功地完成<strong>断开连接</strong>操作，<strong>预先使用适当的文件填充高速缓存</strong>称为Coda的储藏技术</p>
+
       
 
       
