@@ -341,7 +341,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><img src="Snipaste_2023-03-13_15-51-46.png" alt="Snipaste_2023-03-13_15-51-46"></p>
+<p><img src="Snipaste_2023-03-13_16-08-44.png" alt="Snipaste_2023-03-13_16-08-44"></p>
+
       
 
       
@@ -750,7 +752,8 @@
 <li><strong>类变量</strong>：类变量也声明在类中，方法体之外，但必须声明为 static 类型。</li>
 </ul>
 <p>一个类可以拥有多个方法，在上面的例子中：eat()、run()、sleep() 和 name() 都是 Dog 类的方法。</p>
-<h2 id="3-构造方法"><a href="#3-构造方法" class="headerlink" title="3. 构造方法"></a>3. 构造方法</h2>
+<h2 id="3-构造方法"><a href="#3-构造方法" class="headerlink" title="3. 构造方法"></a>3. 构造方法</h2><p><img src="20210105-java-object-1.png" alt="20210105-java-object-1"></p>
+
       
 
       
@@ -1376,6 +1379,161 @@
 
 
   
+    <article id="post-聚宽因子分析教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/">聚宽因子分析教程</a>
+    </h1>
+  
+
+        
+        <a href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2023-02-07T13:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-因子定义和计算"><a href="#1-因子定义和计算" class="headerlink" title="1. 因子定义和计算"></a>1. 因子定义和计算</h1><h2 id="1-1-因子计算"><a href="#1-1-因子计算" class="headerlink" title="1.1 因子计算"></a>1.1 因子计算</h2><p>在回测以及研究中， 可以通过调用jqfactor中的 calc_factors 函数来计算单因子分析中定义的因子值。</p>
+<p>为了便于理解，将因子计算部分置于因子定义前面。</p>
+<blockquote>
+<p>函数：calc_factors（）因子计算，置于因子定义前面</p>
+</blockquote>
+<p><img src="Snipaste_2023-02-13_18-02-07.png" alt="Snipaste_2023-02-13_18-02-07"></p>
+<h2 id="1-2-因子定义"><a href="#1-2-因子定义" class="headerlink" title="1.2 因子定义"></a>1.2 因子定义</h2><p><img src="Snipaste_2023-02-13_18-08-08.png" alt="Snipaste_2023-02-13_18-08-08"></p>
+<p><strong>dependencies 中可以使用的基础因子</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">数据</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">价量信息</td>
+<td align="left">包含open\close\high\low\money\volume 字段 当use_real_price&#x3D;True时使用动态复权数据 , 为False时使用后复权数据</td>
+<td align="left">dependencies&#x3D;[‘open’]</td>
+</tr>
+<tr>
+<td align="left">聚宽因子库数据</td>
+<td align="left">包含质量因子、基础因子、情绪因子、成长因子、风险因子、每股因子等数百个因子数据 详细的因子列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help?name=factor_values">因子库</a></td>
+<td align="left">质量因子: 营业周期、市场杠杆 dependencies &#x3D; [‘OperatingCycle’,’MLEV’]</td>
+</tr>
+<tr>
+<td align="left">单季度财务指标因子</td>
+<td align="left">每日可看到的最新单季度财务指标。包含市值数据（valuation）、资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以直接使用该指标的名称获取数据。详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
+<td align="left">获取利润表（income）中的营业收入（operating_revenue）数据 dependencies &#x3D; [‘operating_revenue’]</td>
+</tr>
+<tr>
+<td align="left">前 N 季度的财务数据</td>
+<td align="left">前1-8季度的单季度财务指标。 包含资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以通过在因子后加『_1』的方式， 获取前几个季度的财务指标。 详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
+<td align="left">某公司于6月23日发布半年报，当前的逻辑时间是6月24日 operating_revenue 表示第二季度的营业收入 operating_revenue_1 表示第一季度的营业收入。</td>
+</tr>
+<tr>
+<td align="left">过去五年的年度财务数据</td>
+<td align="left">过去五年的年度财务数据 包含资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以通过在因子后加『_y1』的方式， 获取前几年的财务指标。 详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
+<td align="left">当前的逻辑时间是2016年9月24日 operating_revenue_y 表示当前时间可以看到的最新年度营业收入数据，即2015年的营业收入数据 operating_revenue_y1 表示2014年的营业收入数据。</td>
+</tr>
+<tr>
+<td align="left">行业因子</td>
+<td align="left">包含证监会行业分类、聚宽一、二级行业分类以及申万一、二、三级行业分类。 因子名称是行业代码， 因子值是一个哑变量，如果某股票属于某行业， 则返回1， 否则， 返回0。 详细的行业列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/plateData">行业数据</a></td>
+<td align="left">获取聚宽一级能源行业因子 dependencies &#x3D; [‘HY001’]</td>
+</tr>
+<tr>
+<td align="left">概念因子</td>
+<td align="left">因子的名称是概念代码，因子值是一个哑变量， 如果某股票属于某个概念，则返回1； 否则，返回0。 详细的概念列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/plateData">概念数据</a></td>
+<td align="left">获取智能电网概念因子 dependencies &#x3D; [‘GN028’]</td>
+</tr>
+<tr>
+<td align="left">指数因子</td>
+<td align="left">因子名称是指数代码， 因子值是一个哑变量， 如果某股票属于某个指数，则返回1； 否则，返回0。 详细的指数列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/indexData">指数数据</a></td>
+<td align="left">获取沪深300指数因子 dependencies &#x3D; [‘000300.XSHG’]</td>
+</tr>
+<tr>
+<td align="left">资金流因子</td>
+<td align="left">即 <a target="_blank" rel="noopener" href="https://www.joinquant.com/api#jqdatagetmoneyflow-%E8%8E%B7%E5%8F%96%E8%B5%84%E9%87%91%E6%B5%81%E4%BF%A1%E6%81%AF">get_money_flow</a> API 查询的数据。 可以使用的字段包括：change_pct(涨跌幅(%)、net_amount_main(主力净额(万))、net_pct_main(主力净占比(%))、net_amount_xl(超大单净额(万))、net_pct_xl(超大单净占比(%))、net_amount_l(大单净额(万))、net_pct_l(大单净占比(%))、net_amount_m(中单净额(万))、net_pct_m(中单净占比(%))、net_amount_s(小单净额(万))、net_pct_s(小单净占比(%))</td>
+<td align="left">获取主力净占比因子 dependencies &#x3D; [‘net_pct_main’]</td>
+</tr>
+</tbody></table>
+<p><strong>calc 的参数</strong></p>
+<p>在 calc 中， 可以通过 data 参数获取通过 max_window 和 dependencies 定义的数据。 data 是一个 dict， key 是 dependencies 中的因子名称， value 是pandas.DataFrame。</p>
+<ul>
+<li>DataFrame 的 column 是股票代码;</li>
+<li>DataFrame 的 index 是一个时间序列，结束时间是当前时间， 长度是 max_window;</li>
+</ul>
+<p><strong>calc 的返回值</strong></p>
+<p>需要保证返回一个pandas.Series, index 股票代码， value 是因子值。</p>
+<p>注意：当 max_window 设置为1时，返回的是一个<strong>1行N列</strong>的 dataframe。需要使用dataframe.iloc[0] 或 dataframe.mean() 的方式转换为一个 Series。</p>
+<h3 id><a href="#" class="headerlink" title></a></h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">因子投资</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/量化交易//" class="article-tag-list-link color5">量化交易</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-量化交易教程（基于聚宽平台）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1383,13 +1541,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/">量化交易教程（基于聚宽平台）</a>
+      <a class="article-title" href="/2023/02/07/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/">量化交易教程（基于聚宽平台）</a>
     </h1>
   
 
         
-        <a href="/2023/02/09/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+        <a href="/2023/02/07/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/" class="archive-article-date">
+  	<time datetime="2023-02-07T13:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-07</time>
 </a>
         
       </header>
@@ -2240,7 +2398,15 @@
 <h3 id="8-7-收益与风险的取舍"><a href="#8-7-收益与风险的取舍" class="headerlink" title="8.7 收益与风险的取舍"></a>8.7 收益与风险的取舍</h3><ul>
 <li>往往策略的收益能力与抗风险能力是互相制约不能兼顾的，两者之间如何取舍建议是，<strong>达到基本的收益能力后，极力追求低风险</strong>，<strong>理由是盈利水平往往可以通过增加资金量来提高</strong>。具体的讲就是，策略a是一个年化收益率300%，最大回撤率50%的策略，策略b是一个年化收益率30%，最大回撤率5%的策略，只要给策略b提供相当于策略a的10倍的资金量，两者盈利能力就是一样的，但很难让策略a有像策略b一样的抗风险能力。</li>
 </ul>
-<h1 id="9-成长指路"><a href="#9-成长指路" class="headerlink" title="9. 成长指路"></a>9. 成长指路</h1><hr>
+<h1 id="9-通过聚宽因子看板快速筛选因子"><a href="#9-通过聚宽因子看板快速筛选因子" class="headerlink" title="9. 通过聚宽因子看板快速筛选因子"></a>9. 通过聚宽因子看板快速筛选因子</h1><p>进入因子看板，首先选择如图所示的条件下的因子</p>
+<p><img src="Snipaste_2023-03-13_15-29-07.png" alt="Snipaste_2023-03-13_15-29-07"></p>
+<p>解释信息：|IC|≥0.05时选股能力较强，IR&gt;0.5时因子的稳定性较强</p>
+<p>我们在沪深300，中证500，中证1000的基础科目衍生类因子都找不到|IC|≥0.05的因子</p>
+<p><img src="Snipaste_2023-03-13_16-11-31.png" alt="Snipaste_2023-03-13_16-11-31"></p>
+<p><img src="Snipaste_2023-03-13_16-12-11.png" alt="Snipaste_2023-03-13_16-12-11"></p>
+<p>我们接着选择其他类别的因子，如质量类因子，若找到了|IC|≥0.05的因子，再看IR值，如果</p>
+<p><img src="79e1891ccd9745dddaddc9a2cf18fa6a.png" alt="79e1891ccd9745dddaddc9a2cf18fa6a"></p>
+<h1 id="成长指路"><a href="#成长指路" class="headerlink" title=". 成长指路"></a>. 成长指路</h1><hr>
 <ul>
 <li>基础知识基本讲完了，本教程也要完结了，最后一篇讲下接下来的学习方向，仅供参考。</li>
 </ul>
@@ -2292,161 +2458,6 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">聚宽</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/量化交易//" class="article-tag-list-link color5">量化交易</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-聚宽因子分析教程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/">聚宽因子分析教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/" class="archive-article-date">
-  	<time datetime="2023-02-07T13:52:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-因子定义和计算"><a href="#1-因子定义和计算" class="headerlink" title="1. 因子定义和计算"></a>1. 因子定义和计算</h1><h2 id="1-1-因子计算"><a href="#1-1-因子计算" class="headerlink" title="1.1 因子计算"></a>1.1 因子计算</h2><p>在回测以及研究中， 可以通过调用jqfactor中的 calc_factors 函数来计算单因子分析中定义的因子值。</p>
-<p>为了便于理解，将因子计算部分置于因子定义前面。</p>
-<blockquote>
-<p>函数：calc_factors（）因子计算，置于因子定义前面</p>
-</blockquote>
-<p><img src="Snipaste_2023-02-13_18-02-07.png" alt="Snipaste_2023-02-13_18-02-07"></p>
-<h2 id="1-2-因子定义"><a href="#1-2-因子定义" class="headerlink" title="1.2 因子定义"></a>1.2 因子定义</h2><p><img src="Snipaste_2023-02-13_18-08-08.png" alt="Snipaste_2023-02-13_18-08-08"></p>
-<p><strong>dependencies 中可以使用的基础因子</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">数据</th>
-<th align="left">说明</th>
-<th align="left">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">价量信息</td>
-<td align="left">包含open\close\high\low\money\volume 字段 当use_real_price&#x3D;True时使用动态复权数据 , 为False时使用后复权数据</td>
-<td align="left">dependencies&#x3D;[‘open’]</td>
-</tr>
-<tr>
-<td align="left">聚宽因子库数据</td>
-<td align="left">包含质量因子、基础因子、情绪因子、成长因子、风险因子、每股因子等数百个因子数据 详细的因子列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help?name=factor_values">因子库</a></td>
-<td align="left">质量因子: 营业周期、市场杠杆 dependencies &#x3D; [‘OperatingCycle’,’MLEV’]</td>
-</tr>
-<tr>
-<td align="left">单季度财务指标因子</td>
-<td align="left">每日可看到的最新单季度财务指标。包含市值数据（valuation）、资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以直接使用该指标的名称获取数据。详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
-<td align="left">获取利润表（income）中的营业收入（operating_revenue）数据 dependencies &#x3D; [‘operating_revenue’]</td>
-</tr>
-<tr>
-<td align="left">前 N 季度的财务数据</td>
-<td align="left">前1-8季度的单季度财务指标。 包含资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以通过在因子后加『_1』的方式， 获取前几个季度的财务指标。 详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
-<td align="left">某公司于6月23日发布半年报，当前的逻辑时间是6月24日 operating_revenue 表示第二季度的营业收入 operating_revenue_1 表示第一季度的营业收入。</td>
-</tr>
-<tr>
-<td align="left">过去五年的年度财务数据</td>
-<td align="left">过去五年的年度财务数据 包含资产负债数据（balance）、现金流数据（cash_flow）、利润数据（income）、财务指标数据（indicator）。 可以通过在因子后加『_y1』的方式， 获取前几年的财务指标。 详细的指标列表请参考：<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/fundamentals">股票财务数据</a></td>
-<td align="left">当前的逻辑时间是2016年9月24日 operating_revenue_y 表示当前时间可以看到的最新年度营业收入数据，即2015年的营业收入数据 operating_revenue_y1 表示2014年的营业收入数据。</td>
-</tr>
-<tr>
-<td align="left">行业因子</td>
-<td align="left">包含证监会行业分类、聚宽一、二级行业分类以及申万一、二、三级行业分类。 因子名称是行业代码， 因子值是一个哑变量，如果某股票属于某行业， 则返回1， 否则， 返回0。 详细的行业列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/plateData">行业数据</a></td>
-<td align="left">获取聚宽一级能源行业因子 dependencies &#x3D; [‘HY001’]</td>
-</tr>
-<tr>
-<td align="left">概念因子</td>
-<td align="left">因子的名称是概念代码，因子值是一个哑变量， 如果某股票属于某个概念，则返回1； 否则，返回0。 详细的概念列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/plateData">概念数据</a></td>
-<td align="left">获取智能电网概念因子 dependencies &#x3D; [‘GN028’]</td>
-</tr>
-<tr>
-<td align="left">指数因子</td>
-<td align="left">因子名称是指数代码， 因子值是一个哑变量， 如果某股票属于某个指数，则返回1； 否则，返回0。 详细的指数列表请参考<a target="_blank" rel="noopener" href="https://www.joinquant.com/data/dict/indexData">指数数据</a></td>
-<td align="left">获取沪深300指数因子 dependencies &#x3D; [‘000300.XSHG’]</td>
-</tr>
-<tr>
-<td align="left">资金流因子</td>
-<td align="left">即 <a target="_blank" rel="noopener" href="https://www.joinquant.com/api#jqdatagetmoneyflow-%E8%8E%B7%E5%8F%96%E8%B5%84%E9%87%91%E6%B5%81%E4%BF%A1%E6%81%AF">get_money_flow</a> API 查询的数据。 可以使用的字段包括：change_pct(涨跌幅(%)、net_amount_main(主力净额(万))、net_pct_main(主力净占比(%))、net_amount_xl(超大单净额(万))、net_pct_xl(超大单净占比(%))、net_amount_l(大单净额(万))、net_pct_l(大单净占比(%))、net_amount_m(中单净额(万))、net_pct_m(中单净占比(%))、net_amount_s(小单净额(万))、net_pct_s(小单净占比(%))</td>
-<td align="left">获取主力净占比因子 dependencies &#x3D; [‘net_pct_main’]</td>
-</tr>
-</tbody></table>
-<p><strong>calc 的参数</strong></p>
-<p>在 calc 中， 可以通过 data 参数获取通过 max_window 和 dependencies 定义的数据。 data 是一个 dict， key 是 dependencies 中的因子名称， value 是pandas.DataFrame。</p>
-<ul>
-<li>DataFrame 的 column 是股票代码;</li>
-<li>DataFrame 的 index 是一个时间序列，结束时间是当前时间， 长度是 max_window;</li>
-</ul>
-<p><strong>calc 的返回值</strong></p>
-<p>需要保证返回一个pandas.Series, index 股票代码， value 是因子值。</p>
-<p>注意：当 max_window 设置为1时，返回的是一个<strong>1行N列</strong>的 dataframe。需要使用dataframe.iloc[0] 或 dataframe.mean() 的方式转换为一个 Series。</p>
-<h3 id><a href="#" class="headerlink" title></a></h3>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">因子投资</a>
         		</li>
       		
@@ -2468,7 +2479,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/07/%E8%81%9A%E5%AE%BD%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%95%99%E7%A8%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/02/07/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%99%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E8%81%9A%E5%AE%BD%E5%B9%B3%E5%8F%B0%EF%BC%89/">展开全文 >></a>
         </p>
       
 
