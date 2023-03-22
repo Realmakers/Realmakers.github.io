@@ -839,6 +839,136 @@
 <p>（4）案例实操</p>
 <p>查看文件内容并显示行号</p>
 <p><img src="Snipaste_2023-03-21_22-45-03.png" alt="Snipaste_2023-03-21_22-45-03"></p>
+<h3 id="8-2-11-more文件内容分屏查看器"><a href="#8-2-11-more文件内容分屏查看器" class="headerlink" title="8.2.11 more文件内容分屏查看器"></a>8.2.11 more文件内容分屏查看器</h3><p>more指令是一个基于VI编辑器的文本过滤器，它以全屏幕的方式按页显示文本文件的内容。more指令中内置了若干快捷键</p>
+<p>（1）基本语法</p>
+<p>more 要查看的文件</p>
+<p>（2）操作说明</p>
+<p><img src="Snipaste_2023-03-22_16-33-22.png" alt="Snipaste_2023-03-22_16-33-22"></p>
+<p><img src="Snipaste_2023-03-22_16-33-59.png" alt="Snipaste_2023-03-22_16-33-59"></p>
+<p>（3）案例实操</p>
+<p><img src="Snipaste_2023-03-22_16-35-36.png" alt="Snipaste_2023-03-22_16-35-36"></p>
+<h3 id="8-2-12-less分屏显示文件内容"><a href="#8-2-12-less分屏显示文件内容" class="headerlink" title="8.2.12 less分屏显示文件内容"></a>8.2.12 less分屏显示文件内容</h3><p>less指令用来分屏查看文件内容，它的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less指令在显示文件内容时，并不是一次将整个文件加载之后才显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率。</p>
+<p>（1）基本语法</p>
+<p>less 需要查看的文件</p>
+<p>（2）操作说明</p>
+<p><img src="Snipaste_2023-03-22_16-40-26.png" alt="Snipaste_2023-03-22_16-40-26"></p>
+<h3 id="8-2-13-echo"><a href="#8-2-13-echo" class="headerlink" title="8.2.13 echo"></a>8.2.13 echo</h3><p>echo输出内容到控制台</p>
+<p>（1）基本语法</p>
+<p>echo [选项][输出内容]</p>
+<p><img src="Snipaste_2023-03-22_16-47-15.png" alt="Snipaste_2023-03-22_16-47-15"></p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_16-48-52.png" alt="Snipaste_2023-03-22_16-48-52"></p>
+<p><strong>本部分内容更多实际用处可看“8.2.16 输出重定向”</strong></p>
+<h3 id="8-2-14-head显示文件头部内容"><a href="#8-2-14-head显示文件头部内容" class="headerlink" title="8.2.14 head显示文件头部内容"></a>8.2.14 head显示文件头部内容</h3><p>head用于显示文件的开头部分内容，默认情况下head指令显示文件的前10行内容</p>
+<p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_17-02-27.png" alt="Snipaste_2023-03-22_17-02-27"></p>
+<p>（2）选项说明</p>
+<p><img src="Snipaste_2023-03-22_17-03-16.png" alt="Snipaste_2023-03-22_17-03-16"></p>
+<p>（3）案例实操</p>
+<p><img src="Snipaste_2023-03-22_17-05-52.png" alt="Snipaste_2023-03-22_17-05-52"></p>
+<h3 id="8-2-15-tail输出文件尾部内容"><a href="#8-2-15-tail输出文件尾部内容" class="headerlink" title="8.2.15 tail输出文件尾部内容"></a>8.2.15 tail输出文件尾部内容</h3><p>tail用于输出文件中尾部的内容，默认情况下tail指令显示文件的后10行内容</p>
+<p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_17-07-19.png" alt="Snipaste_2023-03-22_17-07-19"></p>
+<p>（2）选项说明</p>
+<p><img src="Snipaste_2023-03-22_17-07-45.png" alt="Snipaste_2023-03-22_17-07-45"></p>
+<p>（3）案例实操</p>
+<p><img src="Snipaste_2023-03-22_17-10-57.png" alt="Snipaste_2023-03-22_17-10-57"></p>
+<p>事实追踪文件所有更新</p>
+<p>首先我们打开一个终端进行tail -f info，这样会导致一个进程打开并挂起，这个进程现在开始实时追踪文件的更新：</p>
+<p><img src="Snipaste_2023-03-22_17-12-21.png" alt="Snipaste_2023-03-22_17-12-21"></p>
+<p>之后再打开另一个终端，向info文件中追加一个“1234567890”</p>
+<p><img src="Snipaste_2023-03-22_17-13-57.png" alt="Snipaste_2023-03-22_17-13-57"></p>
+<p>可以看到在之前的终端上已经追踪到了更新：<br><img src="Snipaste_2023-03-22_17-14-50.png" alt="Snipaste_2023-03-22_17-14-50"></p>
+<h3 id="8-2-16-gt-输出重定向和-gt-gt-追加"><a href="#8-2-16-gt-输出重定向和-gt-gt-追加" class="headerlink" title="8.2.16 &gt;输出重定向和&gt;&gt;追加"></a>8.2.16 &gt;输出重定向和&gt;&gt;追加</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_16-52-34.png" alt="Snipaste_2023-03-22_16-52-34"></p>
+<p>（2）案例实操</p>
+<p>将ll的内容直接写入文件info</p>
+<p><img src="Snipaste_2023-03-22_16-57-37.png" alt="Snipaste_2023-03-22_16-57-37"></p>
+<p>查看文件info可以看到里面就是ll的内容</p>
+<p><img src="Snipaste_2023-03-22_16-59-05.png" alt="Snipaste_2023-03-22_16-59-05"></p>
+<p>将ls的内容覆盖写入文件info中：</p>
+<img src="Snipaste_2023-03-22_16-59-26.png" alt="Snipaste_2023-03-22_16-59-26" style="zoom:43%;">
+
+<p>将“hello Linux”追加写入文件info中</p>
+<p><img src="Snipaste_2023-03-22_17-00-15.png" alt="Snipaste_2023-03-22_17-00-15"></p>
+<h3 id="8-2-17-ln软链接"><a href="#8-2-17-ln软链接" class="headerlink" title="8.2.17 ln软链接"></a>8.2.17 ln软链接</h3><p>软链接也称为符号链接，类似于windows里的快捷方式，有自己的数据块，主要存放了链接其他文件的路径</p>
+<p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_17-19-43.png" alt="Snipaste_2023-03-22_17-19-43"></p>
+<p>（2）经验技巧</p>
+<p><img src="Snipaste_2023-03-22_17-20-08.png" alt="Snipaste_2023-03-22_17-20-08"></p>
+<p>（3）案例实操</p>
+<p>将root下的info文件软链接为myinfo文件到&#x2F;home&#x2F;wyh&#x2F;目录下</p>
+<p><img src="Snipaste_2023-03-22_19-07-16.png" alt="Snipaste_2023-03-22_19-07-16"></p>
+<p><img src="Snipaste_2023-03-22_19-15-00.png" alt="Snipaste_2023-03-22_19-15-00"></p>
+<p>这个myinfo文件相当于info文件的快捷方式，包含info的全部信息，在myinfo中进行增删改查和在info中一样，但是如果将链接的目录或者文件删了是不影响原目录和文件的，反之不行（<strong>如通把快捷方式删了原文件还在，但是把原文件删了快捷方式就不能用了</strong>）</p>
+<p><strong>软链接不仅可以链接文件，还可以链接目录</strong></p>
+<p>在root内创建一个目录folder，目录里再创建一个文件file；进入&#x2F;home&#x2F;wyh，将&#x2F;root&#x2F;folder&#x2F;目录软链接到&#x2F;home&#x2F;wyh下的myFolder</p>
+<p><img src="Snipaste_2023-03-22_19-36-50.png" alt="Snipaste_2023-03-22_19-36-50"></p>
+<p>可以看到，myinfo链接到root下的文件info，myFolder链接到root下的目录folder&#x2F;</p>
+<p><img src="Snipaste_2023-03-22_19-39-14.png" alt="Snipaste_2023-03-22_19-39-14"></p>
+<p>进入myFolder&#x2F;目录下，一定可以看到file文件</p>
+<p><img src="Snipaste_2023-03-22_19-40-39.png" alt="Snipaste_2023-03-22_19-40-39"></p>
+<p>pwd显示当前的<strong>实际目录</strong>，pwd -P显示的是当前目录<strong>链接到的目录</strong></p>
+<p><img src="Snipaste_2023-03-22_19-41-38.png" alt="Snipaste_2023-03-22_19-41-38"></p>
+<p>cd -p直接跳转到其<strong>链接到的目录</strong></p>
+<p><img src="Snipaste_2023-03-22_19-42-59.png" alt="Snipaste_2023-03-22_19-42-59"></p>
+<h3 id="8-2-18-history查看已经执行过历史命令"><a href="#8-2-18-history查看已经执行过历史命令" class="headerlink" title="8.2.18 history查看已经执行过历史命令"></a>8.2.18 history查看已经执行过历史命令</h3><p>（1）基本语法</p>
+<p>history                        （功能描述：查看已经执行过历史命令）</p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_20-12-38.png" alt="Snipaste_2023-03-22_20-12-38"></p>
+<p>history -c清除历史命令</p>
+<p><img src="Snipaste_2023-03-22_20-14-30.png" alt="Snipaste_2023-03-22_20-14-30"></p>
+<h2 id="8-3-时间日期类"><a href="#8-3-时间日期类" class="headerlink" title="8.3 时间日期类"></a>8.3 时间日期类</h2><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_20-44-09.png" alt="Snipaste_2023-03-22_20-44-09"></p>
+<p>（2）选项说明</p>
+<p><img src="Snipaste_2023-03-22_20-44-39.png" alt="Snipaste_2023-03-22_20-44-39"></p>
+<p>（3）参数说明</p>
+<p><img src="Snipaste_2023-03-22_20-45-08.png" alt="Snipaste_2023-03-22_20-45-08"></p>
+<h3 id="8-3-1-date显示当前时间"><a href="#8-3-1-date显示当前时间" class="headerlink" title="8.3.1 date显示当前时间"></a>8.3.1 date显示当前时间</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_20-46-40.png" alt="Snipaste_2023-03-22_20-46-40"></p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_20-49-40.png" alt="Snipaste_2023-03-22_20-49-40"></p>
+<h3 id="8-3-2-date显示非当前时间"><a href="#8-3-2-date显示非当前时间" class="headerlink" title="8.3.2 date显示非当前时间"></a>8.3.2 date显示非当前时间</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_20-51-28.png" alt="Snipaste_2023-03-22_20-51-28"></p>
+<p>（2）案例实现</p>
+<p><img src="Snipaste_2023-03-22_20-52-30.png" alt="Snipaste_2023-03-22_20-52-30"></p>
+<h3 id="8-3-3-date设置系统时间"><a href="#8-3-3-date设置系统时间" class="headerlink" title="8.3.3 date设置系统时间"></a>8.3.3 date设置系统时间</h3><p>（1）基本语法</p>
+<p>date -s 字符串时间</p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_20-55-16.png" alt="Snipaste_2023-03-22_20-55-16"></p>
+<h3 id="8-3-4-cal查看日历"><a href="#8-3-4-cal查看日历" class="headerlink" title="8.3.4 cal查看日历"></a>8.3.4 cal查看日历</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_20-56-41.png" alt="Snipaste_2023-03-22_20-56-41"></p>
+<p>（2）选项说明</p>
+<p><img src="Snipaste_2023-03-22_20-57-09.png" alt="Snipaste_2023-03-22_20-57-09"></p>
+<p>（3）案例实操</p>
+<p><img src="Snipaste_2023-03-22_20-59-06.png" alt="Snipaste_2023-03-22_20-59-06"></p>
+<h2 id="8-4-用户管理命令"><a href="#8-4-用户管理命令" class="headerlink" title="8.4 用户管理命令"></a>8.4 用户管理命令</h2><h3 id="8-4-1-uesradd添加新用户"><a href="#8-4-1-uesradd添加新用户" class="headerlink" title="8.4.1 uesradd添加新用户"></a>8.4.1 uesradd添加新用户</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_21-01-04.png" alt="Snipaste_2023-03-22_21-01-04"></p>
+<p>（2）案例实操</p>
+<p>添加一个用户tom</p>
+<p><img src="Snipaste_2023-03-22_21-04-03.png" alt="Snipaste_2023-03-22_21-04-03"></p>
+<h3 id="8-4-2-passwd设置用户密码"><a href="#8-4-2-passwd设置用户密码" class="headerlink" title="8.4.2 passwd设置用户密码"></a>8.4.2 passwd设置用户密码</h3><p>（1）基本语法</p>
+<p><img src="Snipaste_2023-03-22_21-04-54.png" alt="Snipaste_2023-03-22_21-04-54"></p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_21-07-30.png" alt="Snipaste_2023-03-22_21-07-30"></p>
+<p>这里将新建的用户tom的密码设置为123456</p>
+<p>可以添加新的连接</p>
+<p><img src="Snipaste_2023-03-22_21-10-14.png" alt="Snipaste_2023-03-22_21-10-14"></p>
+<p><img src="Snipaste_2023-03-22_21-10-53.png" alt="Snipaste_2023-03-22_21-10-53"></p>
+<p>连接成功：</p>
+<p><img src="Snipaste_2023-03-22_21-11-31.png" alt="Snipaste_2023-03-22_21-11-31"></p>
+<p><img src="Snipaste_2023-03-22_21-12-06.png" alt="Snipaste_2023-03-22_21-12-06"></p>
+<h3 id="8-4-3-id查看用户是否存在"><a href="#8-4-3-id查看用户是否存在" class="headerlink" title="8.4.3 id查看用户是否存在"></a>8.4.3 id查看用户是否存在</h3><p>（1）基本语法</p>
+<p>id 用户名</p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_21-32-08.png" alt="Snipaste_2023-03-22_21-32-08"></p>
+<h3 id="8-4-4-cat-x2F-etc-x2F-passwd查看创建了哪些用户"><a href="#8-4-4-cat-x2F-etc-x2F-passwd查看创建了哪些用户" class="headerlink" title="8.4.4 cat &#x2F;etc&#x2F;passwd查看创建了哪些用户"></a>8.4.4 cat &#x2F;etc&#x2F;passwd查看创建了哪些用户</h3><p>（1）案例实操</p>
+<p><img src="Snipaste_2023-03-22_21-35-29.png" alt="Snipaste_2023-03-22_21-35-29"></p>
+<h3 id="8-4-5-切换用户"><a href="#8-4-5-切换用户" class="headerlink" title="8.4.5 切换用户"></a>8.4.5 切换用户</h3><p><img src="Snipaste_2023-03-22_21-36-38.png" alt="Snipaste_2023-03-22_21-36-38"></p>
+<p>（1）基本用法</p>
+<p><img src="Snipaste_2023-03-22_21-37-04.png" alt="Snipaste_2023-03-22_21-37-04"></p>
+<p>（2）案例实操</p>
+<p><img src="Snipaste_2023-03-22_21-39-26.png" alt="Snipaste_2023-03-22_21-39-26"></p>
 
       
 
@@ -928,7 +1058,39 @@
 <li>通过股票的<strong>观测序列</strong>预测出股票的<strong>状态</strong>，以此对<strong>收益率</strong>进行预测</li>
 <li><img src="Snipaste_2023-03-20_17-56-02.png" alt="Snipaste_2023-03-20_17-56-02"></li>
 </ul>
-<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><h3 id="1-1-选题背景与意义"><a href="#1-1-选题背景与意义" class="headerlink" title="1.1 选题背景与意义"></a>1.1 选题背景与意义</h3><h3 id="1-2-文献综述"><a href="#1-2-文献综述" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-论文结构安排"><a href="#1-3-论文结构安排" class="headerlink" title="1.3 论文结构安排"></a>1.3 论文结构安排</h3><h2 id="第二章-隐马尔可夫模型"><a href="#第二章-隐马尔可夫模型" class="headerlink" title="第二章 隐马尔可夫模型"></a>第二章 隐马尔可夫模型</h2><h3 id="2-1-马尔可夫链"><a href="#2-1-马尔可夫链" class="headerlink" title="2.1 马尔可夫链"></a>2.1 马尔可夫链</h3><h3 id="2-2-隐马尔可夫模型"><a href="#2-2-隐马尔可夫模型" class="headerlink" title="2.2 隐马尔可夫模型"></a>2.2 隐马尔可夫模型</h3><h3 id="2-3-连续隐马尔可夫模型"><a href="#2-3-连续隐马尔可夫模型" class="headerlink" title="2.3 连续隐马尔可夫模型"></a>2.3 连续隐马尔可夫模型</h3><h3 id="2-4-本章小节"><a href="#2-4-本章小节" class="headerlink" title="2.4 本章小节"></a>2.4 本章小节</h3><h2 id="第三章-隐马尔可夫模型在择时中的应用"><a href="#第三章-隐马尔可夫模型在择时中的应用" class="headerlink" title="第三章 隐马尔可夫模型在择时中的应用"></a>第三章 隐马尔可夫模型在择时中的应用</h2><h3 id="3-1-择时简介"><a href="#3-1-择时简介" class="headerlink" title="3.1 择时简介"></a>3.1 择时简介</h3><h3 id="3-2-隐马尔可夫模型择时方法"><a href="#3-2-隐马尔可夫模型择时方法" class="headerlink" title="3.2 隐马尔可夫模型择时方法"></a>3.2 隐马尔可夫模型择时方法</h3><h3 id="3-3-模型建立"><a href="#3-3-模型建立" class="headerlink" title="3.3 模型建立"></a>3.3 模型建立</h3><h3 id="3-4-静态模型的实证研究"><a href="#3-4-静态模型的实证研究" class="headerlink" title="3.4 静态模型的实证研究"></a>3.4 静态模型的实证研究</h3><h3 id="3-5-动态模型的实证研究"><a href="#3-5-动态模型的实证研究" class="headerlink" title="3.5 动态模型的实证研究"></a>3.5 动态模型的实证研究</h3><h3 id="3-6-本章小结"><a href="#3-6-本章小结" class="headerlink" title="3.6 本章小结"></a>3.6 本章小结</h3><h2 id="第四章-隐马尔可夫模型在多因子模型中的应用"><a href="#第四章-隐马尔可夫模型在多因子模型中的应用" class="headerlink" title="第四章 隐马尔可夫模型在多因子模型中的应用"></a>第四章 隐马尔可夫模型在多因子模型中的应用</h2><h3 id="4-1-多因子模型的选取"><a href="#4-1-多因子模型的选取" class="headerlink" title="4.1 多因子模型的选取"></a>4.1 多因子模型的选取</h3><h3 id="4-2-单因子选取"><a href="#4-2-单因子选取" class="headerlink" title="4.2 单因子选取"></a>4.2 单因子选取</h3><h3 id="4-3-静态模型的实证研究"><a href="#4-3-静态模型的实证研究" class="headerlink" title="4.3 静态模型的实证研究"></a>4.3 静态模型的实证研究</h3><h3 id="4-4-动态模型的实证研究"><a href="#4-4-动态模型的实证研究" class="headerlink" title="4.4 动态模型的实证研究"></a>4.4 动态模型的实证研究</h3><h3 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h3><h2 id="第五章-总结和结论"><a href="#第五章-总结和结论" class="headerlink" title="第五章 总结和结论"></a>第五章 总结和结论</h2>
+<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><h3 id="1-1-选题背景与意义"><a href="#1-1-选题背景与意义" class="headerlink" title="1.1 选题背景与意义"></a>1.1 选题背景与意义</h3><h3 id="1-2-文献综述"><a href="#1-2-文献综述" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-论文结构安排"><a href="#1-3-论文结构安排" class="headerlink" title="1.3 论文结构安排"></a>1.3 论文结构安排</h3><h2 id="第二章-隐马尔可夫模型"><a href="#第二章-隐马尔可夫模型" class="headerlink" title="第二章 隐马尔可夫模型"></a>第二章 隐马尔可夫模型</h2><h3 id="2-1-马尔可夫链"><a href="#2-1-马尔可夫链" class="headerlink" title="2.1 马尔可夫链"></a>2.1 马尔可夫链</h3><h3 id="2-2-隐马尔可夫模型"><a href="#2-2-隐马尔可夫模型" class="headerlink" title="2.2 隐马尔可夫模型"></a>2.2 隐马尔可夫模型</h3><h3 id="2-3-连续隐马尔可夫模型"><a href="#2-3-连续隐马尔可夫模型" class="headerlink" title="2.3 连续隐马尔可夫模型"></a>2.3 连续隐马尔可夫模型</h3><h3 id="2-4-本章小节"><a href="#2-4-本章小节" class="headerlink" title="2.4 本章小节"></a>2.4 本章小节</h3><h2 id="第三章-隐马尔可夫模型在择时中的应用"><a href="#第三章-隐马尔可夫模型在择时中的应用" class="headerlink" title="第三章 隐马尔可夫模型在择时中的应用"></a>第三章 隐马尔可夫模型在择时中的应用</h2><h3 id="3-1-择时简介"><a href="#3-1-择时简介" class="headerlink" title="3.1 择时简介"></a>3.1 择时简介</h3><h3 id="3-2-隐马尔可夫模型择时方法"><a href="#3-2-隐马尔可夫模型择时方法" class="headerlink" title="3.2 隐马尔可夫模型择时方法"></a>3.2 隐马尔可夫模型择时方法</h3><h3 id="3-3-模型建立"><a href="#3-3-模型建立" class="headerlink" title="3.3 模型建立"></a>3.3 模型建立</h3><h3 id="3-4-静态模型的实证研究"><a href="#3-4-静态模型的实证研究" class="headerlink" title="3.4 静态模型的实证研究"></a>3.4 静态模型的实证研究</h3><h3 id="3-5-动态模型的实证研究"><a href="#3-5-动态模型的实证研究" class="headerlink" title="3.5 动态模型的实证研究"></a>3.5 动态模型的实证研究</h3><h3 id="3-6-本章小结"><a href="#3-6-本章小结" class="headerlink" title="3.6 本章小结"></a>3.6 本章小结</h3><h2 id="第四章-隐马尔可夫模型在多因子模型中的应用"><a href="#第四章-隐马尔可夫模型在多因子模型中的应用" class="headerlink" title="第四章 隐马尔可夫模型在多因子模型中的应用"></a>第四章 隐马尔可夫模型在多因子模型中的应用</h2><h3 id="4-1-多因子模型的选取"><a href="#4-1-多因子模型的选取" class="headerlink" title="4.1 多因子模型的选取"></a>4.1 多因子模型的选取</h3><h3 id="4-2-单因子选取"><a href="#4-2-单因子选取" class="headerlink" title="4.2 单因子选取"></a>4.2 单因子选取</h3><h3 id="4-3-静态模型的实证研究"><a href="#4-3-静态模型的实证研究" class="headerlink" title="4.3 静态模型的实证研究"></a>4.3 静态模型的实证研究</h3><h3 id="4-4-动态模型的实证研究"><a href="#4-4-动态模型的实证研究" class="headerlink" title="4.4 动态模型的实证研究"></a>4.4 动态模型的实证研究</h3><h3 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h3><h2 id="第五章-总结和结论"><a href="#第五章-总结和结论" class="headerlink" title="第五章 总结和结论"></a>第五章 总结和结论</h2><h1 id="2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"><a href="#2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）" class="headerlink" title="2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"></a>2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）</h1><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="1-1-研究背景及研究意义"><a href="#1-1-研究背景及研究意义" class="headerlink" title="1.1 研究背景及研究意义"></a>1.1 研究背景及研究意义</h3><h3 id="1-2-文献综述-1"><a href="#1-2-文献综述-1" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-研究内容及方案"><a href="#1-3-研究内容及方案" class="headerlink" title="1.3 研究内容及方案"></a>1.3 研究内容及方案</h3><h2 id="第二章-择时与选股量化策略的相关理论模型"><a href="#第二章-择时与选股量化策略的相关理论模型" class="headerlink" title="第二章 择时与选股量化策略的相关理论模型"></a>第二章 择时与选股量化策略的相关理论模型</h2><h3 id="2-1-多因子选股量化策略理论基础"><a href="#2-1-多因子选股量化策略理论基础" class="headerlink" title="2.1 多因子选股量化策略理论基础"></a>2.1 多因子选股量化策略理论基础</h3><h3 id="2-2-择时量化策略的理论基础"><a href="#2-2-择时量化策略的理论基础" class="headerlink" title="2.2 择时量化策略的理论基础"></a>2.2 择时量化策略的理论基础</h3><h4 id="2-2-1-择时量化策略的基本模型"><a href="#2-2-1-择时量化策略的基本模型" class="headerlink" title="2.2.1 择时量化策略的基本模型"></a>2.2.1 择时量化策略的基本模型</h4><h4 id="2-2-2-隐马尔科夫模型的概念及算法"><a href="#2-2-2-隐马尔科夫模型的概念及算法" class="headerlink" title="2.2.2 隐马尔科夫模型的概念及算法"></a>2.2.2 隐马尔科夫模型的概念及算法</h4><h4 id="2-2-3-股票市场上的隐马尔科夫模型"><a href="#2-2-3-股票市场上的隐马尔科夫模型" class="headerlink" title="2.2.3 股票市场上的隐马尔科夫模型"></a>2.2.3 股票市场上的隐马尔科夫模型</h4><h2 id="第三章-基于多因子的选股量化策略的设计分析"><a href="#第三章-基于多因子的选股量化策略的设计分析" class="headerlink" title="第三章 基于多因子的选股量化策略的设计分析"></a>第三章 基于多因子的选股量化策略的设计分析</h2><h3 id="3-1-因子选取及检验"><a href="#3-1-因子选取及检验" class="headerlink" title="3.1 因子选取及检验"></a>3.1 因子选取及检验</h3><p>剔除时间跨度不在选取时间范围内的因子，综合优矿、万矿、聚宽平台因子库，选取17小类114个因子</p>
+<p>在聚宽因子看盘中，可以挑选因子：</p>
+<p><img src="Snipaste_2023-03-22_10-25-20.png" alt="Snipaste_2023-03-22_10-25-20"></p>
+<p>根据|IC|≥0.05，IR≥0.5</p>
+<h4 id="3-1-1-数据的选取及处理"><a href="#3-1-1-数据的选取及处理" class="headerlink" title="3.1.1 数据的选取及处理"></a>3.1.1 数据的选取及处理</h4><p>投资标的：A股全部股票</p>
+<p>2014.11.3-2015.6.12——牛市</p>
+<p>2015.6.13-2016.3.31——熊市</p>
+<p>2016.4.1-2018.2.1——震荡市</p>
+<p>2018.2.2-2019.2.1——熊市</p>
+<p>2019.2.11-2020.1.23——震荡市</p>
+<ul>
+<li>剔除选股日为ST&#x2F;PT、上市时间不满5年以及在由于停牌没有办法买入的股票</li>
+</ul>
+<h4 id="3-1-2-数据预处理"><a href="#3-1-2-数据预处理" class="headerlink" title="3.1.2 数据预处理"></a>3.1.2 数据预处理</h4><p>去除异常值、缺失值，进行标准化、行业中性化（用现成的函数，是否需要预处理依情况而定）</p>
+<h4 id="3-1-3-单因子检验"><a href="#3-1-3-单因子检验" class="headerlink" title="3.1.3 单因子检验"></a>3.1.3 单因子检验</h4><p>筛选1：看IC值&gt;0.03（有效性）和IR值（稳定性）</p>
+<p><img src="webwxgetmsgimg.jpg" alt="webwxgetmsgimg"></p>
+<p>筛选2：进行上述因子的相关性检验，相关性大于0.5，剔除</p>
+<p>![webwxgetmsgimg (1)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (1).jpg)</p>
+<h3 id="3-2-多因子选股量化策略的构建与回测"><a href="#3-2-多因子选股量化策略的构建与回测" class="headerlink" title="3.2 多因子选股量化策略的构建与回测"></a>3.2 多因子选股量化策略的构建与回测</h3><h4 id="3-2-1-多因子模型构建"><a href="#3-2-1-多因子模型构建" class="headerlink" title="3.2.1 多因子模型构建"></a>3.2.1 多因子模型构建</h4><p>最终选定8个因子</p>
+<p>两种常用方法构建多因子模型：</p>
+<ul>
+<li>机器学习（集成学习、神经网络）：以因子值为特征，股票涨跌（定阈值：涨幅10%以上定为+1，其余-1）为标签。用前一天获取的因子值预测今天的涨跌（时间窗口1天），在调仓日选择涨的概率较大的前几只股票。</li>
+<li>打分法：每个因子前配一个权重（等权重、IC加权、IR加权），在调仓日选择评分最高的几只股票</li>
+</ul>
+<p>![webwxgetmsgimg (2)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (2).jpg)</p>
+<p>![webwxgetmsgimg (3)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (3).jpg)</p>
+<h4 id="3-2-2-多因子模型回测"><a href="#3-2-2-多因子模型回测" class="headerlink" title="3.2.2 多因子模型回测"></a>3.2.2 多因子模型回测</h4><p>A股全部股票</p>
+<p>2014.11.3-2020.1.23</p>
+<p>调仓周期一个月，保持持仓20只股票</p>
+<p>![webwxgetmsgimg (4)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (4).jpg)</p>
+<p>![webwxgetmsgimg (5)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (5).jpg)</p>
+<p>在没有加入<strong>择时策略</strong>的时候，多因子选股策略很难对于市场下行的情况做出反应，贝塔值较大，极易受大盘影响。从而造成绝对回撤。但总体效果较好。</p>
+<h2 id="第四章-基于隐马尔科夫模型择时量化策略构建及分析"><a href="#第四章-基于隐马尔科夫模型择时量化策略构建及分析" class="headerlink" title="第四章 基于隐马尔科夫模型择时量化策略构建及分析"></a>第四章 基于隐马尔科夫模型择时量化策略构建及分析</h2><h3 id="4-1-基于隐马尔科夫模型择时量化策略的构建"><a href="#4-1-基于隐马尔科夫模型择时量化策略的构建" class="headerlink" title="4.1 基于隐马尔科夫模型择时量化策略的构建"></a>4.1 基于隐马尔科夫模型择时量化策略的构建</h3>
       
 
       
