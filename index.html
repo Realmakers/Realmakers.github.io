@@ -153,6 +153,268 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-论文总结与感悟——贝叶斯篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/03/28/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/">论文总结与感悟——贝叶斯篇</a>
+    </h1>
+  
+
+        
+        <a href="/2023/03/28/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/" class="archive-article-date">
+  	<time datetime="2023-03-28T14:13:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-《隐马尔可夫模型在股票市场中的应用》——清华大学-2018"><a href="#1-《隐马尔可夫模型在股票市场中的应用》——清华大学-2018" class="headerlink" title="1. 《隐马尔可夫模型在股票市场中的应用》——清华大学 2018"></a>1. 《隐马尔可夫模型在股票市场中的应用》——清华大学 2018</h1><h2 id="摘要-x2F-总述"><a href="#摘要-x2F-总述" class="headerlink" title="摘要&#x2F;总述"></a>摘要&#x2F;总述</h2><ul>
+<li>认为股票市场有多种不同的状态，且状态序列是具有<strong>马尔可夫性</strong>的</li>
+<li>通过股票的<strong>观测序列</strong>预测出股票的<strong>状态</strong>，以此对<strong>收益率</strong>进行预测</li>
+<li><img src="Snipaste_2023-03-20_17-56-02.png" alt="Snipaste_2023-03-20_17-56-02"></li>
+</ul>
+<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><h3 id="1-1-选题背景与意义"><a href="#1-1-选题背景与意义" class="headerlink" title="1.1 选题背景与意义"></a>1.1 选题背景与意义</h3><p>HMM在股票市场中应用的原理解释：</p>
+<p>股市中有好几种不同的形态（牛市、熊市、猴市（无方向的大幅震荡）、羊市（无方向的小幅震荡）、盘整（横盘））——————&gt;每个不同的状态对应不同的未来收益分布</p>
+<img src="Snipaste_2023-03-29_10-42-10.png" alt="Snipaste_2023-03-29_10-42-10" style="zoom: 50%;">
+
+<p>若在某状态下的收益分布函数均值比较高，就选择在这个状态下进行交易，从而获取利润</p>
+<h3 id="1-2-文献综述"><a href="#1-2-文献综述" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-论文结构安排"><a href="#1-3-论文结构安排" class="headerlink" title="1.3 论文结构安排"></a>1.3 论文结构安排</h3><h2 id="第二章-隐马尔可夫模型"><a href="#第二章-隐马尔可夫模型" class="headerlink" title="第二章 隐马尔可夫模型"></a>第二章 隐马尔可夫模型</h2><h3 id="2-1-马尔可夫链"><a href="#2-1-马尔可夫链" class="headerlink" title="2.1 马尔可夫链"></a>2.1 马尔可夫链</h3><p>定义：具有<strong>马尔科夫性质</strong>且<strong>状态空间和时间参数</strong>均<strong>离散</strong>的随机过程</p>
+<img src="Snipaste_2023-03-29_11-07-09.png" alt="Snipaste_2023-03-29_11-07-09" style="zoom:43%;">
+
+<p>解释：</p>
+<ul>
+<li>马尔科夫性：当前变量的状态只依赖于它的前一个变量的状态</li>
+<li>状态空间离散：有n个可能的状态，I&#x3D;{1,2,3,……n}</li>
+<li>时间参数离散：T&#x3D;{0,1,2,……t,t+1}，在每个离散的时间点，系统的状态可能发生变化</li>
+</ul>
+<p>三个参数：</p>
+<ul>
+<li>状态个数：1，2，……n</li>
+<li>初始分布：π&#x3D;(p1,p2,……pn)</li>
+<li>状态转移矩阵：A&#x3D;[aij]   aij&#x3D;P(i t+1&#x3D;qj | it&#x3D;qi)，即某一时刻的状态概率为qi时，下一时刻的状态概率为qj的概率</li>
+</ul>
+<h3 id="2-2-隐马尔可夫模型"><a href="#2-2-隐马尔可夫模型" class="headerlink" title="2.2 隐马尔可夫模型"></a>2.2 隐马尔可夫模型</h3><p>定义：在马尔科夫链的基础上增加了一个输出的随机过程。状态序列不可观测，只有输出序列可观测（也叫观测变量）</p>
+<img src="Snipaste_2023-03-29_11-20-22.png" alt="Snipaste_2023-03-29_11-20-22" style="zoom:43%;">
+
+<p>模型：λ&#x3D;(π,A,B)</p>
+<ul>
+<li><p><strong>状态（隐）变量</strong>：i:i1,i2,……it……</p>
+</li>
+<li><p>状态个数：q1,q2,q3……qn这样n个状态</p>
+</li>
+<li><p><strong>观测变量</strong>：o:o1,o2……ot……</p>
+</li>
+<li><p>观测个数：v1,v2,v3……vm这样m个状态</p>
+</li>
+<li><p><strong>π</strong>：初始概率分布，π&#x3D;(p1,p2,……pn)</p>
+</li>
+<li><p><strong>A</strong>：状态转移矩阵，A&#x3D;[aij]   aij&#x3D;P(i t+1&#x3D;qj | it&#x3D;qi)，即某一时刻的状态概率为qi时，下一时刻的状态概率为qj的概率</p>
+</li>
+<li><p><strong>B</strong>：发射矩阵，B&#x3D;[bj(k)]   bj(k)&#x3D;P(ot&#x3D;vk | it&#x3D;qj)。即某一时刻的状态为qj时，同一时刻的观测值为vk的概率</p>
+</li>
+</ul>
+<p>两个假设：</p>
+<ul>
+<li>齐次马尔科夫假设：一个状态发生的概率只与它前一个时刻的状态有关</li>
+<li>观测独立假设：一个观测变量发生的概率只与此刻它的状态变量有关</li>
+</ul>
+<p>三个问题：</p>
+<ul>
+<li><strong>Evaluation（评估&#x2F;求值问题）</strong>：P(O|λ)：给定HMM的所有参数，求某个观测序列出现的概率——前向后向算法</li>
+<li><strong>Decoding（解码&#x2F;预测问题）</strong>：argmaxP(I |O，λ)：给定模型的所有参数，并给定一个观测序列，根据参数和观测序列来求出最可能的隐状态序列——维特比算法</li>
+<li><strong>Learning（学习&#x2F;参数估计问题）</strong>：argmaxP(O|λ)：给定一个观测序列，来估计一组模型的参数，使得在这组参数下，观测序列出现的概率最大——EM算法（Baum-Welch算法）</li>
+</ul>
+<h3 id="2-3-连续隐马尔可夫模型"><a href="#2-3-连续隐马尔可夫模型" class="headerlink" title="2.3 连续隐马尔可夫模型"></a>2.3 连续隐马尔可夫模型</h3><p>也叫高斯隐马尔科夫模型（GHMM）：观测序列O是连续的，隐状态序列i仍是是离散的，此时B就从发射矩阵变为<strong>发射概率密度函数</strong>。</p>
+<h3 id="2-4-本章小节"><a href="#2-4-本章小节" class="headerlink" title="2.4 本章小节"></a>2.4 本章小节</h3><h2 id="第三章-隐马尔可夫模型在择时中的应用"><a href="#第三章-隐马尔可夫模型在择时中的应用" class="headerlink" title="第三章 隐马尔可夫模型在择时中的应用"></a>第三章 隐马尔可夫模型在择时中的应用</h2><h3 id="3-1-择时简介"><a href="#3-1-择时简介" class="headerlink" title="3.1 择时简介"></a>3.1 择时简介</h3><h3 id="3-2-隐马尔可夫模型择时方法"><a href="#3-2-隐马尔可夫模型择时方法" class="headerlink" title="3.2 隐马尔可夫模型择时方法"></a>3.2 隐马尔可夫模型择时方法</h3><p><img src="Snipaste_2023-03-29_16-20-37.png" alt="Snipaste_2023-03-29_16-20-37"></p>
+<h4 id="3-2-1-最简单的一种情况（纯HMM）"><a href="#3-2-1-最简单的一种情况（纯HMM）" class="headerlink" title="3.2.1 最简单的一种情况（纯HMM）"></a>3.2.1 最简单的一种情况（纯HMM）</h4><ol>
+<li>我们收集历史单日收益率序列为观测序列</li>
+</ol>
+<img src="Snipaste_2023-03-29_16-29-12.png" alt="Snipaste_2023-03-29_16-29-12" style="zoom: 67%;">
+
+<ol start="2">
+<li>通过EM算法得到市场的几个隐变量和该HMM的参数A（状态转移矩阵），和B（发射矩阵）</li>
+</ol>
+<img src="Snipaste_2023-03-29_16-34-32.png" alt="Snipaste_2023-03-29_16-34-32" style="zoom:67%;">
+
+<ol start="3">
+<li>根据维特比算法我们得到今天的<strong>隐状态</strong>，从而明天的隐状态根据<strong>状态转移矩阵</strong>也可以得到，再用<strong>发射矩阵</strong>得到明天的<strong>观测值</strong>，若预测的观测值为正，在第二天做多该股票，反之做空该股票</li>
+</ol>
+<img src="Snipaste_2023-03-29_16-51-04.png" alt="Snipaste_2023-03-29_16-51-04" style="zoom:67%;">
+
+<p>在这种情况中，观测序列和预测序列都是收益率序列，即<strong>观察今天收益率，预测明天收益率</strong></p>
+<h4 id="3-2-2-另一种改进方案（t检验-HMM）"><a href="#3-2-2-另一种改进方案（t检验-HMM）" class="headerlink" title="3.2.2 另一种改进方案（t检验-HMM）"></a>3.2.2 另一种改进方案（t检验-HMM）</h4><p>在这种方案中：</p>
+<ul>
+<li>预测序列：单日收益率</li>
+<li>观测序列：收盘价序列、成交量序列等等</li>
+</ul>
+<ol>
+<li>通过这个观测序列，我们通过EM算法得到市场的几个隐变量和该HMM的参数A（状态转移矩阵），和B（发射矩阵）</li>
+</ol>
+<img src="Snipaste_2023-03-29_16-34-32.png" alt="Snipaste_2023-03-29_16-34-32" style="zoom:67%;">
+
+<ol start="2">
+<li><p>我们基于得到的历史上的隐状态序列，以“熊市”状态为例，在历史上有很多天的隐状态是“熊市”，我们可以计算所有的前一天的隐状态是“熊市”的预测序列（单日收益率）的平均值和方差，对其进行t检验：</p>
+<p>原假设H0：在“熊市”状态下，第二天的预测试（单日收益率）均值为0；</p>
+<p>备择假设H1：在“熊市”状态下，第二天的预测试（单日收益率）均值不为0；</p>
+<p>如果我们拒绝原假设，说明在“熊市”状态下，第二天的单日收益率显著大于0（做多前一日股票）或小于0（做空前一日股票）；然后继续对“牛市”状态和“横盘”状态做同样的假设检验，如果都没拒绝，说明我们的观测序列选择的不好，可以换观测序列。</p>
+</li>
+</ol>
+<h3 id="3-3-模型建立"><a href="#3-3-模型建立" class="headerlink" title="3.3 模型建立"></a>3.3 模型建立</h3><ul>
+<li>股票选取：沪深300指数</li>
+<li>观测序列：（1）单日收益率（2）隔夜收益（3）日内波动（4）成交量变化量</li>
+<li>确定观测序列的分布：</li>
+</ul>
+<p>（1）离散情况：[-0.1,-0.005];(-0.005,0.005];(0.005,0.1]</p>
+<p>（2）连续情况：假设观测序列服从正态分布</p>
+<ul>
+<li>预测序列的选取：明日均价&#x2F;今日均价</li>
+<li>隐状态个数：3个：牛市、熊市、震荡市</li>
+</ul>
+<h3 id="3-4-静态模型的实证研究"><a href="#3-4-静态模型的实证研究" class="headerlink" title="3.4 静态模型的实证研究"></a>3.4 静态模型的实证研究</h3><p>因为观测序列是离散型的结果差于连续型的，所以只介绍观测序列的连续型的结果：</p>
+<img src="Snipaste_2023-03-29_16-51-04.png" alt="Snipaste_2023-03-29_16-51-04" style="zoom:67%;">
+
+<p>（1）使用2005年4月8日~2008年12月31日的观测数据（收益率）构建HMM，主要目的得到HMM的参数</p>
+<p>（2）计算每个隐状态下的观测序列服从的正态分布参数</p>
+<img src="Snipaste_2023-03-29_19-45-25.png" alt="Snipaste_2023-03-29_19-45-25" style="zoom:50%;">
+
+<p>可以发现：第一隐状态接近于熊市，第二隐状态接近于震荡市，第三隐状态接近于牛市</p>
+<p>（3）根据历史数据，可以预测得到2009年1月5日的隐状态，接着预测1月6日的隐状态。。。。根据不同的状态进行股票多空操作，以此类推直到2015年</p>
+<ul>
+<li>多空操作（图1）：如果预测出收益率为正（等价于预测出隐状态为牛市），做多；反之做空。</li>
+<li>纯多头操作（图2）：如果预测出收益率为正（等价于预测出隐状态为牛市），做多，其余时候不交易。</li>
+</ul>
+<p><img src="Snipaste_2023-03-29_19-56-00.png" alt="Snipaste_2023-03-29_19-56-00" style="zoom: 20%;"> <img src="Snipaste_2023-03-29_19-56-56.png" alt="Snipaste_2023-03-29_19-56-56" style="zoom: 20%;"> <img src="Snipaste_2023-03-29_20-01-20.png" alt="Snipaste_2023-03-29_20-01-20" style="zoom:22%;"></p>
+<p>总体表现：</p>
+<ul>
+<li>多空操作：没有一年亏损，夏普率比较稳定</li>
+<li>纯多头操作：回撤率小很多</li>
+</ul>
+<img src="Snipaste_2023-03-29_20-05-46.png" alt="Snipaste_2023-03-29_20-05-46" style="zoom:50%;">
+
+<h3 id="3-5-动态模型的实证研究"><a href="#3-5-动态模型的实证研究" class="headerlink" title="3.5 动态模型的实证研究"></a>3.5 动态模型的实证研究</h3><p><img src="Snipaste_2023-03-29_20-29-22.png" alt="Snipaste_2023-03-29_20-29-22"></p>
+<p>最后一直回滚下去到2015年</p>
+<p>结果：</p>
+<img src="Snipaste_2023-03-29_20-30-44.png" alt="Snipaste_2023-03-29_20-30-44" style="zoom:43%;">
+
+<img src="Snipaste_2023-03-29_20-31-23.png" alt="Snipaste_2023-03-29_20-31-23" style="zoom:50%;">
+
+<p>动态模型策略和静态模型中的纯多头策略结果接近，并没有很大改进，可能因为动态模型的学习窗口（100天）太小，导致学习出来的参数可能不是很准确。</p>
+<h3 id="3-6-本章小结"><a href="#3-6-本章小结" class="headerlink" title="3.6 本章小结"></a>3.6 本章小结</h3><h2 id="第四章-隐马尔可夫模型在多因子模型中的应用"><a href="#第四章-隐马尔可夫模型在多因子模型中的应用" class="headerlink" title="第四章 隐马尔可夫模型在多因子模型中的应用"></a>第四章 隐马尔可夫模型在多因子模型中的应用</h2><h3 id="4-1-多因子模型的简介"><a href="#4-1-多因子模型的简介" class="headerlink" title="4.1 多因子模型的简介"></a>4.1 多因子模型的简介</h3><p>（1）单因子挖掘和检验</p>
+<p>（2）单因子的有效性：</p>
+<ul>
+<li>以标准化之后的因子值大小作为自变量，未来收益作为因变量，进行线性回归，回归之后得到的斜率定义为因子收益。然后使用过去一段时间的因子收益的均值和标准差来检验这个因子是否有效。</li>
+<li>建立策略，做多因子值大的一部分股票，做空因子值小的一部分股票，然后获得一段时间的策略的年化收益、夏普比率和最大回撤率，从而</li>
+</ul>
+<h3 id="4-2-单因子选取"><a href="#4-2-单因子选取" class="headerlink" title="4.2 单因子选取"></a>4.2 单因子选取</h3><h3 id="4-3-静态模型的实证研究"><a href="#4-3-静态模型的实证研究" class="headerlink" title="4.3 静态模型的实证研究"></a>4.3 静态模型的实证研究</h3><h3 id="4-4-动态模型的实证研究"><a href="#4-4-动态模型的实证研究" class="headerlink" title="4.4 动态模型的实证研究"></a>4.4 动态模型的实证研究</h3><h3 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h3><h2 id="第五章-总结和结论"><a href="#第五章-总结和结论" class="headerlink" title="第五章 总结和结论"></a>第五章 总结和结论</h2><h1 id="2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"><a href="#2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）" class="headerlink" title="2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"></a>2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）</h1><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="1-1-研究背景及研究意义"><a href="#1-1-研究背景及研究意义" class="headerlink" title="1.1 研究背景及研究意义"></a>1.1 研究背景及研究意义</h3><h3 id="1-2-文献综述-1"><a href="#1-2-文献综述-1" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-研究内容及方案"><a href="#1-3-研究内容及方案" class="headerlink" title="1.3 研究内容及方案"></a>1.3 研究内容及方案</h3><h2 id="第二章-择时与选股量化策略的相关理论模型"><a href="#第二章-择时与选股量化策略的相关理论模型" class="headerlink" title="第二章 择时与选股量化策略的相关理论模型"></a>第二章 择时与选股量化策略的相关理论模型</h2><h3 id="2-1-多因子选股量化策略理论基础"><a href="#2-1-多因子选股量化策略理论基础" class="headerlink" title="2.1 多因子选股量化策略理论基础"></a>2.1 多因子选股量化策略理论基础</h3><h3 id="2-2-择时量化策略的理论基础"><a href="#2-2-择时量化策略的理论基础" class="headerlink" title="2.2 择时量化策略的理论基础"></a>2.2 择时量化策略的理论基础</h3><h4 id="2-2-1-择时量化策略的基本模型"><a href="#2-2-1-择时量化策略的基本模型" class="headerlink" title="2.2.1 择时量化策略的基本模型"></a>2.2.1 择时量化策略的基本模型</h4><h4 id="2-2-2-隐马尔科夫模型的概念及算法"><a href="#2-2-2-隐马尔科夫模型的概念及算法" class="headerlink" title="2.2.2 隐马尔科夫模型的概念及算法"></a>2.2.2 隐马尔科夫模型的概念及算法</h4><h4 id="2-2-3-股票市场上的隐马尔科夫模型"><a href="#2-2-3-股票市场上的隐马尔科夫模型" class="headerlink" title="2.2.3 股票市场上的隐马尔科夫模型"></a>2.2.3 股票市场上的隐马尔科夫模型</h4><h2 id="第三章-基于多因子的选股量化策略的设计分析"><a href="#第三章-基于多因子的选股量化策略的设计分析" class="headerlink" title="第三章 基于多因子的选股量化策略的设计分析"></a>第三章 基于多因子的选股量化策略的设计分析</h2><h3 id="3-1-因子选取及检验"><a href="#3-1-因子选取及检验" class="headerlink" title="3.1 因子选取及检验"></a>3.1 因子选取及检验</h3><p>剔除时间跨度不在选取时间范围内的因子，综合优矿、万矿、聚宽平台因子库，选取17小类114个因子</p>
+<p>在聚宽因子看盘中，可以挑选因子：</p>
+<p><img src="Snipaste_2023-03-22_10-25-20.png" alt="Snipaste_2023-03-22_10-25-20"></p>
+<p>根据|IC|≥0.05，IR≥0.5</p>
+<h4 id="3-1-1-数据的选取及处理"><a href="#3-1-1-数据的选取及处理" class="headerlink" title="3.1.1 数据的选取及处理"></a>3.1.1 数据的选取及处理</h4><p>投资标的：A股全部股票</p>
+<p>2014.11.3-2015.6.12——牛市</p>
+<p>2015.6.13-2016.3.31——熊市</p>
+<p>2016.4.1-2018.2.1——震荡市</p>
+<p>2018.2.2-2019.2.1——熊市</p>
+<p>2019.2.11-2020.1.23——震荡市</p>
+<ul>
+<li>剔除选股日为ST&#x2F;PT、上市时间不满5年以及在由于停牌没有办法买入的股票</li>
+</ul>
+<h4 id="3-1-2-数据预处理"><a href="#3-1-2-数据预处理" class="headerlink" title="3.1.2 数据预处理"></a>3.1.2 数据预处理</h4><p>去除异常值、缺失值，进行标准化、行业中性化（用现成的函数，是否需要预处理依情况而定）</p>
+<h4 id="3-1-3-单因子检验"><a href="#3-1-3-单因子检验" class="headerlink" title="3.1.3 单因子检验"></a>3.1.3 单因子检验</h4><p>筛选1：看IC值&gt;0.03（有效性）和IR值（稳定性）</p>
+<p><img src="webwxgetmsgimg.jpg" alt="webwxgetmsgimg"></p>
+<p>筛选2：进行上述因子的相关性检验，相关性大于0.5，剔除</p>
+<p>![webwxgetmsgimg (1)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (1).jpg)</p>
+<h3 id="3-2-多因子选股量化策略的构建与回测"><a href="#3-2-多因子选股量化策略的构建与回测" class="headerlink" title="3.2 多因子选股量化策略的构建与回测"></a>3.2 多因子选股量化策略的构建与回测</h3><h4 id="3-2-1-多因子模型构建"><a href="#3-2-1-多因子模型构建" class="headerlink" title="3.2.1 多因子模型构建"></a>3.2.1 多因子模型构建</h4><p>最终选定8个因子</p>
+<p>两种常用方法构建多因子模型：</p>
+<ul>
+<li>机器学习（集成学习、神经网络）：以因子值为特征，股票涨跌（定阈值：涨幅10%以上定为+1，其余-1）为标签。用前一天获取的因子值预测今天的涨跌（时间窗口1天），在调仓日选择涨的概率较大的前几只股票。</li>
+<li>打分法：每个因子前配一个权重（等权重、IC加权、IR加权），在调仓日选择评分最高的几只股票</li>
+</ul>
+<p>![webwxgetmsgimg (2)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (2).jpg)</p>
+<p>![webwxgetmsgimg (3)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (3).jpg)</p>
+<h4 id="3-2-2-多因子模型回测"><a href="#3-2-2-多因子模型回测" class="headerlink" title="3.2.2 多因子模型回测"></a>3.2.2 多因子模型回测</h4><p>A股全部股票</p>
+<p>2014.11.3-2020.1.23</p>
+<p>调仓周期一个月，保持持仓20只股票</p>
+<p>![webwxgetmsgimg (4)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (4).jpg)</p>
+<p>![webwxgetmsgimg (5)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (5).jpg)</p>
+<p>在没有加入<strong>择时策略</strong>的时候，多因子选股策略很难对于市场下行的情况做出反应，贝塔值较大，极易受大盘影响。从而造成绝对回撤。但总体效果较好。</p>
+<h2 id="第四章-基于隐马尔科夫模型择时量化策略构建及分析"><a href="#第四章-基于隐马尔科夫模型择时量化策略构建及分析" class="headerlink" title="第四章 基于隐马尔科夫模型择时量化策略构建及分析"></a>第四章 基于隐马尔科夫模型择时量化策略构建及分析</h2><h3 id="4-1-基于隐马尔科夫模型择时量化策略的构建"><a href="#4-1-基于隐马尔科夫模型择时量化策略的构建" class="headerlink" title="4.1 基于隐马尔科夫模型择时量化策略的构建"></a>4.1 基于隐马尔科夫模型择时量化策略的构建</h3><h1 id="3-Stock-Market-Trend-Analysis-Using-Hidden-Markov-Model-and-Long-Short-Term-Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）"><a href="#3-Stock-Market-Trend-Analysis-Using-Hidden-Markov-Model-and-Long-Short-Term-Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）" class="headerlink" title="3.Stock Market Trend Analysis Using Hidden Markov Model and Long Short Term Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）"></a>3.Stock Market Trend Analysis Using Hidden Markov Model and Long Short Term Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）</h1><h2 id="1-INTORDUCTION"><a href="#1-INTORDUCTION" class="headerlink" title="1. INTORDUCTION"></a>1. INTORDUCTION</h2><ul>
+<li>GMM-HMM</li>
+<li>XGB-HMM</li>
+<li>GMM-HMM+LSTM</li>
+<li>XGB-HMM+LSTM</li>
+</ul>
+<h2 id="2-DATA-PROCESS"><a href="#2-DATA-PROCESS" class="headerlink" title="2. DATA PROCESS"></a>2. DATA PROCESS</h2><h3 id="2-1-特征"><a href="#2-1-特征" class="headerlink" title="2.1 特征"></a>2.1 特征</h3><h4 id="2-1-1-Y特征的构建——三重屏障法"><a href="#2-1-1-Y特征的构建——三重屏障法" class="headerlink" title="2.1.1 Y特征的构建——三重屏障法"></a>2.1.1 Y特征的构建——三重屏障法</h4><p>构建一个能反映股市走势的特征Y，以便预测股价的涨跌</p>
+<img src="Snipaste_2023-03-29_17-25-58.png" alt="Snipaste_2023-03-29_17-25-58" style="zoom: 80%;">
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">贝叶斯</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/论文整理//" class="article-tag-list-link color5">论文整理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/03/28/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux和shell基础知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1047,268 +1309,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/03/15/Linux%E5%92%8Cshell%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-论文总结与感悟——贝叶斯篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/03/12/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/">论文总结与感悟——贝叶斯篇</a>
-    </h1>
-  
-
-        
-        <a href="/2023/03/12/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/" class="archive-article-date">
-  	<time datetime="2023-03-12T14:13:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-《隐马尔可夫模型在股票市场中的应用》——清华大学-2018"><a href="#1-《隐马尔可夫模型在股票市场中的应用》——清华大学-2018" class="headerlink" title="1. 《隐马尔可夫模型在股票市场中的应用》——清华大学 2018"></a>1. 《隐马尔可夫模型在股票市场中的应用》——清华大学 2018</h1><h2 id="摘要-x2F-总述"><a href="#摘要-x2F-总述" class="headerlink" title="摘要&#x2F;总述"></a>摘要&#x2F;总述</h2><ul>
-<li>认为股票市场有多种不同的状态，且状态序列是具有<strong>马尔可夫性</strong>的</li>
-<li>通过股票的<strong>观测序列</strong>预测出股票的<strong>状态</strong>，以此对<strong>收益率</strong>进行预测</li>
-<li><img src="Snipaste_2023-03-20_17-56-02.png" alt="Snipaste_2023-03-20_17-56-02"></li>
-</ul>
-<h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><h3 id="1-1-选题背景与意义"><a href="#1-1-选题背景与意义" class="headerlink" title="1.1 选题背景与意义"></a>1.1 选题背景与意义</h3><p>HMM在股票市场中应用的原理解释：</p>
-<p>股市中有好几种不同的形态（牛市、熊市、猴市（无方向的大幅震荡）、羊市（无方向的小幅震荡）、盘整（横盘））——————&gt;每个不同的状态对应不同的未来收益分布</p>
-<img src="Snipaste_2023-03-29_10-42-10.png" alt="Snipaste_2023-03-29_10-42-10" style="zoom: 50%;">
-
-<p>若在某状态下的收益分布函数均值比较高，就选择在这个状态下进行交易，从而获取利润</p>
-<h3 id="1-2-文献综述"><a href="#1-2-文献综述" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-论文结构安排"><a href="#1-3-论文结构安排" class="headerlink" title="1.3 论文结构安排"></a>1.3 论文结构安排</h3><h2 id="第二章-隐马尔可夫模型"><a href="#第二章-隐马尔可夫模型" class="headerlink" title="第二章 隐马尔可夫模型"></a>第二章 隐马尔可夫模型</h2><h3 id="2-1-马尔可夫链"><a href="#2-1-马尔可夫链" class="headerlink" title="2.1 马尔可夫链"></a>2.1 马尔可夫链</h3><p>定义：具有<strong>马尔科夫性质</strong>且<strong>状态空间和时间参数</strong>均<strong>离散</strong>的随机过程</p>
-<img src="Snipaste_2023-03-29_11-07-09.png" alt="Snipaste_2023-03-29_11-07-09" style="zoom:43%;">
-
-<p>解释：</p>
-<ul>
-<li>马尔科夫性：当前变量的状态只依赖于它的前一个变量的状态</li>
-<li>状态空间离散：有n个可能的状态，I&#x3D;{1,2,3,……n}</li>
-<li>时间参数离散：T&#x3D;{0,1,2,……t,t+1}，在每个离散的时间点，系统的状态可能发生变化</li>
-</ul>
-<p>三个参数：</p>
-<ul>
-<li>状态个数：1，2，……n</li>
-<li>初始分布：π&#x3D;(p1,p2,……pn)</li>
-<li>状态转移矩阵：A&#x3D;[aij]   aij&#x3D;P(i t+1&#x3D;qj | it&#x3D;qi)，即某一时刻的状态概率为qi时，下一时刻的状态概率为qj的概率</li>
-</ul>
-<h3 id="2-2-隐马尔可夫模型"><a href="#2-2-隐马尔可夫模型" class="headerlink" title="2.2 隐马尔可夫模型"></a>2.2 隐马尔可夫模型</h3><p>定义：在马尔科夫链的基础上增加了一个输出的随机过程。状态序列不可观测，只有输出序列可观测（也叫观测变量）</p>
-<img src="Snipaste_2023-03-29_11-20-22.png" alt="Snipaste_2023-03-29_11-20-22" style="zoom:43%;">
-
-<p>模型：λ&#x3D;(π,A,B)</p>
-<ul>
-<li><p><strong>状态（隐）变量</strong>：i:i1,i2,……it……</p>
-</li>
-<li><p>状态个数：q1,q2,q3……qn这样n个状态</p>
-</li>
-<li><p><strong>观测变量</strong>：o:o1,o2……ot……</p>
-</li>
-<li><p>观测个数：v1,v2,v3……vm这样m个状态</p>
-</li>
-<li><p><strong>π</strong>：初始概率分布，π&#x3D;(p1,p2,……pn)</p>
-</li>
-<li><p><strong>A</strong>：状态转移矩阵，A&#x3D;[aij]   aij&#x3D;P(i t+1&#x3D;qj | it&#x3D;qi)，即某一时刻的状态概率为qi时，下一时刻的状态概率为qj的概率</p>
-</li>
-<li><p><strong>B</strong>：发射矩阵，B&#x3D;[bj(k)]   bj(k)&#x3D;P(ot&#x3D;vk | it&#x3D;qj)。即某一时刻的状态为qj时，同一时刻的观测值为vk的概率</p>
-</li>
-</ul>
-<p>两个假设：</p>
-<ul>
-<li>齐次马尔科夫假设：一个状态发生的概率只与它前一个时刻的状态有关</li>
-<li>观测独立假设：一个观测变量发生的概率只与此刻它的状态变量有关</li>
-</ul>
-<p>三个问题：</p>
-<ul>
-<li><strong>Evaluation（评估&#x2F;求值问题）</strong>：P(O|λ)：给定HMM的所有参数，求某个观测序列出现的概率——前向后向算法</li>
-<li><strong>Decoding（解码&#x2F;预测问题）</strong>：argmaxP(I |O，λ)：给定模型的所有参数，并给定一个观测序列，根据参数和观测序列来求出最可能的隐状态序列——维特比算法</li>
-<li><strong>Learning（学习&#x2F;参数估计问题）</strong>：argmaxP(O|λ)：给定一个观测序列，来估计一组模型的参数，使得在这组参数下，观测序列出现的概率最大——EM算法（Baum-Welch算法）</li>
-</ul>
-<h3 id="2-3-连续隐马尔可夫模型"><a href="#2-3-连续隐马尔可夫模型" class="headerlink" title="2.3 连续隐马尔可夫模型"></a>2.3 连续隐马尔可夫模型</h3><p>也叫高斯隐马尔科夫模型（GHMM）：观测序列O是连续的，隐状态序列i仍是是离散的，此时B就从发射矩阵变为<strong>发射概率密度函数</strong>。</p>
-<h3 id="2-4-本章小节"><a href="#2-4-本章小节" class="headerlink" title="2.4 本章小节"></a>2.4 本章小节</h3><h2 id="第三章-隐马尔可夫模型在择时中的应用"><a href="#第三章-隐马尔可夫模型在择时中的应用" class="headerlink" title="第三章 隐马尔可夫模型在择时中的应用"></a>第三章 隐马尔可夫模型在择时中的应用</h2><h3 id="3-1-择时简介"><a href="#3-1-择时简介" class="headerlink" title="3.1 择时简介"></a>3.1 择时简介</h3><h3 id="3-2-隐马尔可夫模型择时方法"><a href="#3-2-隐马尔可夫模型择时方法" class="headerlink" title="3.2 隐马尔可夫模型择时方法"></a>3.2 隐马尔可夫模型择时方法</h3><p><img src="Snipaste_2023-03-29_16-20-37.png" alt="Snipaste_2023-03-29_16-20-37"></p>
-<h4 id="3-2-1-最简单的一种情况（纯HMM）"><a href="#3-2-1-最简单的一种情况（纯HMM）" class="headerlink" title="3.2.1 最简单的一种情况（纯HMM）"></a>3.2.1 最简单的一种情况（纯HMM）</h4><ol>
-<li>我们收集历史单日收益率序列为观测序列</li>
-</ol>
-<img src="Snipaste_2023-03-29_16-29-12.png" alt="Snipaste_2023-03-29_16-29-12" style="zoom: 67%;">
-
-<ol start="2">
-<li>通过EM算法得到市场的几个隐变量和该HMM的参数A（状态转移矩阵），和B（发射矩阵）</li>
-</ol>
-<img src="Snipaste_2023-03-29_16-34-32.png" alt="Snipaste_2023-03-29_16-34-32" style="zoom:67%;">
-
-<ol start="3">
-<li>根据维特比算法我们得到今天的<strong>隐状态</strong>，从而明天的隐状态根据<strong>状态转移矩阵</strong>也可以得到，再用<strong>发射矩阵</strong>得到明天的<strong>观测值</strong>，若预测的观测值为正，在第二天做多该股票，反之做空该股票</li>
-</ol>
-<img src="Snipaste_2023-03-29_16-51-04.png" alt="Snipaste_2023-03-29_16-51-04" style="zoom:67%;">
-
-<p>在这种情况中，观测序列和预测序列都是收益率序列，即<strong>观察今天收益率，预测明天收益率</strong></p>
-<h4 id="3-2-2-另一种改进方案（t检验-HMM）"><a href="#3-2-2-另一种改进方案（t检验-HMM）" class="headerlink" title="3.2.2 另一种改进方案（t检验-HMM）"></a>3.2.2 另一种改进方案（t检验-HMM）</h4><p>在这种方案中：</p>
-<ul>
-<li>预测序列：单日收益率</li>
-<li>观测序列：收盘价序列、成交量序列等等</li>
-</ul>
-<ol>
-<li>通过这个观测序列，我们通过EM算法得到市场的几个隐变量和该HMM的参数A（状态转移矩阵），和B（发射矩阵）</li>
-</ol>
-<img src="Snipaste_2023-03-29_16-34-32.png" alt="Snipaste_2023-03-29_16-34-32" style="zoom:67%;">
-
-<ol start="2">
-<li><p>我们基于得到的历史上的隐状态序列，以“熊市”状态为例，在历史上有很多天的隐状态是“熊市”，我们可以计算所有的前一天的隐状态是“熊市”的预测序列（单日收益率）的平均值和方差，对其进行t检验：</p>
-<p>原假设H0：在“熊市”状态下，第二天的预测试（单日收益率）均值为0；</p>
-<p>备择假设H1：在“熊市”状态下，第二天的预测试（单日收益率）均值不为0；</p>
-<p>如果我们拒绝原假设，说明在“熊市”状态下，第二天的单日收益率显著大于0（做多前一日股票）或小于0（做空前一日股票）；然后继续对“牛市”状态和“横盘”状态做同样的假设检验，如果都没拒绝，说明我们的观测序列选择的不好，可以换观测序列。</p>
-</li>
-</ol>
-<h3 id="3-3-模型建立"><a href="#3-3-模型建立" class="headerlink" title="3.3 模型建立"></a>3.3 模型建立</h3><ul>
-<li>股票选取：沪深300指数</li>
-<li>观测序列：（1）单日收益率（2）隔夜收益（3）日内波动（4）成交量变化量</li>
-<li>确定观测序列的分布：</li>
-</ul>
-<p>（1）离散情况：[-0.1,-0.005];(-0.005,0.005];(0.005,0.1]</p>
-<p>（2）连续情况：假设观测序列服从正态分布</p>
-<ul>
-<li>预测序列的选取：明日均价&#x2F;今日均价</li>
-<li>隐状态个数：3个：牛市、熊市、震荡市</li>
-</ul>
-<h3 id="3-4-静态模型的实证研究"><a href="#3-4-静态模型的实证研究" class="headerlink" title="3.4 静态模型的实证研究"></a>3.4 静态模型的实证研究</h3><p>因为观测序列是离散型的结果差于连续型的，所以只介绍观测序列的连续型的结果：</p>
-<img src="Snipaste_2023-03-29_16-51-04.png" alt="Snipaste_2023-03-29_16-51-04" style="zoom:67%;">
-
-<p>（1）使用2005年4月8日~2008年12月31日的观测数据（收益率）构建HMM，主要目的得到HMM的参数</p>
-<p>（2）计算每个隐状态下的观测序列服从的正态分布参数</p>
-<img src="Snipaste_2023-03-29_19-45-25.png" alt="Snipaste_2023-03-29_19-45-25" style="zoom:50%;">
-
-<p>可以发现：第一隐状态接近于熊市，第二隐状态接近于震荡市，第三隐状态接近于牛市</p>
-<p>（3）根据历史数据，可以预测得到2009年1月5日的隐状态，接着预测1月6日的隐状态。。。。根据不同的状态进行股票多空操作，以此类推直到2015年</p>
-<ul>
-<li>多空操作（图1）：如果预测出收益率为正（等价于预测出隐状态为牛市），做多；反之做空。</li>
-<li>纯多头操作（图2）：如果预测出收益率为正（等价于预测出隐状态为牛市），做多，其余时候不交易。</li>
-</ul>
-<p><img src="Snipaste_2023-03-29_19-56-00.png" alt="Snipaste_2023-03-29_19-56-00" style="zoom: 20%;"> <img src="Snipaste_2023-03-29_19-56-56.png" alt="Snipaste_2023-03-29_19-56-56" style="zoom: 20%;"> <img src="Snipaste_2023-03-29_20-01-20.png" alt="Snipaste_2023-03-29_20-01-20" style="zoom:22%;"></p>
-<p>总体表现：</p>
-<ul>
-<li>多空操作：没有一年亏损，夏普率比较稳定</li>
-<li>纯多头操作：回撤率小很多</li>
-</ul>
-<img src="Snipaste_2023-03-29_20-05-46.png" alt="Snipaste_2023-03-29_20-05-46" style="zoom:50%;">
-
-<h3 id="3-5-动态模型的实证研究"><a href="#3-5-动态模型的实证研究" class="headerlink" title="3.5 动态模型的实证研究"></a>3.5 动态模型的实证研究</h3><p><img src="Snipaste_2023-03-29_20-29-22.png" alt="Snipaste_2023-03-29_20-29-22"></p>
-<p>最后一直回滚下去到2015年</p>
-<p>结果：</p>
-<img src="Snipaste_2023-03-29_20-30-44.png" alt="Snipaste_2023-03-29_20-30-44" style="zoom:43%;">
-
-<img src="Snipaste_2023-03-29_20-31-23.png" alt="Snipaste_2023-03-29_20-31-23" style="zoom:50%;">
-
-<p>动态模型策略和静态模型中的纯多头策略结果接近，并没有很大改进，可能因为动态模型的学习窗口（100天）太小，导致学习出来的参数可能不是很准确。</p>
-<h3 id="3-6-本章小结"><a href="#3-6-本章小结" class="headerlink" title="3.6 本章小结"></a>3.6 本章小结</h3><h2 id="第四章-隐马尔可夫模型在多因子模型中的应用"><a href="#第四章-隐马尔可夫模型在多因子模型中的应用" class="headerlink" title="第四章 隐马尔可夫模型在多因子模型中的应用"></a>第四章 隐马尔可夫模型在多因子模型中的应用</h2><h3 id="4-1-多因子模型的简介"><a href="#4-1-多因子模型的简介" class="headerlink" title="4.1 多因子模型的简介"></a>4.1 多因子模型的简介</h3><p>（1）单因子挖掘和检验</p>
-<p>（2）单因子的有效性：</p>
-<ul>
-<li>以标准化之后的因子值大小作为自变量，未来收益作为因变量，进行线性回归，回归之后得到的斜率定义为因子收益。然后使用过去一段时间的因子收益的均值和标准差来检验这个因子是否有效。</li>
-<li>建立策略，做多因子值大的一部分股票，做空因子值小的一部分股票，然后获得一段时间的策略的年化收益、夏普比率和最大回撤率，从而</li>
-</ul>
-<h3 id="4-2-单因子选取"><a href="#4-2-单因子选取" class="headerlink" title="4.2 单因子选取"></a>4.2 单因子选取</h3><h3 id="4-3-静态模型的实证研究"><a href="#4-3-静态模型的实证研究" class="headerlink" title="4.3 静态模型的实证研究"></a>4.3 静态模型的实证研究</h3><h3 id="4-4-动态模型的实证研究"><a href="#4-4-动态模型的实证研究" class="headerlink" title="4.4 动态模型的实证研究"></a>4.4 动态模型的实证研究</h3><h3 id="4-5-本章小结"><a href="#4-5-本章小结" class="headerlink" title="4.5 本章小结"></a>4.5 本章小结</h3><h2 id="第五章-总结和结论"><a href="#第五章-总结和结论" class="headerlink" title="第五章 总结和结论"></a>第五章 总结和结论</h2><h1 id="2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"><a href="#2-《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）" class="headerlink" title="2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）"></a>2. 《基于多因子选股和隐马尔科夫模型择时的量化策略研究》（哈工大，2020）</h1><h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章 绪论"></a>第一章 绪论</h2><h3 id="1-1-研究背景及研究意义"><a href="#1-1-研究背景及研究意义" class="headerlink" title="1.1 研究背景及研究意义"></a>1.1 研究背景及研究意义</h3><h3 id="1-2-文献综述-1"><a href="#1-2-文献综述-1" class="headerlink" title="1.2 文献综述"></a>1.2 文献综述</h3><h3 id="1-3-研究内容及方案"><a href="#1-3-研究内容及方案" class="headerlink" title="1.3 研究内容及方案"></a>1.3 研究内容及方案</h3><h2 id="第二章-择时与选股量化策略的相关理论模型"><a href="#第二章-择时与选股量化策略的相关理论模型" class="headerlink" title="第二章 择时与选股量化策略的相关理论模型"></a>第二章 择时与选股量化策略的相关理论模型</h2><h3 id="2-1-多因子选股量化策略理论基础"><a href="#2-1-多因子选股量化策略理论基础" class="headerlink" title="2.1 多因子选股量化策略理论基础"></a>2.1 多因子选股量化策略理论基础</h3><h3 id="2-2-择时量化策略的理论基础"><a href="#2-2-择时量化策略的理论基础" class="headerlink" title="2.2 择时量化策略的理论基础"></a>2.2 择时量化策略的理论基础</h3><h4 id="2-2-1-择时量化策略的基本模型"><a href="#2-2-1-择时量化策略的基本模型" class="headerlink" title="2.2.1 择时量化策略的基本模型"></a>2.2.1 择时量化策略的基本模型</h4><h4 id="2-2-2-隐马尔科夫模型的概念及算法"><a href="#2-2-2-隐马尔科夫模型的概念及算法" class="headerlink" title="2.2.2 隐马尔科夫模型的概念及算法"></a>2.2.2 隐马尔科夫模型的概念及算法</h4><h4 id="2-2-3-股票市场上的隐马尔科夫模型"><a href="#2-2-3-股票市场上的隐马尔科夫模型" class="headerlink" title="2.2.3 股票市场上的隐马尔科夫模型"></a>2.2.3 股票市场上的隐马尔科夫模型</h4><h2 id="第三章-基于多因子的选股量化策略的设计分析"><a href="#第三章-基于多因子的选股量化策略的设计分析" class="headerlink" title="第三章 基于多因子的选股量化策略的设计分析"></a>第三章 基于多因子的选股量化策略的设计分析</h2><h3 id="3-1-因子选取及检验"><a href="#3-1-因子选取及检验" class="headerlink" title="3.1 因子选取及检验"></a>3.1 因子选取及检验</h3><p>剔除时间跨度不在选取时间范围内的因子，综合优矿、万矿、聚宽平台因子库，选取17小类114个因子</p>
-<p>在聚宽因子看盘中，可以挑选因子：</p>
-<p><img src="Snipaste_2023-03-22_10-25-20.png" alt="Snipaste_2023-03-22_10-25-20"></p>
-<p>根据|IC|≥0.05，IR≥0.5</p>
-<h4 id="3-1-1-数据的选取及处理"><a href="#3-1-1-数据的选取及处理" class="headerlink" title="3.1.1 数据的选取及处理"></a>3.1.1 数据的选取及处理</h4><p>投资标的：A股全部股票</p>
-<p>2014.11.3-2015.6.12——牛市</p>
-<p>2015.6.13-2016.3.31——熊市</p>
-<p>2016.4.1-2018.2.1——震荡市</p>
-<p>2018.2.2-2019.2.1——熊市</p>
-<p>2019.2.11-2020.1.23——震荡市</p>
-<ul>
-<li>剔除选股日为ST&#x2F;PT、上市时间不满5年以及在由于停牌没有办法买入的股票</li>
-</ul>
-<h4 id="3-1-2-数据预处理"><a href="#3-1-2-数据预处理" class="headerlink" title="3.1.2 数据预处理"></a>3.1.2 数据预处理</h4><p>去除异常值、缺失值，进行标准化、行业中性化（用现成的函数，是否需要预处理依情况而定）</p>
-<h4 id="3-1-3-单因子检验"><a href="#3-1-3-单因子检验" class="headerlink" title="3.1.3 单因子检验"></a>3.1.3 单因子检验</h4><p>筛选1：看IC值&gt;0.03（有效性）和IR值（稳定性）</p>
-<p><img src="webwxgetmsgimg.jpg" alt="webwxgetmsgimg"></p>
-<p>筛选2：进行上述因子的相关性检验，相关性大于0.5，剔除</p>
-<p>![webwxgetmsgimg (1)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (1).jpg)</p>
-<h3 id="3-2-多因子选股量化策略的构建与回测"><a href="#3-2-多因子选股量化策略的构建与回测" class="headerlink" title="3.2 多因子选股量化策略的构建与回测"></a>3.2 多因子选股量化策略的构建与回测</h3><h4 id="3-2-1-多因子模型构建"><a href="#3-2-1-多因子模型构建" class="headerlink" title="3.2.1 多因子模型构建"></a>3.2.1 多因子模型构建</h4><p>最终选定8个因子</p>
-<p>两种常用方法构建多因子模型：</p>
-<ul>
-<li>机器学习（集成学习、神经网络）：以因子值为特征，股票涨跌（定阈值：涨幅10%以上定为+1，其余-1）为标签。用前一天获取的因子值预测今天的涨跌（时间窗口1天），在调仓日选择涨的概率较大的前几只股票。</li>
-<li>打分法：每个因子前配一个权重（等权重、IC加权、IR加权），在调仓日选择评分最高的几只股票</li>
-</ul>
-<p>![webwxgetmsgimg (2)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (2).jpg)</p>
-<p>![webwxgetmsgimg (3)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (3).jpg)</p>
-<h4 id="3-2-2-多因子模型回测"><a href="#3-2-2-多因子模型回测" class="headerlink" title="3.2.2 多因子模型回测"></a>3.2.2 多因子模型回测</h4><p>A股全部股票</p>
-<p>2014.11.3-2020.1.23</p>
-<p>调仓周期一个月，保持持仓20只股票</p>
-<p>![webwxgetmsgimg (4)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (4).jpg)</p>
-<p>![webwxgetmsgimg (5)](论文总结与感悟——贝叶斯篇&#x2F;webwxgetmsgimg (5).jpg)</p>
-<p>在没有加入<strong>择时策略</strong>的时候，多因子选股策略很难对于市场下行的情况做出反应，贝塔值较大，极易受大盘影响。从而造成绝对回撤。但总体效果较好。</p>
-<h2 id="第四章-基于隐马尔科夫模型择时量化策略构建及分析"><a href="#第四章-基于隐马尔科夫模型择时量化策略构建及分析" class="headerlink" title="第四章 基于隐马尔科夫模型择时量化策略构建及分析"></a>第四章 基于隐马尔科夫模型择时量化策略构建及分析</h2><h3 id="4-1-基于隐马尔科夫模型择时量化策略的构建"><a href="#4-1-基于隐马尔科夫模型择时量化策略的构建" class="headerlink" title="4.1 基于隐马尔科夫模型择时量化策略的构建"></a>4.1 基于隐马尔科夫模型择时量化策略的构建</h3><h1 id="3-Stock-Market-Trend-Analysis-Using-Hidden-Markov-Model-and-Long-Short-Term-Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）"><a href="#3-Stock-Market-Trend-Analysis-Using-Hidden-Markov-Model-and-Long-Short-Term-Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）" class="headerlink" title="3.Stock Market Trend Analysis Using Hidden Markov Model and Long Short Term Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）"></a>3.Stock Market Trend Analysis Using Hidden Markov Model and Long Short Term Memory（基于隐马尔科夫模型和长短时记忆的股市趋势分析）</h1><h2 id="1-INTORDUCTION"><a href="#1-INTORDUCTION" class="headerlink" title="1. INTORDUCTION"></a>1. INTORDUCTION</h2><ul>
-<li>GMM-HMM</li>
-<li>XGB-HMM</li>
-<li>GMM-HMM+LSTM</li>
-<li>XGB-HMM+LSTM</li>
-</ul>
-<h2 id="2-DATA-PROCESS"><a href="#2-DATA-PROCESS" class="headerlink" title="2. DATA PROCESS"></a>2. DATA PROCESS</h2><h3 id="2-1-特征"><a href="#2-1-特征" class="headerlink" title="2.1 特征"></a>2.1 特征</h3><h4 id="2-1-1-Y特征的构建——三重屏障法"><a href="#2-1-1-Y特征的构建——三重屏障法" class="headerlink" title="2.1.1 Y特征的构建——三重屏障法"></a>2.1.1 Y特征的构建——三重屏障法</h4><p>构建一个能反映股市走势的特征Y，以便预测股价的涨跌</p>
-<img src="Snipaste_2023-03-29_17-25-58.png" alt="Snipaste_2023-03-29_17-25-58" style="zoom: 80%;">
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">贝叶斯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/论文整理//" class="article-tag-list-link color5">论文整理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/03/12/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%AF%87/">展开全文 >></a>
         </p>
       
 
