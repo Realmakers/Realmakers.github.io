@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 33
+			总文章数 34
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,214 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Python金融大数据挖掘与分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/07/14/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/">Python金融大数据挖掘与分析</a>
+    </h1>
+  
+
+        
+        <a href="/2023/07/14/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2023-07-14T03:05:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-07-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="第一章-Python基础"><a href="#第一章-Python基础" class="headerlink" title="第一章 Python基础"></a>第一章 Python基础</h1><p>略</p>
+<h1 id="第二章-金融数据挖掘之爬虫技术基础"><a href="#第二章-金融数据挖掘之爬虫技术基础" class="headerlink" title="第二章 金融数据挖掘之爬虫技术基础"></a>第二章 金融数据挖掘之爬虫技术基础</h1><h2 id="2-1-爬虫技术基础1——网页结构基础"><a href="#2-1-爬虫技术基础1——网页结构基础" class="headerlink" title="2.1 爬虫技术基础1——网页结构基础"></a>2.1 爬虫技术基础1——网页结构基础</h2><h3 id="2-1-1-查看网页源代码——F12键"><a href="#2-1-1-查看网页源代码——F12键" class="headerlink" title="2.1.1 查看网页源代码——F12键"></a>2.1.1 查看网页源代码——F12键</h3><p>在谷歌浏览器中，按F12键弹出网页源码：</p>
+<p><img src="Snipaste_2023-07-14_17-25-58.png" alt="Snipaste_2023-07-14_17-25-58"></p>
+<h4 id="1-“选择”按钮"><a href="#1-“选择”按钮" class="headerlink" title="1. “选择”按钮"></a>1. “选择”按钮</h4><p>单击“选择”按钮，然后在网页中移动鼠标，鼠标指针所指向的网页元素的颜色会发生变化，“Elements”选项卡里的内容也会随之改变。</p>
+<p><img src="Snipaste_2023-07-14_17-30-12.png" alt="Snipaste_2023-07-14_17-30-12"></p>
+<h4 id="2-“Elements”选项卡"><a href="#2-“Elements”选项卡" class="headerlink" title="2. “Elements”选项卡"></a>2. “Elements”选项卡</h4><p>“Elements”选项卡里面的内容可以理解为就是网页的源代码，最后爬虫爬到的内容大致就是这样。可以在此处双击将其进行文本编辑。</p>
+<p><img src="Snipaste_2023-07-14_17-39-58.png" alt="Snipaste_2023-07-14_17-39-58"></p>
+<h3 id="2-1-2-查看网页源代码——右键菜单"><a href="#2-1-2-查看网页源代码——右键菜单" class="headerlink" title="2.1.2 查看网页源代码——右键菜单"></a>2.1.2 查看网页源代码——右键菜单</h3><p>网页空白处右键“查看网页源代码”命令，实战中利用F12键对网页结构进行初步了解，然后再网页上右击选择“查看网页源代码”命令，查看所需内容再网页源代码的位置，或者通过Ctrl+F搜索需要的内容。</p>
+<p><img src="Snipaste_2023-07-14_18-00-30.png" alt="Snipaste_2023-07-14_18-00-30"></p>
+<p>有时候通过F12键能看到的内容，但是通过查看网页源代码却看不到，这是因为有些网页是动态渲染出来的，例如有些股价信息是动态变化的，股价内容自然不会固定地写到网页源码中，F12看到的是经过渲染后的，更加全面和丰富。</p>
+<h3 id="2-1-3-网址构成及http与https协议"><a href="#2-1-3-网址构成及http与https协议" class="headerlink" title="2.1.3 网址构成及http与https协议"></a>2.1.3 网址构成及http与https协议</h3><p>https更安全，最好方法是在浏览器中直接访问，再将地址栏中的内容复制到Python代码中</p>
+<h3 id="2-1-4-网页结构初步了解"><a href="#2-1-4-网页结构初步了解" class="headerlink" title="2.1.4 网页结构初步了解"></a>2.1.4 网页结构初步了解</h3><p>结构其实很简单，就是一个大框套着一个小框，一个小框再套着一个小小框，<strong>一般文本内容都</strong>是在最后的小框里。</p>
+<p><img src="Snipaste_2023-07-14_19-56-58.png" alt="Snipaste_2023-07-14_19-56-58"></p>
+<h2 id="2-2-爬虫技术基础2——网页结构进阶"><a href="#2-2-爬虫技术基础2——网页结构进阶" class="headerlink" title="2.2 爬虫技术基础2——网页结构进阶"></a>2.2 爬虫技术基础2——网页结构进阶</h2><h3 id="2-2-1-HTML基础知识1——我的第一个网页"><a href="#2-2-1-HTML基础知识1——我的第一个网页" class="headerlink" title="2.2.1 HTML基础知识1——我的第一个网页"></a>2.2.1 HTML基础知识1——我的第一个网页</h3><p>HTML（HyperText Markup Language）是一种用于编写网页的标准标记语言</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2023-07-14_18-27-58.png" alt="Snipaste_2023-07-14_18-27-58"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题 1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题 2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com&quot;</span>&gt;</span>这是带链接的内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-07-14_18-28-07.png" alt="Snipaste_2023-07-14_18-28-07" style="zoom:43%;">
+
+<h3 id="2-2-2-HTML基础知识2——基础结构"><a href="#2-2-2-HTML基础知识2——基础结构" class="headerlink" title="2.2.2 HTML基础知识2——基础结构"></a>2.2.2 HTML基础知识2——基础结构</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题 1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题 2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.baidu.com&quot;</span>&gt;</span>这是带链接的内容<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>前两行的<!DOCTYPE html>与<html>是固定写法，作用是将代码声明为HTML文档。</html></p>
+<body>框表示主体信息，是最终展示在网页上的内容。<body>框里的一些小框则是各种具体内容。
+
+<p>&lt;&gt;包围起来的的内容就是标签，例如，<body>读作body标签，通常写完<body>之后，最后得写一个</body>，表示一个框的闭合</body></p>
+<h3 id="2-2-3-HTML基础知识3——标题、段落、链接"><a href="#2-2-3-HTML基础知识3——标题、段落、链接" class="headerlink" title="2.2.3 HTML基础知识3——标题、段落、链接"></a>2.2.3 HTML基础知识3——标题、段落、链接</h3><h4 id="1-标签——定义标题"><a href="#1-标签——定义标题" class="headerlink" title="1. 标签——定义标题"></a>1. <h>标签——定义标题</h></h4><p>标题是通过</p><h1>~<h6>标签来定义的，一般格式为：<h1>标题内容</h1>。其中<h1>的字号最大，<h6>的字号最小<p></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页名称<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是标题3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-07-14_19-05-13.png" alt="Snipaste_2023-07-14_19-05-13" style="zoom:43%;">
+
+<h4 id="2-标签——定义段落"><a href="#2-标签——定义段落" class="headerlink" title="2. 标签——定义段落"></a>2. <p>标签——定义段落</p></h4><p>段落是通过</p><p>标签来定义的，一般格式为：</p><p>段落内容</p><p></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页名称<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的又一个段落.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题2下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是标题3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-07-14_19-09-16.png" alt="Snipaste_2023-07-14_19-09-16" style="zoom:43%;">
+
+<h4 id="3-标签——定义链接"><a href="#3-标签——定义链接" class="headerlink" title="3. 标签——定义链接"></a>3. <a>标签——定义链接</a></h4><p>格式：<a href="链接地址">文本内容</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页名称<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>这是标题1<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题1下的又一个段落.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>这是标题2<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是标题2下的段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.alibaba.com&quot;</span>&gt;</span>这是阿里巴巴的网站<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是标题3<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-07-14_19-12-54.png" alt="Snipaste_2023-07-14_19-12-54" style="zoom:43%;">
+
+<p>除了这些标签外，还有一些常用的标签：定义表格的<table>标签、定义序号的<li>标签、定义图片的<img>标签、定义样式的<script>标签等</p>
+<h3 id="2-2-4-HTML基础知识4——区块"><a href="#2-2-4-HTML基础知识4——区块" class="headerlink" title="2.2.4 HTML基础知识4——区块"></a>2.2.4 HTML基础知识4——区块</h3><p>区块的最主要表现格式为<div>XXX</div>格式</p>
+<p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/Snipaste_2023-07-14_19-52-49.png" alt="Snipaste_2023-07-14_19-52-49"></p>
+<div>XXX</div>起到了分区的作用
+
+<p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/%E5%9B%BE%E7%89%87.png" alt="图片"></p>
+<h3 id="2-2-5-HTML基础知识5——类与id"><a href="#2-2-5-HTML基础知识5——类与id" class="headerlink" title="2.2.5 HTML基础知识5——类与id"></a>2.2.5 HTML基础知识5——类与id</h3><h4 id="1-类（class）"><a href="#1-类（class）" class="headerlink" title="1. 类（class）"></a>1. 类（class）</h4><p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/%E5%9B%BE%E7%89%8711.png" alt="图片11"></p>
+<h4 id="2-id"><a href="#2-id" class="headerlink" title="2. id"></a>2. id</h4><p>id的区分作用则更加细致，每个class（类）可能相同，但是他们的id一般都不会相同</p>
+<p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/%E5%9B%BE%E7%89%8788.png" alt="图片88"></p>
+<h2 id="2-3-初步实战——百度新闻源代码获取"><a href="#2-3-初步实战——百度新闻源代码获取" class="headerlink" title="2.3 初步实战——百度新闻源代码获取"></a>2.3 初步实战——百度新闻源代码获取</h2><p>为了解决网站只认可浏览器发送的请求而不认可python发送的请求的问题，需要设置requests.get()中的headers参数，模拟浏览器访问请求。headers参数提供的是网站访问者的信息，headers中的User-Agent（用户代理）表示是用什么浏览器访问的，其获取方法如下：</p>
+<ol>
+<li>打开谷歌浏览器</li>
+<li>在地址栏输入“about:version”</li>
+<li>在打开的界面中找到“用户代理”项，后面的字符就是User-Agent</li>
+</ol>
+<p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/Snipaste_2023-07-14_20-28-21.png" alt="Snipaste_2023-07-14_20-28-21"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>:<span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36&#x27;</span>&#125;</span><br><span class="line">url = <span class="string">&#x27;http://www.baidu.com/s?rtt=1&amp;bsst=1&amp;cl=2&amp;tn=news&amp;ie=utf-8&amp;word=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4&#x27;</span></span><br><span class="line"><span class="comment"># res = requests.get(url, headers=headers).content.decode(&#x27;utf-8&#x27;)</span></span><br><span class="line">res = requests.get(url, headers=headers).text</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/Snipaste_2023-07-14_20-50-21.png" alt="Snipaste_2023-07-14_20-50-21"></p>
+<h2 id="2-4-爬虫技术基础3——正则表达式"><a href="#2-4-爬虫技术基础3——正则表达式" class="headerlink" title="2.4 爬虫技术基础3——正则表达式"></a>2.4 爬虫技术基础3——正则表达式</h2><h3 id="2-4-1-正则表达式基础1——findall-函数"><a href="#2-4-1-正则表达式基础1——findall-函数" class="headerlink" title="2.4.1 正则表达式基础1——findall()函数"></a>2.4.1 正则表达式基础1——findall()函数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re  <span class="comment"># 引入正则表达式re库</span></span><br><span class="line">content = <span class="string">&#x27;Hello 123 world 456 华小智Python基础教学135&#x27;</span></span><br><span class="line">result = re.findall(<span class="string">&#x27;\d\d\d&#x27;</span>,content) <span class="comment"># 表示在content中寻找连续的3个数字</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;123&#x27;</span>, <span class="string">&#x27;456&#x27;</span>, <span class="string">&#x27;135&#x27;</span>] <span class="comment"># 运行之后，得到的是一个包含提取出来的信息的列表</span></span><br></pre></td></tr></table></figure>
+
+<p>findall()函数的功能是在原始文本中寻找所有符合匹配规则的文本，其格式如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.findall(匹配规则,原始文本)</span><br></pre></td></tr></table></figure>
+
+<img src="Python金融大数据挖掘与分析/Snipaste_2023-07-14_21-34-19.png" alt="Snipaste_2023-07-14_21-34-19" style="zoom:50%;" />
+
+<h3 id="2-4-2-正则表达式基础2——非贪婪匹配之（-）"><a href="#2-4-2-正则表达式基础2——非贪婪匹配之（-）" class="headerlink" title="2.4.2 正则表达式基础2——非贪婪匹配之（.*?）"></a>2.4.2 正则表达式基础2——非贪婪匹配之（.*?）</h3><p>（.*?）用于获取文本A与文本B之间的内容，并不需要知道它的确切长度及格式，但是需要知道它在哪两个内容之间，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文本A（.*?）文本B</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;文本A百度新闻文本B&#x27;</span></span><br><span class="line">source = re.findall(<span class="string">&#x27;文本A(.*?)文本B&#x27;</span>, res)</span><br><span class="line"><span class="built_in">print</span>(source)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;百度新闻&#x27;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;文本A百度新闻文本B，新闻标题文本A新浪财经文本B，文本A搜狗新闻文本B新闻网址&#x27;</span></span><br><span class="line">p_source = <span class="string">&#x27;文本A(.*?)文本B&#x27;</span></span><br><span class="line">source = re.findall(p_source, res)</span><br><span class="line"><span class="built_in">print</span>(source)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;百度新闻&#x27;, &#x27;新浪财经&#x27;, &#x27;搜狗新闻&#x27;]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;&lt;p class=&quot;c-author&quot;&gt;&lt;img***&gt;央视网新闻&amp;nbsp;&amp;nbsp;2019年04月13日 13:33&lt;/p&gt;&#x27;</span></span><br><span class="line">p_info = <span class="string">&#x27;&lt;p class=&quot;c-author&quot;&gt;(.*?)&lt;/p&gt;&#x27;</span></span><br><span class="line">info = re.findall(p_info, res)</span><br><span class="line"><span class="built_in">print</span>(info)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;&lt;img***&gt;央视网新闻&amp;nbsp;&amp;nbsp;2019年04月13日 13:33&#x27;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-3-正则表达式基础3——非贪婪匹配之"><a href="#2-4-3-正则表达式基础3——非贪婪匹配之" class="headerlink" title="2.4.3 正则表达式基础3——非贪婪匹配之.*?"></a>2.4.3 正则表达式基础3——非贪婪匹配之.*?</h3><p>.*?用于代替两个文本间的所有内容，这其中的内容往往是变化的无规律的，无法写在匹配规则里，或者内容较多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文本C.*?文本D</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;&lt;h3&gt;文本C&lt;变化的网址&gt;文本D新闻标题&lt;/h3&gt;&#x27;</span></span><br><span class="line">p_title = <span class="string">&#x27;&lt;h3&gt;文本C.*?文本D(.*?)&lt;/h3&gt;&#x27;</span></span><br><span class="line">title = re.findall(p_title, res)</span><br><span class="line"><span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;新闻标题&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>其中“<h3>文本C.*?文本D”代表“<h3>文本C<变化的网址>文本D”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;&lt;h3 class=&quot;c-title&quot;&gt;&lt;a href=&quot;网址&quot; data-click=&quot;&#123;一堆英文&#125;&quot;&gt;&lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分&lt;/a&gt;&#x27;</span></span><br><span class="line">p_title = <span class="string">&#x27;&lt;h3 class=&quot;c-title&quot;&gt;.*?&gt;(.*?)&lt;/a&gt;&#x27;</span></span><br><span class="line">title = re.findall(p_title, res)</span><br><span class="line"><span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;&lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分&#x27;]</span><br></pre></td></tr></table></figure>
+
+<img src="Python金融大数据挖掘与分析/88图片.png" alt="88图片" style="zoom:43%;" />
+
+<h3 id="2-4-4-正则表达式基础4——自动考虑换行的修饰符re-S"><a href="#2-4-4-正则表达式基础4——自动考虑换行的修饰符re-S" class="headerlink" title="2.4.4 正则表达式基础4——自动考虑换行的修饰符re.S"></a>2.4.4 正则表达式基础4——自动考虑换行的修饰符re.S</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.findall(匹配规则,原始文本,re.S)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">res = <span class="string">&#x27;&#x27;&#x27;&lt;h3 class=&quot;c-title&quot;&gt;</span></span><br><span class="line"><span class="string"> &lt;a href=&quot;https://baijiahao.baidu.com/s?id=1631161702623128831&amp;amp;wfr=spider&amp;amp;for=pc&quot;</span></span><br><span class="line"><span class="string">    data-click=&quot;&#123;</span></span><br><span class="line"><span class="string">      一堆我们不关心的英文</span></span><br><span class="line"><span class="string">      &#125;&quot;</span></span><br><span class="line"><span class="string">                target=&quot;_blank&quot;</span></span><br><span class="line"><span class="string">    &gt;</span></span><br><span class="line"><span class="string">      &lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分</span></span><br><span class="line"><span class="string">    &lt;/a&gt;</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">p_href = <span class="string">&#x27;&lt;h3 class=&quot;c-title&quot;&gt;.*?&lt;a href=&quot;(.*?)&quot;&#x27;</span></span><br><span class="line">p_title = <span class="string">&#x27;&lt;h3 class=&quot;c-title&quot;&gt;.*?&gt;(.*?)&lt;/a&gt;&#x27;</span></span><br><span class="line">href = re.findall(p_href, res, re.S)</span><br><span class="line">title = re.findall(p_title, res, re.S)</span><br><span class="line"><span class="built_in">print</span>(href)</span><br><span class="line"><span class="built_in">print</span>(title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除换行符号</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(title)):</span><br><span class="line">    title[i] = title[i].strip()</span><br><span class="line"><span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;https://baijiahao.baidu.com/s?id=1631161702623128831&amp;amp;wfr=spider&amp;amp;for=pc&#x27;]</span><br><span class="line">[&#x27;\n      &lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分\n    &#x27;]</span><br><span class="line">[&#x27;&lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分&#x27;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-5-正则表达式基础5——知识点补充"><a href="#2-4-5-正则表达式基础5——知识点补充" class="headerlink" title="2.4.5 正则表达式基础5——知识点补充"></a>2.4.5 正则表达式基础5——知识点补充</h3><h4 id="1-sub-函数"><a href="#1-sub-函数" class="headerlink" title="1. sub()函数"></a>1. sub()函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.sub(需要替换的内容,替换值,原字符串)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">title = [<span class="string">&#x27;&lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分&#x27;</span>]</span><br><span class="line">title[<span class="number">0</span>] = title[<span class="number">0</span>].replace(<span class="string">&#x27;&lt;em&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>) <span class="comment"># 注意title是一个列表，虽然只有一个元素，单也要用title[0]才能获得其中的字符串</span></span><br><span class="line">title[<span class="number">0</span>] = title[<span class="number">0</span>].replace(<span class="string">&#x27;&lt;/em&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="comment"># title[0] = re.sub(&#x27;&lt;em&gt;&#x27;,&#x27;&#x27;,title[0])</span></span><br><span class="line"><span class="comment"># title[0] = re.sub(&#x27;&lt;/em&gt;&#x27;,&#x27;&#x27;,title[0])</span></span><br><span class="line"><span class="built_in">print</span>(title[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">title = [<span class="string">&#x27;&lt;em&gt;阿里巴巴&lt;/em&gt;代码竞赛现全球首位AI评委 能为代码质量打分&#x27;</span>]</span><br><span class="line">title[<span class="number">0</span>] = re.sub(<span class="string">&#x27;&lt;.*?&gt;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, title[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(title[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">阿里巴巴代码竞赛现全球首位AI评委 能为代码质量打分</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-中括号-的用法"><a href="#2-中括号-的用法" class="headerlink" title="2. 中括号[]的用法"></a>2. 中括号[]的用法</h4><p>[ ]的最主要用法是使中括号的内容不再有特殊含义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">company = <span class="string">&#x27;*华能信托&#x27;</span></span><br><span class="line">company1 = re.sub(<span class="string">&#x27;[*]&#x27;</span>, <span class="string">&#x27;&#x27;</span>, company)</span><br><span class="line"><span class="built_in">print</span>(company1)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">华能信托</span><br></pre></td></tr></table></figure>
+
+<p>用[]让符号变回本来的含义</p>
+<h1 id="第三章-金融数据挖掘案例实战1"><a href="#第三章-金融数据挖掘案例实战1" class="headerlink" title="第三章 金融数据挖掘案例实战1"></a>第三章 金融数据挖掘案例实战1</h1><h2 id="3-1-提取百度新闻标题、网址、日期及来源"><a href="#3-1-提取百度新闻标题、网址、日期及来源" class="headerlink" title="3.1 提取百度新闻标题、网址、日期及来源"></a>3.1 提取百度新闻标题、网址、日期及来源</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 百度现在有时有ssl证书认证的问题，这就会导致请求发过去一直没有响应，卡住了（获取不到源代码），解决方法，把https换成http</span></span><br><span class="line">url = <span class="string">&#x27;http://www.baidu.com/s?tn=news&amp;rtt=1&amp;bsst=1&amp;cl=2&amp;wd=阿里巴巴&#x27;</span>  <span class="comment"># 把链接中rtt参数换成4即是按时间排序，默认为1按焦点排序，3.4.1小节也有讲到</span></span><br><span class="line">res = requests.get(url, headers=headers).text  <span class="comment"># 加上headers用来告诉网站这是通过一个浏览器进行的访问</span></span><br><span class="line"><span class="comment"># print(res) # 获取网页源码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编写正则表达式提取新闻信息</span></span><br><span class="line">p_href = <span class="string">&#x27;&lt;h3 class=&quot;news-title_1YtI1 &quot;&gt;&lt;a href=&quot;(.*?)&quot;&#x27;</span></span><br><span class="line">href = re.findall(p_href, res, re.S)</span><br><span class="line">p_title = <span class="string">&#x27;&lt;h3 class=&quot;news-title_1YtI1 &quot;&gt;.*?&gt;(.*?)&lt;/a&gt;&#x27;</span></span><br><span class="line">title = re.findall(p_title, res, re.S)</span><br><span class="line">p_date = <span class="string">&#x27;&lt;span class=&quot;c-color-gray2 c-font-normal c-gap-right-xsmall&quot; .*?&gt;(.*?)&lt;/span&gt;&#x27;</span></span><br><span class="line">date = re.findall(p_date, res)</span><br><span class="line">p_source = <span class="string">&#x27;&lt;span class=&quot;c-color-gray&quot; .*?&gt;(.*?)&lt;/span&gt;&#x27;</span></span><br><span class="line">source = re.findall(p_source, res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(title)</span></span><br><span class="line"><span class="comment"># print(href)</span></span><br><span class="line"><span class="comment"># print(date)</span></span><br><span class="line"><span class="comment"># print(source)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(title)):  <span class="comment"># range(len(title)),这里因为知道len(title) = 10，所以也可以写成for i in range(10)</span></span><br><span class="line">    title[i] = title[i].strip()  <span class="comment"># strip()函数用来取消字符串两端的换行或者空格，不过目前（2020-10）并没有换行或空格，所以其实不写这一行也没事</span></span><br><span class="line">    title[i] = re.sub(<span class="string">&#x27;&lt;.*?&gt;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, title[i])  <span class="comment"># 核心，用re.sub()函数来替换不重要的内容</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(i + <span class="number">1</span>) + <span class="string">&#x27;.&#x27;</span> + title[i] + <span class="string">&#x27;(&#x27;</span> + source[i] + <span class="string">&#x27; &#x27;</span> + date[i] + <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(href[i])</span><br></pre></td></tr></table></figure>
+
+<img src="Python金融大数据挖掘与分析/Snipaste_2023-07-15_09-18-10.png" alt="Snipaste_2023-07-15_09-18-10" style="zoom:43%;" />
+
+<h2 id="3-2-批量获取多家公司的百度新闻并生成数据报告"><a href="#3-2-批量获取多家公司的百度新闻并生成数据报告" class="headerlink" title="3.2 批量获取多家公司的百度新闻并生成数据报告"></a>3.2 批量获取多家公司的百度新闻并生成数据报告</h2></script></li></table></p></h6></h1></h6></h1></body></body>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据科学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/机器学习与深度学习//" class="article-tag-list-link color5">机器学习与深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/07/14/Python%E9%87%91%E8%9E%8D%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E5%88%86%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-MySQL相关知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -3166,95 +3374,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/03/12/%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93%E4%B8%8E%E6%84%9F%E6%82%9F%E2%80%94%E2%80%94%E5%A4%9A%E5%9B%A0%E5%AD%90%E6%8A%95%E8%B5%84%E7%AF%87/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-概率图模型学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/03/12/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">概率图模型学习笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2023/03/12/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2023-03-12T12:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>更多关注pgmy库的代码实现，相关原理可以自行看书解决，所有代码通过谷歌Colab实现</p>
-</blockquote>
-<h1 id="第一章-基础知识与基础结构"><a href="#第一章-基础知识与基础结构" class="headerlink" title="第一章 基础知识与基础结构"></a>第一章 基础知识与基础结构</h1><h2 id="1-1-有向无环图（DAG）"><a href="#1-1-有向无环图（DAG）" class="headerlink" title="1.1 有向无环图（DAG）"></a>1.1 有向无环图（DAG）</h2><p><img src="Snipaste_2023-03-24_10-37-08.png" alt="Snipaste_2023-03-24_10-37-08"></p>
-<p>这个类是所有有向图模型的基类</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">贝叶斯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习与深度学习//" class="article-tag-list-link color5">机器学习与深度学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/03/12/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
         </p>
       
 
