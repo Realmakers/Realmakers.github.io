@@ -467,7 +467,7 @@
 <li>以二进制方式存储，不可以直接读取和修改</li>
 </ul>
 <h3 id="9-说说Hive的4个By区别"><a href="#9-说说Hive的4个By区别" class="headerlink" title="9. 说说Hive的4个By区别"></a>9. 说说Hive的4个By区别</h3><ul>
-<li>order by：<strong>全局排序，只有一个Reduce</strong>。当输入规模较大时，需要较长的计算时间</li>
+<li>order by：<strong>全局排序，只有一个Reduce</strong>。当输入规模较大时，需要较长的计算时间（生产环境中慎用）</li>
 <li>sort by：为每个reduce产生一个排序文件。<strong>每个Reduce内部进行排序</strong>，对全局结果集来说不是排序</li>
 <li>distrbute by：类似MapReduce中partition（自定义分区），进行分区，结合sort by使用。 </li>
 <li>cluster by：当distribute by和sort by字段相同时，可以使用cluster by方式。</li>
@@ -494,7 +494,7 @@
 <p>步骤：创建一个类继承GenericUDF，重写initialize方法和evaluate方法，在HDFS中上传jar包，执行创建函数语句</p>
 </li>
 <li><p>UDTF：没定义过</p>
-<p>步骤：创建一个类继承GenericUDTF，重写process方法和close方法，在HDFS中上传jar包，执行创建函数语句</p>
+<p>步骤：创建一个类继承GenericUDTF，重写initialize方法、process方法和close方法，在HDFS中上传jar包，执行创建函数语句</p>
 </li>
 </ul>
 <h3 id="12-Hive的常用函数"><a href="#12-Hive的常用函数" class="headerlink" title="12. Hive的常用函数"></a>12. Hive的常用函数</h3><p>可以通过SHOW FUNCTIONS查看Hive的内置函数。通过DESCRIBE FUNCTION 函数名;查看函数的输入输出功能描述</p>
@@ -513,10 +513,10 @@
 <li>动态分区通常是在数据写入时自动创建的，因此难以预知分区数量。在某些情况下，如果分区数量过多，会对查询性能产生负面影响。</li>
 <li>动态分区可能会导致元数据和HDFS数据内容的修改，这可能会增加管理和维护的复杂性。</li>
 </ul>
-<h3 id="16-数据倾斜怎么解决？"><a href="#16-数据倾斜怎么解决？" class="headerlink" title="16. 数据倾斜怎么解决？"></a>16. 数据倾斜怎么解决？</h3><h4 id="本质原因："><a href="#本质原因：" class="headerlink" title="本质原因："></a>本质原因：</h4><p>（1）map端：如果文件使用GZIP压缩等不支持文件分割操作的压缩方式时，若该不可分割的文件超大，被一个map读取时，就会发生map阶段的数据倾斜。</p>
+<h3 id="16-⭐数据倾斜怎么解决？"><a href="#16-⭐数据倾斜怎么解决？" class="headerlink" title="16. ⭐数据倾斜怎么解决？"></a>16. ⭐数据倾斜怎么解决？</h3><h4 id="本质原因："><a href="#本质原因：" class="headerlink" title="本质原因："></a>本质原因：</h4><p>（1）map端：如果文件使用GZIP压缩等不支持文件分割操作的压缩方式时，若该不可分割的文件超大，被一个map读取时，就会发生map阶段的数据倾斜。</p>
 <p>（2）reduce端（更容易出现）：map 到 reduce 会经过 shuffle 阶段，在 shuffle 中默认会按照 key进行 hash，<strong>如果相同的 key 过多，那么 hash 的结果就是大量相同的 key 进入到同一个 reduce 中</strong>，导致数据倾斜</p>
 <p>简而言之：旱的旱死涝的涝死</p>
-<h4 id="各种数据倾斜的原因及解决方案："><a href="#各种数据倾斜的原因及解决方案：" class="headerlink" title="各种数据倾斜的原因及解决方案："></a>各种数据倾斜的原因及解决方案：</h4><p>（0）通用方法：提前在map端进行combine，减少shuffle过程中传输的数据量以及Reducer端的计算量</p>
+<h4 id="各种数据倾斜的原因及解决方案："><a href="#各种数据倾斜的原因及解决方案：" class="headerlink" title="各种数据倾斜的原因及解决方案："></a>各种数据倾斜的原因及解决方案：</h4><p>（0）通用方法：提前在map端进行combine，减少shuffle过程中传输的数据量以及Reducer端的计算量；shuffle阶段，进入环形缓冲区之前，可以自定义分区</p>
 <p>（1）空值引发的数据倾斜</p>
 <ul>
 <li>原因：实际业务中有些大量的 null 值或者一些无意义的数据参与到计算作业中，表中有大量的 null 值，如果表之间进行 join 操作，就会有 shuffle 产生，<strong>这样所有的 null 值都会被分配到一个 reduce 中，必然产生数据倾斜。</strong></li>
@@ -532,35 +532,58 @@
 <li>原因：如果文件使用GZIP压缩等不支持文件分割操作的压缩方式时，若该不可分割的文件超大，被一个map读取时，就会发生map阶段的数据倾斜。</li>
 <li>解决方案：这种数据倾斜问题没有什么好的解决方案，只能将使用 GZIP 压缩等不支持文件分割的文件转为 bzip 和 zip 等支持文件分割的压缩方式。</li>
 </ul>
-<p>（4）分组聚合导致的数据倾斜</p>
+<p>（4）⭐分组聚合导致的数据倾斜</p>
 <ul>
 <li><p>原因：如果group by分组字段的值分布不均，就可能导致大量相同的key进入同一Reduce，从而导致数据倾斜问题</p>
 </li>
 <li><p>解决方案：</p>
-<p>开启map-side：开启Map-Side聚合后，数据会现在Map端完成部分聚合工作。这样一来即便原始数据是倾斜的，经过Map端的初步聚合后，发往Reduce的数据也就不再倾斜了。最佳状态下，Map-端聚合能完全屏蔽数据倾斜问题。</p>
+<p>开启map-side聚合：开启Map-Side聚合后，数据会现在Map端完成部分聚合工作。这样一来即便原始数据是倾斜的，经过Map端的初步聚合后，发往Reduce的数据也就不再倾斜了。最佳状态下，Map-端聚合能完全屏蔽数据倾斜问题。</p>
 <p>开启Skew-GroupBy优化：Skew-GroupBy的原理是启动两个MR任务，第一个MR按照随机数分区，将数据分散发送到Reduce，完成部分聚合，第二个MR按照分组字段分区，完成最终聚合。</p>
 </li>
 </ul>
-<p>（5）表join连接时引发的数据倾斜：</p>
+<p>举具体例子：项目中的order_detail表，大概2000万行数据，其中province_id字段99%以上都是1（北京），也就是大部分的订单都是北京这个地区产生的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">	province_id,</span><br><span class="line">	count(*)</span><br><span class="line">from order_detail</span><br><span class="line">group by province_id;</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
+<p>开启map-side聚合：</p>
+<img src="图片2.png" alt="图片2" style="zoom:33%;">
+
+<p>开启Skew-GroupBy优化：</p>
+<img src="图片3.png" alt="图片3" style="zoom:33%;">
+
+<p>（5）⭐表join连接时引发的数据倾斜：</p>
 <ul>
 <li><p>原因：如果关联字段的值分布不均，就可能导致大量相同的key进入同一Reduce，从而导致数据倾斜问题</p>
 </li>
 <li><p>解决方案：</p>
 <p>map join：使用map join算法，join操作仅在map端就能完成，没有shuffle操作，没有reduce阶段，自然不会产生reduce端的数据倾斜。该方案适用于大表join小表时发生数据倾斜的场景。</p>
 <p>skew join：为倾斜的大key单独启动一个map join任务进行计算，其余key进行正常的common join</p>
+<p>调整SQL语句：将数据倾斜的表的倾斜字段随机分成province_id_0和province_id_1两类（打散），将另一张表扩容一倍，一半province_id_0，一半province_id_1，再将这两张修改后的表join</p>
 </li>
 </ul>
+<p>举具体例子：项目中的order_detail表，大概2000万行数据，其中province_id字段99%以上都是1（北京），也就是大部分的订单都是北京这个地区产生的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">    *</span><br><span class="line">from order_detail od</span><br><span class="line">join province_info pi</span><br><span class="line">on od.province_id=pi.id;</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E5%9B%BE%E7%89%874.png" alt="图片4"></p>
+<p>map join优化：只有map任务，没有reduce任务</p>
+<img src="图片5.png" alt="图片5" style="zoom: 50%;">
+
+<img src="图片6.png" alt="图片6" style="zoom:50%;">
+
+<p>skew join：</p>
+<img src="图片7.png" alt="图片7" style="zoom:50%;">
+
 <p>（6）确实无法减少数据量引发的数据倾斜</p>
 <p>这类问题最直接的方式就是调整 reduce 所执行的内存大小。调整 reduce 的内存大小使用 mapreduce.reduce.memory.mb 这个配置</p>
-<h3 id="17-Hive小文件产生的原因"><a href="#17-Hive小文件产生的原因" class="headerlink" title="17. Hive小文件产生的原因"></a>17. Hive小文件产生的原因</h3><p>（1）直接向表中插入数据：每次插入都会产生一个文件，多次插入少量数据就会出现多个小文件</p>
+<h3 id="17-⭐Hive小文件产生的原因"><a href="#17-⭐Hive小文件产生的原因" class="headerlink" title="17. ⭐Hive小文件产生的原因"></a>17. ⭐Hive小文件产生的原因</h3><p>（1）直接向表中插入数据：每次插入都会产生一个文件，多次插入少量数据就会出现多个小文件</p>
 <p>（2）通过load方式加载数据，每导入一个文件hive表就会产生一个文件</p>
 <p>（3）通过查询方式加载数据（最常见）：其中，文件数量&#x3D;ReduceTask数量×分区数（只有map阶段就是，文件数量&#x3D;MapTask数量×分区数）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert overwrite table A  select s_id,c_name,s_score from B;</span><br></pre></td></tr></table></figure>
 
-<h3 id="18-HIve小文件过多的危害"><a href="#18-HIve小文件过多的危害" class="headerlink" title="18. HIve小文件过多的危害"></a>18. HIve小文件过多的危害</h3><p>（1）对于HDFS而言，其本身就不适合存储大量小文件，小文件过多会导致NameNode元数据特别大，占用内存太多，影响HDFS性能。</p>
+<h3 id="18-⭐HIve小文件过多的危害"><a href="#18-⭐HIve小文件过多的危害" class="headerlink" title="18. ⭐HIve小文件过多的危害"></a>18. ⭐HIve小文件过多的危害</h3><p>（1）对于HDFS而言，其本身就不适合存储大量小文件，小文件过多会导致NameNode元数据特别大，占用内存太多，影响HDFS性能。</p>
 <p>（2）对Hive而言，在进行查询时，每个小文件都会启动一个Map任务来完成，Map任务启动和初始化的时间远远大于逻辑处理的时间，本末倒置，造成资源浪费</p>
-<h3 id="14-Hive小文件过多怎么解决？"><a href="#14-Hive小文件过多怎么解决？" class="headerlink" title="14. Hive小文件过多怎么解决？"></a>14. Hive小文件过多怎么解决？</h3><p>（1）Map端输入文件合并</p>
-<p>合并Map端输入的小文件，是指将多个小文件划分到一个切片中，进而由一个Map Task去处理。目的是防止为单个小文件启动一个Map Task，浪费计算资源。</p>
+<h3 id="14-⭐Hive小文件过多怎么解决？"><a href="#14-⭐Hive小文件过多怎么解决？" class="headerlink" title="14. ⭐Hive小文件过多怎么解决？"></a>14. ⭐Hive小文件过多怎么解决？</h3><p>（1）Map端输入文件合并</p>
+<p>合并Map端输入的小文件，是指将多个小文件划分到一个切片中，进而由一个Map Task去处理。目的是防止为单个小文件启动一个Map Task，浪费计算资源。也就是使用CombineHiveInputFormat</p>
 <p>相关参数为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--可将多个小文件切片，合并为一个切片，进而由一个map任务处理</span><br><span class="line">set hive.input.format=org.apache.hadoop.hive.ql.io.CombineHiveInputFormat;</span><br></pre></td></tr></table></figure>
 
@@ -579,6 +602,8 @@
 <p>Hadoop Archive简称HAR，是一个高效地将小文件放入HDFS块中的文件存档工具，它能够将多个小文件打包成一个HAR文件，这样在减少namenode内存使用的同时，仍然允许对文件进行透明的访问</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--用来控制归档是否可用</span><br><span class="line">set hive.archive.enabled=true;</span><br><span class="line">--通知Hive在创建归档时是否可以设置父目录</span><br><span class="line">set hive.archive.har.parentdir.settable=true;</span><br><span class="line">--控制需要归档文件的大小</span><br><span class="line">set har.partfile.size=1099511627776;</span><br><span class="line"></span><br><span class="line">--使用以下命令进行归档</span><br><span class="line">ALTER TABLE A ARCHIVE PARTITION(dt=&#x27;2020-12-24&#x27;, hr=&#x27;12&#x27;);</span><br><span class="line"></span><br><span class="line">--对已归档的分区恢复为原文件</span><br><span class="line">ALTER TABLE A UNARCHIVE PARTITION(dt=&#x27;2020-12-24&#x27;, hr=&#x27;12&#x27;);</span><br></pre></td></tr></table></figure>
 
+<p>（6）减少JVM开关时间</p>
+<p>如果有大量小文件要处理，那么频繁启动和关闭JVM会浪费大量时间，所以减少JVM开关时间可以减少作业处理时间</p>
 <h3 id="19-Hive优化有哪些？"><a href="#19-Hive优化有哪些？" class="headerlink" title="19. Hive优化有哪些？"></a>19. Hive优化有哪些？</h3><p>（1）数据存储及压缩优化</p>
 <p>一般表格存储格式选用ORC（占有更少的存储），压缩格式选用snappy。因为Hive底层使用MR计算框架，数据流从HDFS到磁盘再到HDFS，使用ORC+snappy可以降低IO读写，还能降低网络传输量。</p>
 <p>（2）有效地减小数据集将大表拆分成子表，结合使用分区表和分桶表</p>
@@ -644,7 +669,8 @@
 </blockquote>
 <p>在执行计划中，每个stage都是一个独立的MR。</p>
 <h3 id="22-Tez引擎的优点？"><a href="#22-Tez引擎的优点？" class="headerlink" title="22. Tez引擎的优点？"></a>22. Tez引擎的优点？</h3><p>Tez 可以将多个有依赖的作业转换为一个作业，这样只需写一次 HDFS，且中间节点较少，从而大大提升作业的计算性能。</p>
-<h3 id="23-Hive与HBase的区别"><a href="#23-Hive与HBase的区别" class="headerlink" title="23. Hive与HBase的区别"></a>23. Hive与HBase的区别</h3><table>
+<h3 id="23-Hive四大引擎"><a href="#23-Hive四大引擎" class="headerlink" title="23. Hive四大引擎"></a>23. Hive四大引擎</h3><p>MR、Hive on Spark、Spark、Tez</p>
+<h3 id="24-Hive与HBase的区别"><a href="#24-Hive与HBase的区别" class="headerlink" title="24. Hive与HBase的区别"></a>24. Hive与HBase的区别</h3><table>
 <thead>
 <tr>
 <th></th>
@@ -780,8 +806,9 @@
 <p>Reduce Task并行度（也就是Reduce Task数量）可以直接手动设置</p>
 <h4 id="5-⭐请说一下Shuffle阶段"><a href="#5-⭐请说一下Shuffle阶段" class="headerlink" title="5. ⭐请说一下Shuffle阶段"></a>5. ⭐请说一下Shuffle阶段</h4><p><img src="Snipaste_2023-09-28_13-48-05.png" alt="Snipaste_2023-09-28_13-48-05"></p>
 <p>（1）Map 方法之后 Reduce 方法之前这段处理过程叫 Shuffle</p>
-<p>（2）ap 方法之后， 数据首先进入到分区方法， 把数据标记好分区， 然后把数据发送到 环形缓冲区；环形缓冲区默认大小 100m，环形缓冲区达到 80%时，进行溢写；溢写前对数 据进行排序，排序按照对 key 的索引进行字典顺序排序， 排序的手段快排；溢写产生大量溢 写文件，需要对溢写文件进行归并排序；对溢写的文件也可以进行 Combiner 操作， 前提是汇总操作， 求平均值不行。之后还可以进行数据压缩，最后将文件按照分区存储到磁盘， 等待 Reduce 端拉取。</p>
-<p>（3）每个 Reduce 拉取 Map 端对应分区的数据。拉取数据后先存储到内存中， 内存不够 了，再存储到磁盘。拉取完所有数据后，采用归并排序将内存和磁盘中的数据都进行排序。在进入 Reduce 方法前， 可以对数据进行分组操作。</p>
+<p>（2）map 方法之后， 数据首先进入到分区方法， 把数据标记好分区， 然后把数据发送到 环形缓冲区；环形缓冲区默认大小 100m，环形缓冲区达到 80%时，进行溢写；溢写前对数 据进行排序，排序按照对 key 的索引进行字典顺序排序， 排序的手段快排；溢写产生大量溢 写文件，需要对溢写文件进行归并排序；对溢写的文件也可以进行 Combiner 操作， 前提是汇总操作， 求平均值不行。之后还可以进行数据压缩，最后将文件按照分区存储到磁盘， 等待 Reduce 端拉取。</p>
+<p>（3）每个 Reduce 拉取 Map 端对应分区的数据。拉取数据后先存储到内存中， 内存不够了，再存储到磁盘。拉取完所有数据后，采用归并排序将内存和磁盘中的数据都进行排序。在进入 Reduce 方法前， 可以对数据进行分组操作。</p>
+<p>细节：Shuffle阶段一共三次排序：Map阶段：快排，归并；Reduce阶段：归并</p>
 <h4 id="6-Shuffle阶段的数据压缩机制了解吗？"><a href="#6-Shuffle阶段的数据压缩机制了解吗？" class="headerlink" title="6. Shuffle阶段的数据压缩机制了解吗？"></a>6. Shuffle阶段的数据压缩机制了解吗？</h4><p>压缩可以减少磁盘IO，节约磁盘存储空闲。</p>
 <p>我们使用的压缩方式是Snappy，特点是速度快，缺点是无法切分</p>
 <h3 id="1-2-4-YARN"><a href="#1-2-4-YARN" class="headerlink" title="1.2.4 YARN"></a>1.2.4 YARN</h3><h4 id="1-YARN集群的架构和工作原理知道多少？"><a href="#1-YARN集群的架构和工作原理知道多少？" class="headerlink" title="1. YARN集群的架构和工作原理知道多少？"></a>1. YARN集群的架构和工作原理知道多少？</h4><p>YARN是一个资源调度平台。</p>
@@ -807,14 +834,27 @@
 <li>如果一个队列资源有剩余可以暂时共享给需要资源的队列</li>
 <li>分配资源时，先找资源占用率最低的那个队列，然后按照提交作业的优先级或提交时间顺序，最后按容器优先级（相同就看本地性原则），给任务分配资源</li>
 </ul>
-<p>（3）公平调度器（生产环境中会用）</p>
+<p>（3）公平调度器（生产环境中会用，对并行度要求较高）</p>
 <ul>
 <li>多队列，每个队列配置一定资源，每个队列采用FIFO</li>
 <li>每个队列都有资源最低保证和使用上限</li>
 <li>如果一个队列资源有剩余可以暂时共享给需要资源的队列</li>
 </ul>
 <p>多队列，每个队列内部按照缺额大小分配资源启动任务，每个队列可以单独设置资源分配方式，同一时间队列中有多个任务执行</p>
-<h3 id="1-2-5-高可用HA"><a href="#1-2-5-高可用HA" class="headerlink" title="1.2.5 高可用HA"></a>1.2.5 高可用HA</h3><h2 id="1-3-Kafka"><a href="#1-3-Kafka" class="headerlink" title="1.3 Kafka"></a>1.3 Kafka</h2><h3 id="1-什么是Kafka？"><a href="#1-什么是Kafka？" class="headerlink" title="1. 什么是Kafka？"></a>1. 什么是Kafka？</h3><p>Kafka是一个分布式的基于<strong>发布&#x2F;订阅</strong>模式的消息队列，或者说其是一个分布式<strong>事件流平台</strong>。</p>
+<p>注意：hadoop中默认单队列，企业中按照部门和业务划分队列</p>
+<h3 id="1-2-5-高可用HA"><a href="#1-2-5-高可用HA" class="headerlink" title="1.2.5 高可用HA"></a>1.2.5 高可用HA</h3><h4 id="1-什么是高可用HA"><a href="#1-什么是高可用HA" class="headerlink" title="1. 什么是高可用HA"></a>1. 什么是高可用HA</h4><p>7*24小时不中断服务。实现高可用的关键策略是消除单点故障，分为HDFS HA和YARN HA</p>
+<h4 id="2-简单说一说HDFS如何实现高可用"><a href="#2-简单说一说HDFS如何实现高可用" class="headerlink" title="2. 简单说一说HDFS如何实现高可用"></a>2. 简单说一说HDFS如何实现高可用</h4><p>HDFS HA功能通过配置多个NameNode实现，要保证这两个NameNode的元数据信息必须要同步，而且一个NameNode挂掉之后另一个要马上补上。</p>
+<ul>
+<li>如何保证多个NN元数据信息一致：其中一个NN负责生成快照文件FsImage，其他NN拉取同步；引进新角色JournalNode，保证多个NN的EditLog数据一致性</li>
+<li>如何使多个NN其中一个处于Active状态，其他处于Standby状态：在每一个NN上启动ZKFC（由zookeeper实现的故障转移控制器），当ZKFC运行在处于Active状态的NN上时，会<strong>在发现其状态不正常</strong>时向ZooKeeper中写入数据。当ZKFC运行在处于Standby状态的NN上时，会从ZooKeeper中读取数据，从而感知处于Active状态的NN是否在正常工作，以便顺利完成故障转移工作。</li>
+</ul>
+<h4 id="3-在NameNode-HA中，会出现脑裂问题吗-怎么解决脑裂问题？"><a href="#3-在NameNode-HA中，会出现脑裂问题吗-怎么解决脑裂问题？" class="headerlink" title="3. 在NameNode HA中，会出现脑裂问题吗?怎么解决脑裂问题？"></a>3. 在NameNode HA中，会出现脑裂问题吗?怎么解决脑裂问题？</h4><p>某时刻NN1为Active状态，NN2为Standby状态，如果下一时刻NN1对应的ZKFC进程发生假死，那么zookeeper服务端会认为NN1挂掉了，NN2会代替NN1进入Active状态，这时NN1和NN2都处于Active状态，都对外提供服务，这种现象叫脑裂。</p>
+<p>如何解决：</p>
+<ul>
+<li>首先尝试用调用旧的Active NameNode的RPC接口的transitionToStandby 方法，看能不能把它转换为 Standby 状态</li>
+<li>如果方法调用失败，使用Hadoop的两种隔离措施：①ssh发送kill指令。②调用用户自定义的脚本程序</li>
+</ul>
+<h2 id="1-3-Kafka"><a href="#1-3-Kafka" class="headerlink" title="1.3 Kafka"></a>1.3 Kafka</h2><h3 id="1-什么是Kafka？"><a href="#1-什么是Kafka？" class="headerlink" title="1. 什么是Kafka？"></a>1. 什么是Kafka？</h3><p>Kafka是一个分布式的基于<strong>发布&#x2F;订阅</strong>模式的消息队列，或者说其是一个分布式<strong>事件流平台</strong>。</p>
 <p>发布&#x2F;订阅：消息的发布者将消息分为不同的类型，订阅者只接收感兴趣的消息。</p>
 <h3 id="2-为什么要用kafka（kafka消息队列的应用场景）？"><a href="#2-为什么要用kafka（kafka消息队列的应用场景）？" class="headerlink" title="2. 为什么要用kafka（kafka消息队列的应用场景）？"></a>2. 为什么要用kafka（kafka消息队列的应用场景）？</h3><p>（1）缓冲&#x2F;消峰：有助于控制和优化数据流经过系统的速度，解决生产消息和消费消息的处理速度不一致的情况</p>
 <p>（2）解耦：允许你独立的扩展或修改两边的处理过程，只要确保它们遵循同样的接口约束</p>
@@ -1011,7 +1051,7 @@
 </ul>
 <h3 id="3-在你的数仓项目中，怎么使用Flume的？三大组件使用的类型都是什么？"><a href="#3-在你的数仓项目中，怎么使用Flume的？三大组件使用的类型都是什么？" class="headerlink" title="3. 在你的数仓项目中，怎么使用Flume的？三大组件使用的类型都是什么？"></a>3. 在你的数仓项目中，怎么使用Flume的？三大组件使用的类型都是什么？</h3><ul>
 <li><p>采集日志Flume：</p>
-<p>Source：TailDir Source</p>
+<p>Source：TailDir Source（断点续传，多目录）</p>
 <p>Channel：Kafka Channel</p>
 </li>
 <li><p>消费Kafka数据的Flume：</p>
@@ -1039,8 +1079,10 @@
 <li>负载均衡和故障转移：将多个sink逻辑上分到一个sink组，sink组配合可以实现负载均衡和错误恢复的功能。（一channel多sink）</li>
 <li>聚合（最常见，实用）：每台服务器部署一个Flume，最后传送到一个集中日志的Flume，再由此 flume 上传到 hdfs、hive、hbase 等，进行日志分析。</li>
 </ul>
-<h3 id="9-说一说Flume的Channel-Selectors"><a href="#9-说一说Flume的Channel-Selectors" class="headerlink" title="9. 说一说Flume的Channel Selectors"></a>9. 说一说Flume的Channel Selectors</h3><p>Channel Selectors，可以让不同的项目日志通过不同的Channel到不同的Sink中去。Replicating Channel Selector (default)（复制）和 Multiplexing Channel Selector（多路复用），前者会将source过来的events发往所有channel，后者可以选择该发往哪些channel。</p>
-<h3 id="10-自定义Flume拦截器的步骤"><a href="#10-自定义Flume拦截器的步骤" class="headerlink" title="10. 自定义Flume拦截器的步骤"></a>10. 自定义Flume拦截器的步骤</h3><ul>
+<h3 id="9-说一说Flume的选择器（Channel-Selectors）"><a href="#9-说一说Flume的选择器（Channel-Selectors）" class="headerlink" title="9. 说一说Flume的选择器（Channel Selectors）"></a>9. 说一说Flume的选择器（Channel Selectors）</h3><p>Channel Selectors，可以让不同的项目日志通过不同的Channel到不同的Sink中去。Replicating Channel Selector (default)（复制）和 Multiplexing Channel Selector（多路复用），前者会将source过来的events发往所有channel，后者可以选择该发往哪些channel。</p>
+<h3 id="10-自定义Flume拦截器的步骤"><a href="#10-自定义Flume拦截器的步骤" class="headerlink" title="10. 自定义Flume拦截器的步骤"></a>10. 自定义Flume拦截器的步骤</h3><p>ETL拦截器：主要是用来判断json是否完整。没有做复杂的清洗操作主要是防止过多的降低传输速率。</p>
+<p>时间戳拦截器：主要是解决零点漂移问题</p>
+<ul>
 <li><p>①定义类并实现Interceptor接口</p>
 </li>
 <li><p>②重写四个方法：</p>
@@ -1063,7 +1105,7 @@
 <p>（3）Sink</p>
 <p>Sink个数：增加 Sink 的个数可以增加 Sink 消费 event 的能力。Sink 也不是越多越好够用就行，过多的 Sink 会占用系统资源，造成系统资源不必要的浪费。</p>
 <p>batchSize 参数：决定 Sink 一次批量从 Channel 读取的 event 条数，适当调大这个参数可以提高 Sink 从 Channel 搬出 event 的性能。</p>
-<h3 id="13-HDFS-Sink的小文件处理"><a href="#13-HDFS-Sink的小文件处理" class="headerlink" title="13. HDFS Sink的小文件处理"></a>13. HDFS Sink的小文件处理</h3><p>小文件危害;</p>
+<h3 id="13-⭐HDFS-Sink的小文件处理"><a href="#13-⭐HDFS-Sink的小文件处理" class="headerlink" title="13. ⭐HDFS Sink的小文件处理"></a>13. ⭐HDFS Sink的小文件处理</h3><p>小文件危害;</p>
 <ul>
 <li><p>对于HDFS而言，其本身就不适合存储大量小文件，小文件过多会导致NameNode元数据特别大，占用内存太多，影响HDFS性能。</p>
 </li>
@@ -1076,7 +1118,52 @@
 <li>文件创建超3600秒时会滚动生成新文件</li>
 <li>不通过Event个数来决定何时滚动生成新文件</li>
 </ul>
-<h2 id="1-6-数据仓库"><a href="#1-6-数据仓库" class="headerlink" title="1.6 数据仓库"></a>1.6 数据仓库</h2><h3 id="1-说一说你了解到的数仓建模方法"><a href="#1-说一说你了解到的数仓建模方法" class="headerlink" title="1. 说一说你了解到的数仓建模方法"></a>1. 说一说你了解到的数仓建模方法</h3><p>（1）ER（范式）建模法：</p>
+<h2 id="1-6-数据仓库"><a href="#1-6-数据仓库" class="headerlink" title="1.6 数据仓库"></a>1.6 数据仓库</h2><h3 id="1-数仓的概念"><a href="#1-数仓的概念" class="headerlink" title="1. 数仓的概念"></a>1. 数仓的概念</h3><p>数据仓库是为了<strong>数据分析</strong>而设计的企业级数据管理系统，通过海量数据的整合、分析给企业提供决策支持。它具有面向主题、不可更新且时变的特点。</p>
+<h3 id="2-数据库与数据仓库的区别"><a href="#2-数据库与数据仓库的区别" class="headerlink" title="2. 数据库与数据仓库的区别"></a>2. 数据库与数据仓库的区别</h3><p>数据库与数据仓库的区别实际讲的是 <strong>OLTP</strong> 与 <strong>OLAP</strong> 的区别。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>数据库</th>
+<th>数据仓库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>处理方式</td>
+<td>联机事务处理OLTP</td>
+<td>联机分析处理OLAP</td>
+</tr>
+<tr>
+<td>读特性</td>
+<td>每次查询返回少量记录</td>
+<td>对大量数据进行汇总查询</td>
+</tr>
+<tr>
+<td>写特性</td>
+<td>随机、低延时写入</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>业务数据</td>
+<td>历史数据</td>
+</tr>
+<tr>
+<td>设计理念</td>
+<td>面向事务设计，为了捕获数据，避免冗余</td>
+<td>面向主题设计，为了分析数据，引入冗余</td>
+</tr>
+<tr>
+<td>数据量</td>
+<td>GB</td>
+<td>TB、PB</td>
+</tr>
+</tbody></table>
+<h3 id="3-数据仓库建模的意义"><a href="#3-数据仓库建模的意义" class="headerlink" title="3. 数据仓库建模的意义"></a>3. 数据仓库建模的意义</h3><ul>
+<li>快速查询所需要的数据</li>
+<li>减少重复计算</li>
+</ul>
+<h3 id="1-说一说你了解到的数仓建模方法"><a href="#1-说一说你了解到的数仓建模方法" class="headerlink" title="1. 说一说你了解到的数仓建模方法"></a>1. 说一说你了解到的数仓建模方法</h3><p>（1）ER（范式）建模法：</p>
 <p>数据仓库之父Bill Inmon提出的建模方法是从全企业的高度，用实体关系（Entity Relationship，ER）模型来描述企业业务，并用规范化的方式表示出来，在关系型数据库中常用，<strong>在范式理论上符合3NF</strong>。范式就是指在设计关系型数据库时，需要遵从的不同的规范。关系型数据库的范式一共有<strong>六种</strong>，分别是<strong>第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF）</strong>。遵循的范式级别越高，数据冗余性就越低。这种模型并不适合直接用于分析统计。一个符合第三范式的关系必须具有以下三个条件 :</p>
 <ul>
 <li>每个属性值唯一，不具有多义性 ;</li>
@@ -1090,7 +1177,7 @@
 <h3 id="3-维度建模中表的类型"><a href="#3-维度建模中表的类型" class="headerlink" title="3. 维度建模中表的类型"></a>3. 维度建模中表的类型</h3><p>（1）<strong>事实表</strong></p>
 <ul>
 <li><p><input disabled type="checkbox"> 
-定义：发生在现实世界中的操作型事件，其所产生的可度量数值，存储在事实表中</p>
+定义：发生在现实世界中的操作型事件，其所产生的<strong>可度量数值</strong>（个数、件数、次数、金额），存储在事实表中</p>
 </li>
 <li><p><input disabled type="checkbox"> 
 特点：</p>
@@ -1114,7 +1201,7 @@
 <p>（2）<strong>维度表</strong></p>
 <ul>
 <li><p><input disabled type="checkbox"> 
-定义：维度表则围绕业务过程所处的环境进行设计。维度表主要包含一个主键和各种维度字段，维度字段称为维度属性。维度表的主键可以作为与之关联的任何事实表的外键。</p>
+定义：维度表则围绕业务过程所处的环境进行设计。维度表主要包含一个主键和各种维度字段，维度字段称为维度属性。维度表的主键可以作为与之关联的任何事实表的外键。（没有度量值，都是描述信息）</p>
 </li>
 <li><p><input disabled type="checkbox"> 
 特点：</p>
@@ -1159,10 +1246,10 @@
 <p>（3）明细数据层（DWD）：基于维度建模理论进行构建，存放事实表</p>
 <p>（4）汇总数据层（DWS）：基于上层的指标需求，以分析的主题对象作为驱动，构建公共统计粒度（最大公约粒度）的汇总表</p>
 <p>（5）数据应用层（ADS）：存放各项统计指标结果</p>
-<h3 id="8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"><a href="#8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）" class="headerlink" title="8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"></a>8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）</h3><img src="实际项目中做的事情.png" alt="实际项目中做的事情" style="zoom:150%;">
-
-<h3 id="9-什么是数据漂移"><a href="#9-什么是数据漂移" class="headerlink" title="9. 什么是数据漂移"></a>9. 什么是数据漂移</h3><p>通常是指ods表的同一个业务⽇期数据中包含了前一天或后一天凌晨附近的数据或者丢失当天变更的数据，这种现象就叫做漂移，且在⼤部分公司中都会遇到的场景</p>
-<h3 id="10-如何解决数据漂移？"><a href="#10-如何解决数据漂移？" class="headerlink" title="10. 如何解决数据漂移？"></a>10. 如何解决数据漂移？</h3><p>在消费Kafka数据Flume中添加拦截器。</p>
+<h3 id="8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"><a href="#8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）" class="headerlink" title="8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"></a>8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）</h3><p><img src="%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85222.png" alt="实际项目中做的事情222"></p>
+<h3 id="9-⭐什么是数据漂移"><a href="#9-⭐什么是数据漂移" class="headerlink" title="9. ⭐什么是数据漂移"></a>9. ⭐什么是数据漂移</h3><p>通常是指ods表的同一个业务⽇期数据中包含了前一天或后一天凌晨附近的数据或者丢失当天变更的数据，这种现象就叫做漂移，且在⼤部分公司中都会遇到的场景</p>
+<p>比如一条从source发来的数据时间是2022.11.10 23:59，到达HDFS Sink的时间已经是2022.11.11 00:05，按照Sink系统内Linux时间戳就会将本应该分区到11.10号的数据落盘到11.11号的分区。</p>
+<h3 id="10-⭐如何解决数据漂移？"><a href="#10-⭐如何解决数据漂移？" class="headerlink" title="10. ⭐如何解决数据漂移？"></a>10. ⭐如何解决数据漂移？</h3><p>在消费Kafka数据Flume中添加拦截器。</p>
 <p>由于flume默认会用linux系统时间，作为输出到HDFS路径的时间。如果数据是23:59分产生的。Flume消费kafka里面的数据时，有可能已经是第二天了，那么这部分数据会被发往第二天的HDFS路径。我们希望的是根据日志里面的实际时间，发往HDFS的路径，所以下面拦截器作用是获取日志中的实际时间。</p>
 <p>拦截JSON日志，通过fastjson框架解析JSON，获取实际时间ts。将获取的ts时间写入拦截器header中，header的key必须是timestamp，因为Flume框架会根据这个key值识别时间，并将数据写入HDFS对应时间的路径下。</p>
 <h3 id="11-谈谈对元数据的理解"><a href="#11-谈谈对元数据的理解" class="headerlink" title="11. 谈谈对元数据的理解"></a>11. 谈谈对元数据的理解</h3><p><strong>元数据（Meta Date），主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及ETL的任务运行状态</strong>。一般会通过元数据资料库（Metadata Repository）来统一地存储和管理元数据，其主要目的是使数据仓库的设计、部署、操作和管理能达成协同和一致。</p>
@@ -1180,7 +1267,91 @@
 <p>（2）数据处理过程中不丢失数据</p>
 <p>（3）离线计算进行数据校对，保证数据的完整性</p>
 <h3 id="14-你感觉数仓建设中最重要的是什么？"><a href="#14-你感觉数仓建设中最重要的是什么？" class="headerlink" title="14. 你感觉数仓建设中最重要的是什么？"></a>14. 你感觉数仓建设中最重要的是什么？</h3><p>数据的准确性，数据的真正价值在于<strong>数据驱动决策</strong>，通过数据指导运营，在一个不准确的数据驱动下，得到的一定是错误的数据分析，影响的是公司的业务发展决策，最终导致公司的策略调控失败</p>
-<h1 id="第二章-项目问题"><a href="#第二章-项目问题" class="headerlink" title="第二章 项目问题"></a>第二章 项目问题</h1><h1 id="第三章-面试技巧"><a href="#第三章-面试技巧" class="headerlink" title="第三章 面试技巧"></a>第三章 面试技巧</h1>
+<h2 id="1-7-DataX"><a href="#1-7-DataX" class="headerlink" title="1.7 DataX"></a>1.7 DataX</h2><h3 id="1-什么是DataX？"><a href="#1-什么是DataX？" class="headerlink" title="1. 什么是DataX？"></a>1. 什么是DataX？</h3><p>阿里巴巴开源的一个异构数据源离线同步工具，支持的Source和Sink要更多一些</p>
+<h3 id="2-DataX框架设计"><a href="#2-DataX框架设计" class="headerlink" title="2. DataX框架设计"></a>2. DataX框架设计</h3><p>Framework + plugin架构构建</p>
+<img src="Snipaste_2023-11-12_19-26-50.png" alt="Snipaste_2023-11-12_19-26-50" style="zoom:50%;">
+
+<h3 id="3-DataX调优"><a href="#3-DataX调优" class="headerlink" title="3. DataX调优"></a>3. DataX调优</h3><p>调整速度</p>
+<p>调整内存</p>
+<h3 id="4-在使用DataX的时候，是否遇到问题？"><a href="#4-在使用DataX的时候，是否遇到问题？" class="headerlink" title="4. 在使用DataX的时候，是否遇到问题？"></a>4. 在使用DataX的时候，是否遇到问题？</h3><p>遇到过。</p>
+<p>MySql中的Null对应Hive中的\N，但是dataX不能自动转换成\N，只能在Hive建表的时候执行null值存储格式为空字符串（’’）</p>
+<h3 id="5-DataX配置文件生成脚本"><a href="#5-DataX配置文件生成脚本" class="headerlink" title="5. DataX配置文件生成脚本"></a>5. DataX配置文件生成脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python gen_import_config.py -d database -t table</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-8-MaxWell"><a href="#1-8-MaxWell" class="headerlink" title="1.8 MaxWell"></a>1.8 MaxWell</h2><h3 id="1-什么是MaxWell，为什么选择MaxWell？"><a href="#1-什么是MaxWell，为什么选择MaxWell？" class="headerlink" title="1.什么是MaxWell，为什么选择MaxWell？"></a>1.什么是MaxWell，为什么选择MaxWell？</h3><p>MySQL变更数据抓取软件。它会实时监控MySQL数据库中的变更操作（insert，update，delete），并将变更数据以JSON字符串发送给Kafka等流数据处理平台。</p>
+<p>为什么选：断点续传，自动根据库名和表名把数据发往kafka的对应主题。</p>
+<h3 id="2-MaxWell底层原理"><a href="#2-MaxWell底层原理" class="headerlink" title="2. MaxWell底层原理"></a>2. MaxWell底层原理</h3><p><strong>mysql主从复制</strong>。Maxwell原理就是将自己伪装成slave，实时读取MySQL数据库的二进制日志（Binlog），从master同步数据。</p>
+<h2 id="1-9-DolphinScheduler"><a href="#1-9-DolphinScheduler" class="headerlink" title="1.9 DolphinScheduler"></a>1.9 DolphinScheduler</h2><h3 id="1-你使用的版本"><a href="#1-你使用的版本" class="headerlink" title="1. 你使用的版本"></a>1. 你使用的版本</h3><p>2.0.3支持的报警信息更全一些，配置更容易。102配置master、worker，103配置worker，104配置worker</p>
+<h3 id="2-什么时候执行？"><a href="#2-什么时候执行？" class="headerlink" title="2. 什么时候执行？"></a>2. 什么时候执行？</h3><p>00:10  业务数据</p>
+<p>00:30   用户行为数据</p>
+<h3 id="3-出现异常怎么办？"><a href="#3-出现异常怎么办？" class="headerlink" title="3. 出现异常怎么办？"></a>3. 出现异常怎么办？</h3><p>发邮件，打电话，查看任务，手动重试</p>
+<h1 id="第二章-项目问题"><a href="#第二章-项目问题" class="headerlink" title="第二章 项目问题"></a>第二章 项目问题</h1><h2 id="1-你的数仓的输入数据和输出系统分别是什么"><a href="#1-你的数仓的输入数据和输出系统分别是什么" class="headerlink" title="1. 你的数仓的输入数据和输出系统分别是什么?"></a>1. 你的数仓的输入数据和输出系统分别是什么?</h2><p>输入系统：埋点产生的用户行为数据、JavaEE后台产生的业务数据。</p>
+<p>输出系统：报表系统、用户画像系统、推荐系统</p>
+<h2 id="2-请说说你的系统数据流程设计"><a href="#2-请说说你的系统数据流程设计" class="headerlink" title="2. 请说说你的系统数据流程设计"></a>2. 请说说你的系统数据流程设计</h2><h2 id="3-一共多少张表？"><a href="#3-一共多少张表？" class="headerlink" title="3. 一共多少张表？"></a>3. 一共多少张表？</h2><p>ODS层27张+DIM层9张+DWD层19张+DWS层15张+ADS层27张 &#x3D; 97张</p>
+<h2 id="4-ODS层多少张表？哪些全量哪些增量？"><a href="#4-ODS层多少张表？哪些全量哪些增量？" class="headerlink" title="4. ODS层多少张表？哪些全量哪些增量？"></a>4. ODS层多少张表？哪些全量哪些增量？</h2><p>1张用户行为数据表，26张业务数据表（15张全量表，11张增量表）</p>
+<h2 id="5-请说说你的事实表和维度表的同步策略"><a href="#5-请说说你的事实表和维度表的同步策略" class="headerlink" title="5. 请说说你的事实表和维度表的同步策略"></a>5. 请说说你的事实表和维度表的同步策略</h2><p>DWD事实表（19张）：数据量大，增量数据，特殊的是交易域<strong>加购</strong>周期快照事实表</p>
+<ul>
+<li>交易域加购事务事实表</li>
+<li>交易域加购周期快照事实表</li>
+<li>交易域试听下单累积快照事实表</li>
+<li>交易域下单事实事实表</li>
+<li>交易域支付成功事实事实表</li>
+<li>流量域页面浏览事务事实表</li>
+<li>流量域启动事务事实表</li>
+<li>流量域动作事务事实表</li>
+<li>流量域曝光事务事实表</li>
+<li>流量域错误事务事实表</li>
+<li>互动域收藏事务事实表</li>
+<li>互动域章节评价事务事实表</li>
+<li>互动域课程评价事务事实表</li>
+<li>考试域答卷事务事实表</li>
+<li>考试域答题事务事实表</li>
+<li>学习域播放周期快照事实表</li>
+<li>学习域播放事务事实表</li>
+<li>用户域用户注册事务事实表</li>
+<li>用户域用户登录事务事实表</li>
+</ul>
+<p>DIM维度表（9张）：数据量小，全量数据；时间维度表（特殊），用户维度表（拉链表）</p>
+<ul>
+<li>章节维度表（全量）</li>
+<li>课程维度表（全量）</li>
+<li>视频维度表（全量）</li>
+<li>试卷维度表（全量）</li>
+<li>来源维度表（全量）</li>
+<li>题目维度表（全量）</li>
+<li>地区维度表（全量）</li>
+<li>时间维度表（特殊）</li>
+<li>用户维度表（拉链表）</li>
+</ul>
+<h2 id="6-用户拉链表是如何制作的？"><a href="#6-用户拉链表是如何制作的？" class="headerlink" title="6. 用户拉链表是如何制作的？"></a>6. 用户拉链表是如何制作的？</h2><p>首日初始化：导入截至目前的全部历史用户数据进行一定的隐私信息脱敏，到拉链表的9999-12-31分区</p>
+<p>每日数据装载：先将截至前一日的全量最新数据与当日变动数据进行union操作，使用row_number() over (partition by id order by start_date desc)，得到的结果中，序号为1的状态为最新状态，序号为2的状态为过期状态。根据序号对数据进行修改，将序号为2的状态的结束日期修改为前一日的日期，序号为1的数据不做修改，最后使用动态分区，将数据分别写入9999-12-31分区和前一日分区。</p>
+<p><img src="Snipaste_2023-11-21_11-43-56.png" alt="Snipaste_2023-11-21_11-43-56"></p>
+<h2 id="7-你的DWS层有几张表？哪张表的数据量最多？"><a href="#7-你的DWS层有几张表？哪张表的数据量最多？" class="headerlink" title="7. 你的DWS层有几张表？哪张表的数据量最多？"></a>7. 你的DWS层有几张表？哪张表的数据量最多？</h2><p>共15张，近1日汇总表7张，近n日汇总表5张，历史至今汇总表3张。</p>
+<p>交易域用户粒度用户下单历史至今汇总表</p>
+<p>原始数据60G，到达DWS层30G，一共15张表，每张表平均30&#x2F;15&#x3D;2G，再乘以2.5&#x3D;5g&#x3D;&#x3D;&#x3D;》对应500万条</p>
+<h2 id="8-ADS层分析过哪些指标？说几个最难的"><a href="#8-ADS层分析过哪些指标？说几个最难的" class="headerlink" title="8. ADS层分析过哪些指标？说几个最难的"></a>8. ADS层分析过哪些指标？说几个最难的</h2><p>难的：最近1&#x2F;7&#x2F;30日页面浏览路径分析，用户留存率</p>
+<ul>
+<li>流量主题指标：各来源访客数，各来源跳出率，各来源下单统计，<strong>路径分析</strong></li>
+<li>用户主题指标：流失用户数，回流用户数，各年龄段下单用户数，<strong>用户留存率</strong></li>
+<li>课程主题指标：各分类下单数，各学科下单数，各课程下单数，各课程用户好评数，各学科试听人数</li>
+<li>交易主题指标：下单总额，下单人数，各省份下单数，各省份下单金额</li>
+<li>考试主题指标：各试卷平均分，各试卷平均答题时长，各课程平均分，各课程平均答题时长，各题目正确率</li>
+<li>播放主题指标：各章节视频播放次数，各章节视频观看人数，各课程人均观看时长</li>
+<li>完课主题指标：总完课人数统计，各课程完课人数统计</li>
+</ul>
+<h2 id="9-项目中遇到哪些问题如何解决的？"><a href="#9-项目中遇到哪些问题如何解决的？" class="headerlink" title="9. 项目中遇到哪些问题如何解决的？"></a>9. 项目中遇到哪些问题如何解决的？</h2><p>小文件处理</p>
+<p>Kafka挂掉</p>
+<p>Kafka丢失</p>
+<p>Kafka数据重复</p>
+<p>Kafka消息数据积压</p>
+<p>自定义UDF、UDTF函数</p>
+<p>Hive优化</p>
+<p>Hive解决数据倾斜方法</p>
+<p>疑难指标编写（路径分析，用户留存率。。。）</p>
+<p>Datax空值、调优</p>
+<p>小海豚调度器中突然发现alert-server一直启动不起来</p>
+<h1 id="第三章-面试技巧"><a href="#第三章-面试技巧" class="headerlink" title="第三章 面试技巧"></a>第三章 面试技巧</h1><h2 id="1-个人优点缺点"><a href="#1-个人优点缺点" class="headerlink" title="1. 个人优点缺点"></a>1. 个人优点缺点</h2><h2 id="2-反问面试官？"><a href="#2-反问面试官？" class="headerlink" title="2. 反问面试官？"></a>2. 反问面试官？</h2><p>公司数仓业务线的技术栈是什么？</p>
+<p>公司希望我入职后能给公司解决什么样的问题？</p>
+
       
 
       
