@@ -347,8 +347,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="第一章-技术及框架"><a href="#第一章-技术及框架" class="headerlink" title="第一章 技术及框架"></a>第一章 技术及框架</h1><h2 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h2><p>面试官你好，我叫王宇涵，本科就读于哈尔滨工程大学，硕士就读于大连理工大学，计算机科学与技术专业，目前研二，打算求职一份数仓开发或大数据开发的实习工作。由于我的研究方向是量化交易相关的，需要和大量股票数据和因子数据打交道，而且需要分析各种因子和股市走向的内在联系，需要分析各种指标，在此期间接触到了一些数仓理论和大数据计算引擎，从而对大数据行业产生浓厚的兴趣。</p>
-<p>我的大数据学习路线是：视频（快速了解技术概况和开发操作）+权威书籍（对不懂的知识点进行查缺补漏）+官方文档（把控组件最新发展和bug说明，同时最为工具书在开发过程中查阅）+个人技术博客总结（总结课程笔记和读书笔记和相关知识点，浓缩精华，记录开发过程中遇到的问题和解决办法，供他人分享）</p>
-<h2 id="1-1-Linux-amp-Shell"><a href="#1-1-Linux-amp-Shell" class="headerlink" title="1.1 Linux&amp;Shell"></a>1.1 Linux&amp;Shell</h2><h3 id="1-说一说你用到的Linux高级命令"><a href="#1-说一说你用到的Linux高级命令" class="headerlink" title="1. 说一说你用到的Linux高级命令"></a>1. 说一说你用到的Linux高级命令</h3><ul>
+<p>我的大数据学习路线是：视频（快速了解技术概况和开发操作）+权威书籍（对不懂的知识点进行查缺补漏）+官方文档（把控组件最新发展和bug说明，同时作为工具书在开发过程中查阅）+个人技术博客总结（总结课程笔记和读书笔记和相关知识点，浓缩精华，记录开发过程中遇到的问题和解决办法，供他人分享）</p>
+<h2 id="1-1-⭐Linux-amp-Shell"><a href="#1-1-⭐Linux-amp-Shell" class="headerlink" title="1.1 ⭐Linux&amp;Shell"></a>1.1 ⭐Linux&amp;Shell</h2><h3 id="1-说一说你用到的Linux高级命令"><a href="#1-说一说你用到的Linux高级命令" class="headerlink" title="1. 说一说你用到的Linux高级命令"></a>1. 说一说你用到的Linux高级命令</h3><ul>
 <li>scp：可以实现服务器与服务器之间的数据拷贝（所有文件都复制过去）</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[atguigu@hadoop102 ~]$ scp -r /opt/module/jdk1.8.0_212/ atguigu@hadoop103:/opt/module/</span><br></pre></td></tr></table></figure>
@@ -376,14 +376,16 @@
 <p>（4）与外部系统的导入导出（ods–&gt;ads）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">定义变量</span><br><span class="line">获取时间</span><br><span class="line">sql = &quot; 绝对路径  库名.表  库名.自定义函数&quot;</span><br><span class="line">执行sql</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-2-Hive"><a href="#1-2-Hive" class="headerlink" title="1.2 Hive"></a>1.2 Hive</h2><h3 id="1-Hive架构是什么样的？"><a href="#1-Hive架构是什么样的？" class="headerlink" title="1. Hive架构是什么样的？"></a>1. Hive架构是什么样的？</h3><p>定义Hive：Hive是一个基于Hadoop的数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能，本质是将HQL转化成MapReduce程序，层由HDFS来提供数据的存储。</p>
+<h2 id="1-2-Hive"><a href="#1-2-Hive" class="headerlink" title="1.2 Hive"></a>1.2 Hive</h2><h3 id="1-⭐Hive架构是什么样的？"><a href="#1-⭐Hive架构是什么样的？" class="headerlink" title="1. ⭐Hive架构是什么样的？"></a>1. ⭐Hive架构是什么样的？</h3><p>定义Hive：Hive是一个基于Hadoop的数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供类SQL查询功能，本质是将HQL转化成MapReduce程序，底层由HDFS来提供数据的存储。</p>
 <p>架构：<strong>Hive架构由用户接口、元数据存储（Metastore）和驱动（解释器、编译器、优化器、执行器等）组成。</strong>用户通过接口创建HQL语句，由Metastore记录对应的元数据，通过一系列驱动进行HQL语句的分析优化和查询计划的生成（或者说翻译成MapReduce程序），生成的查询计划存储在HDFS中，随后在MapReduce调用执行，最后将计算结果返回给用户。</p>
-<h3 id="2-Hive-SQL编译成MapReduce的过程"><a href="#2-Hive-SQL编译成MapReduce的过程" class="headerlink" title="2. Hive SQL编译成MapReduce的过程"></a>2. Hive SQL编译成MapReduce的过程</h3><p>（1）词法、语法解析：根据 Antlr 定义的 sql 语法规则，将相关 sql 进行词法、语法解析，转化为抽象语法树 AST Tree</p>
-<p>（2）语义解析：遍历 AST Tree，抽象出查询的基本组成单元 QueryBlock（包括输入源、计算过程、输出）</p>
-<p>（3）生成逻辑执行阶段：遍历 QueryBlock，翻译为执行操作树 OperatorTree（TableScanOperator、SelectOperator、FilterOperator、JoinOperator、GroupByOperator、ReduceSinkOperator）</p>
-<p>（4）优化逻辑执行计划：谓词下推、多路join等，达到减少MapReduce Job，减少数据传输及shuffle数据量</p>
-<p>（5）生成物理执行过程：遍历 OperatorTree，翻译为 MapReduce 任务</p>
-<p>（6）优化物理执行过程：物理层优化器进行 MapReduce 任务的变换，生成最终的执行计划</p>
+<p><img src="111111%E5%9B%BE%E7%89%871.png" alt="111111图片1"></p>
+<h3 id="2-⭐Hive-SQL编译成MapReduce的过程"><a href="#2-⭐Hive-SQL编译成MapReduce的过程" class="headerlink" title="2. ⭐Hive SQL编译成MapReduce的过程"></a>2. ⭐Hive SQL编译成MapReduce的过程</h3><p>①解析器（SQLParser）：将SQL字符串转换成抽象语法树（AST）</p>
+<p>②语义分析（Semantic Analyzer）：将AST进一步划分为QeuryBlock</p>
+<p>③逻辑计划生成器（Logical Plan Gen）：将QeuryBlock生成逻辑计划</p>
+<p>④逻辑优化器（Logical Optimizer）：对逻辑计划进行优化</p>
+<p>⑤物理计划生成器（Physical Plan Gen）：根据优化后的逻辑计划生成物理计划</p>
+<p>⑥物理优化器（Physical Optimizer）：对物理计划进行优化</p>
+<p>⑦执行器（Execution）：执行该计划，得到查询结果并返回给客户端</p>
 <h3 id="3-说一说Hive的优缺点"><a href="#3-说一说Hive的优缺点" class="headerlink" title="3. 说一说Hive的优缺点"></a>3. 说一说Hive的优缺点</h3><p>优点：</p>
 <ul>
 <li>①操作接口采用类SQL语法，简单容易上手</li>
@@ -396,7 +398,7 @@
 <li>①Hive常用于数据分析，不能用于实时性高的场景，延迟较高</li>
 <li>②HQL表达能力有限，迭代式无法表示</li>
 <li>③实现不了数据挖掘类的算法</li>
-<li>④Hive的调优比较苦难，粒度比较粗</li>
+<li>④Hive的调优比较困难，粒度比较粗</li>
 </ul>
 <h3 id="4-说一说Hive与传统数据库的区别"><a href="#4-说一说Hive与传统数据库的区别" class="headerlink" title="4. 说一说Hive与传统数据库的区别"></a>4. 说一说Hive与传统数据库的区别</h3><table>
 <thead>
@@ -442,7 +444,7 @@
 <td>支持</td>
 </tr>
 </tbody></table>
-<h3 id="5-Hive内部表和外部表的区别"><a href="#5-Hive内部表和外部表的区别" class="headerlink" title="5. Hive内部表和外部表的区别"></a>5. Hive内部表和外部表的区别</h3><ul>
+<h3 id="5-⭐Hive内部表和外部表的区别"><a href="#5-⭐Hive内部表和外部表的区别" class="headerlink" title="5. ⭐Hive内部表和外部表的区别"></a>5. ⭐Hive内部表和外部表的区别</h3><ul>
 <li>由external修饰的表为外部表，未被external修饰的表为内部表</li>
 <li>内部表由Hive自身管理（包括元数据和HDFS中的数据）；外部表Hive只接管元数据，数据由HDFS管理</li>
 <li>删除（drop）内部表会直接删除元数据及HDFS上的文件；删除（drop）外部表仅仅会删除元数据，HDFS上的文件并不会删除</li>
@@ -467,13 +469,20 @@
 <li>ORC 会尽可能合并多个离散的区间尽可能的减少 I&#x2F;O 次数</li>
 <li>以二进制方式存储，不可以直接读取和修改</li>
 </ul>
-<h3 id="9-说说Hive的4个By区别"><a href="#9-说说Hive的4个By区别" class="headerlink" title="9. 说说Hive的4个By区别"></a>9. 说说Hive的4个By区别</h3><ul>
-<li>order by：<strong>全局排序，只有一个Reduce</strong>。当输入规模较大时，需要较长的计算时间（生产环境中慎用）</li>
-<li>sort by：为每个reduce产生一个排序文件。<strong>每个Reduce内部进行排序</strong>，对全局结果集来说不是排序</li>
-<li>distrbute by：类似MapReduce中partition（自定义分区），进行分区，结合sort by使用。 </li>
-<li>cluster by：当distribute by和sort by字段相同时，可以使用cluster by方式。</li>
+<h3 id="9-⭐说说Hive的4个By区别"><a href="#9-⭐说说Hive的4个By区别" class="headerlink" title="9. ⭐说说Hive的4个By区别"></a>9. ⭐说说Hive的4个By区别</h3><ul>
+<li>order by：order by a，<strong>全局按字段a排序，只有一个Reduce</strong>。当输入规模较大时，需要较长的计算时间（生产环境中慎用）</li>
+<li>sort by：sort by a，<strong>为每个reduce产生一个排序文件</strong>。<strong>每个Reduce内部按字段a进行排序</strong>，对全局结果集来说不是排序</li>
+<li>distrbute by：distribute by a sort by b，类似MapReduce中partition（自定义分区），<strong>按照字段a进行分区，每一个分区内按照字段b进行排序</strong>，结合sort by使用。 </li>
+<li>cluster by：cluster by a，当distribute by和sort by字段相同时，可以使用cluster by方式。<strong>按字段a进行分区，每个分区内按照字段a进行排序</strong></li>
 </ul>
-<h3 id="10-说一说Hive的窗口函数"><a href="#10-说一说Hive的窗口函数" class="headerlink" title="10. 说一说Hive的窗口函数"></a>10. 说一说Hive的窗口函数</h3><p>窗口函数写在select语句中：</p>
+<h3 id="10-⭐说一说Hive的窗口函数"><a href="#10-⭐说一说Hive的窗口函数" class="headerlink" title="10. ⭐说一说Hive的窗口函数"></a>10. ⭐说一说Hive的窗口函数</h3><p>窗口函数的语法中主要包括“窗口”和“函数”两部分。<strong>其中“窗口”用于定义计算范围，“函数”用于定义计算逻辑</strong>。</p>
+<img src="22226-34-30.png" alt="22226-34-30" style="zoom:50%;">
+
+<p>lag：整列向下移动；lead：整列向上移动</p>
+<p><img src="Snipaste_2023-10-18_20-52-54.png" alt="Snipaste_2023-10-18_20-52-54"></p>
+<p><img src="552023-10-18_20-58-47.png" alt="552023-10-18_20-58-47"></p>
+<p><img src="6ste_2023-10-18_21-15-06.png" alt="6ste_2023-10-18_21-15-06"></p>
+<p>窗口函数写在select语句中：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">函数() over (partition by 字段1 order by 字段2 [rows|range between...and...]) 别名</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -483,7 +492,7 @@
 <li>dense_rank()：排序相同时会重复，总数会减少</li>
 <li>row_number()：会根据顺序计算</li>
 </ul>
-<h3 id="11-在项目中是否自定义过-UDF-、UDAF、UDTF-函数，以及用他们处理了什么问题，及自定义步骤？"><a href="#11-在项目中是否自定义过-UDF-、UDAF、UDTF-函数，以及用他们处理了什么问题，及自定义步骤？" class="headerlink" title="11. 在项目中是否自定义过 UDF 、UDAF、UDTF  函数，以及用他们处理了什么问题，及自定义步骤？"></a>11. 在项目中是否自定义过 UDF 、UDAF、UDTF  函数，以及用他们处理了什么问题，及自定义步骤？</h3><p>自定义过</p>
+<h3 id="11-⭐在项目中是否自定义过-UDF-、UDAF、UDTF-函数，以及用他们处理了什么问题，及自定义步骤？"><a href="#11-⭐在项目中是否自定义过-UDF-、UDAF、UDTF-函数，以及用他们处理了什么问题，及自定义步骤？" class="headerlink" title="11. ⭐在项目中是否自定义过 UDF 、UDAF、UDTF  函数，以及用他们处理了什么问题，及自定义步骤？"></a>11. ⭐在项目中是否自定义过 UDF 、UDAF、UDTF  函数，以及用他们处理了什么问题，及自定义步骤？</h3><p>自定义过</p>
 <ul>
 <li><p>UDF：一进一出</p>
 </li>
@@ -499,6 +508,8 @@
 </li>
 </ul>
 <h3 id="12-Hive的常用函数"><a href="#12-Hive的常用函数" class="headerlink" title="12. Hive的常用函数"></a>12. Hive的常用函数</h3><p>可以通过SHOW FUNCTIONS查看Hive的内置函数。通过DESCRIBE FUNCTION 函数名;查看函数的输入输出功能描述</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">--6. split ：字符串切割</span><br><span class="line">/**</span><br><span class="line">    语法：split(string str, string pat)</span><br><span class="line">    返回值：array</span><br><span class="line">    说明：按照正则表达式pat匹配到的内容分割str，分割后的字符串，以数组的形式返回。</span><br><span class="line"> */</span><br><span class="line">select split(&#x27;a-b-c-d&#x27;,&#x27;-&#x27;);</span><br><span class="line">-- [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]</span><br><span class="line">select split(&#x27;192.168.10.102&#x27;, &#x27;\\.&#x27;);</span><br><span class="line">-- [&quot;192&quot;,&quot;168&quot;,&quot;10&quot;,&quot;102&quot;]</span><br><span class="line"></span><br><span class="line">--7. nvl ：替换null值</span><br><span class="line">/**</span><br><span class="line">  语法：nvl(A,B)</span><br><span class="line">  说明：若A的值不为null，则返回A，否则返回B</span><br><span class="line"> */</span><br><span class="line">select nvl(null,1);</span><br><span class="line">--1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--8. concat ：拼接字符串</span><br><span class="line">/**</span><br><span class="line">语法：concat(string A, string B, string C, ……)</span><br><span class="line">返回：string</span><br><span class="line">说明：将A,B,C……等字符拼接为一个字符串</span><br><span class="line"> */</span><br><span class="line">select concat(&#x27;beijing&#x27;,&#x27;-&#x27;,&#x27;shanghai&#x27;,&#x27;-&#x27;,&#x27;shenzhen&#x27;);</span><br><span class="line">-- beijing-shanghai-shenzhen</span><br><span class="line">select &#x27;beijing&#x27;||&#x27;-&#x27;||&#x27;shanghai&#x27;||&#x27;-&#x27;||&#x27;shenzhen&#x27;;</span><br><span class="line">-- beijing-shanghai-shenzhen</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--9.concat_ws：以指定分隔符拼接字符串或者字符串数组</span><br><span class="line">/**</span><br><span class="line">语法：concat_ws(string A, string…| array(string))</span><br><span class="line">返回值：string</span><br><span class="line">说明：使用分隔符A拼接多个字符串，或者一个数组的所有元素。</span><br><span class="line"> */</span><br><span class="line">select concat_ws(&#x27;-&#x27;,&#x27;beijing&#x27;,&#x27;shanghai&#x27;,&#x27;shenzhen&#x27;);</span><br><span class="line">-- beijing-shanghai-shenzhen</span><br><span class="line">select concat_ws(&#x27;-&#x27;,array(&#x27;beijing&#x27;,&#x27;shenzhen&#x27;,&#x27;shanghai&#x27;));</span><br><span class="line">--beijing-shenzhen-shanghai</span><br></pre></td></tr></table></figure>
+
 <h3 id="13-使用过Hive解析JSON串吗？"><a href="#13-使用过Hive解析JSON串吗？" class="headerlink" title="13. 使用过Hive解析JSON串吗？"></a>13. 使用过Hive解析JSON串吗？</h3><p>使用过。</p>
 <p>（1）使用Hive中的get_json_object函数</p>
 <p>（2）使用serde处理</p>
@@ -605,7 +616,7 @@
 
 <p>（6）减少JVM开关时间</p>
 <p>如果有大量小文件要处理，那么频繁启动和关闭JVM会浪费大量时间，所以减少JVM开关时间可以减少作业处理时间</p>
-<h3 id="19-Hive优化有哪些？"><a href="#19-Hive优化有哪些？" class="headerlink" title="19. Hive优化有哪些？"></a>19. Hive优化有哪些？</h3><p>（1）数据存储及压缩优化</p>
+<h3 id="19-⭐Hive优化有哪些？"><a href="#19-⭐Hive优化有哪些？" class="headerlink" title="19. ⭐Hive优化有哪些？"></a>19. ⭐Hive优化有哪些？</h3><p>（1）数据存储及压缩优化</p>
 <p>一般表格存储格式选用ORC（占有更少的存储），压缩格式选用snappy。因为Hive底层使用MR计算框架，数据流从HDFS到磁盘再到HDFS，使用ORC+snappy可以降低IO读写，还能降低网络传输量。</p>
 <p>（2）有效地减小数据集将大表拆分成子表，结合使用分区表和分桶表</p>
 <p>（3）HQL语法优化</p>
@@ -661,7 +672,7 @@
 <li><p>严格模式：开启严格模式，防止危险操作</p>
 </li>
 </ul>
-<h3 id="20-Hive的严格模式"><a href="#20-Hive的严格模式" class="headerlink" title="20. Hive的严格模式"></a>20. Hive的严格模式</h3><p>①用户不允许扫描所有分区表，只能用where过滤一些分区字段。因为分区表通常非常大，扫描所有会浪费巨大资源</p>
+<h3 id="20-⭐Hive的严格模式"><a href="#20-⭐Hive的严格模式" class="headerlink" title="20. ⭐Hive的严格模式"></a>20. ⭐Hive的严格模式</h3><p>①用户不允许扫描所有分区表，只能用where过滤一些分区字段。因为分区表通常非常大，扫描所有会浪费巨大资源</p>
 <p>②对于使用了order by的语句的查询，必须使用limit语句，这样可以可以防止Reduce额外执行很长一段时间</p>
 <p>③限制笛卡尔积查询</p>
 <h3 id="21-HiveSQL语句的正确执行顺序"><a href="#21-HiveSQL语句的正确执行顺序" class="headerlink" title="21. HiveSQL语句的正确执行顺序"></a>21. HiveSQL语句的正确执行顺序</h3><p><strong>from .. where .. join .. on .. select .. group by .. select .. having .. distinct .. order by .. limit .. union&#x2F;union all</strong></p>
@@ -670,7 +681,12 @@
 </blockquote>
 <p>在执行计划中，每个stage都是一个独立的MR。</p>
 <h3 id="22-Tez引擎的优点？"><a href="#22-Tez引擎的优点？" class="headerlink" title="22. Tez引擎的优点？"></a>22. Tez引擎的优点？</h3><p>Tez 可以将多个有依赖的作业转换为一个作业，这样只需写一次 HDFS，且中间节点较少，从而大大提升作业的计算性能。</p>
-<h3 id="23-Hive四大引擎"><a href="#23-Hive四大引擎" class="headerlink" title="23. Hive四大引擎"></a>23. Hive四大引擎</h3><p>MR、Hive on Spark、Spark、Tez</p>
+<h3 id="23-Hive计算引擎"><a href="#23-Hive计算引擎" class="headerlink" title="23. Hive计算引擎"></a>23. Hive计算引擎</h3><p>目前 Hive 支持 MapReduce、Tez 和 Spark 三种计算引擎</p>
+<ol>
+<li>MapReduce：这是Hive最初使用的计算引擎，也是Hadoop生态系统中的主要计算模型。MapReduce通过将任务分解成多个小任务（Map和Reduce阶段）来处理数据，这使得它非常适合大规模数据处理。然而，MapReduce的批处理特性使得它在处理交互式查询和实时数据处理方面不够高效。</li>
+<li>Tez：完全基于内存，Tez将MapReduce的两次扫描优化为一次扫描，提高了查询性能。<strong>一般用于快速出结果，数据量较小的场景</strong></li>
+<li>Spark：Spark是另一种高性能的计算引擎，它提供了内存计算和DAG（有向无环图）执行引擎，使得数据处理速度更快。<strong>一般处理天指标</strong></li>
+</ol>
 <h3 id="24-Hive与HBase的区别"><a href="#24-Hive与HBase的区别" class="headerlink" title="24. Hive与HBase的区别"></a>24. Hive与HBase的区别</h3><table>
 <thead>
 <tr>
@@ -713,7 +729,7 @@
 <h2 id="1-2-Hadoop"><a href="#1-2-Hadoop" class="headerlink" title="1.2 Hadoop"></a>1.2 Hadoop</h2><h3 id="1-2-1-前置知识"><a href="#1-2-1-前置知识" class="headerlink" title="1.2.1 前置知识"></a>1.2.1 前置知识</h3><h4 id="1-Hadoop的运行模式"><a href="#1-Hadoop的运行模式" class="headerlink" title="1. Hadoop的运行模式"></a>1. Hadoop的运行模式</h4><p>本地模式（单机，仅运行官方案例），伪分布式模式（单机，模拟分布式环境），完全分布式模式（多台服务器分布式集群）</p>
 <h4 id="2-说一说你的Hadoop集群配置"><a href="#2-说一说你的Hadoop集群配置" class="headerlink" title="2. 说一说你的Hadoop集群配置"></a>2. 说一说你的Hadoop集群配置</h4><p><img src="Snipaste_2023-12-05_14-42-39.png" alt="Snipaste_2023-12-05_14-42-39"></p>
 <p>NameNode是HDFS的主节点，ResourceManager是YARN的主节点。</p>
-<p>HDFS中的DataNode主要负责存储数据，每个服务器节点都部署一台，NameNode和SecondaryNameNode分别部署在102和104节点上。YARN的NodeManager是单个节点服务器上的资源和任务管理器，在每台节点上都部署一台，ResourceManager主要负责集群整体的资源调度工作，非常消耗内存，不要和同样消耗内存的NameNode配置在同一台节点上（所以将其配置在103节点上）。初次之外，在102上配置一个历史服务器，用于回溯历史任务运行情况</p>
+<p>HDFS中的DataNode主要负责存储数据，每个服务器节点都部署一台，NameNode和SecondaryNameNode分别部署在102和104节点上。YARN的NodeManager是单个节点服务器上的资源和任务管理器，在每台节点上都部署一台，ResourceManager主要负责集群整体的资源调度工作，非常消耗内存，不要和同样消耗内存的NameNode配置在同一台节点上（所以将其配置在103节点上）。除此之外，在102上配置一个历史服务器，用于回溯历史任务运行情况</p>
 <h4 id="3-Hadoop的配置文件"><a href="#3-Hadoop的配置文件" class="headerlink" title="3. Hadoop的配置文件"></a>3. Hadoop的配置文件</h4><ul>
 <li>core-site.xml：主要用于将分布式文件系统HDFS的NameNode的<strong>入口地址</strong>和分布式文件系统中的<strong>数据</strong> 存储于服务器本地磁盘中进行配置。</li>
 <li>hdfs-site.xml：主要对HDFS的属性进行配置</li>
@@ -736,7 +752,7 @@
 <li>无法存储大量小文件（对NameNode内存占用大，消耗性能；小文件存储寻址时间超过读取时间，造成资源浪费）</li>
 <li>文件不支持并发写入操作，不允许多个线程同时写文件。对于一个文件的写入操作，只能以“仅添加”的模式在文件末尾写入数据，不支持在文件的任意位置进行修改。</li>
 </ul>
-<h4 id="2-介绍一下HDFS的基本架构"><a href="#2-介绍一下HDFS的基本架构" class="headerlink" title="2. 介绍一下HDFS的基本架构"></a>2. 介绍一下HDFS的基本架构</h4><p>（1）Client：客户端</p>
+<h4 id="2-⭐介绍一下HDFS的基本架构"><a href="#2-⭐介绍一下HDFS的基本架构" class="headerlink" title="2. ⭐介绍一下HDFS的基本架构"></a>2. ⭐介绍一下HDFS的基本架构</h4><p>（1）Client：客户端</p>
 <ul>
 <li>文件切分。文件上传HDFS的时候，Client将文件切分成一个一个的Block，然后进行上传</li>
 <li>与NameNode交互，获取文件的<strong>位置信息</strong>。</li>
@@ -760,7 +776,7 @@
 <li>辅助NameNode，分担其工作量，定期合并Fsimage和Edits，并推送给NameNode</li>
 <li>在紧急情况下，可辅助恢复Name Node</li>
 </ul>
-<h4 id="3-HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？"><a href="#3-HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？" class="headerlink" title="3. HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？"></a>3. HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？</h4><p>2.x、3.x版本中是128M。（HDFS块大小设置主要取决于磁盘传输速率）</p>
+<h4 id="3-⭐HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？"><a href="#3-⭐HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？" class="headerlink" title="3. ⭐HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？"></a>3. ⭐HDFS的文件块大小，为什么块的大小不能设置太大也不能设置太小？</h4><p>2.x、3.x版本中是128M。（HDFS块大小设置主要取决于磁盘传输速率）</p>
 <ul>
 <li>如果数据块设置的太小，一个大文件就会被分成多个数据块，增加整个大文件寻址的时间，出现小文件问题（对NameNode造成存储负担）</li>
 <li>如果数据块设置的的太大，磁盘传输数据的时间占比会增大。</li>
@@ -850,8 +866,8 @@
 <h3 id="1-2-5-高可用HA"><a href="#1-2-5-高可用HA" class="headerlink" title="1.2.5 高可用HA"></a>1.2.5 高可用HA</h3><h4 id="1-什么是高可用HA"><a href="#1-什么是高可用HA" class="headerlink" title="1. 什么是高可用HA"></a>1. 什么是高可用HA</h4><p>7*24小时不中断服务。实现高可用的关键策略是消除单点故障，分为HDFS HA和YARN HA</p>
 <h4 id="2-简单说一说HDFS如何实现高可用"><a href="#2-简单说一说HDFS如何实现高可用" class="headerlink" title="2. 简单说一说HDFS如何实现高可用"></a>2. 简单说一说HDFS如何实现高可用</h4><p>HDFS HA功能通过配置多个NameNode实现，要保证这两个NameNode的元数据信息必须要同步，而且一个NameNode挂掉之后另一个要马上补上。</p>
 <ul>
-<li>如何保证多个NN元数据信息一致：其中一个NN负责生成快照文件FsImage，其他NN拉取同步；引进新角色JournalNode，保证多个NN的EditLog数据一致性</li>
-<li>如何使多个NN其中一个处于Active状态，其他处于Standby状态：在每一个NN上启动ZKFC（由zookeeper实现的故障转移控制器），当ZKFC运行在处于Active状态的NN上时，会<strong>在发现其状态不正常</strong>时向ZooKeeper中写入数据。当ZKFC运行在处于Standby状态的NN上时，会从ZooKeeper中读取数据，从而感知处于Active状态的NN是否在正常工作，以便顺利完成故障转移工作。</li>
+<li>如何保证多个NN元数据信息一致：其中一个NN负责生成快照文件FsImage，其他NN拉取同步；引进新角色<strong>JournalNode</strong>，保证多个NN的EditLog数据一致性</li>
+<li>如何使多个NN其中一个处于Active状态，其他处于Standby状态：在每一个NN上启动<strong>ZKFC</strong>（由zookeeper实现的故障转移控制器），当ZKFC运行在处于Active状态的NN上时，会<strong>在发现其状态不正常</strong>时向ZooKeeper中写入数据。当ZKFC运行在处于Standby状态的NN上时，会从ZooKeeper中读取数据，从而感知处于Active状态的NN是否在正常工作，以便顺利完成故障转移工作。</li>
 </ul>
 <h4 id="3-在NameNode-HA中，会出现脑裂问题吗-怎么解决脑裂问题？"><a href="#3-在NameNode-HA中，会出现脑裂问题吗-怎么解决脑裂问题？" class="headerlink" title="3. 在NameNode HA中，会出现脑裂问题吗?怎么解决脑裂问题？"></a>3. 在NameNode HA中，会出现脑裂问题吗?怎么解决脑裂问题？</h4><p>某时刻NN1为Active状态，NN2为Standby状态，如果下一时刻NN1对应的ZKFC进程发生假死，那么zookeeper服务端会认为NN1挂掉了，NN2会代替NN1进入Active状态，这时NN1和NN2都处于Active状态，都对外提供服务，这种现象叫脑裂。</p>
 <p>如何解决：</p>
@@ -868,7 +884,7 @@
 <li>点对点模式：消费者主动拉取数据，消息收到后清除消息</li>
 <li>发布&#x2F;订阅模式：消息的发布者将消息分为不同的类型（多个topic主题），订阅者只接收感兴趣的消息。</li>
 </ul>
-<h3 id="4-简单介绍一下Kafka的架构"><a href="#4-简单介绍一下Kafka的架构" class="headerlink" title="4. 简单介绍一下Kafka的架构"></a>4. 简单介绍一下Kafka的架构</h3><p><img src="Snipaste_2023-10-23_13-10-47.png" alt="Snipaste_2023-10-23_13-10-47"></p>
+<h3 id="4-⭐简单介绍一下Kafka的架构"><a href="#4-⭐简单介绍一下Kafka的架构" class="headerlink" title="4. ⭐简单介绍一下Kafka的架构"></a>4. ⭐简单介绍一下Kafka的架构</h3><p><img src="Snipaste_2023-10-23_13-10-47.png" alt="Snipaste_2023-10-23_13-10-47"></p>
 <p>Kafka整体上分为Producer（生产者）-Topic（主题）-Consumer（消费者）组成。</p>
 <p>为了实现扩展性，会把一个非常大的主题分成多个分区（Partition）分布到多个broker（可以理解为服务器）上，相应地为了配合分区的概念，消费者可以分成消费者组，消费者组由多个Consumer组成，组内每个消费者负责消费不同分区的数据。</p>
 <p>为了提高可用性，为每个Partition增加若干副本，一个Leader和多个Follower。其中生产者发送数据和消费者消费数据的对象都是Leader，Follower负责实时从Leader中同步数据，Leader发生故障时，某个Follower会成为新的Leader。</p>
@@ -888,14 +904,14 @@
 <h3 id="8-采集数据为什么选择Kafka？（什么时候用Kafka，什么时候用Flume？）"><a href="#8-采集数据为什么选择Kafka？（什么时候用Kafka，什么时候用Flume？）" class="headerlink" title="8. 采集数据为什么选择Kafka？（什么时候用Kafka，什么时候用Flume？）"></a>8. 采集数据为什么选择Kafka？（什么时候用Kafka，什么时候用Flume？）</h3><p>Flume：Flume是一个基于流式架构的高可用、高可靠、分布式海量日志<strong>采集、聚合、传输</strong>的系统，最主要的作用就是，实时读取服务器本地磁盘的数据，将数据写入到HDFS。</p>
 <p>Kafka：Kafka是一个分布式的基于<strong>发布&#x2F;订阅</strong>模式的消息队列，或者说其是一个分布式<strong>事件流平台</strong>。</p>
 <p>两者对比：Flume 是一个专用工具被设计为旨在往 HDFS，HBase 发送数据。它对HDFS 有特殊的优化，并且集成了 Hadoop 的安全特性。议如果数据被<strong>多个系统</strong>消费的话，使用 kafka；如果数据被设计给 Hadoop 使用，使用 Flume。</p>
-<h3 id="9-Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）"><a href="#9-Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）" class="headerlink" title="9. Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）"></a>9. Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）</h3><p>磁盘；</p>
+<h3 id="9-⭐Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）"><a href="#9-⭐Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）" class="headerlink" title="9. ⭐Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）"></a>9. ⭐Kafka的为什么能高效读写数据？（Kafka的数据是放在磁盘上还是内存上）</h3><p>磁盘；</p>
 <ul>
 <li>Kafka本身是分布式集群，可以采用分区技术，并行度高</li>
 <li>读数据采用稀疏索引，可以快速定位要消费的数据</li>
 <li>顺序写磁盘，省去了大量磁头寻址的时间</li>
 <li>页缓存（读数据先从页缓存中找，找不到再去磁盘中读）+零拷贝技术（不走应用层，传输速率高）</li>
 </ul>
-<h3 id="10-Kafka生产者消息发送流程"><a href="#10-Kafka生产者消息发送流程" class="headerlink" title="10. Kafka生产者消息发送流程"></a>10. Kafka生产者消息发送流程</h3><p><img src="Snipaste_2023-10-23_15-38-44.png" alt="Snipaste_2023-10-23_15-38-44"></p>
+<h3 id="10-⭐Kafka生产者消息发送流程"><a href="#10-⭐Kafka生产者消息发送流程" class="headerlink" title="10. ⭐Kafka生产者消息发送流程"></a>10. ⭐Kafka生产者消息发送流程</h3><p><img src="Snipaste_2023-10-23_15-38-44.png" alt="Snipaste_2023-10-23_15-38-44"></p>
 <p>首先Kafka生产者在<strong>main线程</strong>中创建一个Producer对象，数据通过拦截器、序列化器和分区器输送到一个<strong>双端队列</strong>（默认大小32M）中，双端队列中数据以批次（ProducerBatch，默认16K）存在。</p>
 <p>sender线程会主动从双端队列中拉取数据，当数据累积到16K或达到等待时间，sender就会向Kafka集群（broker）发送数据，broker给出应答，如果某个broker节点无应答，最多可以缓存5个发送请求。</p>
 <p>应答类型：</p>
@@ -915,18 +931,19 @@
 <li>没有指明partition但指明key的情况下，将key的hash值与分区数取余得到partition值</li>
 <li>既没有partition也没有key值的情况下，kafka采用黏性分区器，会随机选择一个分区直到该分区batch已满或已完成，kafka再随机选择另外一个分区。</li>
 </ul>
-<h3 id="12-谈一谈Kafka数据的可靠性"><a href="#12-谈一谈Kafka数据的可靠性" class="headerlink" title="12. 谈一谈Kafka数据的可靠性"></a>12. 谈一谈Kafka数据的可靠性</h3><p>数据完全可靠条件&#x3D;ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2</p>
+<h3 id="12-⭐谈一谈Kafka数据的可靠性"><a href="#12-⭐谈一谈Kafka数据的可靠性" class="headerlink" title="12. ⭐谈一谈Kafka数据的可靠性"></a>12. ⭐谈一谈Kafka数据的可靠性</h3><p>数据完全可靠条件&#x3D;ACK级别设置为-1 + 分区副本大于等于2 + ISR里应答的最小副本数量大于等于2</p>
 <p>可靠性总结：</p>
 <ul>
 <li>ack &#x3D; 0，生产者发送过来数据就不管了，一直发，可靠性差，效率高</li>
 <li>ack &#x3D; 1，生产者发送过来数据，等待Leader应答才继续发送，可靠性中等，效率中等</li>
 <li>ack &#x3D; -1，生产者发送过来数据，等待Leader和ISR队列里面所有的Follower应答才继续发送，可靠性高，效率低</li>
 </ul>
-<h3 id="13-kafka如何保证消息不重复（谈一谈Kafka的幂等性）"><a href="#13-kafka如何保证消息不重复（谈一谈Kafka的幂等性）" class="headerlink" title="13. kafka如何保证消息不重复（谈一谈Kafka的幂等性）"></a>13. kafka如何保证消息不重复（谈一谈Kafka的幂等性）</h3><p>（1）幂等性：</p>
+<h3 id="13-⭐kafka如何保证消息不重复（谈一谈Kafka的幂等性）"><a href="#13-⭐kafka如何保证消息不重复（谈一谈Kafka的幂等性）" class="headerlink" title="13. ⭐kafka如何保证消息不重复（谈一谈Kafka的幂等性）"></a>13. ⭐kafka如何保证消息不重复（谈一谈Kafka的幂等性）</h3><p>（1）幂等性：</p>
 <ul>
 <li>幂等性就是kafka生产者无论向Broker发送多少次重复数据，Broker端都只会持久化一条，保证不重复。</li>
 <li>当&lt;PID，Partition，SeqNumber&gt;相同的主键消息提交时，Broker只会持久化一条。其中PID是Kafka每次重启都会分配一个新的，Partition表示分区号，SeqNumber是单调自增的。</li>
 </ul>
+<p><img src="Snipaste_2023-10-23_21-41-19.png" alt="Snipaste_2023-10-23_21-41-19"></p>
 <p>（2）生产者事务：</p>
 <ul>
 <li>生产者可以跨分区和会话，要么全部成功，要么全部失败。</li>
@@ -937,7 +954,7 @@
 <li>幂等性 + 事务 + ack设置为-1</li>
 <li>如真的重复，如hive中的dwd层去重，去重手段：distinct、分组、按照id开窗只取第一个值</li>
 </ul>
-<h3 id="14-Kafka数据怎么保证不丢失？"><a href="#14-Kafka数据怎么保证不丢失？" class="headerlink" title="14. Kafka数据怎么保证不丢失？"></a>14. Kafka数据怎么保证不丢失？</h3><p>分为生产者端，消费者端，broker端</p>
+<h3 id="14-⭐Kafka数据怎么保证不丢失？"><a href="#14-⭐Kafka数据怎么保证不丢失？" class="headerlink" title="14. ⭐Kafka数据怎么保证不丢失？"></a>14. ⭐Kafka数据怎么保证不丢失？</h3><p>分为生产者端，消费者端，broker端</p>
 <p>（1）生产者数据的不丢失</p>
 <p>kafka 的 ack 机制：在 kafka 发送数据的时候，每次发送消息都会有一个确认反馈机制，确保消息正常的能够被收到，其中状态有 0，1，-1。</p>
 <ul>
@@ -946,17 +963,17 @@
 <li>ack &#x3D; -1，生产者发送过来数据，等待Leader和ISR队列里面所有的Follower应答才继续发送，可靠性高，效率低</li>
 </ul>
 <p>（2）消费者数据的不丢失</p>
-<p>通过offset commit 来保证数据的不丢失，kafka自己记录了每次消费的<strong>offset数值</strong>，下次继续消费的时候，会接着上次的 offset 进行消费。offset信息在0.9版本之前保存在zookeeper中，0.9版本之后保存在系统主题之中，即使消费者在运行过程中挂掉了，再次启动的时候会找到 offset 的值，找到之前消费消息的位置，接着消费。由于 offset 的信息写入的时候并不是每条消息消费完成后都写入的，所以这种情况有可能会造成重复消费，但是不会丢失消息。</p>
+<p>通过offset commit 来保证数据的不丢失，kafka自己记录了每次消费的<strong>offset数值</strong>，下次继续消费的时候，会接着上次的 offset 进行消费。offset信息在0.9版本之前保存在zookeeper中，0.9版本之后保存在系统主题之中，即使消费者在运行过程中挂掉了，再次启动的时候会找到 offset 的值，找到之前消费消息的位置，接着消费。由于 offset 的信息写入的时候并不是每条消息消费完成后都写入的（先消费，再写入offset），所以这种情况有可能会造成重复消费，但是不会丢失消息。</p>
 <p>（3）broker数据的不丢失</p>
 <p>每个Broker中的partition我们一般都会设置副本的个数（副本就是Leader和Follower），生产者发送消息时候先根据分区策略（有partition按partition，有key按key的hash对分区数取余，都没有用黏性策略）写入到Leader中，Follower再跟Leader同步数据。这样有了备份，也可以保证消息数据的不丢失。</p>
-<h3 id="15-Kafka是如何保证数据有序？"><a href="#15-Kafka是如何保证数据有序？" class="headerlink" title="15. Kafka是如何保证数据有序？"></a>15. Kafka是如何保证数据有序？</h3><p>kafka 只能保证 partition 内是有序的，但是 partition 间的有序是没办法的。</p>
+<h3 id="15-⭐Kafka是如何保证数据有序？"><a href="#15-⭐Kafka是如何保证数据有序？" class="headerlink" title="15. ⭐Kafka是如何保证数据有序？"></a>15. ⭐Kafka是如何保证数据有序？</h3><p>kafka 只能保证 partition 内是有序的，但是 partition 间的有序是没办法的。</p>
 <p>保证partition内部有序的策略：</p>
 <ul>
 <li>未开启幂等性时，max.in.flight.requests.per.connection需要设置为1，只有一个需求，请求成功传下一个，强制保证按顺序到达。</li>
 <li>开启幂等性时，max.in.flight.requests.per.connection设置小于等于5即可，开启幂等性，收集到的数据会再服务端按照SeqNumber重新排序保证单调递增再传递，且生产者最多缓存5个请求，一定能保证这5个请求是有序的，超过5个就不保证了。</li>
 </ul>
 <h3 id="16-分区副本是如何在broker上分配的？"><a href="#16-分区副本是如何在broker上分配的？" class="headerlink" title="16. 分区副本是如何在broker上分配的？"></a>16. 分区副本是如何在broker上分配的？</h3><p>在每个broker上尽可能均匀地分布着Leader和Follower，如果在生产环境中，可以根据实际需要手动调整分区副本的分配。</p>
-<h3 id="17-说一说Kafka的消费方式以及消费者工作流程"><a href="#17-说一说Kafka的消费方式以及消费者工作流程" class="headerlink" title="17. 说一说Kafka的消费方式以及消费者工作流程"></a>17. 说一说Kafka的消费方式以及消费者工作流程</h3><p>消费方式：消费者采用从broker<strong>主动拉取</strong>数据的方式。</p>
+<h3 id="17-⭐说一说Kafka的消费方式以及消费者工作流程"><a href="#17-⭐说一说Kafka的消费方式以及消费者工作流程" class="headerlink" title="17. ⭐说一说Kafka的消费方式以及消费者工作流程"></a>17. ⭐说一说Kafka的消费方式以及消费者工作流程</h3><p>消费方式：消费者采用从broker<strong>主动拉取</strong>数据的方式。</p>
 <p>消费者消费原则：</p>
 <p>消费可以一对一（一个消费者消费一个Broker中的Leader），可以多对一（一个消费者消费不同Broker中的Leader），这是无条件的。如果多对一，对应的消费者一定是分属于不同消费者组的。每个消费者的offset由消费者提交到系统主题保存。</p>
 <p><img src="Snipaste_2023-10-26_15-37-22.png" alt="Snipaste_2023-10-26_15-37-22"></p>
@@ -967,7 +984,15 @@
 <p>Kafka内部存在两种默认的分区分配策略：Range和RoundRobin；</p>
 <ul>
 <li>Range：Range 是对每个 Topic 而言的 ，首先对同一个 Topic 里面的分区按照序号进行排序，并对消费者按照字母顺序进行排序。然后用 Partitions 分区的个数除以消费者总数来决定每个消费者线程消费几个分区。如果除不尽， 那么前面几个消费者线程将会多消费一个分区。</li>
+</ul>
+<img src="Snipaste_2023-12-15_18-21-18.png" alt="Snipaste_2023-12-15_18-21-18" style="zoom:33%;">
+
+<ul>
 <li>RoundRobin：RoundRobin是针对集群中所有Topic而言的，把所有的partition和所有的consumer都列出来，然后按照hashcod进行排序，最后通过轮询算法来分配partition给到各个消费者。</li>
+</ul>
+<img src="Snipaste_2023-12-15_18-23-24.png" alt="Snipaste_2023-12-15_18-23-24" style="zoom:33%;">
+
+<ul>
 <li>Sitcky：尽量均匀且随机分配</li>
 </ul>
 <h3 id="19-什么是漏消费和重复消费？如何解决？"><a href="#19-什么是漏消费和重复消费？如何解决？" class="headerlink" title="19. 什么是漏消费和重复消费？如何解决？"></a>19. 什么是漏消费和重复消费？如何解决？</h3><ul>
@@ -1006,7 +1031,7 @@
 <li>动态感知服务器的上下线</li>
 <li>软负载均衡：在zookeeper中记录每台服务器的访问数，让访问数量最少的服务器去处理最新的客户端请求</li>
 </ul>
-<h3 id="4-说说zookeeper的数据结构"><a href="#4-说说zookeeper的数据结构" class="headerlink" title="4. 说说zookeeper的数据结构"></a>4. 说说zookeeper的数据结构</h3><p>整体上可以看成一根树，每个节点称作一个ZNode，ZNode可以存储数据（默认1MB）也可以存储其他节点。</p>
+<h3 id="4-⭐说说zookeeper的数据结构"><a href="#4-⭐说说zookeeper的数据结构" class="headerlink" title="4. ⭐说说zookeeper的数据结构"></a>4. ⭐说说zookeeper的数据结构</h3><p>整体上可以看成一根树，每个节点称作一个ZNode，ZNode可以存储数据（默认1MB）也可以存储其他节点。</p>
 <p>ZNode分为4大类：</p>
 <ul>
 <li>持久化目录节点：客户端与zookeeper断开连接后，该节点依旧存在</li>
@@ -1027,7 +1052,9 @@
 <p>（3）通过connect线程将注册的监听事件发送给zookeeper</p>
 <p>（4）zookeeper监听到有数据或路径变化，就会将这个消息发送给listener线程</p>
 <h3 id="7-⭐Zookeeper的选举机制"><a href="#7-⭐Zookeeper的选举机制" class="headerlink" title="7. ⭐Zookeeper的选举机制"></a>7. ⭐Zookeeper的选举机制</h3><p>Zookeeper在工作时，有一台节点服务器为Leader，其他节点服务器均为Follower，Leader是通过内部的选举机制临时产生的。</p>
+<p><img src="Snipaste_2023-10-19_16-04-00.png" alt="Snipaste_2023-10-19_16-04-00"></p>
 <p>（1）<strong>zookeeper第一次启动时的选举</strong>：每当一个服务器启动的时候，发起一次选举，服务器首先投自己一票，然后该服务器将自己所有的票投给比自己myid大的服务器，若没有半数以上结果，服务器就保持LOOKING状态，接着下一台服务器启动做相同的事情，直到某台服务器得票超过半数，该服务器更改状态为LEADING，其余服务器更改状态为FOLLOWING。总结：投票过半数时，服务器 id 大的胜出。（注意：Leader选出后，后续启动的所有服务器都是follower）</p>
+<p><img src="Snipaste_2023-10-19_16-18-31.png" alt="Snipaste_2023-10-19_16-18-31"></p>
 <p>（2）<strong>如果leader宕机了，再进行一次选举（超过半数服务器存活）</strong>：</p>
 <p>SID：服务器ID，和myid一致</p>
 <p>ZXID：事务ID，用来标识一次服务器状态的变更</p>
@@ -1040,7 +1067,7 @@
 <h3 id="9-Zookeeper选举过半机制是如何防止“脑裂”现象产生的？"><a href="#9-Zookeeper选举过半机制是如何防止“脑裂”现象产生的？" class="headerlink" title="9. Zookeeper选举过半机制是如何防止“脑裂”现象产生的？"></a>9. Zookeeper选举过半机制是如何防止“脑裂”现象产生的？</h3><p><strong>脑裂</strong>：zookeeper集群中同时出现两个Leader（Hadoop集群中有两个NameNode处于Active状态），很危险，会带来数据一致性的问题</p>
 <p>由于Zookeeper选举过半机制，只有当选票超过集群总数一半时才会选为Leader，假设集群中有两个Leader，这两个Leader都须获得超过半数的选票，这显然不肯能，所以不可能选出两个Leader</p>
 <h2 id="1-5-Flume"><a href="#1-5-Flume" class="headerlink" title="1.5 Flume"></a>1.5 Flume</h2><h3 id="1-Flume是什么？"><a href="#1-Flume是什么？" class="headerlink" title="1. Flume是什么？"></a>1. Flume是什么？</h3><p>Flume是一个基于流式架构的高可用、高可靠、分布式海量日志<strong>采集、聚合、传输</strong>的系统，最主要的作用就是，实时读取服务器本地磁盘的数据，将数据写入到HDFS。</p>
-<h3 id="2-Flume的基础框架（组成）"><a href="#2-Flume的基础框架（组成）" class="headerlink" title="2. Flume的基础框架（组成）"></a>2. Flume的基础框架（组成）</h3><p>Flume以<strong>Agent</strong>为最小独立运行单元，单个Agent由Source、Channel、Sink三大组件组成。</p>
+<h3 id="2-⭐Flume的基础框架（组成）"><a href="#2-⭐Flume的基础框架（组成）" class="headerlink" title="2. ⭐Flume的基础框架（组成）"></a>2. ⭐Flume的基础框架（组成）</h3><p>Flume以<strong>Agent</strong>为最小独立运行单元，单个Agent由Source、Channel、Sink三大组件组成。</p>
 <ul>
 <li><p><strong>Source</strong>：是<strong>负责接收数据到 Agent 的组件</strong>，可以处理各种类型的数据，比如Taildir Source（Flume1.7以后提供）：断点续传【断点续传主要保证在服务器挂掉的情况下，再次启动服务数据不会丢失的问题;其原理就是在底层维护了⼀个 offset 偏移量(也就是每次读取文件的偏移量)Flume 会通过这个偏移量来找到上次文件读取的位置从⽽实现了断点续传的功能】、多目录</p>
 </li>
@@ -1179,7 +1206,7 @@
 <p>源于Ralph Kimall的《数据仓库工具箱》这本书中的理论。维度模型将复杂的业务通过<strong>事实</strong>和<strong>维度</strong>两个概念进行呈现。<strong>事实</strong>通常对应<strong>业务过程</strong>，而<strong>维度</strong>通常对应<strong>业务过程发生时所处的环境</strong>。虽然存在数据冗余但是方便查询分析。典型代表如星形模型，雪花模型，星座模型。</p>
 <h3 id="2-维度建模和范式建模的区别"><a href="#2-维度建模和范式建模的区别" class="headerlink" title="2. 维度建模和范式建模的区别"></a>2. 维度建模和范式建模的区别</h3><p>范式建模要求满足3NF（展开说），3NF的最终目的是降低数据冗余，保证数据一致性，但数据关联逻辑复杂，不适合分析统计。</p>
 <p>维度建模存在数据冗余，违反了三范式，但能够提高查询性能，便于分析统计。（星形模型，雪花模型，星座模型）</p>
-<h3 id="3-维度建模中表的类型"><a href="#3-维度建模中表的类型" class="headerlink" title="3. 维度建模中表的类型"></a>3. 维度建模中表的类型</h3><p>（1）<strong>事实表</strong></p>
+<h3 id="3-⭐维度建模中表的类型"><a href="#3-⭐维度建模中表的类型" class="headerlink" title="3. ⭐维度建模中表的类型"></a>3. ⭐维度建模中表的类型</h3><p>（1）<strong>事实表</strong></p>
 <ul>
 <li><p><input disabled type="checkbox"> 
 定义：发生在现实世界中的操作型事件，其所产生的<strong>可度量数值</strong>（个数、件数、次数、金额），存储在事实表中</p>
@@ -1223,13 +1250,13 @@
 <li><p>拉链表：记录每条信息的生命周期，能够更加高效的保存维度信息的历史状态</p>
 </li>
 </ul>
-<h3 id="4-维度建模的过程"><a href="#4-维度建模的过程" class="headerlink" title="4. 维度建模的过程"></a>4. 维度建模的过程</h3><p><strong>粒度</strong>：事实表中一行数据所表达的业务细节程度</p>
+<h3 id="4-⭐维度建模的过程"><a href="#4-⭐维度建模的过程" class="headerlink" title="4. ⭐维度建模的过程"></a>4. ⭐维度建模的过程</h3><p><strong>粒度</strong>：事实表中一行数据所表达的业务细节程度</p>
 <p>根据《数据仓库工具箱》中的总结，维度建模分四步走：</p>
 <p>（1）<strong>选择业务过程</strong>：在整个业务流程中选择我们需要建模的业务（一般根据运营提供的需求）</p>
 <p>（2）<strong>声明粒度</strong>：在同一事实表中，必须具有相同的粒度（一个用户有一个身份证号，多个手机号，那么用户粒度和身份证粒度相同，比两者更细的粒度就是手机号粒度）。对于有明确需求，就建立针对需求的粒度，需求不明就建立原子（最细）粒度。</p>
 <p>（3）<strong>确认维度</strong>：确保维度表中不能出现重复数据，应使维度主键唯一</p>
 <p>（4）<strong>确认事实</strong>：同一事实表中的所有度量必须具有相同的粒度。最实用的事实就是数值类型和可加类事实</p>
-<h3 id="5-数据建模用的哪些模型？（或维度建模的三种模式）"><a href="#5-数据建模用的哪些模型？（或维度建模的三种模式）" class="headerlink" title="5. 数据建模用的哪些模型？（或维度建模的三种模式）"></a>5. 数据建模用的哪些模型？（或维度建模的三种模式）</h3><p>（1）星型模型</p>
+<h3 id="5-⭐数据建模用的哪些模型？（或维度建模的三种模式）"><a href="#5-⭐数据建模用的哪些模型？（或维度建模的三种模式）" class="headerlink" title="5. ⭐数据建模用的哪些模型？（或维度建模的三种模式）"></a>5. ⭐数据建模用的哪些模型？（或维度建模的三种模式）</h3><p>（1）星型模型</p>
 <p>星形模式(Star Schema)是最常用的维度建模方式。星型模式是以<strong>事实表为中心</strong>，所有的维度表直接连接在事实表上，像星星一样。 星形模式的维度建模由<strong>一个事实表</strong>和<strong>一组维度表</strong>成，且具有以下特点：</p>
 <ul>
 <li>维表只和事实表关联，维表之间没有关联；</li>
@@ -1246,67 +1273,101 @@
 <li>用空间换时间，用大量预处理来提升效率，但数仓中也会存在大量冗余数据</li>
 <li>方便数据血缘追踪（相当于数据家谱，方便寻亲寻祖）</li>
 </ul>
-<h3 id="7-详细说说数仓的分层结构"><a href="#7-详细说说数仓的分层结构" class="headerlink" title="7. 详细说说数仓的分层结构"></a>7. 详细说说数仓的分层结构</h3><p>（1）原始数据层（ODS层）：存放未经处理的原始数据，结构上与源系统保持一致，是数据仓库的数据准备区。</p>
+<h3 id="7-⭐详细说说数仓的分层结构"><a href="#7-⭐详细说说数仓的分层结构" class="headerlink" title="7. ⭐详细说说数仓的分层结构"></a>7. ⭐详细说说数仓的分层结构</h3><p>（1）原始数据层（ODS层）：存放未经处理的原始数据，结构上与源系统保持一致，是数据仓库的数据准备区。</p>
 <p>（2）公共维度层（DIM）：基于维度建模理论进行构建，存放维度表</p>
 <p>（3）明细数据层（DWD）：基于维度建模理论进行构建，存放事实表</p>
 <p>（4）汇总数据层（DWS）：基于上层的指标需求，以分析的主题对象作为驱动，构建公共统计粒度（最大公约粒度）的汇总表</p>
 <p>（5）数据应用层（ADS）：存放各项统计指标结果</p>
-<h3 id="8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"><a href="#8-在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）" class="headerlink" title="8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）"></a>8. 在实际项目中各个数仓分层中都做了哪些事情？（一定结合具体项目）</h3><p><img src="%E5%AE%9E%E9%99%85%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%81%9A%E7%9A%84%E4%BA%8B%E6%83%85222.png" alt="实际项目中做的事情222"></p>
-<h3 id="9-⭐什么是数据漂移"><a href="#9-⭐什么是数据漂移" class="headerlink" title="9. ⭐什么是数据漂移"></a>9. ⭐什么是数据漂移</h3><p>通常是指ods表的同一个业务⽇期数据中包含了前一天或后一天凌晨附近的数据或者丢失当天变更的数据，这种现象就叫做漂移，且在⼤部分公司中都会遇到的场景</p>
+<h3 id="8-⭐什么是数据漂移"><a href="#8-⭐什么是数据漂移" class="headerlink" title="8. ⭐什么是数据漂移"></a>8. ⭐什么是数据漂移</h3><p>通常是指ods表的同一个业务⽇期数据中包含了前一天或后一天凌晨附近的数据或者丢失当天变更的数据，这种现象就叫做漂移，且在⼤部分公司中都会遇到的场景</p>
 <p>比如一条从source发来的数据时间是2022.11.10 23:59，到达HDFS Sink的时间已经是2022.11.11 00:05，按照Sink系统内Linux时间戳就会将本应该分区到11.10号的数据落盘到11.11号的分区。</p>
-<h3 id="10-⭐如何解决数据漂移？"><a href="#10-⭐如何解决数据漂移？" class="headerlink" title="10. ⭐如何解决数据漂移？"></a>10. ⭐如何解决数据漂移？</h3><p>在消费Kafka数据Flume中添加拦截器。</p>
+<h3 id="9-⭐如何解决数据漂移？"><a href="#9-⭐如何解决数据漂移？" class="headerlink" title="9. ⭐如何解决数据漂移？"></a>9. ⭐如何解决数据漂移？</h3><p>在消费Kafka数据Flume中添加拦截器。</p>
 <p>由于flume默认会用linux系统时间，作为输出到HDFS路径的时间。如果数据是23:59分产生的。Flume消费kafka里面的数据时，有可能已经是第二天了，那么这部分数据会被发往第二天的HDFS路径。我们希望的是根据日志里面的实际时间，发往HDFS的路径，所以下面拦截器作用是获取日志中的实际时间。</p>
 <p>拦截JSON日志，通过fastjson框架解析JSON，获取实际时间ts。将获取的ts时间写入拦截器header中，header的key必须是timestamp，因为Flume框架会根据这个key值识别时间，并将数据写入HDFS对应时间的路径下。</p>
-<h3 id="11-谈谈对元数据的理解"><a href="#11-谈谈对元数据的理解" class="headerlink" title="11. 谈谈对元数据的理解"></a>11. 谈谈对元数据的理解</h3><p><strong>元数据（Meta Date），主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及ETL的任务运行状态</strong>。一般会通过元数据资料库（Metadata Repository）来统一地存储和管理元数据，其主要目的是使数据仓库的设计、部署、操作和管理能达成协同和一致。</p>
+<h3 id="10-谈谈对元数据的理解"><a href="#10-谈谈对元数据的理解" class="headerlink" title="10. 谈谈对元数据的理解"></a>10. 谈谈对元数据的理解</h3><p><strong>元数据（Meta Date），主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及ETL的任务运行状态</strong>。一般会通过元数据资料库（Metadata Repository）来统一地存储和管理元数据，其主要目的是使数据仓库的设计、部署、操作和管理能达成协同和一致。</p>
 <p>元数据狭义来讲就是用来描述数据的数据。在数仓中，元数据可以帮助开发人员方便找到他们所关心的数据。</p>
 <p>按照用途分为技术元数据和业务元数据：</p>
 <ul>
 <li>技术元数据：存储关于数仓的技术细节，比如数据模式、视图、层次结构、数仓体系结构、数据提取转换规则和权限</li>
 <li>业务元数据：企业概念模型，多维数据模型，使不懂计算机技术的业务⼈员也能读懂数仓中的数据</li>
 </ul>
-<h3 id="12-如何确定数据域（主题域）"><a href="#12-如何确定数据域（主题域）" class="headerlink" title="12. 如何确定数据域（主题域）"></a>12. 如何确定数据域（主题域）</h3><p>数据仓库模型设计除横向的分层外，通常也需要根据业务情况进行纵向划分数据域。</p>
+<h3 id="11-如何确定数据域（主题域）"><a href="#11-如何确定数据域（主题域）" class="headerlink" title="11. 如何确定数据域（主题域）"></a>11. 如何确定数据域（主题域）</h3><p>数据仓库模型设计除横向的分层外，通常也需要根据业务情况进行纵向划分数据域。</p>
 <p>划分数据域的意义是<strong>便于数据的管理和应用</strong>。</p>
 <p>通常可以根据业务过程或者部门进行划分，本项目根据业务过程进行划分，需要注意的是一个业务过程只能属于一个数据域。</p>
 <p>比如交易域、流量域、用户域、考试域等，每个数据域有对应的业务过程。</p>
-<h3 id="13-在处理大数据过程中，如何保证得到期望值？"><a href="#13-在处理大数据过程中，如何保证得到期望值？" class="headerlink" title="13. 在处理大数据过程中，如何保证得到期望值？"></a>13. 在处理大数据过程中，如何保证得到期望值？</h3><p>（1）数据采集的时候不丢失数据</p>
+<h3 id="12-在处理大数据过程中，如何保证得到期望值？"><a href="#12-在处理大数据过程中，如何保证得到期望值？" class="headerlink" title="12. 在处理大数据过程中，如何保证得到期望值？"></a>12. 在处理大数据过程中，如何保证得到期望值？</h3><p>（1）数据采集的时候不丢失数据</p>
 <p>（2）数据处理过程中不丢失数据</p>
 <p>（3）离线计算进行数据校对，保证数据的完整性</p>
-<h3 id="14-你感觉数仓建设中最重要的是什么？"><a href="#14-你感觉数仓建设中最重要的是什么？" class="headerlink" title="14. 你感觉数仓建设中最重要的是什么？"></a>14. 你感觉数仓建设中最重要的是什么？</h3><p>数据的准确性，数据的真正价值在于<strong>数据驱动决策</strong>，通过数据指导运营，在一个不准确的数据驱动下，得到的一定是错误的数据分析，影响的是公司的业务发展决策，最终导致公司的策略调控失败</p>
+<h3 id="13-你感觉数仓建设中最重要的是什么？"><a href="#13-你感觉数仓建设中最重要的是什么？" class="headerlink" title="13. 你感觉数仓建设中最重要的是什么？"></a>13. 你感觉数仓建设中最重要的是什么？</h3><p>数据的准确性，数据的真正价值在于<strong>数据驱动决策</strong>，通过数据指导运营，在一个不准确的数据驱动下，得到的一定是错误的数据分析，影响的是公司的业务发展决策，最终导致公司的策略调控失败</p>
 <h2 id="1-7-DataX"><a href="#1-7-DataX" class="headerlink" title="1.7 DataX"></a>1.7 DataX</h2><h3 id="1-什么是DataX？"><a href="#1-什么是DataX？" class="headerlink" title="1. 什么是DataX？"></a>1. 什么是DataX？</h3><p>阿里巴巴开源的一个异构数据源离线同步工具，支持的Source和Sink要更多一些</p>
 <h3 id="2-DataX框架设计"><a href="#2-DataX框架设计" class="headerlink" title="2. DataX框架设计"></a>2. DataX框架设计</h3><p>Framework + plugin架构构建</p>
 <img src="Snipaste_2023-11-12_19-26-50.png" alt="Snipaste_2023-11-12_19-26-50" style="zoom:50%;">
 
 <h3 id="3-DataX调优"><a href="#3-DataX调优" class="headerlink" title="3. DataX调优"></a>3. DataX调优</h3><p>调整速度</p>
 <p>调整内存</p>
-<h3 id="4-在使用DataX的时候，是否遇到问题？"><a href="#4-在使用DataX的时候，是否遇到问题？" class="headerlink" title="4. 在使用DataX的时候，是否遇到问题？"></a>4. 在使用DataX的时候，是否遇到问题？</h3><p>遇到过。</p>
+<h3 id="4-⭐在使用DataX的时候，是否遇到问题？"><a href="#4-⭐在使用DataX的时候，是否遇到问题？" class="headerlink" title="4. ⭐在使用DataX的时候，是否遇到问题？"></a>4. ⭐在使用DataX的时候，是否遇到问题？</h3><p>遇到过。</p>
 <p>MySql中的Null对应Hive中的\N，但是dataX不能自动转换成\N，只能在Hive建表的时候执行null值存储格式为空字符串（’’）</p>
 <h3 id="5-DataX配置文件生成脚本"><a href="#5-DataX配置文件生成脚本" class="headerlink" title="5. DataX配置文件生成脚本"></a>5. DataX配置文件生成脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python gen_import_config.py -d database -t table</span><br></pre></td></tr></table></figure>
 
 <h2 id="1-8-MaxWell"><a href="#1-8-MaxWell" class="headerlink" title="1.8 MaxWell"></a>1.8 MaxWell</h2><h3 id="1-什么是MaxWell，为什么选择MaxWell？"><a href="#1-什么是MaxWell，为什么选择MaxWell？" class="headerlink" title="1.什么是MaxWell，为什么选择MaxWell？"></a>1.什么是MaxWell，为什么选择MaxWell？</h3><p>MySQL变更数据抓取软件。它会实时监控MySQL数据库中的变更操作（insert，update，delete），并将变更数据以JSON字符串发送给Kafka等流数据处理平台。</p>
 <p>为什么选：断点续传，自动根据库名和表名把数据发往kafka的对应主题。</p>
-<h3 id="2-MaxWell底层原理"><a href="#2-MaxWell底层原理" class="headerlink" title="2. MaxWell底层原理"></a>2. MaxWell底层原理</h3><p><strong>mysql主从复制</strong>。Maxwell原理就是将自己伪装成slave，实时读取MySQL数据库的二进制日志（Binlog），从master同步数据。</p>
+<h3 id="2-⭐MaxWell底层原理"><a href="#2-⭐MaxWell底层原理" class="headerlink" title="2. ⭐MaxWell底层原理"></a>2. ⭐MaxWell底层原理</h3><p><strong>mysql主从复制</strong>。Maxwell原理就是将自己伪装成slave，实时读取MySQL数据库的二进制日志（Binlog），从master同步数据。</p>
 <h2 id="1-9-DolphinScheduler"><a href="#1-9-DolphinScheduler" class="headerlink" title="1.9 DolphinScheduler"></a>1.9 DolphinScheduler</h2><h3 id="1-你使用的版本"><a href="#1-你使用的版本" class="headerlink" title="1. 你使用的版本"></a>1. 你使用的版本</h3><p>2.0.3支持的报警信息更全一些，配置更容易。102配置master、worker，103配置worker，104配置worker</p>
 <h3 id="2-什么时候执行？"><a href="#2-什么时候执行？" class="headerlink" title="2. 什么时候执行？"></a>2. 什么时候执行？</h3><p>00:10  业务数据</p>
 <p>00:30   用户行为数据</p>
 <h3 id="3-出现异常怎么办？"><a href="#3-出现异常怎么办？" class="headerlink" title="3. 出现异常怎么办？"></a>3. 出现异常怎么办？</h3><p>发邮件，打电话，查看任务，手动重试</p>
-<h1 id="第二章-项目问题（全流程发问）"><a href="#第二章-项目问题（全流程发问）" class="headerlink" title="第二章 项目问题（全流程发问）"></a>第二章 项目问题（全流程发问）</h1><h2 id="一、简要介绍项目"><a href="#一、简要介绍项目" class="headerlink" title="一、简要介绍项目"></a>一、简要介绍项目</h2><h2 id="二、介绍熟悉的框架"><a href="#二、介绍熟悉的框架" class="headerlink" title="二、介绍熟悉的框架"></a>二、介绍熟悉的框架</h2><h3 id="1-Flume"><a href="#1-Flume" class="headerlink" title="1. Flume"></a>1. Flume</h3><p>对于日志采集我们当时选用的是 Flume，采集日志框架也有很多，之所以选择Flume 主要是因为它采集数据的效果比较好，其次是对于 HDFS 和 Kafka ⽀持的也比较好。Flume的Source、Channel、Sink使用的都是什么，拦截器的功能。</p>
-<h3 id="2-Kafka"><a href="#2-Kafka" class="headerlink" title="2. Kafka"></a>2. Kafka</h3><p>下游数据传输使用的是 Kafka 作为消息队列来传输消息，使用 Kafka 的主要原因是因为 Kafka 的高吞吐量以及可以对数据进行分类也就是不同的 topic，⽅便下⼀层的使用。离线这块我们是在 Kafka 之后⼜做了⼀层 Flume 来作为消费者处理 Kafka 中的数据的，将消费到的数据直接放入 HDFS 中。</p>
-<h2 id="三、详细介绍数仓搭建"><a href="#三、详细介绍数仓搭建" class="headerlink" title="三、详细介绍数仓搭建"></a>三、详细介绍数仓搭建</h2><ul>
-<li><p>ODS层（原始数据层）：日志数据和业务进入数仓后，首先放入该层，建立分区表，防止后续的全表扫描，使用 ORC 列式存储，同时对数据进行压缩，压缩格式采用 GZIP，以减少存储空间。</p>
-<p>日志：。。<br>业务数据：。。。</p>
+<h1 id="第二章-项目问题（全流程发问）"><a href="#第二章-项目问题（全流程发问）" class="headerlink" title="第二章 项目问题（全流程发问）"></a>第二章 项目问题（全流程发问）</h1><h2 id="一、⭐简要介绍项目"><a href="#一、⭐简要介绍项目" class="headerlink" title="一、⭐简要介绍项目"></a>一、⭐简要介绍项目</h2><p>本项目主要分位三个大部分，分别是数据采集平台，数仓平台和任务调度平台。</p>
+<ul>
+<li><p>数据采集：</p>
+<p>其中数据采集平台的数据来源分为用户行为数据和业务数据</p>
+<p>（1）用户行为数据：</p>
+<p>​		①定义：用户在使用产品过程中，通过埋点收集与客户端交互过程产生的数据，比如页面浏览、点击、评论、点赞、转发、收藏等，通常存储在<strong>日志文件</strong>中。我们的日志数据分为三类：普通页面埋点日志（记录用户在某页面所做的若干个动作记录）、启动日志（启动时所处的环境信息）、播放日志（视频及播放所处的环境信息）</p>
+<p>​		②数据生成：使用jar包模拟数据生成（初始化生成五日数据，传入具体时间只生成该日期当天数据），用户行为数据放在本地的log文件中，业务数据放在mysql中</p>
+<p>​		③数据采集：</p>
+<p>​				<strong>采集日志Flume</strong>：从本地的log文件—&gt;Kafka对应的topic_log主题中（Source：TailDir Source；Channel：Kafka Channel；Sink：无；拦截器：自定义拦截过滤掉JSON结构不完整的日志）</p>
+<p>​				<strong>消费Kafka数据的Flume</strong>：从对应的topic_log主题—–&gt;HDFS（Source：Kafka Source；Channel：File Channel；Sink：HDFS Sink；拦截器：防止数据漂移的时间拦截器）</p>
+<p>（2）业务数据：</p>
+<p>​		①定义：在处理事务过程中产生的数据，用户在网站中登录、下单、支付等，需要和后台数据库进行增删改查交互从而产生的数据就是业务数据。</p>
+<p>​		②业务数据表：订单表、用户表、课程信息表、测验表、支付表、章节表、试卷表、科目表、知识点表等等25张业务表。</p>
+<p>​		③数据采集（数据同步）：</p>
+<p>​		根据业务特点，将表数据量不大且每天有频繁数据插入和修改的表进行全量同步（如省份表、章节表、试卷表、知识点表等），将表数据量较大且每天只会有新数据插入的表进行增量同步（如订单表、支付表、用户表等）</p>
+<p>​				<strong>全量同步</strong>：DataX；从MySQL数据库直接同步到HDFS</p>
+<p>​				<strong>增量同步</strong>：Maxwell；首先通过Maxwell将需要执行增量策略的表格变动数据（MySQL上的）发送至Kafka的对应topic中，然后使用Flume（Kafka Source；File Channel；HDFS Sink）将kafka中的数据采集落盘至HDFS中。</p>
 </li>
-<li><p>DWD层：对 ODS 层数据清洗（去除空值，脏数据，超过极限范围的数据）</p>
+<li><p>数仓搭建：</p>
+<p>​		①总体流程：</p>
+<p>​				数据调研、需求分析</p>
+<p>​				明确数据域及每个数据域对应的业务过程</p>
+<img src="666666_2023-11-16_15-29-11.png" alt="666666_2023-11-16_15-29-11" style="zoom:33%;">
+
+<p>​				构建业务总线矩阵：业务总线矩阵中包含维度模型所需的所有事实（业务过程）以及维度，以及各业务过程与各维度的关系。</p>
+<img src="772023-11-16_15-34-37.png" alt="772023-11-16_15-34-37" style="zoom: 33%;">
+
+<p>​				明确指标统计</p>
+<p>​				维度模型设计</p>
+<p>​				汇总模型设计</p>
+<p>​		②数仓分层以及各层干了什么事</p>
+<p>​				<strong>ODS层</strong>：保持数据原貌，不进行任何修改，起到数据备份的作用；要保存全部历史数据，压缩格式选择压缩比较高的Gzip；建立分区表，避免后续对表查询时全表扫描；使用Serde处理json文件；1张用户行为数据表，26张业务数据表（15张全量表，11张增量表）</p>
+<p>​				<strong>DIM层</strong>：根据每个业务过程所处的环境设计维度表，设计依据是维度建模理论，存储维度表；orc列式存储+snappy压缩；9张维度表，7张全量维度表，1张特殊，1张拉链表</p>
+<p>​				<strong>DWD层</strong>：根据具体的业务过程设计事实表，设计依据是维度建模理论，存储事实表；orc列式存储+snappy压缩；这一层主要是<strong>原始数据与数据仓库的主要隔离层</strong>，需要对原始数据进行初步的清洗和规范化操作；19张事实表，16张事务事实表，2张周期快照事实表（交易域加购、学习域播放），1张累积快照事实表（交易域试听下单）</p>
+<p>​				<strong>DWS层</strong>：该层设计参考指标体系；dws层是为ads层服务的，也可以说给ads层提供提前的计算，提供给ads层多个需求共同使用的相同子查询，将这些业务指标共同依赖的粒度最大的派生指标做（最大公约数）成表格即为dws表；orc列式存储+snappy压缩；15张汇总表，近1日汇总表7张，近n日汇总表5张，历史至今汇总表3张</p>
+<p>​				<strong>ADS层</strong>：根据指标实现具体需求；27张ads表</p>
+</li>
+<li><p>数据导出：使用DataX将HDFS上的ads层数据同步到Mysql中，方便后续使用Superset进行可视化展示与数据分析</p>
+</li>
+<li><p>流程调度：使用Dolphinscheduler将各层数据传递和每日数据加载脚本进行全流程调度配置，并可以设置邮件告警</p>
 </li>
 </ul>
-<h2 id="1-你的数仓的输入数据和输出系统分别是什么"><a href="#1-你的数仓的输入数据和输出系统分别是什么" class="headerlink" title="1. 你的数仓的输入数据和输出系统分别是什么?"></a>1. 你的数仓的输入数据和输出系统分别是什么?</h2><p>输入系统：埋点产生的用户行为数据、JavaEE后台产生的业务数据。</p>
+<h2 id="二、介绍熟悉的框架"><a href="#二、介绍熟悉的框架" class="headerlink" title="二、介绍熟悉的框架"></a>二、介绍熟悉的框架</h2><h3 id="1-Flume"><a href="#1-Flume" class="headerlink" title="1. Flume"></a>1. Flume</h3><p>对于日志采集我们当时选用的是 Flume，采集日志框架也有很多，之所以选择Flume 主要是因为它采集数据的效果比较好，其次是对于 HDFS 和 Kafka ⽀持的也比较好。Flume的Source、Channel、Sink使用的都是什么，拦截器的功能。</p>
+<h3 id="2-Kafka"><a href="#2-Kafka" class="headerlink" title="2. Kafka"></a>2. Kafka</h3><p>下游数据传输使用的是 Kafka 作为消息队列来传输消息，使用 Kafka 的主要原因是因为 Kafka 的高吞吐量以及可以对数据进行分类也就是不同的 topic，⽅便下⼀层的使用。离线这块我们是在 Kafka 之后⼜做了⼀层 Flume 来作为消费者处理 Kafka 中的数据的，将消费到的数据直接放入 HDFS 中。</p>
+<h2 id="三、项目细节"><a href="#三、项目细节" class="headerlink" title="三、项目细节"></a>三、项目细节</h2><h3 id="1-你的数仓的输入数据和输出系统分别是什么"><a href="#1-你的数仓的输入数据和输出系统分别是什么" class="headerlink" title="1. 你的数仓的输入数据和输出系统分别是什么?"></a>1. 你的数仓的输入数据和输出系统分别是什么?</h3><p>输入系统：埋点产生的用户行为数据、JavaEE后台产生的业务数据。</p>
 <p>输出系统：报表系统、用户画像系统、推荐系统</p>
-<h2 id="2-请说说你的系统数据流程设计"><a href="#2-请说说你的系统数据流程设计" class="headerlink" title="2. 请说说你的系统数据流程设计"></a>2. 请说说你的系统数据流程设计</h2><h2 id="3-一共多少张表？"><a href="#3-一共多少张表？" class="headerlink" title="3. 一共多少张表？"></a>3. 一共多少张表？</h2><p>ODS层27张+DIM层9张+DWD层19张+DWS层15张+ADS层27张 &#x3D; 97张</p>
-<h2 id="4-ODS层多少张表？哪些全量哪些增量？"><a href="#4-ODS层多少张表？哪些全量哪些增量？" class="headerlink" title="4. ODS层多少张表？哪些全量哪些增量？"></a>4. ODS层多少张表？哪些全量哪些增量？</h2><p>1张用户行为数据表，26张业务数据表（15张全量表，11张增量表）</p>
-<h2 id="5-请说说你的事实表和维度表的同步策略"><a href="#5-请说说你的事实表和维度表的同步策略" class="headerlink" title="5. 请说说你的事实表和维度表的同步策略"></a>5. 请说说你的事实表和维度表的同步策略</h2><p>DWD事实表（19张）：数据量大，增量数据，特殊的是交易域<strong>加购</strong>周期快照事实表</p>
+<h3 id="2-一共多少张表？"><a href="#2-一共多少张表？" class="headerlink" title="2. 一共多少张表？"></a>2. 一共多少张表？</h3><p>ODS层27张+DIM层9张+DWD层19张+DWS层15张+ADS层27张 &#x3D; 97张</p>
+<h3 id="3-ODS层多少张表？哪些全量哪些增量？"><a href="#3-ODS层多少张表？哪些全量哪些增量？" class="headerlink" title="3. ODS层多少张表？哪些全量哪些增量？"></a>3. ODS层多少张表？哪些全量哪些增量？</h3><p>1张用户行为数据表，26张业务数据表（15张全量表，11张增量表）</p>
+<h3 id="4-请说说你的事实表和维度表的同步策略"><a href="#4-请说说你的事实表和维度表的同步策略" class="headerlink" title="4. 请说说你的事实表和维度表的同步策略"></a>4. 请说说你的事实表和维度表的同步策略</h3><p>DWD事实表（19张）：数据量大，增量数据，特殊的是交易域<strong>加购</strong>周期快照事实表</p>
 <ul>
 <li>交易域加购事务事实表</li>
-<li>交易域加购周期快照事实表</li>
-<li>交易域试听下单累积快照事实表</li>
+<li>交易域加购<strong>周期快照</strong>事实表</li>
+<li>交易域试听下单<strong>累积快照</strong>事实表</li>
 <li>交易域下单事实事实表</li>
 <li>交易域支付成功事实事实表</li>
 <li>流量域页面浏览事务事实表</li>
@@ -1319,7 +1380,7 @@
 <li>互动域课程评价事务事实表</li>
 <li>考试域答卷事务事实表</li>
 <li>考试域答题事务事实表</li>
-<li>学习域播放周期快照事实表</li>
+<li>学习域播放<strong>周期快照</strong>事实表</li>
 <li>学习域播放事务事实表</li>
 <li>用户域用户注册事务事实表</li>
 <li>用户域用户登录事务事实表</li>
@@ -1336,24 +1397,52 @@
 <li>时间维度表（特殊）</li>
 <li>用户维度表（拉链表）</li>
 </ul>
-<h2 id="6-用户拉链表是如何制作的？"><a href="#6-用户拉链表是如何制作的？" class="headerlink" title="6. 用户拉链表是如何制作的？"></a>6. 用户拉链表是如何制作的？</h2><p>首日初始化：导入截至目前的全部历史用户数据进行一定的隐私信息脱敏，到拉链表的9999-12-31分区</p>
+<h3 id="5-⭐用户拉链表是如何制作的？"><a href="#5-⭐用户拉链表是如何制作的？" class="headerlink" title="5. ⭐用户拉链表是如何制作的？"></a>5. ⭐用户拉链表是如何制作的？</h3><p>首日初始化：导入截至目前的全部历史用户数据进行一定的隐私信息脱敏，到拉链表的9999-12-31分区</p>
 <p>每日数据装载：先将截至前一日的全量最新数据与当日变动数据进行union操作，使用row_number() over (partition by id order by start_date desc)，得到的结果中，序号为1的状态为最新状态，序号为2的状态为过期状态。根据序号对数据进行修改，将序号为2的状态的结束日期修改为前一日的日期，序号为1的数据不做修改，最后使用动态分区，将数据分别写入9999-12-31分区和前一日分区。</p>
 <p><img src="Snipaste_2023-11-21_11-43-56.png" alt="Snipaste_2023-11-21_11-43-56"></p>
-<h2 id="7-你的DWS层有几张表？哪张表的数据量最多？"><a href="#7-你的DWS层有几张表？哪张表的数据量最多？" class="headerlink" title="7. 你的DWS层有几张表？哪张表的数据量最多？"></a>7. 你的DWS层有几张表？哪张表的数据量最多？</h2><p>共15张，近1日汇总表7张，近n日汇总表5张，历史至今汇总表3张。</p>
+<h3 id="6-你的DWS层有几张表？哪张表的数据量最多？"><a href="#6-你的DWS层有几张表？哪张表的数据量最多？" class="headerlink" title="6. 你的DWS层有几张表？哪张表的数据量最多？"></a>6. 你的DWS层有几张表？哪张表的数据量最多？</h3><p>共15张，近1日汇总表7张，近n日汇总表5张，历史至今汇总表3张。</p>
 <p>交易域用户粒度用户下单历史至今汇总表</p>
 <p>原始数据60G，到达DWS层30G，一共15张表，每张表平均30&#x2F;15&#x3D;2G，再乘以2.5&#x3D;5g&#x3D;&#x3D;&#x3D;》对应500万条</p>
-<h2 id="8-ADS层分析过哪些指标？说几个最难的"><a href="#8-ADS层分析过哪些指标？说几个最难的" class="headerlink" title="8. ADS层分析过哪些指标？说几个最难的"></a>8. ADS层分析过哪些指标？说几个最难的</h2><p>难的：最近1&#x2F;7&#x2F;30日页面浏览路径分析，用户留存率</p>
+<h3 id="7-⭐ADS层分析过哪些指标？说几个最难的（举具体的熟练的的例子）"><a href="#7-⭐ADS层分析过哪些指标？说几个最难的（举具体的熟练的的例子）" class="headerlink" title="7. ⭐ADS层分析过哪些指标？说几个最难的（举具体的熟练的的例子）"></a>7. ⭐ADS层分析过哪些指标？说几个最难的（举具体的熟练的的例子）</h3><p>一共27张ADS表，难的：最近1&#x2F;7&#x2F;30日页面浏览路径分析，用户留存率</p>
 <ul>
 <li>流量主题指标：各来源访客数，各来源跳出率，各来源下单统计，<strong>路径分析</strong></li>
 <li>用户活跃指标：至少连续 5 天登录账户的用户</li>
-<li>用户主题指标：流失用户数，回流用户数，各年龄段下单用户数，<strong>用户留存率</strong></li>
+<li>用户主题指标：流失用户数，回流用户数，各年龄段下单用户数，用户留存率</li>
 <li>课程主题指标：各分类下单数，各学科下单数，各课程下单数，各课程用户好评数，各学科试听人数</li>
 <li>交易主题指标：下单总额，下单人数，各省份下单数，各省份下单金额</li>
 <li>考试主题指标：各试卷平均分，各试卷平均答题时长，各课程平均分，各课程平均答题时长，各题目正确率</li>
 <li>播放主题指标：各章节视频播放次数，各章节视频观看人数，各课程人均观看时长</li>
 <li>完课主题指标：总完课人数统计，各课程完课人数统计</li>
 </ul>
-<h2 id="9-项目中遇到哪些问题如何解决的？"><a href="#9-项目中遇到哪些问题如何解决的？" class="headerlink" title="9. 项目中遇到哪些问题如何解决的？"></a>9. 项目中遇到哪些问题如何解决的？</h2><p>小文件处理</p>
+<p>（1）路径分析</p>
+<p>简化版的dwd_traffic_page_view_inc，ts代表时间戳，session_id代表会话id，每行数据代表某时刻某个会话访问了某个页面</p>
+<img src="--------------------Snipaste_2023-12-14_18-31-47.png" alt="--------------------Snipaste_2023-12-14_18-31-47" style="zoom:50%;">
+
+<p>现在要求得出路径分析表格（如下），即1，7，30日内各用户访问的来源页面、目标页面（即为一条路径），并求路径个数</p>
+<img src="++++++++++Snipaste_2023-12-14_18-35-35.png" alt="++++++++++Snipaste_2023-12-14_18-35-35" style="zoom:50%;">
+
+<p>第一步：使用炸裂函数进行近1，7，30天划分，列出当前页面，下一个页面，并按照session_id分区，按照ts排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select recent_days,</span><br><span class="line">       page_id,</span><br><span class="line">       lead(page_id) over (partition by recent_days, session_id order by ts) next_page_id,</span><br><span class="line">       row_number() over (partition by recent_days, session_id order by ts)  rk</span><br><span class="line">from edu.dwd_traffic_page_view_inc lateral view explode(array(1, 7, 30)) tmp as recent_days</span><br><span class="line">where dt &gt;= date_add(&#x27;2022-02-21&#x27;, -recent_days + 1) and dt &lt;= &#x27;2022-02-21&#x27;;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-14_19-04-04.png" alt="Snipaste_2023-12-14_19-04-04" style="zoom:33%;">
+
+<p>第二步：使用字符串拼接函数，按照rk排序进行source和target的路径划分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select recent_days,</span><br><span class="line">       concat(&#x27;step-&#x27;, rk, &#x27;:&#x27;, page_id)          source,</span><br><span class="line">       concat(&#x27;step-&#x27;, rk + 1, &#x27;:&#x27;, next_page_id) target</span><br><span class="line">from (select recent_days,</span><br><span class="line">             page_id,</span><br><span class="line">             lead(page_id) over (partition by recent_days, session_id order by ts) next_page_id,</span><br><span class="line">             row_number() over (partition by recent_days, session_id order by ts)  rk</span><br><span class="line">      from edu.dwd_traffic_page_view_inc lateral view explode(array(1, 7, 30)) tmp as recent_days</span><br><span class="line">      where dt &gt;= date_add(&#x27;2022-02-21&#x27;, -recent_days + 1) and dt &lt;= &#x27;2022-02-21&#x27;) t1</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-14_19-13-54.png" alt="Snipaste_2023-12-14_19-13-54" style="zoom: 33%;">
+
+<p>第三步：对第二步中的表进行source, target分组，统计各路径的个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select recent_days,</span><br><span class="line">       source,</span><br><span class="line">       nvl(target, &#x27;null&#x27;),</span><br><span class="line">       count(*)     path_count</span><br><span class="line">from (select recent_days,</span><br><span class="line">             concat(&#x27;step-&#x27;, rk, &#x27;:&#x27;, page_id)          source,</span><br><span class="line">             concat(&#x27;step-&#x27;, rk + 1, &#x27;:&#x27;, next_page_id) target</span><br><span class="line">      from (select recent_days,</span><br><span class="line">                   page_id,</span><br><span class="line">                   lead(page_id) over (partition by recent_days, session_id order by ts) next_page_id,</span><br><span class="line">                   row_number() over (partition by recent_days, session_id order by ts)  rk</span><br><span class="line">            from edu.dwd_traffic_page_view_inc lateral view explode(array(1, 7, 30)) tmp as recent_days</span><br><span class="line">            where dt &gt;= date_add(&#x27;2022-02-21&#x27;, -recent_days + 1) and dt &lt;= &#x27;2022-02-21&#x27;) t1) t2</span><br><span class="line">group by recent_days, source, target;</span><br></pre></td></tr></table></figure>
+
+<img src="++++++++++Snipaste_2023-12-14_18-35-35.png" alt="++++++++++Snipaste_2023-12-14_18-35-35" style="zoom:33%;">
+
+<p>（2）各分类课程交易统计</p>
+<p>根据dwd_trade_order_detail_inc表统计1，7，30不同周期下，各课程分类的下单数，下单人数，下单金额</p>
+<img src="Snipaste_2023-12-14_19-47-12.png" alt="Snipaste_2023-12-14_19-47-12" style="zoom:33%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select recent_days,</span><br><span class="line">       subject_id,</span><br><span class="line">       subject_name,</span><br><span class="line">       count(distinct order_id) order_count,</span><br><span class="line">       count(distinct user_id)  order_user_count,</span><br><span class="line">       sum(final_amount)        order_amount</span><br><span class="line">from edu.dwd_trade_order_detail_inc lateral view explode(array(1, 7, 30)) tmp as recent_days</span><br><span class="line">where dt &gt;= date_add(&#x27;2022-02-21&#x27;, -recent_days + 1)</span><br><span class="line">group by recent_days, subject_id, subject_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-项目中遇到哪些问题如何解决的？"><a href="#8-项目中遇到哪些问题如何解决的？" class="headerlink" title="8. 项目中遇到哪些问题如何解决的？"></a>8. 项目中遇到哪些问题如何解决的？</h3><p>小文件处理</p>
 <p>Kafka挂掉</p>
 <p>Kafka丢失</p>
 <p>Kafka数据重复</p>
@@ -1363,7 +1452,7 @@
 <p>Hive解决数据倾斜方法</p>
 <p>疑难指标编写（路径分析，用户留存率。。。）</p>
 <p>Datax空值、调优</p>
-<p>小海豚调度器中突然发现alert-server一直启动不起来</p>
+<p>⭐小海豚调度器中突然发现alert-server一直处于STOP的状态，怎么启动也启动不起来，UI界面不能登录。此时我去查看海豚调度器的dolphinscheduler-alert-server-hadoop102.out日志，发现其中的错误为java.net.ConnectException Connection refusedconnect，也就是hadoop102节点的MySQL服务器连接失败。此时我们再去查看mysql服务器的状态是failed的，再去查看mysql日志，发现MySQL 容器报错 Ignoring the redo log due to missing MLOG_CHECKPOINT between the checkpoint xxxxxxxxx and the end xxxxxxxxx.\n；查网络得知，当有一些用户的机器突然断电关机或者不正常关机之后，DataEase 服务中的 MySQL 容器无法启动，之前确实因为在操作海豚调度器的时候电脑蓝屏重启了。报错原因，一般是服务器断电或者 MySQL 服务不正常结束导致的，和 MySQL redo log 有关。因为ib_logfile文件中记录些innodb引擎非常有用的信息比如说默认的innodb默认的配置信息，在未正常关闭server情况下，重启后的server不支持innodb引擎。解决办法：进入&#x2F;var&#x2F;lib&#x2F;mysql目录，将ib_logfile0和ib_logfile1文件重命名（变为备份文件）或者删除，再重启mysql服务，此时mysql服务为active状态。接着启动并查看海豚调度器各项服务，都是RUNNING状态</p>
 <h1 id="第三章-面试技巧"><a href="#第三章-面试技巧" class="headerlink" title="第三章 面试技巧"></a>第三章 面试技巧</h1><h2 id="1-个人优点缺点"><a href="#1-个人优点缺点" class="headerlink" title="1. 个人优点缺点"></a>1. 个人优点缺点</h2><h2 id="2-反问面试官？"><a href="#2-反问面试官？" class="headerlink" title="2. 反问面试官？"></a>2. 反问面试官？</h2><p>您对我本次面试的表现如何？有哪些不足？</p>
 <p>公司数仓业务线的技术栈是什么？</p>
 <p>公司希望我入职后能给公司解决什么样的问题？</p>
@@ -1408,7 +1497,7 @@
 
 <img src="Snipaste_2023-12-08_14-30-05.png" alt="Snipaste_2023-12-08_14-30-05" style="zoom:33%;">
 
-<h2 id="7-行列互换"><a href="#7-行列互换" class="headerlink" title="7. 行列互换"></a>7. 行列互换</h2><p>常规做法是，group by+sum(if())</p>
+<h2 id="7-⭐行列互换"><a href="#7-⭐行列互换" class="headerlink" title="7. ⭐行列互换"></a>7. ⭐行列互换</h2><p>常规做法是，group by+sum(if())</p>
 <p>原始表：</p>
 <img src="Snipaste_2023-12-08_14-39-12.png" alt="Snipaste_2023-12-08_14-39-12" style="zoom:33%;">
 
@@ -1493,7 +1582,7 @@
 
 <img src="Snipaste_2023-12-08_20-15-09.png" alt="Snipaste_2023-12-08_20-15-09" style="zoom:33%;">
 
-<h2 id="9-TopN问题"><a href="#9-TopN问题" class="headerlink" title="9. TopN问题"></a>9. TopN问题</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 万能模板</span><br><span class="line"><span class="keyword">select</span><span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">          <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要分组的列名<span class="operator">&gt;</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要排序的列名<span class="operator">&gt;</span>) <span class="keyword">as</span> rn</span><br><span class="line">    <span class="keyword">from</span> 表名;</span><br><span class="line">) t1</span><br><span class="line"><span class="keyword">where</span> rn <span class="operator">&lt;=</span> N</span><br></pre></td></tr></table></figure>
+<h2 id="9-⭐TopN问题"><a href="#9-⭐TopN问题" class="headerlink" title="9. ⭐TopN问题"></a>9. ⭐TopN问题</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 万能模板</span><br><span class="line"><span class="keyword">select</span><span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">          <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要分组的列名<span class="operator">&gt;</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要排序的列名<span class="operator">&gt;</span>) <span class="keyword">as</span> rn</span><br><span class="line">    <span class="keyword">from</span> 表名;</span><br><span class="line">) t1</span><br><span class="line"><span class="keyword">where</span> rn <span class="operator">&lt;=</span> N</span><br></pre></td></tr></table></figure>
 
 <p>emp1表，求出每个部门工资最高的前三名员工，并计算这些员工的工资占所属部门总工资的百分比。</p>
 <img src="Snipaste_2023-12-08_20-51-29.png" alt="Snipaste_2023-12-08_20-51-29" style="zoom:33%;">
@@ -1576,7 +1665,7 @@
 
 <h2 id="12-日期和时间函数"><a href="#12-日期和时间函数" class="headerlink" title="12. 日期和时间函数"></a>12. 日期和时间函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--当前日期</span><br><span class="line">current_date</span><br><span class="line">--当前时间</span><br><span class="line">current_timestamp</span><br><span class="line">--获取年，月，日</span><br><span class="line">year(),month(),day()</span><br><span class="line">--两个日期相差天数</span><br><span class="line">datediff(&#x27;2023-08-08&#x27;,&#x27;2023-04-04&#x27;)</span><br><span class="line">--日期加天数</span><br><span class="line">date_add(&quot;2023-04-18&quot;,100)</span><br><span class="line">--日期减天数</span><br><span class="line">date_sub(&quot;2023-04-18&quot;,100)</span><br><span class="line">--日期格式化</span><br><span class="line">date_format(&#x27;xxx&#x27;,&#x27;%Y-%m-%d&#x27;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="13-连续N天登录"><a href="#13-连续N天登录" class="headerlink" title="13. 连续N天登录"></a>13. 连续N天登录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 思路（通法）：按照分组进行组内排序，将每个用户的登录日期减去自己的对应排序得到date2，统计相同的用户且相同的date2的个数，</span><br><span class="line">--找出相同个数大于等于3的，即为连续三天登录</span><br><span class="line">--公式：</span><br><span class="line">-- distinct</span><br><span class="line">-- row_number</span><br><span class="line">-- date_sub(dt,rn) as dt2</span><br><span class="line">-- group by dt2,name</span><br><span class="line">-- having count(*)&gt;=N天</span><br><span class="line">-- distinct name</span><br><span class="line">-- count(name)</span><br></pre></td></tr></table></figure>
+<h2 id="13-⭐连续N天登录"><a href="#13-⭐连续N天登录" class="headerlink" title="13. ⭐连续N天登录"></a>13. ⭐连续N天登录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 思路（通法）：按照分组进行组内排序，将每个用户的登录日期减去自己的对应排序得到date2，统计相同的用户且相同的date2的个数，</span><br><span class="line">--找出相同个数大于等于3的，即为连续三天登录</span><br><span class="line">--公式：</span><br><span class="line">-- distinct</span><br><span class="line">-- row_number</span><br><span class="line">-- date_sub(dt,rn) as dt2</span><br><span class="line">-- group by dt2,name</span><br><span class="line">-- having count(*)&gt;=N天</span><br><span class="line">-- distinct name</span><br><span class="line">-- count(name)</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_20-08-01.png" alt="Snipaste_2023-12-08_20-08-01" style="zoom:33%;">
 
@@ -1592,7 +1681,7 @@
 
 <img src="Snipaste_2023-12-08_20-20-46.png" alt="Snipaste_2023-12-08_20-20-46" style="zoom:33%;">
 
-<h2 id="14-N日存留率"><a href="#14-N日存留率" class="headerlink" title="14. N日存留率"></a>14. N日存留率</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--方案1：公式</span><br><span class="line">-- -&gt; where 日期 in (首日,1天后,7天后)</span><br><span class="line">-- -&gt; group by 用户</span><br><span class="line">-- -&gt;sum(if(日期=首日,1,0))  as cnt</span><br><span class="line">--   sum(if(日期=1天后,1,0)) as cnt2</span><br><span class="line">--   sum(if(日期=7天后,1,0)) as cnt8</span><br><span class="line">-- -&gt;having cnt&gt;0</span><br><span class="line">-- -&gt;sum(cnt) as 首日总数</span><br><span class="line">--   sum(cnt2) as 次日留存数</span><br><span class="line">--   sum(cnt8) as 7日留存数</span><br><span class="line">-- -&gt;sum(cnt2)/sum(cnt) as 次日留存率</span><br><span class="line">--   sum(cnt8)/sum(cnt) as 7日留存率</span><br><span class="line"></span><br><span class="line">--方案2：三个表left join，分别（首日登录用户id）left join （此日登录用户id）left join （7日后登录用户id）</span><br></pre></td></tr></table></figure>
+<h2 id="14-⭐N日存留率"><a href="#14-⭐N日存留率" class="headerlink" title="14. ⭐N日存留率"></a>14. ⭐N日存留率</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--方案1：公式</span><br><span class="line">-- -&gt; where 日期 in (首日,1天后,7天后)</span><br><span class="line">-- -&gt; group by 用户</span><br><span class="line">-- -&gt;sum(if(日期=首日,1,0))  as cnt</span><br><span class="line">--   sum(if(日期=1天后,1,0)) as cnt2</span><br><span class="line">--   sum(if(日期=7天后,1,0)) as cnt8</span><br><span class="line">-- -&gt;having cnt&gt;0</span><br><span class="line">-- -&gt;sum(cnt) as 首日总数</span><br><span class="line">--   sum(cnt2) as 次日留存数</span><br><span class="line">--   sum(cnt8) as 7日留存数</span><br><span class="line">-- -&gt;sum(cnt2)/sum(cnt) as 次日留存率</span><br><span class="line">--   sum(cnt8)/sum(cnt) as 7日留存率</span><br><span class="line"></span><br><span class="line">--方案2：三个表left join，分别（首日登录用户id）left join （此日登录用户id）left join （7日后登录用户id）</span><br></pre></td></tr></table></figure>
 
 <p>求2020-03-01的ios设备用户活跃的次日存留率是多少？</p>
 <img src="Snipaste_2023-12-08_20-24-01.png" alt="Snipaste_2023-12-08_20-24-01" style="zoom:33%;">
@@ -1633,6 +1722,23 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">--从上表中进行开窗排名</span><br><span class="line">select addr,</span><br><span class="line">       row_number() over (order by cnt desc ) rn,</span><br><span class="line">       cnt_male,</span><br><span class="line">       cnt_female</span><br><span class="line">from (</span><br><span class="line">         select addr,</span><br><span class="line">                count(uid)                         cnt,</span><br><span class="line">                sum(`if`(gender = &#x27;male&#x27;, 1, 0))   cnt_male,</span><br><span class="line">                sum(`if`(gender = &#x27;female&#x27;, 1, 0)) cnt_female</span><br><span class="line">         from (</span><br><span class="line">                  select uid,</span><br><span class="line">                         gender,</span><br><span class="line">                         view1.addr</span><br><span class="line">                  from user_info lateral view explode(addr_list) view1 as addr</span><br><span class="line">              ) t1</span><br><span class="line">         group by addr</span><br><span class="line">     ) t2</span><br><span class="line">limit 10;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_21-22-31.png" alt="Snipaste_2023-12-08_21-22-31" style="zoom:33%;">
+
+<hr>
+<img src="Snipaste_2023-10-18_16-10-33.png" alt="Snipaste_2023-10-18_16-10-33" style="zoom:50%;">
+
+<p>根据上述电影信息表，统计各分类的电影数量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">from movie_info;</span><br></pre></td></tr></table></figure>
+
+<img src="1111_2023-10-18_16-21-36.png" alt="1111_2023-10-18_16-21-36" style="zoom:50%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select movie, cate</span><br><span class="line">from (</span><br><span class="line">         select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">         from movie_info</span><br><span class="line">    ) t1 lateral view explode(cates) tmp as cate;</span><br></pre></td></tr></table></figure>
+
+<img src="1123-10-18_16-22-27.png" alt="1123-10-18_16-22-27" style="zoom:50%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select cate, count(*)</span><br><span class="line">from (</span><br><span class="line">         select movie, cate</span><br><span class="line">         from (</span><br><span class="line">                  select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">                  from movie_info</span><br><span class="line">              ) t1 lateral view explode(cates) tmp as cate</span><br><span class="line">     ) t2</span><br><span class="line">group by cate;</span><br></pre></td></tr></table></figure>
+
+<img src="111112paste_2023-10-18_16-24-10.png" alt="111112paste_2023-10-18_16-24-10" style="zoom:50%;">
+
 
       
 
@@ -3368,10 +3474,10 @@
 <p>划分数据域的意义是<strong>便于数据的管理和应用</strong>。</p>
 <p>通常可以根据业务过程或者部门进行划分，本项目根据业务过程进行划分，需要注意的是一个业务过程只能属于一个数据域。</p>
 <p>下面是本数仓项目所需的所有业务过程及数据域划分详情。</p>
-<img src="Snipaste_2023-11-16_15-29-11.png" alt="Snipaste_2023-11-16_15-29-11" style="zoom:50%;">
+<img src="666666_2023-11-16_15-29-11.png" alt="Snipaste_2023-11-16_15-29-11" style="zoom:50%;">
 
 <h4 id="5-3-3-构建业务总线矩阵"><a href="#5-3-3-构建业务总线矩阵" class="headerlink" title="5.3.3 构建业务总线矩阵"></a>5.3.3 构建业务总线矩阵</h4><p>业务总线矩阵中包含维度模型所需的所有事实（业务过程）以及维度，以及各业务过程与各维度的关系。矩阵的行是一个个业务过程，矩阵的列是一个个的维度，行列的交点表示业务过程与维度的关系。</p>
-<img src="Snipaste_2023-11-16_15-34-37.png" alt="Snipaste_2023-11-16_15-34-37" style="zoom:50%;">
+<img src="772023-11-16_15-34-37.png" alt="Snipaste_2023-11-16_15-34-37" style="zoom:50%;">
 
 <p>一个业务过程对应维度模型中一张事务型事实表，一个维度则对应维度模型中的一张维度表。所以构建业务总线矩阵的过程就是设计维度模型的过程。但是需要注意的是，总线矩阵中通常只包含事务型事实表，另外两种类型的事实表需单独设计。</p>
 <p>按照事务型事实表的设计流程，选择业务过程——》声明粒度——》确认维度——》确认事实，得到的最终的业务总线矩阵见以下表格。</p>
@@ -4376,10 +4482,10 @@
 
 <p>③可以看到工作流运行失败</p>
 <p><img src="Snipaste_2023-11-24_12-14-09.png" alt="Snipaste_2023-11-24_12-14-09"></p>
-<p><a href="mailto:&#x31;&#55;&#55;&#52;&#x35;&#49;&#56;&#x32;&#54;&#48;&#x35;&#x40;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;">&#x31;&#55;&#55;&#52;&#x35;&#49;&#56;&#x32;&#54;&#48;&#x35;&#x40;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#109;</a>收到邮件：</p>
+<p><a href="mailto:&#x31;&#55;&#x37;&#x34;&#53;&#49;&#56;&#x32;&#54;&#x30;&#x35;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#111;&#109;">&#x31;&#55;&#x37;&#x34;&#53;&#49;&#56;&#x32;&#54;&#x30;&#x35;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#111;&#109;</a>收到邮件：</p>
 <img src="Snipaste_2023-11-24_12-15-50.png" alt="Snipaste_2023-11-24_12-15-50" style="zoom:50%;">
 
-<p><a href="mailto:&#x33;&#x35;&#x35;&#56;&#48;&#x38;&#52;&#x37;&#50;&#x36;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#109;">&#x33;&#x35;&#x35;&#56;&#48;&#x38;&#52;&#x37;&#50;&#x36;&#x40;&#113;&#x71;&#x2e;&#x63;&#111;&#109;</a>收到抄送：</p>
+<p><a href="mailto:&#51;&#53;&#x35;&#x38;&#48;&#56;&#x34;&#x37;&#50;&#x36;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;">&#51;&#53;&#x35;&#x38;&#48;&#56;&#x34;&#x37;&#50;&#x36;&#64;&#x71;&#x71;&#x2e;&#99;&#111;&#109;</a>收到抄送：</p>
 <p><img src="Snipaste_2023-11-24_12-17-20.png" alt="Snipaste_2023-11-24_12-17-20"></p>
 <h3 id="13-7-全流程调度"><a href="#13-7-全流程调度" class="headerlink" title="13.7 全流程调度"></a>13.7 全流程调度</h3><h4 id="13-7-1-数据准备"><a href="#13-7-1-数据准备" class="headerlink" title="13.7.1 数据准备"></a>13.7.1 数据准备</h4><p>此处模拟生成一天的新数据，作为全流程调度的测试数据</p>
 <p>（1）执行集群启动脚本</p>

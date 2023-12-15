@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第一章 Hive入门1.1 什么是Hive基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表，并提供类SQL查询功能。 Hive是一个Hadoop客户端，用于将HQL（Hive SQL）转化成MapReduce程序。 （1）Hive中每张表的数据存储在HDFS （2）Hive分析数据底层的实现是MapReduce（也可配置为Spark或者Tez）  （3）执行程序运行在Yarn">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/111111%E5%9B%BE%E7%89%871.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%872.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%873.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-07_15-12-21.png">
@@ -135,20 +135,20 @@
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-00-44.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-05-59.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-10-33.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-21-36.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-22-27.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-24-10.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-34-30.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1111_2023-10-18_16-21-36.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1123-10-18_16-22-27.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/111112paste_2023-10-18_16-24-10.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/22226-34-30.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-55-01.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_16-56-15.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/333e_2023-10-18_16-56-15.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-16-12.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_19-59-55.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/444023-10-18_19-59-55.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-29-46.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-38-28.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-39-09.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-52-54.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_20-58-47.png">
-<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_21-15-06.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/552023-10-18_20-58-47.png">
+<meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/6ste_2023-10-18_21-15-06.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_21-17-31.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_21-38-36.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-10-18_21-47-50.png">
@@ -234,11 +234,11 @@
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-11-05_20-51-12.png">
 <meta property="og:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2023-11-05_20-54-26.png">
 <meta property="article:published_time" content="2023-10-07T05:50:56.000Z">
-<meta property="article:modified_time" content="2023-12-02T11:25:38.823Z">
+<meta property="article:modified_time" content="2023-12-13T12:26:08.907Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9B%BE%E7%89%871.png">
+<meta name="twitter:image" content="http://example.com/2023/10/07/Hive%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/111111%E5%9B%BE%E7%89%871.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -403,7 +403,7 @@
 <p>为什么使用Hive？</p>
 <p>MapReduce如果要实现复杂查询，逻辑开发难度比较大，使用Hive可以提高快速开发的能力，避免书写MapReduce，减少学习成本</p>
 <h2 id="1-2-Hive架构原理"><a href="#1-2-Hive架构原理" class="headerlink" title="1.2 Hive架构原理"></a>1.2 Hive架构原理</h2><p>一句话说清hive的架构原理：<strong>Hive架构由用户接口、元数据存储（Metastore）和驱动（解释器、编译器、优化器、执行器等）组成。</strong>用户通过接口创建HQL语句，由Metastore记录对应的元数据，通过一系列驱动进行HQL语句的分析优化和查询计划的生成（或者说翻译成MapReduce程序），生成的查询计划存储在HDFS中，随后在MapReduce调用执行，最后将计算结果返回给用户。</p>
-<p><img src="%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
+<p><img src="111111%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
 <p>（1）用户接口：Client</p>
 <p>CLI（command-line interface）、JDBC&#x2F;ODBC。</p>
 <p>①JDBC的移植性比ODBC好；（通常情况下，安装完ODBC驱动程序之后，还需要经过确定的配置才能够应用。而不相同的配置在不相同数据库服务器之间不能够通用。所以，安装一次就需要再配置一次。<strong>JDBC只需要选取适当的JDBC数据库驱动程序，就不需要额外的配置。在安装过程中，JDBC数据库驱动程序会自己完成有关的配置</strong>。）</p>
@@ -1228,7 +1228,7 @@
 <p>单行函数按照功能可分为如下几类: 日期函数、字符串函数、集合函数、数学函数、流程控制函数等。</p>
 <h3 id="7-1-1-算术运算函数"><a href="#7-1-1-算术运算函数" class="headerlink" title="7.1.1 算术运算函数"></a>7.1.1 算术运算函数</h3><img src="Snipaste_2023-10-10_20-49-10.png" alt="Snipaste_2023-10-10_20-49-10" style="zoom:50%;">
 
-<h3 id="7-1-2-数值函数"><a href="#7-1-2-数值函数" class="headerlink" title="7.1.2 数值函数"></a>7.1.2 数值函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--round：四舍五入</span><br><span class="line">select round(3,3);</span><br><span class="line">--3</span><br><span class="line">-- ceil：向上取整</span><br><span class="line">select ceil(3.1);</span><br><span class="line">--4</span><br><span class="line">-- floor：向下取整</span><br><span class="line">select floor(4.8);</span><br><span class="line">--4</span><br></pre></td></tr></table></figure>
+<h3 id="7-1-2-数值函数"><a href="#7-1-2-数值函数" class="headerlink" title="7.1.2 数值函数"></a>7.1.2 数值函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--round：四舍五入</span><br><span class="line">select round(3.3);</span><br><span class="line">--3</span><br><span class="line">-- ceil：向上取整</span><br><span class="line">select ceil(3.1);</span><br><span class="line">--4</span><br><span class="line">-- floor：向下取整</span><br><span class="line">select floor(4.8);</span><br><span class="line">--4</span><br></pre></td></tr></table></figure>
 
 <h3 id="7-1-3-字符串函数"><a href="#7-1-3-字符串函数" class="headerlink" title="7.1.3 字符串函数"></a>7.1.3 字符串函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 1. substring：截取字符串</span><br><span class="line">-- 获取第二个字符以后的所有字符（正向索引从1开始,负向索引从-1开始）</span><br><span class="line">select substring(&quot;atguigu&quot;,2);</span><br><span class="line">--tguigu</span><br><span class="line">-- 获取倒数第三个字符以后的所有字符</span><br><span class="line">select substring(&quot;atguigu&quot;,-3);</span><br><span class="line">--igu</span><br><span class="line">-- 从第3个字符开始，向后获取2个字符</span><br><span class="line">select substring(&quot;atguigu&quot;,3,2);</span><br><span class="line">--gu</span><br></pre></td></tr></table></figure>
 
@@ -1328,27 +1328,27 @@
 <p>根据上述电影信息表，统计各分类的电影数量：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">from movie_info;</span><br></pre></td></tr></table></figure>
 
-<img src="Snipaste_2023-10-18_16-21-36.png" alt="Snipaste_2023-10-18_16-21-36" style="zoom:50%;">
+<img src="1111_2023-10-18_16-21-36.png" alt="Snipaste_2023-10-18_16-21-36" style="zoom:50%;">
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select movie, cate</span><br><span class="line">from (</span><br><span class="line">         select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">         from movie_info</span><br><span class="line">    ) t1 lateral view explode(cates) tmp as cate;</span><br></pre></td></tr></table></figure>
 
-<img src="Snipaste_2023-10-18_16-22-27.png" alt="Snipaste_2023-10-18_16-22-27" style="zoom:50%;">
+<img src="1123-10-18_16-22-27.png" alt="Snipaste_2023-10-18_16-22-27" style="zoom:50%;">
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select cate, count(*)</span><br><span class="line">from (</span><br><span class="line">         select movie, cate</span><br><span class="line">         from (</span><br><span class="line">                  select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">                  from movie_info</span><br><span class="line">              ) t1 lateral view explode(cates) tmp as cate</span><br><span class="line">     ) t2</span><br><span class="line">group by cate;</span><br></pre></td></tr></table></figure>
 
-<img src="Snipaste_2023-10-18_16-24-10.png" alt="Snipaste_2023-10-18_16-24-10" style="zoom:50%;">
+<img src="111112paste_2023-10-18_16-24-10.png" alt="Snipaste_2023-10-18_16-24-10" style="zoom:50%;">
 
 <h2 id="7-4-窗口函数（开窗函数）"><a href="#7-4-窗口函数（开窗函数）" class="headerlink" title="7.4 窗口函数（开窗函数）"></a>7.4 窗口函数（开窗函数）</h2><h3 id="7-4-1-概述"><a href="#7-4-1-概述" class="headerlink" title="7.4.1 概述"></a>7.4.1 概述</h3><p>窗口函数，能为每行数据划分一个窗口，然后对窗口范围内的数据进行计算，最后将计算结果返回给该行数据。</p>
 <p>窗口函数的语法中主要包括“窗口”和“函数”两部分。<strong>其中“窗口”用于定义计算范围，“函数”用于定义计算逻辑</strong>。</p>
-<img src="Snipaste_2023-10-18_16-34-30.png" alt="Snipaste_2023-10-18_16-34-30" style="zoom:50%;">
+<img src="22226-34-30.png" alt="Snipaste_2023-10-18_16-34-30" style="zoom:50%;">
 
 <p>①<strong>语法-函数：绝大多数的聚合函数都可以配合窗口使用，例如max(),min(),sum(),count(),avg()等。</strong></p>
 <p>②<strong>语法-窗口：窗口范围的定义分为两种类型，一种是基于行的，一种是基于值的</strong></p>
 <p><img src="Snipaste_2023-10-18_16-55-01.png" alt="Snipaste_2023-10-18_16-55-01"></p>
-<p><img src="Snipaste_2023-10-18_16-56-15.png" alt="Snipaste_2023-10-18_16-56-15"></p>
+<p><img src="333e_2023-10-18_16-56-15.png" alt="Snipaste_2023-10-18_16-56-15"></p>
 <p>此时order by[column]必须写，表明按照column列的顺序基于行进行窗口范围划分</p>
 <p><img src="Snipaste_2023-10-18_20-16-12.png" alt="Snipaste_2023-10-18_20-16-12"></p>
-<p><img src="Snipaste_2023-10-18_19-59-55.png" alt="Snipaste_2023-10-18_19-59-55"></p>
+<p><img src="444023-10-18_19-59-55.png" alt="Snipaste_2023-10-18_19-59-55"></p>
 <p>此时order by[column]中的column是基于column字段进行窗口范围划分</p>
 <p>③<strong>语法-窗口-分区：定义窗口范围时，可以指定分区字段，每个分区单独划分窗口。  语法：partition by</strong></p>
 <p><img src="Snipaste_2023-10-18_20-29-46.png" alt="Snipaste_2023-10-18_20-29-46"></p>
@@ -1365,16 +1365,16 @@
 <img src="Snipaste_2023-10-18_20-52-54.png" alt="Snipaste_2023-10-18_20-52-54" style="zoom:50%;">
 
 <p><strong>注：lag和lead函数不支持自定义窗口</strong></p>
-<img src="Snipaste_2023-10-18_20-58-47.png" alt="Snipaste_2023-10-18_20-58-47" style="zoom:50%;">
+<img src="552023-10-18_20-58-47.png" alt="Snipaste_2023-10-18_20-58-47" style="zoom:50%;">
 
-<p>注意：这里面的窗口范围是默认的range[第一行，当前行]；所以从上到下的窗口范围依次为：</p>
+<p>注意：这里面的窗口范围是默认的range[第一行的值，当前行的值]；所以从上到下的窗口范围依次为：</p>
 <p>[2022-01-01, 2022-01-01]		first_date:   2022-01-01		last_date:  2022-01-01</p>
 <p>[2022-01-01, 2022-01-02]		first_date:   2022-01-01		last_date:  2022-01-02</p>
 <p>[2022-01-01, 2022-01-03]		first_date:   2022-01-01		last_date:  2022-01-03</p>
 <p>[2022-01-04, 2022-01-04]		first_date:   2022-01-04		last_date:  2022-01-04</p>
 <p>[2022-01-04, 2022-01-05]		first_date:   2022-01-04		last_date:  2022-01-05</p>
 <p>[2022-01-04, 2022-01-06]		first_date:   2022-01-04		last_date:  2022-01-06</p>
-<img src="Snipaste_2023-10-18_21-15-06.png" alt="Snipaste_2023-10-18_21-15-06" style="zoom:50%;">
+<img src="6ste_2023-10-18_21-15-06.png" alt="Snipaste_2023-10-18_21-15-06" style="zoom:50%;">
 
 <p><strong>注：rank 、dense_rank、row_number不支持自定义窗口。</strong></p>
 <h3 id="7-4-3-案例演示"><a href="#7-4-3-案例演示" class="headerlink" title="7.4.3 案例演示"></a>7.4.3 案例演示</h3><img src="Snipaste_2023-10-18_21-17-31.png" alt="Snipaste_2023-10-18_21-17-31" style="zoom:50%;">
