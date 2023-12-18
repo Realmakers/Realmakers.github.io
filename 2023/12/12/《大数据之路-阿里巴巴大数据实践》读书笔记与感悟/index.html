@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>《大数据之路-阿里巴巴大数据实践》读书笔记与感悟 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="大数据，源于技术，终于业务。数据仓库，因业务而生，因决策而发展  第2篇 数据模型篇第八章 大数据领域建模综述8.1 为什么需要数据建模？目标：将数据进行有序、有结构地分类组织和存储。 数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。">
+  <meta name="description" content="大数据，源于技术，终于业务。数据仓库，因业务而生，因决策而发展  第2篇 数据模型篇第八章 大数据领域建模综述8.1 为什么需要数据建模？目标：将数据进行有序、有结构地分类组织和存储。 数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。 8.2 关系数据库系统和数据仓库8.2.1 从OLTP和OLAP系统的区别看模型方法论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《大数据之路-阿里巴巴大数据实践》读书笔记与感悟">
 <meta property="og:url" content="http://example.com/2023/12/12/%E3%80%8A%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E8%B7%B5%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%8E%E6%84%9F%E6%82%9F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="大数据，源于技术，终于业务。数据仓库，因业务而生，因决策而发展  第2篇 数据模型篇第八章 大数据领域建模综述8.1 为什么需要数据建模？目标：将数据进行有序、有结构地分类组织和存储。 数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。">
+<meta property="og:description" content="大数据，源于技术，终于业务。数据仓库，因业务而生，因决策而发展  第2篇 数据模型篇第八章 大数据领域建模综述8.1 为什么需要数据建模？目标：将数据进行有序、有结构地分类组织和存储。 数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。 8.2 关系数据库系统和数据仓库8.2.1 从OLTP和OLAP系统的区别看模型方法论">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-12T11:42:24.000Z">
-<meta property="article:modified_time" content="2023-12-12T13:06:42.203Z">
+<meta property="article:modified_time" content="2023-12-18T13:47:55.561Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -181,6 +181,80 @@
 </blockquote>
 <h1 id="第2篇-数据模型篇"><a href="#第2篇-数据模型篇" class="headerlink" title="第2篇 数据模型篇"></a>第2篇 数据模型篇</h1><h2 id="第八章-大数据领域建模综述"><a href="#第八章-大数据领域建模综述" class="headerlink" title="第八章 大数据领域建模综述"></a>第八章 大数据领域建模综述</h2><h3 id="8-1-为什么需要数据建模？"><a href="#8-1-为什么需要数据建模？" class="headerlink" title="8.1 为什么需要数据建模？"></a>8.1 为什么需要数据建模？</h3><p>目标：将数据进行有序、有结构地分类组织和存储。</p>
 <p>数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。</p>
+<h3 id="8-2-关系数据库系统和数据仓库"><a href="#8-2-关系数据库系统和数据仓库" class="headerlink" title="8.2 关系数据库系统和数据仓库"></a>8.2 关系数据库系统和数据仓库</h3><h4 id="8-2-1-从OLTP和OLAP系统的区别看模型方法论的选择"><a href="#8-2-1-从OLTP和OLAP系统的区别看模型方法论的选择" class="headerlink" title="8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择"></a>8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择</h4><ul>
+<li>OLTP 系统通常面向的主要数据操作是随机读写，主要采用满足 3NF 的实体关系模型存储数据，从而在事务处理中解决数据的冗余和一 致性问题</li>
+<li>OLAP 系统面向的主要数据操作是批量读写，事务处理中 的一致性不是OLAP 所关注的，其主要关注数据的整合，以及在一次性的复杂大数据查询和处理中的性能，因此它需要采用一些不同的数据建模方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>数据库</th>
+<th>数据仓库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>处理方式</td>
+<td>联机事务处理OLTP</td>
+<td>联机分析处理OLAP</td>
+</tr>
+<tr>
+<td>读特性</td>
+<td>每次查询返回少量记录</td>
+<td>对大量数据进行汇总查询</td>
+</tr>
+<tr>
+<td>写特性</td>
+<td>随机、低延时写入</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>业务数据</td>
+<td>历史数据</td>
+</tr>
+<tr>
+<td>设计理念</td>
+<td>面向事务设计，为了捕获数据，避免冗余</td>
+<td>面向主题设计，为了分析数据，引入冗余</td>
+</tr>
+<tr>
+<td>数据量</td>
+<td>GB</td>
+<td>TB、PB</td>
+</tr>
+</tbody></table>
+<h3 id="8-4-典型的数据仓库建模方法论"><a href="#8-4-典型的数据仓库建模方法论" class="headerlink" title="8.4 典型的数据仓库建模方法论"></a>8.4 典型的数据仓库建模方法论</h3><h4 id="8-4-1-ER模型"><a href="#8-4-1-ER模型" class="headerlink" title="8.4.1 ER模型"></a>8.4.1 ER模型</h4><p>数据仓库之父Bill Inmon提出的建模方法是从全企业的高度，用实体关系（Entity Relationship，ER）模型来描述企业业务，并用规范化的方式表示出来，在关系型数据库中常用，<strong>在范式理论上符合3NF</strong>。范式就是指在设计关系型数据库时，需要遵从的不同的规范。关系型数据库的范式一共有<strong>六种</strong>，分别是<strong>第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF）</strong>。遵循的范式级别越高，数据冗余性就越低。这种模型并不适合直接用于分析统计。一个符合第三范式的关系必须具有以下三个条件 :</p>
+<ul>
+<li>每个属性值唯一，不具有多义性 ;</li>
+<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分 ;</li>
+<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去。</li>
+</ul>
+<h4 id="8-4-2-维度模型"><a href="#8-4-2-维度模型" class="headerlink" title="8.4.2 维度模型"></a>8.4.2 维度模型</h4><p>源于Ralph Kimall的《数据仓库工具箱》这本书中的理论。维度模型将复杂的业务通过<strong>事实</strong>和<strong>维度</strong>两个概念进行呈现。<strong>事实</strong>通常对应<strong>业务过程</strong>，而<strong>维度</strong>通常对应<strong>业务过程发生时所处的环境</strong>。虽然存在数据冗余但是方便查询分析。典型代表如星形模型，雪花模型，星座模型。</p>
+<p>根据《数据仓库工具箱》中的总结，维度建模分四步走：</p>
+<p>（1）<strong>选择业务过程</strong>：在整个业务流程中选择我们需要建模的业务（一般根据运营提供的需求）</p>
+<p>（2）<strong>声明粒度</strong>：在同一事实表中，必须具有相同的粒度（一个用户有一个身份证号，多个手机号，那么用户粒度和身份证粒度相同，比两者更细的粒度就是手机号粒度）。对于有明确需求，就建立针对需求的粒度，需求不明就建立原子（最细）粒度。</p>
+<p>（3）<strong>确认维度</strong>：确保维度表中不能出现重复数据，应使维度主键唯一</p>
+<p>（4）<strong>确认事实</strong>：同一事实表中的所有度量必须具有相同的粒度。最实用的事实就是数值类型和可加类事实</p>
+<h4 id="8-4-3-Data-Vault模型"><a href="#8-4-3-Data-Vault模型" class="headerlink" title="8.4.3 Data Vault模型"></a>8.4.3 Data Vault模型</h4><p>它强调建立一个可审计的基础数据层，也就是强调数据的历史 性、可追溯性和原子性，而不要求对数据进行过度的一致性处理和整合；同时它基于主题概念将企业数据进行结构化组织，并引入了更进一步的范式处理来优化模型，以应对下游、系统变更的扩展性。</p>
+<h4 id="8-4-4-Anchor模型"><a href="#8-4-4-Anchor模型" class="headerlink" title="8.4.4 Anchor模型"></a>8.4.4 Anchor模型</h4><p>Anchor 对 Data Vault 模型做了进一步规范化处理， Lars.Ronnback 的初衷是设计一个高度可扩展的模型，其核心思想是所有的扩展只是添加而不是修改，因此将模型规范到 6NF ，基本变成了k-v 结构化模型。</p>
+<h3 id="8-5-阿里巴巴数据模型实践综述"><a href="#8-5-阿里巴巴数据模型实践综述" class="headerlink" title="8.5 阿里巴巴数据模型实践综述"></a>8.5 阿里巴巴数据模型实践综述</h3><ul>
+<li><p>第一个阶段：构建在 Oracle 上，数据完全以满足报表需求为目的</p>
+</li>
+<li><p>第二个阶段：引入了当时 MPP 架构体系的 Greenplum，ODL（操作数据层）+BDL（基础数据层）+IDL（接口数据层）+ADL （应用数据层）；BDL希望引入 ER 模型，加强 数据的整合，构建一致的基础数据模型，但构建 ER 模型时遇到了比较大的困难和挑战，互联网业务的快速发展、人员的快速变化、业务知识功底的不够全面，导致 ER 模型设计迟迟不能产出。至此，我们也得到了一个经验：在不太成熟、快速变化的业务面前，构建 ER 模型的风险非常大，不太适合去构建 ER 模型。</p>
+</li>
+<li><p>第三个阶段：迎来了以Hadoop 为代表的分布式存储计算平台的快速发展，同时阿里巴 巴集团自主研发的分布式计算平台 MaxCompute 也在紧锣密鼓地进行着。以 Kimball 的维度建模为核心理念的模型方法论，构建了阿里巴巴集团的公共层模型数据架构体系。</p>
+</li>
+<li><p>数据公共层建设的目的是着力解决数据存储和计算的共享问题。数据每年以近 2.5 倍的速度在增长，数据的增长远远超过业务的增长。</p>
+</li>
+<li><p>统一化的集团数据整合及管理的方法体系“OneData”：一致性的指标定义体系、模型设计方法体系以及配套工具。</p>
+</li>
+</ul>
+<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
+<h4 id="2-1-1-定位及价值"><a href="#2-1-1-定位及价值" class="headerlink" title="2.1.1 定位及价值"></a>2.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
+<p>业务板块：根据业务属性划分板块，板块之间的指标或业务重叠性较小。</p>
+<p>规范定义：一套数据规范命名体系，用在模型设计中</p>
+<p>模型设计：以维度建模理论为基础，基于维度建模总线架构，构建一致性的维度和事实(进行规范定义)。</p>
 
       
 
@@ -330,7 +404,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AF%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">第2篇 数据模型篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">第八章 大数据领域建模综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">8.1 为什么需要数据建模？</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AF%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">第2篇 数据模型篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">第八章 大数据领域建模综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">8.1 为什么需要数据建模？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="toc-number">1.1.2.</span> <span class="toc-text">8.2 关系数据库系统和数据仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-%E4%BB%8EOLTP%E5%92%8COLAP%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9C%8B%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95%E8%AE%BA%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E5%85%B8%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-number">1.1.3.</span> <span class="toc-text">8.4 典型的数据仓库建模方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-ER%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">8.4.1 ER模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-%E7%BB%B4%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">8.4.2 维度模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-3-Data-Vault%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">8.4.3 Data Vault模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-4-Anchor%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.4.</span> <span class="toc-text">8.4.4 Anchor模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%AE%9E%E8%B7%B5%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">8.5 阿里巴巴数据模型实践综述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%95%B4%E5%90%88%E5%8F%8A%E7%AE%A1%E7%90%86%E4%BD%93%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text">第九章 阿里巴巴数据整合及管理体系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%AE%9A%E4%BD%8D%E5%8F%8A%E4%BB%B7%E5%80%BC"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1 定位及价值</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>

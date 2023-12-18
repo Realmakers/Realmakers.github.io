@@ -178,6 +178,80 @@
 </blockquote>
 <h1 id="第2篇-数据模型篇"><a href="#第2篇-数据模型篇" class="headerlink" title="第2篇 数据模型篇"></a>第2篇 数据模型篇</h1><h2 id="第八章-大数据领域建模综述"><a href="#第八章-大数据领域建模综述" class="headerlink" title="第八章 大数据领域建模综述"></a>第八章 大数据领域建模综述</h2><h3 id="8-1-为什么需要数据建模？"><a href="#8-1-为什么需要数据建模？" class="headerlink" title="8.1 为什么需要数据建模？"></a>8.1 为什么需要数据建模？</h3><p>目标：将数据进行有序、有结构地分类组织和存储。</p>
 <p>数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。</p>
+<h3 id="8-2-关系数据库系统和数据仓库"><a href="#8-2-关系数据库系统和数据仓库" class="headerlink" title="8.2 关系数据库系统和数据仓库"></a>8.2 关系数据库系统和数据仓库</h3><h4 id="8-2-1-从OLTP和OLAP系统的区别看模型方法论的选择"><a href="#8-2-1-从OLTP和OLAP系统的区别看模型方法论的选择" class="headerlink" title="8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择"></a>8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择</h4><ul>
+<li>OLTP 系统通常面向的主要数据操作是随机读写，主要采用满足 3NF 的实体关系模型存储数据，从而在事务处理中解决数据的冗余和一 致性问题</li>
+<li>OLAP 系统面向的主要数据操作是批量读写，事务处理中 的一致性不是OLAP 所关注的，其主要关注数据的整合，以及在一次性的复杂大数据查询和处理中的性能，因此它需要采用一些不同的数据建模方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>数据库</th>
+<th>数据仓库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>处理方式</td>
+<td>联机事务处理OLTP</td>
+<td>联机分析处理OLAP</td>
+</tr>
+<tr>
+<td>读特性</td>
+<td>每次查询返回少量记录</td>
+<td>对大量数据进行汇总查询</td>
+</tr>
+<tr>
+<td>写特性</td>
+<td>随机、低延时写入</td>
+<td>批量导入</td>
+</tr>
+<tr>
+<td>数据存储</td>
+<td>业务数据</td>
+<td>历史数据</td>
+</tr>
+<tr>
+<td>设计理念</td>
+<td>面向事务设计，为了捕获数据，避免冗余</td>
+<td>面向主题设计，为了分析数据，引入冗余</td>
+</tr>
+<tr>
+<td>数据量</td>
+<td>GB</td>
+<td>TB、PB</td>
+</tr>
+</tbody></table>
+<h3 id="8-4-典型的数据仓库建模方法论"><a href="#8-4-典型的数据仓库建模方法论" class="headerlink" title="8.4 典型的数据仓库建模方法论"></a>8.4 典型的数据仓库建模方法论</h3><h4 id="8-4-1-ER模型"><a href="#8-4-1-ER模型" class="headerlink" title="8.4.1 ER模型"></a>8.4.1 ER模型</h4><p>数据仓库之父Bill Inmon提出的建模方法是从全企业的高度，用实体关系（Entity Relationship，ER）模型来描述企业业务，并用规范化的方式表示出来，在关系型数据库中常用，<strong>在范式理论上符合3NF</strong>。范式就是指在设计关系型数据库时，需要遵从的不同的规范。关系型数据库的范式一共有<strong>六种</strong>，分别是<strong>第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF）</strong>。遵循的范式级别越高，数据冗余性就越低。这种模型并不适合直接用于分析统计。一个符合第三范式的关系必须具有以下三个条件 :</p>
+<ul>
+<li>每个属性值唯一，不具有多义性 ;</li>
+<li>每个非主属性必须完全依赖于整个主键，而非主键的一部分 ;</li>
+<li>每个非主属性不能依赖于其他关系中的属性，因为这样的话，这种属性应该归到其他关系中去。</li>
+</ul>
+<h4 id="8-4-2-维度模型"><a href="#8-4-2-维度模型" class="headerlink" title="8.4.2 维度模型"></a>8.4.2 维度模型</h4><p>源于Ralph Kimall的《数据仓库工具箱》这本书中的理论。维度模型将复杂的业务通过<strong>事实</strong>和<strong>维度</strong>两个概念进行呈现。<strong>事实</strong>通常对应<strong>业务过程</strong>，而<strong>维度</strong>通常对应<strong>业务过程发生时所处的环境</strong>。虽然存在数据冗余但是方便查询分析。典型代表如星形模型，雪花模型，星座模型。</p>
+<p>根据《数据仓库工具箱》中的总结，维度建模分四步走：</p>
+<p>（1）<strong>选择业务过程</strong>：在整个业务流程中选择我们需要建模的业务（一般根据运营提供的需求）</p>
+<p>（2）<strong>声明粒度</strong>：在同一事实表中，必须具有相同的粒度（一个用户有一个身份证号，多个手机号，那么用户粒度和身份证粒度相同，比两者更细的粒度就是手机号粒度）。对于有明确需求，就建立针对需求的粒度，需求不明就建立原子（最细）粒度。</p>
+<p>（3）<strong>确认维度</strong>：确保维度表中不能出现重复数据，应使维度主键唯一</p>
+<p>（4）<strong>确认事实</strong>：同一事实表中的所有度量必须具有相同的粒度。最实用的事实就是数值类型和可加类事实</p>
+<h4 id="8-4-3-Data-Vault模型"><a href="#8-4-3-Data-Vault模型" class="headerlink" title="8.4.3 Data Vault模型"></a>8.4.3 Data Vault模型</h4><p>它强调建立一个可审计的基础数据层，也就是强调数据的历史 性、可追溯性和原子性，而不要求对数据进行过度的一致性处理和整合；同时它基于主题概念将企业数据进行结构化组织，并引入了更进一步的范式处理来优化模型，以应对下游、系统变更的扩展性。</p>
+<h4 id="8-4-4-Anchor模型"><a href="#8-4-4-Anchor模型" class="headerlink" title="8.4.4 Anchor模型"></a>8.4.4 Anchor模型</h4><p>Anchor 对 Data Vault 模型做了进一步规范化处理， Lars.Ronnback 的初衷是设计一个高度可扩展的模型，其核心思想是所有的扩展只是添加而不是修改，因此将模型规范到 6NF ，基本变成了k-v 结构化模型。</p>
+<h3 id="8-5-阿里巴巴数据模型实践综述"><a href="#8-5-阿里巴巴数据模型实践综述" class="headerlink" title="8.5 阿里巴巴数据模型实践综述"></a>8.5 阿里巴巴数据模型实践综述</h3><ul>
+<li><p>第一个阶段：构建在 Oracle 上，数据完全以满足报表需求为目的</p>
+</li>
+<li><p>第二个阶段：引入了当时 MPP 架构体系的 Greenplum，ODL（操作数据层）+BDL（基础数据层）+IDL（接口数据层）+ADL （应用数据层）；BDL希望引入 ER 模型，加强 数据的整合，构建一致的基础数据模型，但构建 ER 模型时遇到了比较大的困难和挑战，互联网业务的快速发展、人员的快速变化、业务知识功底的不够全面，导致 ER 模型设计迟迟不能产出。至此，我们也得到了一个经验：在不太成熟、快速变化的业务面前，构建 ER 模型的风险非常大，不太适合去构建 ER 模型。</p>
+</li>
+<li><p>第三个阶段：迎来了以Hadoop 为代表的分布式存储计算平台的快速发展，同时阿里巴 巴集团自主研发的分布式计算平台 MaxCompute 也在紧锣密鼓地进行着。以 Kimball 的维度建模为核心理念的模型方法论，构建了阿里巴巴集团的公共层模型数据架构体系。</p>
+</li>
+<li><p>数据公共层建设的目的是着力解决数据存储和计算的共享问题。数据每年以近 2.5 倍的速度在增长，数据的增长远远超过业务的增长。</p>
+</li>
+<li><p>统一化的集团数据整合及管理的方法体系“OneData”：一致性的指标定义体系、模型设计方法体系以及配套工具。</p>
+</li>
+</ul>
+<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
+<h4 id="2-1-1-定位及价值"><a href="#2-1-1-定位及价值" class="headerlink" title="2.1.1 定位及价值"></a>2.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
+<p>业务板块：根据业务属性划分板块，板块之间的指标或业务重叠性较小。</p>
+<p>规范定义：一套数据规范命名体系，用在模型设计中</p>
+<p>模型设计：以维度建模理论为基础，基于维度建模总线架构，构建一致性的维度和事实(进行规范定义)。</p>
 
       
 
@@ -367,6 +441,8 @@
 <li>netstat -nlp | grep 端口号：显示网络端口号占用情况</li>
 <li>df -h：查看磁盘空间使用情况</li>
 <li>tar -zxvf … &#x2F;目录：将..解压到&#x2F;目录下</li>
+<li>mkdir：创建一个新目录</li>
+<li>chmod：更改文件或目录的权限</li>
 </ul>
 <h3 id="2-写过哪些shell脚本"><a href="#2-写过哪些shell脚本" class="headerlink" title="2. 写过哪些shell脚本"></a>2. 写过哪些shell脚本</h3><p>（1）启停脚本：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">case $1 in</span><br><span class="line">&quot;start&quot;)</span><br><span class="line"> 	    for i in hadoop102 hadoop103 hadoop104</span><br><span class="line"> 		do</span><br><span class="line"> 			ssh $i &quot;绝对路径&quot;</span><br><span class="line"> 		done</span><br><span class="line">;;</span><br><span class="line">&quot;stop&quot;)</span><br><span class="line"> 		for i in hadoop102 hadoop103 hadoop104</span><br><span class="line"> 		do</span><br><span class="line"> 			ssh $i &quot;绝对路径&quot;</span><br><span class="line"> 		done</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
@@ -726,6 +802,7 @@
 <td>大数据实时查询，海量数据存储</td>
 </tr>
 </tbody></table>
+<h3 id="25-讲一下Union和Join的区别"><a href="#25-讲一下Union和Join的区别" class="headerlink" title="25. 讲一下Union和Join的区别"></a>25. 讲一下Union和Join的区别</h3><p>UNION是两张表进行上下拼接，产生的两个记录集(字段要一样的)并在一起，成为一个新的记录集，分为UNION和UNION ALL两种方法；JOIN 是两张表进行左右连接，条件匹配的记录将合并产生一个记录集，有LEFT JOIN、RIGHT JOIN、INNER JOIN、OUTER JOIN等多种方法。</p>
 <h2 id="1-2-Hadoop"><a href="#1-2-Hadoop" class="headerlink" title="1.2 Hadoop"></a>1.2 Hadoop</h2><h3 id="1-2-1-前置知识"><a href="#1-2-1-前置知识" class="headerlink" title="1.2.1 前置知识"></a>1.2.1 前置知识</h3><h4 id="1-Hadoop的运行模式"><a href="#1-Hadoop的运行模式" class="headerlink" title="1. Hadoop的运行模式"></a>1. Hadoop的运行模式</h4><p>本地模式（单机，仅运行官方案例），伪分布式模式（单机，模拟分布式环境），完全分布式模式（多台服务器分布式集群）</p>
 <h4 id="2-说一说你的Hadoop集群配置"><a href="#2-说一说你的Hadoop集群配置" class="headerlink" title="2. 说一说你的Hadoop集群配置"></a>2. 说一说你的Hadoop集群配置</h4><p><img src="Snipaste_2023-12-05_14-42-39.png" alt="Snipaste_2023-12-05_14-42-39"></p>
 <p>NameNode是HDFS的主节点，ResourceManager是YARN的主节点。</p>
@@ -805,7 +882,7 @@
 <h4 id="5-HDFS-在读取文件的时候，如果其中一个块突然损坏了怎么办？"><a href="#5-HDFS-在读取文件的时候，如果其中一个块突然损坏了怎么办？" class="headerlink" title="5. HDFS 在读取文件的时候，如果其中一个块突然损坏了怎么办？"></a>5. HDFS 在读取文件的时候，如果其中一个块突然损坏了怎么办？</h4><p>客户端读取完 DataNode 上的块之后会进行 checksum 验证，也就是把客户端读取到本地的块与 HDFS 上的原始块进行校验，如果发现校验结果不一致，客户端会通知 NameNode，然后再<strong>从下一个拥有该 block 副本的 DataNode 继续读</strong>。</p>
 <h4 id="6-HDFS-在上传文件的时候，如果其中一个-DataNode-突然挂掉了怎么办"><a href="#6-HDFS-在上传文件的时候，如果其中一个-DataNode-突然挂掉了怎么办" class="headerlink" title="6. HDFS 在上传文件的时候，如果其中一个 DataNode 突然挂掉了怎么办?"></a>6. HDFS 在上传文件的时候，如果其中一个 DataNode 突然挂掉了怎么办?</h4><p>当 DataNode 突然挂掉了，客户端接收不到这个 DataNode 发送的 ack 确认，客户端会通知 NameNode，NameNode 会通知 DataNode 去复制副本，并将挂掉的 DataNode 作下线处理，不再让它参与文件上传与下载</p>
 <h3 id="1-2-3-MapReduce"><a href="#1-2-3-MapReduce" class="headerlink" title="1.2.3 MapReduce"></a>1.2.3 MapReduce</h3><h4 id="1-什么是MapReduce？"><a href="#1-什么是MapReduce？" class="headerlink" title="1. 什么是MapReduce？"></a>1. 什么是MapReduce？</h4><p>MapReduce是一个分布式计算程序的编程框架。MapReduce的核心功能是将<strong>用户编写的业务逻辑代码</strong>和<strong>自带的默认组件</strong>整合成一个完整的分布式计算程序并且将其<strong>并发运行</strong>在一个Hadoop集群上。</p>
-<h4 id="2-请说一下Map-Task的工作机制"><a href="#2-请说一下Map-Task的工作机制" class="headerlink" title="2. 请说一下Map Task的工作机制"></a>2. 请说一下Map Task的工作机制</h4><p><img src="Snipaste_2023-10-03_14-11-03.png" alt="Snipaste_2023-10-03_14-11-03"></p>
+<h4 id="2-⭐请说一下Map-Task的工作机制"><a href="#2-⭐请说一下Map-Task的工作机制" class="headerlink" title="2. ⭐请说一下Map Task的工作机制"></a>2. ⭐请说一下Map Task的工作机制</h4><p><img src="Snipaste_2023-10-03_14-11-03.png" alt="Snipaste_2023-10-03_14-11-03"></p>
 <ul>
 <li>Read阶段：inputFile 通过 split 被切割为多个 split 文件，通过 Record 按行读取内容给 map（自己写的处理逻辑的方法） </li>
 <li>Map阶段：使用map()方法对数据进行处理</li>
@@ -813,7 +890,7 @@
 <li>溢写阶段：当缓冲区快满的时候(80%)需要将缓冲区的数据以一个临时文件的方式溢写到磁盘</li>
 <li>Merge阶段：当整个 map task 结束后再对磁盘中这个 map task 产生的所有临时文件做Merge合并，生成最终的正式输出文件，然后等待 reduce task 的拉取。</li>
 </ul>
-<h4 id="3-请说一下Reduce-Task的工作机制"><a href="#3-请说一下Reduce-Task的工作机制" class="headerlink" title="3. 请说一下Reduce Task的工作机制"></a>3. 请说一下Reduce Task的工作机制</h4><p><img src="image-20231003141616898.png" alt="image-20231003141616898"></p>
+<h4 id="3-⭐请说一下Reduce-Task的工作机制"><a href="#3-⭐请说一下Reduce-Task的工作机制" class="headerlink" title="3. ⭐请说一下Reduce Task的工作机制"></a>3. ⭐请说一下Reduce Task的工作机制</h4><p><img src="image-20231003141616898.png" alt="image-20231003141616898"></p>
 <ul>
 <li>Copy阶段：ReduceTask 从各个 MapTask 上远程拷贝一片数据，并针对某一片数据，如果其大小超过一定阈值，则写到磁盘上，否则直接放到内存中。</li>
 <li>Sort阶段：在远程拷贝数据的同时，ReduceTask 启动了两个后台线程对内存和磁盘上的文件进行合并，以防止内存使用过多或磁盘上文件过多。合并后的文件进行一次全局归并排序，使得key相同的数据聚集在一起。</li>
@@ -836,7 +913,7 @@
 <li>客户端向ResourceManager请求启动ApplicationMaster，ResourceManager为任务分配第一个Container，并且要求在这个Container中启动ApplicationMaster。</li>
 <li>由ApplicationMaster获取任务运行资源，并且开始申请资源，监控任务运行全过程，直到任务完成。</li>
 </ul>
-<h4 id="3-YARN-的资源调度三种模型了解吗"><a href="#3-YARN-的资源调度三种模型了解吗" class="headerlink" title="3. YARN 的资源调度三种模型了解吗?"></a>3. YARN 的资源调度三种模型了解吗?</h4><p>资源调度器负责集群的资源调度工作。</p>
+<h4 id="3-⭐YARN-的资源调度三种模型了解吗"><a href="#3-⭐YARN-的资源调度三种模型了解吗" class="headerlink" title="3. ⭐YARN 的资源调度三种模型了解吗?"></a>3. ⭐YARN 的资源调度三种模型了解吗?</h4><p>资源调度器负责集群的资源调度工作。</p>
 <ul>
 <li>FIFO调度器</li>
 <li>容量调度器（Apache Hadoop3.1.3默认使用）</li>
@@ -1738,7 +1815,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select cate, count(*)</span><br><span class="line">from (</span><br><span class="line">         select movie, cate</span><br><span class="line">         from (</span><br><span class="line">                  select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">                  from movie_info</span><br><span class="line">              ) t1 lateral view explode(cates) tmp as cate</span><br><span class="line">     ) t2</span><br><span class="line">group by cate;</span><br></pre></td></tr></table></figure>
 
 <img src="111112paste_2023-10-18_16-24-10.png" alt="111112paste_2023-10-18_16-24-10" style="zoom:50%;">
-
 
       
 
