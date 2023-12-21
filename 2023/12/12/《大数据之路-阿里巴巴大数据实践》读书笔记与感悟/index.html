@@ -16,7 +16,7 @@
 <meta property="og:description" content="大数据，源于技术，终于业务。数据仓库，因业务而生，因决策而发展  第2篇 数据模型篇第八章 大数据领域建模综述8.1 为什么需要数据建模？目标：将数据进行有序、有结构地分类组织和存储。 数据模型就是数据组织和存储方法，它强调从业务、数据存取和使用角度合理存储数据。以便在性能、成本、效率和质量之间取得最佳平衡。 8.2 关系数据库系统和数据仓库8.2.1 从OLTP和OLAP系统的区别看模型方法论">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-12T11:42:24.000Z">
-<meta property="article:modified_time" content="2023-12-18T13:47:55.561Z">
+<meta property="article:modified_time" content="2023-12-21T12:52:38.235Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
@@ -250,11 +250,172 @@
 <li><p>统一化的集团数据整合及管理的方法体系“OneData”：一致性的指标定义体系、模型设计方法体系以及配套工具。</p>
 </li>
 </ul>
-<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
-<h4 id="2-1-1-定位及价值"><a href="#2-1-1-定位及价值" class="headerlink" title="2.1.1 定位及价值"></a>2.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
+<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="9-1-概述"><a href="#9-1-概述" class="headerlink" title="9.1 概述"></a>9.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
+<h4 id="9-1-1-定位及价值"><a href="#9-1-1-定位及价值" class="headerlink" title="9.1.1 定位及价值"></a>9.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
 <p>业务板块：根据业务属性划分板块，板块之间的指标或业务重叠性较小。</p>
 <p>规范定义：一套数据规范命名体系，用在模型设计中</p>
 <p>模型设计：以维度建模理论为基础，基于维度建模总线架构，构建一致性的维度和事实(进行规范定义)。</p>
+<h3 id="9-2-规范意义"><a href="#9-2-规范意义" class="headerlink" title="9.2 规范意义"></a>9.2 规范意义</h3><p>规范定义指以维度建模作为理论基础，构建总线矩阵，划分和定义 数据域、业务过程、维度、度量／原子指标、修饰类型、修饰词、时间周期、派生指标。</p>
+<h4 id="9-2-1-名词解释"><a href="#9-2-1-名词解释" class="headerlink" title="9.2.1 名词解释"></a>9.2.1 名词解释</h4><ul>
+<li>数据域（主题域）：面向业务分析，将业务过程或者维度进行抽象的集合。业务过程可以概括为一个个不可拆分的行为事件，在业务过程之下，可以定义指标；维度是指度量的环境，如买家下单事件，买家是维度 。 为保障整个体系的生命力 ， 数据域是需要抽象提炼，并且长期维护和更新的 ， 但不轻易变动。常见主题域：用户、渠道、营销、流量、交易、财务、商品。</li>
+<li>业务过程：指企业的业务活动事件，如下单、支付、退款都是业务过程。 请注意，业务过程 是一个不可拆分的行为事件 ， 通俗地讲 ，业务过程就是企业活动中的事件</li>
+<li>时间周期：用来明确数据统计的时间范用或者时间点，如最近 30天、自然周、截至当日等</li>
+<li>修饰类型：是对修饰词的一种抽象划分 。 修饰类型从属于某个业务域，如日志域的访问终端类型涵盖无线端、 PC 端等修饰词</li>
+<li>修饰词：指除了统计维度以外指标的业务场景限定抽象 。 修饰词隶属于一种修饰类型，如 在日志域的访问终端类型下 ， 有修饰词 PC 端、无线端等</li>
+<li>度量&#x2F;原子指标：原子指标和度量含义相同，基于某一业务事件行为下的度量，是业务定义中不可 再拆分的指标，具有明确业务含义的名词 ，如支付金额</li>
+<li>维度：维度是度量的环境，用来反映业务的一类属性 ，这类属性的集合构成一个维度 ，也可以称为实体对象。维度属于一个数据域，如地理维度（其中包括国家、地区、 省以及城市等级别的内容)、时间维度(其中包括年、季、月、周、日等级别的内容）</li>
+<li>维度属性：维度属性隶属于一个维度 ，如地理维度里面的国家名称、国家 ID、省份名称等都属于维度属性</li>
+<li>派生指标：派生指标&#x3D;一个原子指标+多个修饰词(可选)+时间周期+粒度。 可以理解为对原子指标业务统计范围的圈定。 如原子指标：支付金额，最近 1 天海外买家支付金额则为派生指标(最近1天为时间周期 ， 海外为修饰词 ， 买家作为维度，而不作为修饰词)</li>
+</ul>
+<h4 id="9-2-2-指标体系"><a href="#9-2-2-指标体系" class="headerlink" title="9.2.2 指标体系"></a>9.2.2 指标体系</h4><p>一、基本原则</p>
+<ol>
+<li>组成体系之间的关系</li>
+</ol>
+<ul>
+<li>派生指标由原子指标、时间周期修饰词、若干其他修饰词组合得到</li>
+<li>原子指标、修饰类型及修饰词，直接归属在业务过程下，其中修饰词继承修饰类型的数据域</li>
+<li>派生指标可以选择多个修饰词，修饰词之间的关系为”或”或者”且”，由派生指标具体语义决定</li>
+<li>派生指标唯一归属一个原子指标，继承原子指标的数据域，与修饰词的数据域无关</li>
+<li>原子指标有确定的英文字段名、数据类型和算法说明；派生指标要继承原子指标的英文名、数据类型和算法要求</li>
+</ul>
+<ol start="2">
+<li>命名规定</li>
+</ol>
+<ul>
+<li>命名所用术语。指标命名尽量使用英文简写，其次是英文。太长也可以考虑汉语拼音首字母</li>
+<li>业务过程。英文名：用英文或英文的缩写或者中文拼音简写</li>
+<li>原子指标。英文名：动作+度量</li>
+<li>修饰词。只有时间周期才会有英文名</li>
+<li>派生指标。英文名：原子指标英文名+时间周期修饰词(3位,例如_1d)+序号(4位，例如_001)</li>
+</ul>
+<ol start="3">
+<li>算法</li>
+</ol>
+<ul>
+<li>算法概述一一算法对应的用户容易理解的阐述。</li>
+<li>举例一一通过具体例子帮助理解指标算法。</li>
+<li>SQL 算法说明一一对于派生指标给出SQL的写法或者伪代码。</li>
+</ul>
+<p>二、操作细则</p>
+<p>派生指标可以分为三类：事务型指标、存量型指标和复合型指标。</p>
+<ul>
+<li>事务型指标：是指对业务活动进行衡量的指标。例如新发商品数、 重发商品数、新增注册会员数、订单支付金额，这类指标需维护 原子指标及修饰词，在此基础上创建派生指标。</li>
+<li>存量型指标：是指对实体对象(如商品、会员)某些状态的统计。 例如商品总数、注册会员总数，这类指标需维护原子指标及修饰词，在此基础上创建派生指标，对应的时间周期 一般为“历史截至当前某个时间”。</li>
+<li>复合型指标：是在事务型指标和存量型指标的基础上复合而成的。例如浏览 UV-下单买家数转化率 ， 有些需要 创 建新原子指标， 有些则可以在事务型或存量型原子指标的基础上增加修饰词得到派生指标。</li>
+</ul>
+<h3 id="9-3-模型设计"><a href="#9-3-模型设计" class="headerlink" title="9.3 模型设计"></a>9.3 模型设计</h3><h4 id="9-3-1-理论指导"><a href="#9-3-1-理论指导" class="headerlink" title="9.3.1 理论指导"></a>9.3.1 理论指导</h4><p>数据模型的维度设计主要以维度建模理论为基础，基于维度数据模型总线架构，构建一致性的维度和事实。</p>
+<h4 id="9-3-2-模型层次"><a href="#9-3-2-模型层次" class="headerlink" title="9.3.2 模型层次"></a>9.3.2 模型层次</h4><ul>
+<li><p>操作数据层（ODS）：把操作系统数据几乎无处理地存放在数据仓库系统中。</p>
+</li>
+<li><p>公共维度模型层（CDM）：存放明细事实数据、维表数据及公共指标汇总数据 ，其中明细事实数据、维表数据一般根据 ODS 层数据加工生成 ；公共指标汇总数据一般根据维表数据和明细事实数据加工生成。</p>
+</li>
+<li><p>CDM 层又细分为 DWD 层和 DWS 层，分别是明细数据层和汇总数据层，采用维度模型方法作为理论基础 ，更多地采用一些维度退化手法， 将维度退化至事实表中，减少事实表和维表的关联 ，提高明细数据表的易用性；同时在汇总数据层， 加强指标的维度退化， 采取更多的宽表化手段构建公共指标数据层，提升公共指标的复用性，减少重复加工。其主要功能如下。</p>
+</li>
+<li><ul>
+<li>组合相关和相似数据：采用明细宽表，复用关联计算，减少数据扫描。</li>
+<li>公共指标统一加工：基于 OneData体系构建命名规范、口径一致 和算法统一 的统计指标，为上层数据产品、应用和服务提供公共指标建立逻辑汇总宽表。</li>
+<li>建立一致性维度:建立一致的数据分析维表，降低数据计算口径、算法不统一的风险。</li>
+</ul>
+</li>
+<li><p>应用数据层（ADS）：存放数据产品个性化的统计指标数据，根据 CDM 层与 ODS 层加工生成 。</p>
+</li>
+</ul>
+<h4 id="9-3-3-基本原则"><a href="#9-3-3-基本原则" class="headerlink" title="9.3.3 基本原则"></a>9.3.3 基本原则</h4><ul>
+<li>高内聚和低耦合</li>
+</ul>
+<p>一个逻辑或者物理模型由哪些记录和字段组成，应该遵循最基本的软件设计方法论的高内聚和低耦合原则。主要从数据业务特性和访问特性两个角度来考虑：将业务相近或者相关、粒度相同的数据设计为一个逻辑或者物理模型；将高概率同时访问的数据放一起，将低概率同时访问的数据分开存储。</p>
+<ul>
+<li>核心模型与扩展模型分离</li>
+</ul>
+<p>建立核心模型与扩展模型体系，核心模型包括的字段支持常用的核心业务，扩展模型包括的字段支持个性化或少量应用的需要 ，不能让扩展模型的宇段过度侵入核心模型，以免破坏核心模型的架构简洁性与可维护性。</p>
+<ul>
+<li>公共处理逻辑下沉及单一</li>
+</ul>
+<p>越是底层公用的处理逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的处理逻辑暴露给应用层实现，不要让公共逻辑多处同时存在。</p>
+<ul>
+<li>成本与性能平衡</li>
+</ul>
+<p>适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制。</p>
+<ul>
+<li>数据可回滚</li>
+</ul>
+<p>处理逻辑不变，在不同时间多次运行数据结果确定不变。</p>
+<ul>
+<li>一致性</li>
+</ul>
+<p>具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称。</p>
+<ul>
+<li>命名清晰、可理解</li>
+</ul>
+<p>表命名需清晰、一致，表名需易于消费者理解和使用。</p>
+<h3 id="9-4-模型实施"><a href="#9-4-模型实施" class="headerlink" title="9.4 模型实施"></a>9.4 模型实施</h3><h4 id="9-4-1-业界常用模型实施过程"><a href="#9-4-1-业界常用模型实施过程" class="headerlink" title="9.4.1 业界常用模型实施过程"></a>9.4.1 业界常用模型实施过程</h4><p>构建维度模型一般要经历四个阶段：</p>
+<ul>
+<li>第一个阶段是高层模型设计时期 ，定义业务过程维度模型的范围，提供每种星形模式的技术和功能描述；直接产出目标是创建高层维度模型图，它是对业务过程中的维表和事实表的图形描述。确定维表创建初始属性列表，为每个事实表创建提议度量；</li>
+<li>第二个阶段是详细模型设计时期，对每个星形模型添加属性和度量信息；确定每个维表的属性和每个事实表的度量，并确定信息来源的位置、定义，确定属性和度量如何填入模型的初步业务规则。</li>
+<li>第三个阶段是进行模型的审查、再设计和验证，本阶段主要召集相关人员进行模型的审查和验证，根据审查结果对详细维度进行再设计。</li>
+<li>第四个阶段是产生详细设计文档，提交 ETL 设计和开发，最后，完成模型详细设计文档，提交 ETL 开发人员，进入 ETL 设计和开发阶段，由 ETL 人员完成物理模型的设计和开发。</li>
+</ul>
+<h4 id="9-4-2-OneData实施过程"><a href="#9-4-2-OneData实施过程" class="headerlink" title="9.4.2 OneData实施过程"></a>9.4.2 OneData实施过程</h4><ol>
+<li>指导方针</li>
+</ol>
+<ul>
+<li>首先，在建设大数据数据仓库时，要进行充分的业务调研和需求分析。这是数据仓库建设的基石，业务调研和需求分析做得是否充分直接决定了数据仓库建设是否成功。</li>
+<li>其次，进行数据总体架构设计，主要是根据数据域对数据进行划分；按照维度建模理论，构建总线矩阵、抽象出业务过程和维度。</li>
+<li>再次，对报表需求进行抽象整理出相关指标体系， 使用 OneData 工具完成指标规范定义和模型设计。</li>
+<li>最后，就是代码研发和运维。</li>
+</ul>
+<ol start="2">
+<li>实施工作流</li>
+</ol>
+<p>（1）数据调研</p>
+<ol>
+<li>业务调研：需要了解各个业务领域、业务线的业务有什么共同点和不同点 ，以及各个业务线可以细分为哪几个业务模块，每个业务模块具体的业务流程又是怎样的。业务调研是否充分，将会直接决定数据仓库 建设是否成功</li>
+<li>需求调研：需求调研的途径有两种：一是根据与分析师、业务运营人员的沟通 （邮件、 IM ）获知需求；二是对报表系统中现有的报表进行研究分析；</li>
+</ol>
+<p>（2）架构设计</p>
+<ol>
+<li>数据域划分</li>
+</ol>
+<p>数据域是指面向业务分析，将业务过程或者维度进行抽象的集合。 业务过程可以概括为 一 个个不可拆分的行为事件，如下单、支付、退款。数据域需要抽象提炼，并且长期维护和更新，但不轻易变动。</p>
+<ol start="2">
+<li>构建总线矩阵</li>
+</ol>
+<p>在进行充分的业务调研和需求调研后，就要构建总线矩阵了。需要 做两件事情：明确每个数据域下有哪些业务过程；业务过程与哪些维度相关，并定义每个数据域下的业务过程和维度。</p>
+<ol start="3">
+<li>规范定义</li>
+</ol>
+<p>规范定义主要定义指标体系，包括原子指标、修饰词、时间周期和 派生指标。</p>
+<ol start="4">
+<li>模型设计</li>
+</ol>
+<p>模型设计主要包括维度及属性的规范定义，维表、明细事实表和汇 总事实表的模型设计。</p>
+<ol start="5">
+<li>总结</li>
+</ol>
+<p>OneData 的实施过程是一个高度迭代和动态的过程， 一般采用螺旋式实施方法。在总体架构设计完成之后，开始根据数据域进行迭代式模型设计和评审。在架构设计、规范定义和模型设计等模型实施过程中， 都会引入评审机制，以确保模型实施过程的正确性。</p>
+<h2 id="第十章-维度设计"><a href="#第十章-维度设计" class="headerlink" title="第十章 维度设计"></a>第十章 维度设计</h2><h3 id="10-1-维度设计基础"><a href="#10-1-维度设计基础" class="headerlink" title="10.1 维度设计基础"></a>10.1 维度设计基础</h3><h4 id="10-1-1-维度的基本概念"><a href="#10-1-1-维度的基本概念" class="headerlink" title="10.1.1 维度的基本概念"></a>10.1.1 维度的基本概念</h4><ul>
+<li>维度建模中，将度量称为“事实”，将环境描述为“维度”，维度是用于分析事实所需要的多样环境。例如，在分析交易过程时，可以通过买家、卖家、商品和时间等维度描述交易发生的环境。</li>
+<li>维度所包含的表示维度的列，称为维度属性。维度属性是查询约束条件、分组和报表标签生成的基本来源，是数据易用性的关键。</li>
+<li>维度使用主键标识其唯一性，主键也是确保与之相连的任何事实表 之间存在引用完整性的基础。</li>
+</ul>
+<h4 id="10-1-2-维度的基本设计方法"><a href="#10-1-2-维度的基本设计方法" class="headerlink" title="10.1.2 维度的基本设计方法"></a>10.1.2 维度的基本设计方法</h4><ol>
+<li>选择维度或新建维度。须保证维度的唯一性。</li>
+<li>确定主维表。 一般是ODS表，直接与业务系统同步。</li>
+<li>确定相关维表。确定哪些表和主维表存在关联关系，并选择其中的某些表用于生成维度属性。</li>
+<li>确定维度属性。第一阶段从主维表中选择维度属性或生成新的维度属性；第二阶段是从相关维表中选择维度属性或生成新的维度属性。</li>
+</ol>
+<p>确认维度属性的几点提示：</p>
+<ol>
+<li>尽可能生成丰富的维度属性</li>
+<li>尽可能多地给出包括一些富有意义的文字性描述</li>
+<li>区分数值型属性和事实</li>
+</ol>
+<ul>
+<li>如果通常用于查询约束条件或分组统计，则是作为维度属性；如果通常 用于参与度量的计算，则是作为事实。比如商品价格，可以用于查询约 束条件或统计价格区间的商品数量，此时是作为维度属性使用的；也可 以用于统计某类目下商品的平均价格，此时是作为事实使用的。另外， 如果数值型字段是离散值，则作为维度属性存在的可能性较大；如果数 值型宇段是连续值，则作为度量存在的可能性较大，但并不绝对，需要 同时参考宇段的具体用途。</li>
+</ul>
+<ol start="4">
+<li>尽量沉淀出通用的维度属性</li>
+</ol>
 
       
 
@@ -404,7 +565,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AF%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">第2篇 数据模型篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">第八章 大数据领域建模综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">8.1 为什么需要数据建模？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="toc-number">1.1.2.</span> <span class="toc-text">8.2 关系数据库系统和数据仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-%E4%BB%8EOLTP%E5%92%8COLAP%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9C%8B%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95%E8%AE%BA%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E5%85%B8%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-number">1.1.3.</span> <span class="toc-text">8.4 典型的数据仓库建模方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-ER%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">8.4.1 ER模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-%E7%BB%B4%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">8.4.2 维度模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-3-Data-Vault%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">8.4.3 Data Vault模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-4-Anchor%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.4.</span> <span class="toc-text">8.4.4 Anchor模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%AE%9E%E8%B7%B5%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">8.5 阿里巴巴数据模型实践综述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%95%B4%E5%90%88%E5%8F%8A%E7%AE%A1%E7%90%86%E4%BD%93%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text">第九章 阿里巴巴数据整合及管理体系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-%E5%AE%9A%E4%BD%8D%E5%8F%8A%E4%BB%B7%E5%80%BC"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1 定位及价值</span></a></li></ol></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E7%AF%87-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%AF%87"><span class="toc-number">1.</span> <span class="toc-text">第2篇 数据模型篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%A2%86%E5%9F%9F%E5%BB%BA%E6%A8%A1%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">第八章 大数据领域建模综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">8.1 为什么需要数据建模？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93"><span class="toc-number">1.1.2.</span> <span class="toc-text">8.2 关系数据库系统和数据仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-%E4%BB%8EOLTP%E5%92%8COLAP%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9C%8B%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95%E8%AE%BA%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">8.2.1 从OLTP和OLAP系统的区别看模型方法论的选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E5%85%B8%E5%9E%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-number">1.1.3.</span> <span class="toc-text">8.4 典型的数据仓库建模方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-1-ER%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">8.4.1 ER模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-2-%E7%BB%B4%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">8.4.2 维度模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-3-Data-Vault%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">8.4.3 Data Vault模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-4-Anchor%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.3.4.</span> <span class="toc-text">8.4.4 Anchor模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E5%AE%9E%E8%B7%B5%E7%BB%BC%E8%BF%B0"><span class="toc-number">1.1.4.</span> <span class="toc-text">8.5 阿里巴巴数据模型实践综述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E6%95%B0%E6%8D%AE%E6%95%B4%E5%90%88%E5%8F%8A%E7%AE%A1%E7%90%86%E4%BD%93%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text">第九章 阿里巴巴数据整合及管理体系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-%E6%A6%82%E8%BF%B0"><span class="toc-number">1.2.1.</span> <span class="toc-text">9.1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-1-%E5%AE%9A%E4%BD%8D%E5%8F%8A%E4%BB%B7%E5%80%BC"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">9.1.1 定位及价值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-%E8%A7%84%E8%8C%83%E6%84%8F%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">9.2 规范意义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-1-%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">9.2.1 名词解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-2-%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">9.2.2 指标体系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.3.</span> <span class="toc-text">9.3 模型设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-1-%E7%90%86%E8%AE%BA%E6%8C%87%E5%AF%BC"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">9.3.1 理论指导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-2-%E6%A8%A1%E5%9E%8B%E5%B1%82%E6%AC%A1"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">9.3.2 模型层次</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-3-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">9.3.3 基本原则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-%E6%A8%A1%E5%9E%8B%E5%AE%9E%E6%96%BD"><span class="toc-number">1.2.4.</span> <span class="toc-text">9.4 模型实施</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-4-1-%E4%B8%9A%E7%95%8C%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B%E5%AE%9E%E6%96%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">9.4.1 业界常用模型实施过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-4-2-OneData%E5%AE%9E%E6%96%BD%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">9.4.2 OneData实施过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E7%BB%B4%E5%BA%A6%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text">第十章 维度设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E7%BB%B4%E5%BA%A6%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80"><span class="toc-number">1.3.1.</span> <span class="toc-text">10.1 维度设计基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-1-%E7%BB%B4%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">10.1.1 维度的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-2-%E7%BB%B4%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">10.1.2 维度的基本设计方法</span></a></li></ol></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>

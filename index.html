@@ -247,11 +247,172 @@
 <li><p>统一化的集团数据整合及管理的方法体系“OneData”：一致性的指标定义体系、模型设计方法体系以及配套工具。</p>
 </li>
 </ul>
-<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
-<h4 id="2-1-1-定位及价值"><a href="#2-1-1-定位及价值" class="headerlink" title="2.1.1 定位及价值"></a>2.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
+<h2 id="第九章-阿里巴巴数据整合及管理体系"><a href="#第九章-阿里巴巴数据整合及管理体系" class="headerlink" title="第九章 阿里巴巴数据整合及管理体系"></a>第九章 阿里巴巴数据整合及管理体系</h2><h3 id="9-1-概述"><a href="#9-1-概述" class="headerlink" title="9.1 概述"></a>9.1 概述</h3><p>核心：从业务架构设计（如何快速上手工作）到模型设计，从数据研发到数据服务，做到数据可管理、可追溯、可规避重复建设。</p>
+<h4 id="9-1-1-定位及价值"><a href="#9-1-1-定位及价值" class="headerlink" title="9.1.1 定位及价值"></a>9.1.1 定位及价值</h4><p>建设统一的、规范化的数据接入层（ ODS ）和数据中间层（ DWD 和 DWS ），通过数据服务和数据产品，完成服务于阿里巴巴的大数据系 统建设，即数据公共层建设。</p>
 <p>业务板块：根据业务属性划分板块，板块之间的指标或业务重叠性较小。</p>
 <p>规范定义：一套数据规范命名体系，用在模型设计中</p>
 <p>模型设计：以维度建模理论为基础，基于维度建模总线架构，构建一致性的维度和事实(进行规范定义)。</p>
+<h3 id="9-2-规范意义"><a href="#9-2-规范意义" class="headerlink" title="9.2 规范意义"></a>9.2 规范意义</h3><p>规范定义指以维度建模作为理论基础，构建总线矩阵，划分和定义 数据域、业务过程、维度、度量／原子指标、修饰类型、修饰词、时间周期、派生指标。</p>
+<h4 id="9-2-1-名词解释"><a href="#9-2-1-名词解释" class="headerlink" title="9.2.1 名词解释"></a>9.2.1 名词解释</h4><ul>
+<li>数据域（主题域）：面向业务分析，将业务过程或者维度进行抽象的集合。业务过程可以概括为一个个不可拆分的行为事件，在业务过程之下，可以定义指标；维度是指度量的环境，如买家下单事件，买家是维度 。 为保障整个体系的生命力 ， 数据域是需要抽象提炼，并且长期维护和更新的 ， 但不轻易变动。常见主题域：用户、渠道、营销、流量、交易、财务、商品。</li>
+<li>业务过程：指企业的业务活动事件，如下单、支付、退款都是业务过程。 请注意，业务过程 是一个不可拆分的行为事件 ， 通俗地讲 ，业务过程就是企业活动中的事件</li>
+<li>时间周期：用来明确数据统计的时间范用或者时间点，如最近 30天、自然周、截至当日等</li>
+<li>修饰类型：是对修饰词的一种抽象划分 。 修饰类型从属于某个业务域，如日志域的访问终端类型涵盖无线端、 PC 端等修饰词</li>
+<li>修饰词：指除了统计维度以外指标的业务场景限定抽象 。 修饰词隶属于一种修饰类型，如 在日志域的访问终端类型下 ， 有修饰词 PC 端、无线端等</li>
+<li>度量&#x2F;原子指标：原子指标和度量含义相同，基于某一业务事件行为下的度量，是业务定义中不可 再拆分的指标，具有明确业务含义的名词 ，如支付金额</li>
+<li>维度：维度是度量的环境，用来反映业务的一类属性 ，这类属性的集合构成一个维度 ，也可以称为实体对象。维度属于一个数据域，如地理维度（其中包括国家、地区、 省以及城市等级别的内容)、时间维度(其中包括年、季、月、周、日等级别的内容）</li>
+<li>维度属性：维度属性隶属于一个维度 ，如地理维度里面的国家名称、国家 ID、省份名称等都属于维度属性</li>
+<li>派生指标：派生指标&#x3D;一个原子指标+多个修饰词(可选)+时间周期+粒度。 可以理解为对原子指标业务统计范围的圈定。 如原子指标：支付金额，最近 1 天海外买家支付金额则为派生指标(最近1天为时间周期 ， 海外为修饰词 ， 买家作为维度，而不作为修饰词)</li>
+</ul>
+<h4 id="9-2-2-指标体系"><a href="#9-2-2-指标体系" class="headerlink" title="9.2.2 指标体系"></a>9.2.2 指标体系</h4><p>一、基本原则</p>
+<ol>
+<li>组成体系之间的关系</li>
+</ol>
+<ul>
+<li>派生指标由原子指标、时间周期修饰词、若干其他修饰词组合得到</li>
+<li>原子指标、修饰类型及修饰词，直接归属在业务过程下，其中修饰词继承修饰类型的数据域</li>
+<li>派生指标可以选择多个修饰词，修饰词之间的关系为”或”或者”且”，由派生指标具体语义决定</li>
+<li>派生指标唯一归属一个原子指标，继承原子指标的数据域，与修饰词的数据域无关</li>
+<li>原子指标有确定的英文字段名、数据类型和算法说明；派生指标要继承原子指标的英文名、数据类型和算法要求</li>
+</ul>
+<ol start="2">
+<li>命名规定</li>
+</ol>
+<ul>
+<li>命名所用术语。指标命名尽量使用英文简写，其次是英文。太长也可以考虑汉语拼音首字母</li>
+<li>业务过程。英文名：用英文或英文的缩写或者中文拼音简写</li>
+<li>原子指标。英文名：动作+度量</li>
+<li>修饰词。只有时间周期才会有英文名</li>
+<li>派生指标。英文名：原子指标英文名+时间周期修饰词(3位,例如_1d)+序号(4位，例如_001)</li>
+</ul>
+<ol start="3">
+<li>算法</li>
+</ol>
+<ul>
+<li>算法概述一一算法对应的用户容易理解的阐述。</li>
+<li>举例一一通过具体例子帮助理解指标算法。</li>
+<li>SQL 算法说明一一对于派生指标给出SQL的写法或者伪代码。</li>
+</ul>
+<p>二、操作细则</p>
+<p>派生指标可以分为三类：事务型指标、存量型指标和复合型指标。</p>
+<ul>
+<li>事务型指标：是指对业务活动进行衡量的指标。例如新发商品数、 重发商品数、新增注册会员数、订单支付金额，这类指标需维护 原子指标及修饰词，在此基础上创建派生指标。</li>
+<li>存量型指标：是指对实体对象(如商品、会员)某些状态的统计。 例如商品总数、注册会员总数，这类指标需维护原子指标及修饰词，在此基础上创建派生指标，对应的时间周期 一般为“历史截至当前某个时间”。</li>
+<li>复合型指标：是在事务型指标和存量型指标的基础上复合而成的。例如浏览 UV-下单买家数转化率 ， 有些需要 创 建新原子指标， 有些则可以在事务型或存量型原子指标的基础上增加修饰词得到派生指标。</li>
+</ul>
+<h3 id="9-3-模型设计"><a href="#9-3-模型设计" class="headerlink" title="9.3 模型设计"></a>9.3 模型设计</h3><h4 id="9-3-1-理论指导"><a href="#9-3-1-理论指导" class="headerlink" title="9.3.1 理论指导"></a>9.3.1 理论指导</h4><p>数据模型的维度设计主要以维度建模理论为基础，基于维度数据模型总线架构，构建一致性的维度和事实。</p>
+<h4 id="9-3-2-模型层次"><a href="#9-3-2-模型层次" class="headerlink" title="9.3.2 模型层次"></a>9.3.2 模型层次</h4><ul>
+<li><p>操作数据层（ODS）：把操作系统数据几乎无处理地存放在数据仓库系统中。</p>
+</li>
+<li><p>公共维度模型层（CDM）：存放明细事实数据、维表数据及公共指标汇总数据 ，其中明细事实数据、维表数据一般根据 ODS 层数据加工生成 ；公共指标汇总数据一般根据维表数据和明细事实数据加工生成。</p>
+</li>
+<li><p>CDM 层又细分为 DWD 层和 DWS 层，分别是明细数据层和汇总数据层，采用维度模型方法作为理论基础 ，更多地采用一些维度退化手法， 将维度退化至事实表中，减少事实表和维表的关联 ，提高明细数据表的易用性；同时在汇总数据层， 加强指标的维度退化， 采取更多的宽表化手段构建公共指标数据层，提升公共指标的复用性，减少重复加工。其主要功能如下。</p>
+</li>
+<li><ul>
+<li>组合相关和相似数据：采用明细宽表，复用关联计算，减少数据扫描。</li>
+<li>公共指标统一加工：基于 OneData体系构建命名规范、口径一致 和算法统一 的统计指标，为上层数据产品、应用和服务提供公共指标建立逻辑汇总宽表。</li>
+<li>建立一致性维度:建立一致的数据分析维表，降低数据计算口径、算法不统一的风险。</li>
+</ul>
+</li>
+<li><p>应用数据层（ADS）：存放数据产品个性化的统计指标数据，根据 CDM 层与 ODS 层加工生成 。</p>
+</li>
+</ul>
+<h4 id="9-3-3-基本原则"><a href="#9-3-3-基本原则" class="headerlink" title="9.3.3 基本原则"></a>9.3.3 基本原则</h4><ul>
+<li>高内聚和低耦合</li>
+</ul>
+<p>一个逻辑或者物理模型由哪些记录和字段组成，应该遵循最基本的软件设计方法论的高内聚和低耦合原则。主要从数据业务特性和访问特性两个角度来考虑：将业务相近或者相关、粒度相同的数据设计为一个逻辑或者物理模型；将高概率同时访问的数据放一起，将低概率同时访问的数据分开存储。</p>
+<ul>
+<li>核心模型与扩展模型分离</li>
+</ul>
+<p>建立核心模型与扩展模型体系，核心模型包括的字段支持常用的核心业务，扩展模型包括的字段支持个性化或少量应用的需要 ，不能让扩展模型的宇段过度侵入核心模型，以免破坏核心模型的架构简洁性与可维护性。</p>
+<ul>
+<li>公共处理逻辑下沉及单一</li>
+</ul>
+<p>越是底层公用的处理逻辑越应该在数据调度依赖的底层进行封装与实现，不要让公用的处理逻辑暴露给应用层实现，不要让公共逻辑多处同时存在。</p>
+<ul>
+<li>成本与性能平衡</li>
+</ul>
+<p>适当的数据冗余可换取查询和刷新性能，不宜过度冗余与数据复制。</p>
+<ul>
+<li>数据可回滚</li>
+</ul>
+<p>处理逻辑不变，在不同时间多次运行数据结果确定不变。</p>
+<ul>
+<li>一致性</li>
+</ul>
+<p>具有相同含义的字段在不同表中的命名必须相同，必须使用规范定义中的名称。</p>
+<ul>
+<li>命名清晰、可理解</li>
+</ul>
+<p>表命名需清晰、一致，表名需易于消费者理解和使用。</p>
+<h3 id="9-4-模型实施"><a href="#9-4-模型实施" class="headerlink" title="9.4 模型实施"></a>9.4 模型实施</h3><h4 id="9-4-1-业界常用模型实施过程"><a href="#9-4-1-业界常用模型实施过程" class="headerlink" title="9.4.1 业界常用模型实施过程"></a>9.4.1 业界常用模型实施过程</h4><p>构建维度模型一般要经历四个阶段：</p>
+<ul>
+<li>第一个阶段是高层模型设计时期 ，定义业务过程维度模型的范围，提供每种星形模式的技术和功能描述；直接产出目标是创建高层维度模型图，它是对业务过程中的维表和事实表的图形描述。确定维表创建初始属性列表，为每个事实表创建提议度量；</li>
+<li>第二个阶段是详细模型设计时期，对每个星形模型添加属性和度量信息；确定每个维表的属性和每个事实表的度量，并确定信息来源的位置、定义，确定属性和度量如何填入模型的初步业务规则。</li>
+<li>第三个阶段是进行模型的审查、再设计和验证，本阶段主要召集相关人员进行模型的审查和验证，根据审查结果对详细维度进行再设计。</li>
+<li>第四个阶段是产生详细设计文档，提交 ETL 设计和开发，最后，完成模型详细设计文档，提交 ETL 开发人员，进入 ETL 设计和开发阶段，由 ETL 人员完成物理模型的设计和开发。</li>
+</ul>
+<h4 id="9-4-2-OneData实施过程"><a href="#9-4-2-OneData实施过程" class="headerlink" title="9.4.2 OneData实施过程"></a>9.4.2 OneData实施过程</h4><ol>
+<li>指导方针</li>
+</ol>
+<ul>
+<li>首先，在建设大数据数据仓库时，要进行充分的业务调研和需求分析。这是数据仓库建设的基石，业务调研和需求分析做得是否充分直接决定了数据仓库建设是否成功。</li>
+<li>其次，进行数据总体架构设计，主要是根据数据域对数据进行划分；按照维度建模理论，构建总线矩阵、抽象出业务过程和维度。</li>
+<li>再次，对报表需求进行抽象整理出相关指标体系， 使用 OneData 工具完成指标规范定义和模型设计。</li>
+<li>最后，就是代码研发和运维。</li>
+</ul>
+<ol start="2">
+<li>实施工作流</li>
+</ol>
+<p>（1）数据调研</p>
+<ol>
+<li>业务调研：需要了解各个业务领域、业务线的业务有什么共同点和不同点 ，以及各个业务线可以细分为哪几个业务模块，每个业务模块具体的业务流程又是怎样的。业务调研是否充分，将会直接决定数据仓库 建设是否成功</li>
+<li>需求调研：需求调研的途径有两种：一是根据与分析师、业务运营人员的沟通 （邮件、 IM ）获知需求；二是对报表系统中现有的报表进行研究分析；</li>
+</ol>
+<p>（2）架构设计</p>
+<ol>
+<li>数据域划分</li>
+</ol>
+<p>数据域是指面向业务分析，将业务过程或者维度进行抽象的集合。 业务过程可以概括为 一 个个不可拆分的行为事件，如下单、支付、退款。数据域需要抽象提炼，并且长期维护和更新，但不轻易变动。</p>
+<ol start="2">
+<li>构建总线矩阵</li>
+</ol>
+<p>在进行充分的业务调研和需求调研后，就要构建总线矩阵了。需要 做两件事情：明确每个数据域下有哪些业务过程；业务过程与哪些维度相关，并定义每个数据域下的业务过程和维度。</p>
+<ol start="3">
+<li>规范定义</li>
+</ol>
+<p>规范定义主要定义指标体系，包括原子指标、修饰词、时间周期和 派生指标。</p>
+<ol start="4">
+<li>模型设计</li>
+</ol>
+<p>模型设计主要包括维度及属性的规范定义，维表、明细事实表和汇 总事实表的模型设计。</p>
+<ol start="5">
+<li>总结</li>
+</ol>
+<p>OneData 的实施过程是一个高度迭代和动态的过程， 一般采用螺旋式实施方法。在总体架构设计完成之后，开始根据数据域进行迭代式模型设计和评审。在架构设计、规范定义和模型设计等模型实施过程中， 都会引入评审机制，以确保模型实施过程的正确性。</p>
+<h2 id="第十章-维度设计"><a href="#第十章-维度设计" class="headerlink" title="第十章 维度设计"></a>第十章 维度设计</h2><h3 id="10-1-维度设计基础"><a href="#10-1-维度设计基础" class="headerlink" title="10.1 维度设计基础"></a>10.1 维度设计基础</h3><h4 id="10-1-1-维度的基本概念"><a href="#10-1-1-维度的基本概念" class="headerlink" title="10.1.1 维度的基本概念"></a>10.1.1 维度的基本概念</h4><ul>
+<li>维度建模中，将度量称为“事实”，将环境描述为“维度”，维度是用于分析事实所需要的多样环境。例如，在分析交易过程时，可以通过买家、卖家、商品和时间等维度描述交易发生的环境。</li>
+<li>维度所包含的表示维度的列，称为维度属性。维度属性是查询约束条件、分组和报表标签生成的基本来源，是数据易用性的关键。</li>
+<li>维度使用主键标识其唯一性，主键也是确保与之相连的任何事实表 之间存在引用完整性的基础。</li>
+</ul>
+<h4 id="10-1-2-维度的基本设计方法"><a href="#10-1-2-维度的基本设计方法" class="headerlink" title="10.1.2 维度的基本设计方法"></a>10.1.2 维度的基本设计方法</h4><ol>
+<li>选择维度或新建维度。须保证维度的唯一性。</li>
+<li>确定主维表。 一般是ODS表，直接与业务系统同步。</li>
+<li>确定相关维表。确定哪些表和主维表存在关联关系，并选择其中的某些表用于生成维度属性。</li>
+<li>确定维度属性。第一阶段从主维表中选择维度属性或生成新的维度属性；第二阶段是从相关维表中选择维度属性或生成新的维度属性。</li>
+</ol>
+<p>确认维度属性的几点提示：</p>
+<ol>
+<li>尽可能生成丰富的维度属性</li>
+<li>尽可能多地给出包括一些富有意义的文字性描述</li>
+<li>区分数值型属性和事实</li>
+</ol>
+<ul>
+<li>如果通常用于查询约束条件或分组统计，则是作为维度属性；如果通常 用于参与度量的计算，则是作为事实。比如商品价格，可以用于查询约 束条件或统计价格区间的商品数量，此时是作为维度属性使用的；也可 以用于统计某类目下商品的平均价格，此时是作为事实使用的。另外， 如果数值型字段是离散值，则作为维度属性存在的可能性较大；如果数 值型宇段是连续值，则作为度量存在的可能性较大，但并不绝对，需要 同时参考宇段的具体用途。</li>
+</ul>
+<ol start="4">
+<li>尽量沉淀出通用的维度属性</li>
+</ol>
 
       
 
@@ -1566,7 +1727,7 @@
 
 <img src="Snipaste_2023-12-08_14-15-17.png" alt="Snipaste_2023-12-08_14-15-17" style="zoom: 33%;">
 
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 步骤<span class="number">2</span>：对单量进行区间分组</span><br><span class="line"><span class="keyword">select</span> `客户id`,`单量`,</span><br><span class="line">       (</span><br><span class="line">           <span class="keyword">case</span> <span class="keyword">when</span> `单量` <span class="operator">&lt;=</span> <span class="number">5</span> <span class="keyword">then</span> <span class="string">&#x27;0-5&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> `单量` <span class="operator">&gt;=</span> <span class="number">6</span> <span class="keyword">and</span> `单量` <span class="operator">&lt;=</span> <span class="number">20</span> <span class="keyword">then</span> <span class="string">&#x27;11-20&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> `单量` <span class="operator">&gt;=</span> <span class="number">11</span> <span class="keyword">and</span> `单量` <span class="operator">&lt;=</span> <span class="number">20</span> <span class="keyword">then</span> <span class="string">&#x27;11-20&#x27;</span></span><br><span class="line">           <span class="keyword">else</span> <span class="string">&#x27;20以上&#x27;</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">           ) `单量区间`</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> `客户id`,</span><br><span class="line">             <span class="built_in">count</span>(<span class="keyword">distinct</span> `运单号`) `单量`</span><br><span class="line">      <span class="keyword">from</span> `<span class="number">4</span>_6`</span><br><span class="line">      <span class="keyword">where</span> <span class="keyword">month</span>(`创建时间`) <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> `客户id`) t1;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 步骤<span class="number">2</span>：对单量进行区间分组</span><br><span class="line"># <span class="keyword">case</span> when...then...end ,首先注意就是<span class="keyword">end</span>不要忘写，整个语句结束之后要给该字段起一个名称</span><br><span class="line"><span class="keyword">select</span> `客户id`,`单量`,</span><br><span class="line">       (</span><br><span class="line">           <span class="keyword">case</span> <span class="keyword">when</span> `单量` <span class="operator">&lt;=</span> <span class="number">5</span> <span class="keyword">then</span> <span class="string">&#x27;0-5&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> `单量` <span class="operator">&gt;=</span> <span class="number">6</span> <span class="keyword">and</span> `单量` <span class="operator">&lt;=</span> <span class="number">20</span> <span class="keyword">then</span> <span class="string">&#x27;11-20&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> `单量` <span class="operator">&gt;=</span> <span class="number">11</span> <span class="keyword">and</span> `单量` <span class="operator">&lt;=</span> <span class="number">20</span> <span class="keyword">then</span> <span class="string">&#x27;11-20&#x27;</span></span><br><span class="line">           <span class="keyword">else</span> <span class="string">&#x27;20以上&#x27;</span></span><br><span class="line">           <span class="keyword">end</span></span><br><span class="line">           ) `单量区间`</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> `客户id`,</span><br><span class="line">             <span class="built_in">count</span>(<span class="keyword">distinct</span> `运单号`) `单量`</span><br><span class="line">      <span class="keyword">from</span> `<span class="number">4</span>_6`</span><br><span class="line">      <span class="keyword">where</span> <span class="keyword">month</span>(`创建时间`) <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">      <span class="keyword">group</span> <span class="keyword">by</span> `客户id`) t1;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_14-26-45.png" alt="Snipaste_2023-12-08_14-26-45" style="zoom:33%;">
 
@@ -1659,6 +1820,18 @@
 
 <img src="Snipaste_2023-12-08_20-15-09.png" alt="Snipaste_2023-12-08_20-15-09" style="zoom:33%;">
 
+<hr>
+<p><strong>牛客SQL217</strong> <strong>对所有员工的薪水按照salary降序进行1-N的排名</strong></p>
+<p>有一个薪水表salaries简况如下:</p>
+<img src="Snipaste_2023-12-20_21-30-56.png" alt="Snipaste_2023-12-20_21-30-56" style="zoom: 50%;">
+
+<p>对所有员工的薪水按照salary降序先进行1-N的排名，如果salary相同，再按照emp_no升序排列：</p>
+<img src="Snipaste_2023-12-20_21-31-27.png" alt="Snipaste_2023-12-20_21-31-27" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 本题注意点是t_rank是确定的，在窗口中不能写两个排序字段，</span><br><span class="line"># 在窗口中排序后，要再将继续排序的字段写在外面</span><br><span class="line"><span class="keyword">select</span> emp_no,</span><br><span class="line">       salary,</span><br><span class="line">       <span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) t_rank</span><br><span class="line"><span class="keyword">from</span> salaries</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t_rank, emp_no;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="9-⭐TopN问题"><a href="#9-⭐TopN问题" class="headerlink" title="9. ⭐TopN问题"></a>9. ⭐TopN问题</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 万能模板</span><br><span class="line"><span class="keyword">select</span><span class="operator">*</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">          <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要分组的列名<span class="operator">&gt;</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>要排序的列名<span class="operator">&gt;</span>) <span class="keyword">as</span> rn</span><br><span class="line">    <span class="keyword">from</span> 表名;</span><br><span class="line">) t1</span><br><span class="line"><span class="keyword">where</span> rn <span class="operator">&lt;=</span> N</span><br></pre></td></tr></table></figure>
 
 <p>emp1表，求出每个部门工资最高的前三名员工，并计算这些员工的工资占所属部门总工资的百分比。</p>
@@ -1723,6 +1896,38 @@
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--或者直接一步到位用percent_rank()函数</span><br><span class="line">select goods_type,</span><br><span class="line">       goods_name,</span><br><span class="line">       price,</span><br><span class="line">       rn,</span><br><span class="line">       case</span><br><span class="line">            when rn &lt; 0.3 then &#x27;低档&#x27;</span><br><span class="line">            when rn &gt;= 0.3 and rn &lt; 0.85 then &#x27;中档&#x27;</span><br><span class="line">            when rn &gt;= 0.85 then &#x27;高档&#x27;</span><br><span class="line">       end `等级`</span><br><span class="line">from (</span><br><span class="line">         select *,</span><br><span class="line">                percent_rank() over (partition by goods_type order by price) rn</span><br><span class="line">         from goods</span><br><span class="line">     ) t1;</span><br></pre></td></tr></table></figure>
 
+<hr>
+<p><strong>牛客SQL281</strong> <strong>最差是第几名(一)</strong></p>
+<p>现在有班级成绩表(class_grade)如下:</p>
+<img src="Snipaste_2023-12-20_21-34-44.png" alt="Snipaste_2023-12-20_21-34-44" style="zoom:50%;">
+
+<p>第1行表示成绩为A的学生有2个</p>
+<p>…….</p>
+<p>最后1行表示成绩为B的学生有2个</p>
+<p>请你写出一个SQL查询，如果一个学生知道了自己综合成绩以后，最差是排第几名? 结果按照grade升序排序，以上例子查询如下:</p>
+<img src="Snipaste_2023-12-20_21-35-14.png" alt="Snipaste_2023-12-20_21-35-14" style="zoom:50%;">
+
+<p>实际上就是一个窗口函数按窗口范围累加的问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> grade, </span><br><span class="line"><span class="built_in">sum</span>(number) <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> grade <span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span>)<span class="keyword">as</span> t_rank</span><br><span class="line"><span class="keyword">from</span> class_grade;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>牛客SQL267</strong> <strong>考试分数(二)</strong></p>
+<p>依旧是窗口函数窗口范围的问题，一般都会写order by col，窗口范围就是按照字段col的值的第一行到当前值的行</p>
+<p>牛客每次考试完，都会有一个成绩表(grade)，如下:</p>
+<img src="Snipaste_2023-12-20_21-47-37.png" alt="Snipaste_2023-12-20_21-47-37" style="zoom: 50%;">
+
+<p>请你写一个sql语句查询用户分数大于其所在工作(job)分数的平均分的所有grade的属性，并且以id的升序排序，如下:</p>
+<img src="Snipaste_2023-12-20_21-48-12.png" alt="Snipaste_2023-12-20_21-48-12" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id,</span><br><span class="line">       job,</span><br><span class="line">       score</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> id,</span><br><span class="line">       job,</span><br><span class="line">       score,</span><br><span class="line">       <span class="built_in">avg</span>(score) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> job <span class="keyword">order</span> <span class="keyword">by</span> job) avg_score # 注意此处的写法</span><br><span class="line">    <span class="keyword">from</span> grade</span><br><span class="line">) t1 </span><br><span class="line"><span class="keyword">where</span> score <span class="operator">&gt;</span> avg_score</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>牛客SQL248</strong> <strong>平均工资</strong></p>
+<p>查找排除在职(to_date &#x3D; ‘9999-01-01’ )员工的最大、最小salary之后，其他的在职员工的平均工资avg_salary。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">avg</span>(salary)</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">       <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary) r1,</span><br><span class="line">       <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) r2</span><br><span class="line">    <span class="keyword">from</span> salaries</span><br><span class="line">    <span class="keyword">where</span> to_date <span class="operator">=</span> <span class="string">&#x27;9999-01-01&#x27;</span></span><br><span class="line">) t1</span><br><span class="line"><span class="keyword">where</span> t1.r1 <span class="operator">&lt;&gt;</span> <span class="number">1</span> <span class="keyword">and</span> t1.r2 <span class="operator">&lt;&gt;</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="11-连续问题"><a href="#11-连续问题" class="headerlink" title="11. 连续问题"></a>11. 连续问题</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-- 模板</span><br><span class="line">select distinct 列</span><br><span class="line">from (</span><br><span class="line">         select 列,</span><br><span class="line">                lead(列, 1) over (partition by 分组的列 order by 排序的列) 列1, </span><br><span class="line">                lead(列, 2) over (partition by 分组的列 order by 排序的列) 列2,</span><br><span class="line">    		   ...</span><br><span class="line">    		   lead(列, n-1) over (partition by 分组的列 order by 排序的列) 列n-1</span><br><span class="line">         from 表名</span><br><span class="line">     ) t1</span><br><span class="line">where (列 = 列1 and ... and 列 = 列n-1);</span><br></pre></td></tr></table></figure>
 
 <p>查找所有至少’连续’出现三次的数字：</p>
@@ -1742,6 +1947,21 @@
 
 <h2 id="12-日期和时间函数"><a href="#12-日期和时间函数" class="headerlink" title="12. 日期和时间函数"></a>12. 日期和时间函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--当前日期</span><br><span class="line">current_date</span><br><span class="line">--当前时间</span><br><span class="line">current_timestamp</span><br><span class="line">--获取年，月，日</span><br><span class="line">year(),month(),day()</span><br><span class="line">--两个日期相差天数</span><br><span class="line">datediff(&#x27;2023-08-08&#x27;,&#x27;2023-04-04&#x27;)</span><br><span class="line">--日期加天数</span><br><span class="line">date_add(&quot;2023-04-18&quot;,100)</span><br><span class="line">--日期减天数</span><br><span class="line">date_sub(&quot;2023-04-18&quot;,100)</span><br><span class="line">--日期格式化</span><br><span class="line">date_format(&#x27;xxx&#x27;,&#x27;%Y-%m-%d&#x27;)</span><br></pre></td></tr></table></figure>
 
+<hr>
+<p><strong>SQL187</strong> <strong>牛客直播各科目平均观看时长</strong></p>
+<img src="Snipaste_2023-12-20_22-16-19.png" alt="Snipaste_2023-12-20_22-16-19" style="zoom:50%;">
+
+<img src="Snipaste_2023-12-20_22-16-40.png" alt="Snipaste_2023-12-20_22-16-40" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 主要是timestampdiff()函数的使用</span><br><span class="line"><span class="keyword">select</span> course_name,</span><br><span class="line">       round(<span class="built_in">avg</span>(timestampdiff(<span class="keyword">minute</span>,in_datetime,out_datetime)),<span class="number">2</span>) avg_len</span><br><span class="line"><span class="keyword">from</span> attend_tb a <span class="keyword">left</span> <span class="keyword">join</span> course_tb b</span><br><span class="line"><span class="keyword">on</span> a.course_id <span class="operator">=</span> b.course_id</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> course_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> avg_len <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>SQL186</strong> <strong>牛客直播开始时各直播间在线人数</strong></p>
+<p>表还是上面的两张表</p>
+<img src="Snipaste_2023-12-20_22-19-41.png" alt="Snipaste_2023-12-20_22-19-41" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.course_id,</span><br><span class="line">       course_name,</span><br><span class="line">       <span class="built_in">count</span>(<span class="keyword">distinct</span> user_id) online_num</span><br><span class="line"><span class="keyword">from</span> attend_tb a <span class="keyword">left</span> <span class="keyword">join</span> course_tb b </span><br><span class="line"><span class="keyword">on</span> a.course_id <span class="operator">=</span> b.course_id</span><br><span class="line"><span class="keyword">where</span> <span class="type">time</span>(in_datetime) <span class="operator">&lt;=</span> <span class="string">&#x27;19:00:00&#x27;</span> <span class="keyword">and</span> <span class="type">time</span>(out_datetime) <span class="operator">&gt;=</span> <span class="string">&#x27;19:00:00&#x27;</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a.course_id,course_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.course_id</span><br></pre></td></tr></table></figure>
+
 <h2 id="13-⭐连续N天登录"><a href="#13-⭐连续N天登录" class="headerlink" title="13. ⭐连续N天登录"></a>13. ⭐连续N天登录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 思路（通法）：按照分组进行组内排序，将每个用户的登录日期减去自己的对应排序得到date2，统计相同的用户且相同的date2的个数，</span><br><span class="line">--找出相同个数大于等于3的，即为连续三天登录</span><br><span class="line">--公式：</span><br><span class="line">-- distinct</span><br><span class="line">-- row_number</span><br><span class="line">-- date_sub(dt,rn) as dt2</span><br><span class="line">-- group by dt2,name</span><br><span class="line">-- having count(*)&gt;=N天</span><br><span class="line">-- distinct name</span><br><span class="line">-- count(name)</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_20-08-01.png" alt="Snipaste_2023-12-08_20-08-01" style="zoom:33%;">
@@ -1757,6 +1977,30 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">with t1 as (select distinct d, uid from dau),</span><br><span class="line">     t2 as (select *,</span><br><span class="line">                   row_number() over (partition by uid order by d) rn</span><br><span class="line">            from t1</span><br><span class="line">            where d &lt;= `current_date`()</span><br><span class="line">              and d &gt;= date_sub(`current_date`(), 30)), --限定时间：过去一个月内</span><br><span class="line">     t3 as (select *,</span><br><span class="line">                   date_sub(d, rn) d2</span><br><span class="line">            from t2),</span><br><span class="line">     t4 as (select uid, d2</span><br><span class="line">            from t3</span><br><span class="line">            group by uid, d2</span><br><span class="line">            having count(*) &gt;= 2)</span><br><span class="line">select distinct uid</span><br><span class="line">from t4;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_20-20-46.png" alt="Snipaste_2023-12-08_20-20-46" style="zoom:33%;">
+
+<hr>
+<p><strong>牛客SQL194</strong> <strong>某乎问答最大连续回答问题天数大于等于3天的用户及其对应等级</strong></p>
+<p>现有某乎问答创作者信息表author_tb如下(其中author_id表示创作者编号、author_level表示创作者级别，共1-6六个级别、sex表示创作者性别)：</p>
+<img src="Snipaste_2023-12-20_16-51-53.png" alt="Snipaste_2023-12-20_16-51-53" style="zoom:33%;">
+
+<p>创作者回答情况表answer_tb如下（其中answer_date表示创作日期、author_id指创作者编号、issue_id指回答问题编号、char_len表示回答字数）：</p>
+<img src="Snipaste_2023-12-20_16-52-20.png" alt="Snipaste_2023-12-20_16-52-20" style="zoom:33%;">
+
+<p>请你统计最大连续回答问题的天数大于等于3天的用户及其等级（若有多条符合条件的数据，按author_id升序排序）</p>
+<img src="Snipaste_2023-12-20_17-26-34.png" alt="Snipaste_2023-12-20_17-26-34" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t4.author_id,</span><br><span class="line">       author_level,</span><br><span class="line">       day_cnt</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">         <span class="keyword">select</span> author_id,</span><br><span class="line">                date2,</span><br><span class="line">                <span class="built_in">count</span>(<span class="operator">*</span>) day_cnt</span><br><span class="line">         <span class="keyword">from</span> (</span><br><span class="line">                  <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">                         date_sub(answer_date, <span class="type">INTERVAL</span> rk <span class="keyword">day</span>) date2 # 这里和Hive不一样，这是Mysql的语法要求</span><br><span class="line">                  <span class="keyword">from</span> (</span><br><span class="line">                           <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">                                  <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> author_id <span class="keyword">order</span> <span class="keyword">by</span> answer_date) rk</span><br><span class="line">                           <span class="keyword">from</span> (</span><br><span class="line">                                    <span class="keyword">select</span> <span class="keyword">distinct</span> author_id, answer_date</span><br><span class="line">                                    <span class="keyword">from</span> answer_tb</span><br><span class="line">                                ) t1</span><br><span class="line">                       ) t2</span><br><span class="line">              ) t3</span><br><span class="line">         <span class="keyword">group</span> <span class="keyword">by</span> author_id, date2</span><br><span class="line">         <span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">&gt;=</span> <span class="number">3</span></span><br><span class="line">     ) t4 <span class="keyword">join</span> author_tb t5 <span class="keyword">on</span> t4.author_id <span class="operator">=</span> t5.author_id;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>牛客SQL184</strong> <strong>某宝店铺连续2天及以上购物的用户及其对应的天数</strong></p>
+<p>11月结束后，小牛同学需要对其在某宝的网店就11月份用户交易情况和产品情况进行分析以更好的经营小店。</p>
+<p>11月份销售数据表sales_tb如下（其中，sales_date表示销售日期，user_id指用户编号，item_id指货号，sales_num表示销售数量，sales_price表示结算金额）：</p>
+<img src="Snipaste_2023-12-20_17-24-37.png" alt="Snipaste_2023-12-20_17-24-37" style="zoom:33%;">
+
+<p>请你统计连续2天及以上在该店铺购物的用户及其对应的次数（若有多个用户，按user_id升序排序）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> t1 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="keyword">distinct</span> user_id,sales_date <span class="keyword">from</span> sales_tb),</span><br><span class="line">     t2 <span class="keyword">as</span> (</span><br><span class="line">        <span class="keyword">select</span> <span class="operator">*</span>,</span><br><span class="line">               <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> sales_date) rk</span><br><span class="line">        <span class="keyword">from</span> t1</span><br><span class="line">     ),</span><br><span class="line">     t3 <span class="keyword">as</span> (<span class="keyword">select</span> <span class="operator">*</span>,date_sub(sales_date,<span class="type">INTERVAL</span> rk <span class="keyword">day</span>) date2 <span class="keyword">from</span> t2),</span><br><span class="line">     t4 <span class="keyword">as</span> (</span><br><span class="line">        <span class="keyword">select</span> user_id,date2,<span class="built_in">count</span>(<span class="operator">*</span>) days_count</span><br><span class="line">        <span class="keyword">from</span> t3</span><br><span class="line">        <span class="keyword">group</span> <span class="keyword">by</span> user_id,date2</span><br><span class="line">        <span class="keyword">having</span> days_count <span class="operator">&gt;=</span> <span class="number">2</span></span><br><span class="line">     )</span><br><span class="line"><span class="keyword">select</span> user_id,days_count <span class="keyword">from</span> t4;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_17-25-31.png" alt="Snipaste_2023-12-20_17-25-31" style="zoom:33%;">
 
 <h2 id="14-⭐N日存留率"><a href="#14-⭐N日存留率" class="headerlink" title="14. ⭐N日存留率"></a>14. ⭐N日存留率</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--方案1：公式</span><br><span class="line">-- -&gt; where 日期 in (首日,1天后,7天后)</span><br><span class="line">-- -&gt; group by 用户</span><br><span class="line">-- -&gt;sum(if(日期=首日,1,0))  as cnt</span><br><span class="line">--   sum(if(日期=1天后,1,0)) as cnt2</span><br><span class="line">--   sum(if(日期=7天后,1,0)) as cnt8</span><br><span class="line">-- -&gt;having cnt&gt;0</span><br><span class="line">-- -&gt;sum(cnt) as 首日总数</span><br><span class="line">--   sum(cnt2) as 次日留存数</span><br><span class="line">--   sum(cnt8) as 7日留存数</span><br><span class="line">-- -&gt;sum(cnt2)/sum(cnt) as 次日留存率</span><br><span class="line">--   sum(cnt8)/sum(cnt) as 7日留存率</span><br><span class="line"></span><br><span class="line">--方案2：三个表left join，分别（首日登录用户id）left join （此日登录用户id）left join （7日后登录用户id）</span><br></pre></td></tr></table></figure>
 
@@ -1782,6 +2026,85 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select sum(cnt_4_2) / sum(cnt_4_1) `次日留存率`,</span><br><span class="line">       sum(cnt_4_8) / sum(cnt_4_1) `7日留存率`</span><br><span class="line">from (</span><br><span class="line">         select cuid,</span><br><span class="line">                sum(`if`(event_day = &#x27;2020-04-01&#x27;, 1, 0)) cnt_4_1,</span><br><span class="line">                sum(`if`(event_day = &#x27;2020-04-02&#x27;, 1, 0)) cnt_4_2,</span><br><span class="line">                sum(`if`(event_day = &#x27;2020-04-08&#x27;, 1, 0)) cnt_4_8</span><br><span class="line">         from tb_cuid_1d</span><br><span class="line">         where event_day in (&#x27;2020-04-01&#x27;, &#x27;2020-04-02&#x27;, &#x27;2020-04-08&#x27;)</span><br><span class="line">         group by cuid</span><br><span class="line">         having cnt_4_1 &gt; 0</span><br><span class="line">     ) t1;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-12-08_20-31-50.png" alt="Snipaste_2023-12-08_20-31-50" style="zoom:33%;">
+
+<hr>
+<p><strong>SQL263</strong> <strong>牛客每个人最近的登录日期(四)（查询每天登录的新用户的个数）</strong></p>
+<img src="Snipaste_2023-12-21_11-19-08.png" alt="Snipaste_2023-12-21_11-19-08" style="zoom: 50%;">
+
+<img src="Snipaste_2023-12-21_11-19-41.png" alt="Snipaste_2023-12-21_11-19-41" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="type">date</span>,</span><br><span class="line">       <span class="built_in">sum</span>(if(<span class="type">date</span><span class="operator">=</span>new_date,<span class="number">1</span>,<span class="number">0</span>)) <span class="keyword">new</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> user_id,</span><br><span class="line">           <span class="type">date</span>,</span><br><span class="line">           <span class="built_in">min</span>(<span class="type">date</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>) new_date</span><br><span class="line">    <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">distinct</span> user_id,<span class="type">date</span> <span class="keyword">from</span> login)t1</span><br><span class="line">) t2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="type">date</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>牛客SQL164</strong> <strong>2021年11月每天新用户的次日留存率（新用户）</strong></p>
+<p>用户行为日志表tb_user_log，（uid-用户ID, artical_id-文章ID, in_time-进入时间, out_time-离开时间, sign_in-是否签到）</p>
+<p><strong>问题</strong>：统计2021年11月每天新用户的次日留存率（保留2位小数）</p>
+<p><strong>注</strong>：</p>
+<ul>
+<li>次日留存率为当天新增的用户数中第二天又活跃了的用户数占比。</li>
+<li>如果<strong>in_time-进入时间</strong>和<strong>out_time-离开时间</strong>跨天了，在两天里都记为该用户活跃过，结果按日期升序。</li>
+</ul>
+<p><img src="Snipaste_2023-12-20_10-54-16.png" alt="Snipaste_2023-12-20_10-54-16"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 本题难点是，如果in_time<span class="operator">-</span>进入时间和out_time<span class="operator">-</span>离开时间跨天了，在两天里都记为该用户活跃过，</span><br><span class="line"># 这里可以理解为把out_time也算作是活跃日</span><br><span class="line"># 第一步：用<span class="keyword">union</span>把in_time和out_time并联起来，对uid和<span class="type">date</span>去重活获得一张用户活跃表</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(in_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(out_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_10-59-21.png" alt="Snipaste_2023-12-20_10-59-21" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 第二步：找出次活日期和首次登录日期，并判断新用户和次留新用户。</span><br><span class="line"><span class="keyword">SELECT</span> uid,dt,</span><br><span class="line">   <span class="built_in">MIN</span>(dt) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) <span class="keyword">AS</span> new_dt,</span><br><span class="line">    <span class="built_in">LEAD</span>(dt,<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">ORDER</span> <span class="keyword">BY</span> dt) <span class="keyword">AS</span> next_dt</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span>(</span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(in_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">   <span class="keyword">UNION</span></span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(out_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">)act_table;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_11-01-48.png" alt="Snipaste_2023-12-20_11-01-48" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 第三步：如果dt<span class="operator">=</span>new_dt那这个用户为新用户，如果dt<span class="operator">=</span>new_dt且next_dt和new_dt的日期差为<span class="number">1</span>则这个用户为次留新用户</span><br><span class="line"><span class="keyword">WITH</span> t1 <span class="keyword">AS</span>(</span><br><span class="line"><span class="keyword">SELECT</span> uid,dt,</span><br><span class="line">   <span class="built_in">MIN</span>(dt) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) <span class="keyword">AS</span> new_dt,</span><br><span class="line">    <span class="built_in">LEAD</span>(dt,<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">ORDER</span> <span class="keyword">BY</span> dt) <span class="keyword">AS</span> next_dt</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span>(</span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(in_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">   <span class="keyword">UNION</span></span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(out_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">    ) act_table</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> dt,</span><br><span class="line">   <span class="keyword">CASE</span> <span class="keyword">WHEN</span> dt<span class="operator">=</span>new_dt <span class="keyword">AND</span> datediff(next_dt,dt)<span class="operator">=</span><span class="number">1</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> is_next_day,</span><br><span class="line">    <span class="keyword">CASE</span> <span class="keyword">WHEN</span> dt<span class="operator">=</span>new_dt <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span> is_new_day</span><br><span class="line"><span class="keyword">FROM</span> t1;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_11-03-09.png" alt="Snipaste_2023-12-20_11-03-09" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 计算新用户次留率</span><br><span class="line"><span class="keyword">WITH</span> t1 <span class="keyword">AS</span>(</span><br><span class="line"><span class="keyword">SELECT</span> uid,dt,</span><br><span class="line">   <span class="built_in">MIN</span>(dt) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) <span class="keyword">AS</span> new_dt,</span><br><span class="line">    <span class="built_in">LEAD</span>(dt,<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> uid <span class="keyword">ORDER</span> <span class="keyword">BY</span> dt) <span class="keyword">AS</span> next_dt</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span>(</span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(in_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">   <span class="keyword">UNION</span></span><br><span class="line">   <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> uid,<span class="type">DATE</span>(out_time) <span class="keyword">AS</span> dt <span class="keyword">FROM</span> tb_user_log</span><br><span class="line">   ) act_table</span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> dt,</span><br><span class="line">   ROUND(<span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> dt<span class="operator">=</span>new_dt <span class="keyword">AND</span> datediff(next_dt,dt)<span class="operator">=</span><span class="number">1</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>)</span><br><span class="line">         <span class="operator">/</span></span><br><span class="line">         <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> dt<span class="operator">=</span>new_dt <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>),<span class="number">2</span>) uv_left_rate</span><br><span class="line"><span class="keyword">FROM</span> t1</span><br><span class="line"><span class="keyword">WHERE</span> DATE_FORMAT(new_dt,<span class="string">&#x27;%Y%m&#x27;</span>)<span class="operator">=</span><span class="string">&#x27;202111&#x27;</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> dt</span><br><span class="line"><span class="keyword">HAVING</span> uv_left_rate <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> dt;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_11-06-07.png" alt="Snipaste_2023-12-20_11-06-07" style="zoom:33%;">
+
+<hr>
+<p><strong>牛客SQL166</strong> <strong>每天的日活数及新用户占比（和上一题很类似）</strong></p>
+<img src="Snipaste_2023-12-21_10-25-52.png" alt="Snipaste_2023-12-21_10-25-52" style="zoom: 50%;">
+
+<img src="Snipaste_2023-12-21_10-26-32.png" alt="Snipaste_2023-12-21_10-26-32" style="zoom: 50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">1</span>）老方法，先建立一张拥有基本信息的用户活跃基础表</span><br><span class="line"># 这张表要包含用户id，活跃日，成为新用户的日期。因为用户可能<span class="number">1</span>天活跃N次，所以要做去重处理。</span><br><span class="line"># 活跃日直接并联in_time和out_time</span><br><span class="line"># 成为新用户日期，用窗口函数来取：<span class="built_in">MIN</span>(<span class="type">DATE</span>(in_time))<span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">order</span> <span class="keyword">by</span> dt uid)  <span class="keyword">AS</span> new_dt</span><br><span class="line"><span class="keyword">select</span> uid,</span><br><span class="line">       dt,</span><br><span class="line">       <span class="built_in">min</span>(dt) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) new_dt</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">         <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(in_time) dt</span><br><span class="line">         <span class="keyword">from</span> tb_user_log</span><br><span class="line">         <span class="keyword">union</span></span><br><span class="line">         <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(out_time) dt</span><br><span class="line">         <span class="keyword">from</span> tb_user_log</span><br><span class="line">     ) t1;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-21_10-45-23.png" alt="Snipaste_2023-12-21_10-45-23" style="zoom: 33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">2</span>）定义新用户</span><br><span class="line"># 如果dt<span class="operator">=</span>new_dt那这天就是用户首次登录成为新用户的日子啦<span class="operator">~</span></span><br><span class="line"><span class="keyword">with</span> t2 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> uid,</span><br><span class="line">           dt,</span><br><span class="line">           <span class="built_in">min</span>(dt) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) new_dt</span><br><span class="line">    <span class="keyword">from</span> (</span><br><span class="line">             <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(in_time) dt</span><br><span class="line">             <span class="keyword">from</span> tb_user_log</span><br><span class="line">             <span class="keyword">union</span></span><br><span class="line">             <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(out_time) dt</span><br><span class="line">             <span class="keyword">from</span> tb_user_log</span><br><span class="line">         ) t1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> uid,dt,if(dt <span class="operator">=</span> new_dt,<span class="number">1</span>,<span class="number">0</span>) is_new # <span class="number">1</span>为新用户，<span class="number">0</span>不是新用户</span><br><span class="line"><span class="keyword">from</span> t2;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-21_10-46-16.png" alt="Snipaste_2023-12-21_10-46-16" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">3</span>）计算新用户占比，结果按照日期升序，输出结果。</span><br><span class="line"># 日活：<span class="built_in">COUNT</span>(<span class="number">1</span>)</span><br><span class="line"># 新用户数：SUM（是否为新用户）</span><br><span class="line"># 新用户占比：ROUND(<span class="built_in">SUM</span>(新用户)<span class="operator">/</span><span class="built_in">COUNT</span>(<span class="number">1</span>),<span class="number">2</span>)</span><br><span class="line"><span class="keyword">with</span> t2 <span class="keyword">as</span> (</span><br><span class="line">    <span class="keyword">select</span> uid,</span><br><span class="line">           dt,</span><br><span class="line">           <span class="built_in">min</span>(dt) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> uid <span class="keyword">order</span> <span class="keyword">by</span> dt) new_dt</span><br><span class="line">    <span class="keyword">from</span> (</span><br><span class="line">             <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(in_time) dt</span><br><span class="line">             <span class="keyword">from</span> tb_user_log</span><br><span class="line">             <span class="keyword">union</span></span><br><span class="line">             <span class="keyword">select</span> <span class="keyword">distinct</span> uid, <span class="type">date</span>(out_time) dt</span><br><span class="line">             <span class="keyword">from</span> tb_user_log</span><br><span class="line">         ) t1</span><br><span class="line">)</span><br><span class="line"><span class="keyword">select</span> dt,</span><br><span class="line">       <span class="built_in">count</span>(<span class="operator">*</span>) dau, # 日活用户</span><br><span class="line">       round(<span class="built_in">sum</span>(if(dt <span class="operator">=</span> new_dt,<span class="number">1</span>,<span class="number">0</span>))<span class="operator">/</span><span class="built_in">count</span>(<span class="operator">*</span>),<span class="number">2</span>) uv_new_ratio  # 新用户占比</span><br><span class="line"><span class="keyword">from</span> t2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dt <span class="keyword">order</span> <span class="keyword">by</span> dt;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-21_10-46-57.png" alt="Snipaste_2023-12-21_10-46-57" style="zoom:50%;">
+
+<hr>
+<p><strong>牛客SQL262</strong> <strong>牛客每个人最近的登录日期(三)（新用户）</strong></p>
+<p>牛客每天有很多人登录，请你统计一下牛客新登录用户的次日成功的留存率，<br>有一个登录(login)记录表，简况如下:</p>
+<img src="Snipaste_2023-12-20_21-19-55.png" alt="Snipaste_2023-12-20_21-19-55" style="zoom: 50%;">
+
+<p>请你写出一个sql语句查询新登录用户次日成功的留存率，即第1天登陆之后，第2天再次登陆的概率,保存小数点后面3位(3位之后的四舍五入)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 第一步：找出次活日期和首次登录日期，并判断新用户和次留新用户。</span><br><span class="line"><span class="keyword">SELECT</span> user_id,<span class="type">date</span>,</span><br><span class="line">   <span class="built_in">MIN</span>(<span class="type">date</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> user_id) <span class="keyword">AS</span> new_dt,</span><br><span class="line">   <span class="built_in">LEAD</span>(<span class="type">date</span>,<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> user_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">date</span>) <span class="keyword">AS</span> next_dt</span><br><span class="line"><span class="keyword">FROM</span> login</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_21-22-17.png" alt="Snipaste_2023-12-20_21-22-17" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 第二步：如果dt<span class="operator">=</span>new_dt那这个用户为新用户，如果dt<span class="operator">=</span>new_dt且next_dt和new_dt的日期差为<span class="number">1</span>则这个用户为次留新用户</span><br><span class="line"><span class="keyword">WITH</span> t1 <span class="keyword">AS</span>(</span><br><span class="line"><span class="keyword">SELECT</span> user_id,<span class="type">date</span>,</span><br><span class="line">   <span class="built_in">MIN</span>(<span class="type">date</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> user_id) <span class="keyword">AS</span> new_dt,</span><br><span class="line">    <span class="built_in">LEAD</span>(<span class="type">date</span>,<span class="number">1</span>) <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> user_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="type">date</span>) <span class="keyword">AS</span> next_dt</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> login</span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span> ROUND(<span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="type">date</span><span class="operator">=</span>new_dt <span class="keyword">AND</span> datediff(next_dt,<span class="type">date</span>)<span class="operator">=</span><span class="number">1</span> <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>)</span><br><span class="line">         <span class="operator">/</span></span><br><span class="line">         <span class="built_in">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="type">date</span><span class="operator">=</span>new_dt <span class="keyword">THEN</span> <span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>),<span class="number">3</span>) p</span><br><span class="line"><span class="keyword">FROM</span> t1;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_21-24-23.png" alt="Snipaste_2023-12-20_21-24-23" style="zoom:33%;">
+
+<hr>
+<p><strong>牛客SQL29</strong> <strong>计算用户的平均次日留存率</strong></p>
+<p>题目：现在运营想要查看用户在某天刷题后第二天还会再来刷题的平均概率。请你取出相应数据</p>
+<img src="Snipaste_2023-12-20_11-15-40.png" alt="Snipaste_2023-12-20_11-15-40" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 步骤<span class="number">1</span>：首先查询一下所有用户每天登录情况，用<span class="keyword">distinct</span>是为了防止有用户同一天登录多次，这对我们没有用，我们只考虑某天登录后第二天仍登录的情况</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> device_id,<span class="type">date</span></span><br><span class="line"><span class="keyword">from</span> question_practice_detail;</span><br><span class="line"># 步骤<span class="number">2</span>：使用<span class="built_in">lead</span>()窗口函数，将同一用户连续两天的记录拼接起来</span><br><span class="line"><span class="keyword">select</span> device_id,</span><br><span class="line">       <span class="type">date</span>,</span><br><span class="line">       <span class="built_in">lead</span>(<span class="type">date</span>) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> device_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>) <span class="keyword">as</span> date2</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">distinct</span> device_id,<span class="type">date</span></span><br><span class="line">    <span class="keyword">from</span> question_practice_detail</span><br><span class="line">) t1;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_11-17-24.png" alt="Snipaste_2023-12-20_11-17-24" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 步骤<span class="number">3</span>：检查date2和date1的日期差是不是为<span class="number">1</span>，是则为<span class="number">1</span>（次日留存了），否则为<span class="number">0</span>（次日未留存），取avg即可得平均概率。</span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="built_in">avg</span>(if (datediff (date2, <span class="type">date</span>) <span class="operator">=</span> <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)) <span class="keyword">as</span> avg_ret</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span></span><br><span class="line">            device_id,</span><br><span class="line">            <span class="type">date</span>,</span><br><span class="line">            <span class="built_in">lead</span> (<span class="type">date</span>) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> device_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>) <span class="keyword">as</span> date2</span><br><span class="line">        <span class="keyword">from</span></span><br><span class="line">            (</span><br><span class="line">                <span class="keyword">select</span> <span class="keyword">distinct</span> device_id,<span class="type">date</span></span><br><span class="line">                <span class="keyword">from</span> question_practice_detail</span><br><span class="line">            ) t1</span><br><span class="line">    ) t2;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_11-18-02.png" alt="Snipaste_2023-12-20_11-18-02" style="zoom:33%;">
 
 <h2 id="15-爆炸函数"><a href="#15-爆炸函数" class="headerlink" title="15. 爆炸函数"></a>15. 爆炸函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 公式：用【lateral view】+【explode】将大字段拆解成小字段：</span><br><span class="line">--  select  主表名.旧字段,视图名.新字段 from 主表名 lateral view explode(数组字段) 视图名 as 新字段名</span><br></pre></td></tr></table></figure>
 
@@ -1815,6 +2138,59 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select cate, count(*)</span><br><span class="line">from (</span><br><span class="line">         select movie, cate</span><br><span class="line">         from (</span><br><span class="line">                  select movie, split(category, &#x27;,&#x27;) cates</span><br><span class="line">                  from movie_info</span><br><span class="line">              ) t1 lateral view explode(cates) tmp as cate</span><br><span class="line">     ) t2</span><br><span class="line">group by cate;</span><br></pre></td></tr></table></figure>
 
 <img src="111112paste_2023-10-18_16-24-10.png" alt="111112paste_2023-10-18_16-24-10" style="zoom:50%;">
+
+<hr>
+<p>爆炸函数补充1：</p>
+<img src="微信图片_20231221100120.png" alt="微信图片_20231221100120" style="zoom:50%;">
+
+<img src="微信图片_20231221100133.png" alt="微信图片_20231221100133" style="zoom:50%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select label,</span><br><span class="line">       sum(show) show,</span><br><span class="line">       sum(click) click</span><br><span class="line">from (</span><br><span class="line">         select a.label,</span><br><span class="line">                show,</span><br><span class="line">                click</span><br><span class="line">         from zhalie1 lateral view explode(labels) a as label</span><br><span class="line">     ) t1</span><br><span class="line">group by label;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>爆炸函数补充2：</p>
+<img src="微信图片_20231221100346.png" alt="微信图片_20231221100346" style="zoom: 33%;">
+
+<img src="微信图片_20231221100349.png" alt="微信图片_20231221100349" style="zoom: 33%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select user_id,</span><br><span class="line">       avg(pr_explode) price</span><br><span class="line">from (</span><br><span class="line">         select user_id,</span><br><span class="line">                tmp.pr_explode</span><br><span class="line">         from (</span><br><span class="line">                  select user_id,</span><br><span class="line">                         split(price_list, &#x27;,&#x27;) pr</span><br><span class="line">                  from zhalie2</span><br><span class="line">              ) t1 lateral view explode(pr) tmp as pr_explode</span><br><span class="line">     ) t2</span><br><span class="line">group by user_id;</span><br></pre></td></tr></table></figure>
+
+<h2 id="16-⭐同一时刻最大在线人数问题（套路模板）"><a href="#16-⭐同一时刻最大在线人数问题（套路模板）" class="headerlink" title="16. ⭐同一时刻最大在线人数问题（套路模板）"></a>16. ⭐同一时刻最大在线人数问题（套路模板）</h2><p><strong>SQL163</strong> <strong>每篇文章同一时刻最大在看人数</strong></p>
+<img src="Snipaste_2023-12-20_22-22-10.png" alt="Snipaste_2023-12-20_22-22-10" style="zoom:50%;">
+
+<img src="Snipaste_2023-12-20_22-22-30.png" alt="Snipaste_2023-12-20_22-22-30" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># ①将用户的进入时间单独拎出来，同时记为<span class="number">1</span>；离开时间单独拎出来，同时记为<span class="number">-1</span>，这样就聚合这两个表，按照时间排序，意思就是：进去一个加<span class="number">1</span>，离开一个减<span class="number">1</span>。</span><br><span class="line"><span class="keyword">select</span> artical_id, in_time dt, <span class="number">1</span> num</span><br><span class="line"><span class="keyword">from</span> tb_user_log</span><br><span class="line"><span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> artical_id, out_time dt, <span class="number">-1</span> num</span><br><span class="line"><span class="keyword">from</span> tb_user_log</span><br><span class="line"><span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_22-31-12.png" alt="Snipaste_2023-12-20_22-31-12" style="zoom: 33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># ②然后利用窗口函数对计数（<span class="number">1</span>或者<span class="number">-1</span>）求累计和，因为题目规定：同一时间有就有出的话先算进来的后算出去的，所以排序的时候就要看好了先按时间排序，再按计数排序！</span><br><span class="line"><span class="keyword">select</span> artical_id,</span><br><span class="line">       <span class="built_in">sum</span>(num) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> artical_id <span class="keyword">order</span> <span class="keyword">by</span> dt <span class="keyword">asc</span>,num <span class="keyword">desc</span>) <span class="keyword">as</span> cnt</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> artical_id, in_time dt, <span class="number">1</span> num</span><br><span class="line">      <span class="keyword">from</span> tb_user_log</span><br><span class="line">      <span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span></span><br><span class="line">      <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">      <span class="keyword">select</span> artical_id, out_time dt, <span class="number">-1</span> num</span><br><span class="line">      <span class="keyword">from</span> tb_user_log</span><br><span class="line">      <span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span></span><br><span class="line">     ) <span class="keyword">as</span> a</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2023-12-20_22-33-20.png" alt="Snipaste_2023-12-20_22-33-20" style="zoom:33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># ③然后再在每个分组里面去求最大的累积和就是最多同时在线的人数了！</span><br><span class="line"><span class="keyword">select</span> artical_id, <span class="built_in">max</span>(cnt) max_uv</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> artical_id,</span><br><span class="line">             <span class="built_in">sum</span>(num) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> artical_id <span class="keyword">order</span> <span class="keyword">by</span> dt <span class="keyword">asc</span>,num <span class="keyword">desc</span>) <span class="keyword">as</span> cnt</span><br><span class="line">      <span class="keyword">from</span> (<span class="keyword">select</span> artical_id, in_time dt, <span class="number">1</span> num</span><br><span class="line">            <span class="keyword">from</span> tb_user_log</span><br><span class="line">            <span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">            <span class="keyword">select</span> artical_id, out_time dt, <span class="number">-1</span> num</span><br><span class="line">            <span class="keyword">from</span> tb_user_log</span><br><span class="line">            <span class="keyword">where</span> artical_id <span class="operator">!=</span> <span class="number">0</span>) <span class="keyword">as</span> a</span><br><span class="line">    ) <span class="keyword">as</span> b</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> artical_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> max_uv <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>SQL189</strong> <strong>牛客直播各科目同时在线人数</strong></p>
+<p><img src="Snipaste_2023-12-20_22-36-05.png" alt="Snipaste_2023-12-20_22-36-05"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> course_id,course_name,<span class="built_in">max</span>(uv_cnt)max_num</span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">   <span class="keyword">select</span> t1.course_id,course_name,<span class="built_in">sum</span>(uv) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> t1.course_id <span class="keyword">order</span> <span class="keyword">by</span> dt,uv <span class="keyword">desc</span> ) uv_cnt</span><br><span class="line">   <span class="keyword">from</span> (<span class="keyword">select</span> course_id,user_id,in_datetime dt,<span class="number">1</span> <span class="keyword">as</span> uv <span class="keyword">from</span> attend_tb</span><br><span class="line">        <span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line">        <span class="keyword">select</span> course_id,user_id,out_datetime dt,<span class="number">-1</span> <span class="keyword">as</span> uv <span class="keyword">from</span> attend_tb</span><br><span class="line">       ) t1</span><br><span class="line">   <span class="keyword">join</span> course_tb t2 <span class="keyword">on</span> t1.course_id <span class="operator">=</span> t2.course_id</span><br><span class="line">)t3 <span class="keyword">group</span> <span class="keyword">by</span> course_id,course_name <span class="keyword">order</span> <span class="keyword">by</span> course_id;</span><br></pre></td></tr></table></figure>
+
+<h2 id="17-一些小众函数的使用"><a href="#17-一些小众函数的使用" class="headerlink" title="17. 一些小众函数的使用"></a>17. 一些小众函数的使用</h2><p><strong>牛客SQL246</strong> <strong>获取employees中的first_name</strong></p>
+<p>现有employees表如下：</p>
+<img src="Snipaste_2023-12-20_21-51-57.png" alt="Snipaste_2023-12-20_21-51-57" style="zoom:50%;">
+
+<p>请你将employees中的first_name，并按照first_name最后两个字母升序进行输出。</p>
+<p>以上示例数据的输出如下：</p>
+<img src="Snipaste_2023-12-20_21-52-25.png" alt="Snipaste_2023-12-20_21-52-25" style="zoom: 33%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> first_name</span><br><span class="line"><span class="keyword">from</span> employees</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="built_in">substring</span>(first_name, (length(first_name)<span class="number">-1</span>), <span class="number">2</span>) <span class="keyword">asc</span> # 注意：字符串函数的字符下标从<span class="number">1</span>开始，limit函数的行数索引从<span class="number">0</span>开始</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>牛客SQL245</strong> <strong>查找字符串中逗号出现的次数</strong></p>
+<img src="Snipaste_2023-12-20_21-54-59.png" alt="Snipaste_2023-12-20_21-54-59" style="zoom:50%;">
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    id,</span><br><span class="line">    length (string) <span class="operator">-</span> length (replace (string, &quot;,&quot;, &quot;&quot;))</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">    strings;</span><br></pre></td></tr></table></figure>
+
 
       
 
