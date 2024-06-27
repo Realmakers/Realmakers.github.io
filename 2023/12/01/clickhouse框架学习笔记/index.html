@@ -8,16 +8,52 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>clickhouse框架学习笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="第一章 Clickhouse入门ClickHouse 是俄罗斯的 Yandex 于 2016 年开源的列式存储数据库（DBMS），使用 C++语言编写，主要用于在线分析处理查询（OLAP），能够使用 SQL 查询实时生成分析数据报告。ck查询很快，并且不需要依赖HDFS存储，YARN资源等hadoop生态。 1.1 clickhouse的特点1.1.1 列式存储列式储存的好处： ①对于列的聚合，计">
+<meta property="og:type" content="article">
 <meta property="og:title" content="clickhouse框架学习笔记">
 <meta property="og:url" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一章 Clickhouse入门ClickHouse 是俄罗斯的 Yandex 于 2016 年开源的列式存储数据库（DBMS），使用 C++语言编写，主要用于在线分析处理查询（OLAP），能够使用 SQL 查询实时生成分析数据报告。ck查询很快，并且不需要依赖HDFS存储，YARN资源等hadoop生态。 1.1 clickhouse的特点1.1.1 列式存储列式储存的好处： ①对于列的聚合，计">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-19_15-45-15.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-19_15-51-55.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-19_22-27-08.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_10-48-25.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_10-53-32.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_10-49-03.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_10-50-15.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_11-13-00.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_11-13-00.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_11-55-53.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_14-20-32.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_15-20-34.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_15-50-31.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_15-53-01.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_16-08-47.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_16-12-09.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_16-47-44.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_17-06-54.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_17-43-12.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-21_17-47-11.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-46-29.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-12.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-38.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-57.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-12.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-38.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_21-04-48.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_20-56-57.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-22_21-13-09.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-23_14-08-48.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-23_23-37-03.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-23_23-33-47.png">
+<meta property="og:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-23_23-50-13.png">
 <meta property="article:published_time" content="2023-12-01T07:10:08.000Z">
-<meta property="article:modified_time" content="2023-12-01T07:10:36.825Z">
+<meta property="article:modified_time" content="2024-05-23T15:54:28.396Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/12/01/clickhouse%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2024-05-19_15-45-15.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -63,7 +99,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 49
+			总文章数 50
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -174,7 +210,439 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="第一章-Clickhouse入门"><a href="#第一章-Clickhouse入门" class="headerlink" title="第一章 Clickhouse入门"></a>第一章 Clickhouse入门</h1><p>ClickHouse 是俄罗斯的 Yandex 于 2016 年开源的列式存储数据库（DBMS），使用 C++语言编写，主要用于在线分析处理查询（OLAP），能够使用 SQL 查询实时生成分析数据报告。<strong>ck查询很快，并且不需要依赖HDFS存储，YARN资源等hadoop生态。</strong></p>
+<h2 id="1-1-clickhouse的特点"><a href="#1-1-clickhouse的特点" class="headerlink" title="1.1 clickhouse的特点"></a>1.1 clickhouse的特点</h2><h3 id="1-1-1-列式存储"><a href="#1-1-1-列式存储" class="headerlink" title="1.1.1 列式存储"></a>1.1.1 列式存储</h3><p><strong>列式储存的好处：</strong></p>
+<p>①对于列的聚合，计数，求和等统计操作原因优于行式存储。 </p>
+<p>②由于某一列的数据类型都是相同的，针对于数据存储更容易进行数据压缩，每一列选择更优的数据压缩算法，大大提高了数据的压缩比重。</p>
+<p>③由于数据压缩比更好，一方面节省了磁盘空间，另一方面对于 cache 也有了更大的发挥空间。</p>
+<h3 id="1-1-2-DBMS的功能"><a href="#1-1-2-DBMS的功能" class="headerlink" title="1.1.2 DBMS的功能"></a>1.1.2 DBMS的功能</h3><p>几乎覆盖了标准 SQL 的大部分语法，包括 DDL 和 DML，以及配套的各种函数，用户管理及权限管理，数据的备份与恢复。</p>
+<h3 id="1-1-3-多样化引擎"><a href="#1-1-3-多样化引擎" class="headerlink" title="1.1.3 多样化引擎"></a>1.1.3 多样化引擎</h3><p>ClickHouse 和 MySQL 类似，把表级的存储引擎插件化，根据表的不同需求可以设定不同的存储引擎。目前包括合并树、日志、接口和其他四大类 20 多种引擎。</p>
+<h3 id="1-1-4-高吞吐写入能力"><a href="#1-1-4-高吞吐写入能力" class="headerlink" title="1.1.4 高吞吐写入能力"></a>1.1.4 高吞吐写入能力</h3><p>ClickHouse 采用类 <strong>LSM Tree</strong>的结构，数据写入后定期在后台 Compaction。通过类 LSM tree的结构，ClickHouse 在数据导入时全部是顺序 append 写，写入后数据段不可更改，在后台compaction 时也是多个段 merge sort 后顺序写回磁盘。<strong>顺序写</strong>的特性，充分利用了磁盘的吞吐能力，即便在 HDD 上也有着优异的写入性能。</p>
+<p>官方公开 benchmark 测试显示能够达到 50MB-200MB&#x2F;s 的写入吞吐能力，按照每行100Byte 估算，大约相当于 50W-200W 条&#x2F;s 的写入速度。</p>
+<h3 id="1-1-5-数据分区与线程级并行"><a href="#1-1-5-数据分区与线程级并行" class="headerlink" title="1.1.5 数据分区与线程级并行"></a>1.1.5 数据分区与线程级并行</h3><p>ClickHouse 将数据划分为多个 partition，每个 partition 再进一步划分为多个 index granularity(索引粒度)，然后通过多个 CPU核心分别处理其中的一部分来实现并行数据处理。在这种设计下，<strong>单条 Query 就能利用整机所有 CPU</strong>。极致的并行处理能力，极大的降低了查询延时。</p>
+<p>所以，ClickHouse 即使对于大量数据的查询也能够化整为零平行处理。但是有一个弊端就是对于单条查询使用多 cpu，就不利于同时并发多条查询。<strong>所以对于高 qps（query per second每秒查询次数） 的查询业务，ClickHouse 并不是强项。</strong></p>
+<p><strong>clickhouse不适合做初始的存储，适合存储已经处理过的大量的字段特别多的宽表</strong></p>
+<h3 id="1-1-6-性能查询"><a href="#1-1-6-性能查询" class="headerlink" title="1.1.6 性能查询"></a>1.1.6 性能查询</h3><p>结论: ClickHouse 像很多 OLAP 数据库一样，单表查询速度快于关联查询，而且 ClickHouse的两者差距更为明显。</p>
+<h1 id="第二章-clickhouse安装"><a href="#第二章-clickhouse安装" class="headerlink" title="第二章 clickhouse安装"></a>第二章 clickhouse安装</h1><h2 id="2-1-准备工作"><a href="#2-1-准备工作" class="headerlink" title="2.1 准备工作"></a>2.1 准备工作</h2><h3 id="2-1-1-确定防火墙处于关闭状态"><a href="#2-1-1-确定防火墙处于关闭状态" class="headerlink" title="2.1.1 确定防火墙处于关闭状态"></a>2.1.1 确定防火墙处于关闭状态</h3><h3 id="2-1-2-CentOS-取消打开文件数限制"><a href="#2-1-2-CentOS-取消打开文件数限制" class="headerlink" title="2.1.2  CentOS 取消打开文件数限制"></a>2.1.2  <strong>CentOS</strong> <strong>取消打开文件数限制</strong></h3><p>（1）在 hadoop102 的 &#x2F;etc&#x2F;security&#x2F;limits.conf 文件的末尾加入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# vim /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-19_15-45-15.png" alt="Snipaste_2024-05-19_15-45-15" style="zoom:43%;">
+
+<p>*：表示所有用户所有用户组</p>
+<p>soft：当前生效的</p>
+<p>hard：最大、上限</p>
+<p>nofile：打开的文件数</p>
+<p>noproc：打开的进程数</p>
+<p>（2）在 hadoop102 的&#x2F;etc&#x2F;security&#x2F;limits.d&#x2F;20-nproc.conf 文件的末尾加入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# vim /etc/security/limits.d/20-nproc.conf</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-19_15-51-55.png" alt="Snipaste_2024-05-19_15-51-55" style="zoom:43%;">
+
+<p>（3）执行同步操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# xsync /etc/security/limits.conf</span><br><span class="line">[root@hadoop102 ~]# xsync /etc/security/limits.d/20-nproc.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-3-安装依赖"><a href="#2-1-3-安装依赖" class="headerlink" title="2.1.3 安装依赖"></a>2.1.3 安装依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# yum install -y libtool</span><br><span class="line">[root@hadoop102 ~]# yum install -y *unixODBC*</span><br></pre></td></tr></table></figure>
+
+<p>在 hadoop103、hadoop104 上执行以上操作</p>
+<h3 id="2-1-4-CentOS-取消-SELINUX"><a href="#2-1-4-CentOS-取消-SELINUX" class="headerlink" title="2.1.4  CentOS 取消 SELINUX"></a>2.1.4  <strong>CentOS</strong> <strong>取消</strong> <strong>SELINUX</strong></h3><p>（1）修改&#x2F;etc&#x2F;selinux&#x2F;config 中的 SELINUX&#x3D;disabled</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# vim /etc/selinux/config</span><br></pre></td></tr></table></figure>
+
+<p>SELINUX&#x3D;disabled</p>
+<p>（2）执行同步操作</p>
+<p>（3）重启三台服务器</p>
+<h2 id="2-2-单机安装"><a href="#2-2-单机安装" class="headerlink" title="2.2 单机安装"></a>2.2 单机安装</h2><p>官网：<a target="_blank" rel="noopener" href="https://clickhouse.tech/">https://clickhouse.tech/</a></p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://repo.red-soft.biz/repos/clickhouse/stable/el7/">http://repo.red-soft.biz/repos/clickhouse/stable/el7/</a></p>
+<p>（1）在hadoop102的&#x2F;opt&#x2F;software下创建 clickhouse目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 software]# pwd</span><br><span class="line">/opt/software</span><br><span class="line">[root@hadoop102 software]# mkdir clickhouse</span><br></pre></td></tr></table></figure>
+
+<p>（2）将以下四个安装文件上传到hadoop102的software&#x2F;clickhouse目录下</p>
+<p><img src="Snipaste_2024-05-19_22-27-08.png" alt="Snipaste_2024-05-19_22-27-08"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# ll</span><br><span class="line">总用量 938164</span><br><span class="line">-rw-r--r-- 1 root root     78074 5月  19 22:29 clickhouse-client-21.7.3.14-2.noarch.rpm</span><br><span class="line">-rw-r--r-- 1 root root 174283244 5月  19 22:29 clickhouse-common-static-21.7.3.14-2.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 root root 786208040 5月  19 22:29 clickhouse-common-static-dbg-21.7.3.14-2.x86_64.rpm</span><br><span class="line">-rw-r--r-- 1 root root    101969 5月  19 22:29 clickhouse-server-21.7.3.14-2.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<p>（3）将安装文件同步到hadoop103，104</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 software]# xsync clickhouse/</span><br></pre></td></tr></table></figure>
+
+<p>（4）分别在这三台机器上安装这4个rpm文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# rpm -ivh *.rpm</span><br><span class="line">[root@hadoop103 clickhouse]# rpm -ivh *.rpm</span><br><span class="line">[root@hadoop104 clickhouse]# rpm -ivh *.rpm</span><br></pre></td></tr></table></figure>
+
+<p>确认已安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]#  rpm -qa|grep clickhouse</span><br><span class="line">clickhouse-client-21.7.3.14-2.noarch</span><br><span class="line">clickhouse-server-21.7.3.14-2.noarch</span><br><span class="line">clickhouse-common-static-dbg-21.7.3.14-2.x86_64</span><br><span class="line">clickhouse-common-static-21.7.3.14-2.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>（5）修改配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# vim /etc/clickhouse-server/config.xml</span><br></pre></td></tr></table></figure>
+
+<p>把 <listen_host>::</listen_host> 的注释打开，这样的话才能让 ClickHouse 被除本机以外的服务器访问。</p>
+<p>分发配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# xsync /etc/clickhouse-server/config.xml</span><br></pre></td></tr></table></figure>
+
+<p>在这个文件中，有 ClickHouse 的一些默认路径配置，比较重要的</p>
+<p>数据文件路径：<path></path>&#x2F;var&#x2F;lib&#x2F;clickhouse&#x2F;</p>
+<p><strong>前面说到ck不需要依赖hadoop生态，其将数据存储在本地磁盘中</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# cd /var/lib/clickhouse/</span><br><span class="line">[root@hadoop102 clickhouse]# ls</span><br><span class="line">access  data              flags           metadata          preprocessed_configs  store  user_files</span><br><span class="line">cores   dictionaries_lib  format_schemas  metadata_dropped  status                tmp</span><br><span class="line">[root@hadoop102 clickhouse]# cd data/</span><br><span class="line">[root@hadoop102 data]# ll</span><br><span class="line">总用量 0</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse   6 5月  19 23:08 default</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse 113 5月  20 14:45 system</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse  36 5月  21 10:56 test</span><br></pre></td></tr></table></figure>
+
+<p>日志文件路径：<log>&#x2F;var&#x2F;log&#x2F;clickhouse-server&#x2F;clickhouse-server.log</log></p>
+<p>报错日志文件路径：<errorlog>&#x2F;var&#x2F;log&#x2F;clickhouse-server&#x2F;clickhouse-server.err.log&lt;&#x2F;error log&gt;</errorlog></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ClickHouse各文件目录：</span><br><span class="line">    bin/    ===&gt;  /usr/bin/ </span><br><span class="line">    conf/   ===&gt;  /etc/clickhouse-server/</span><br><span class="line">    lib/    ===&gt;  /var/lib/clickhouse </span><br><span class="line">    log/    ===&gt;  /var/log/clickhouse-server</span><br></pre></td></tr></table></figure>
+
+<p>（6）启动Server</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# clickhouse start</span><br><span class="line"> chown --recursive clickhouse &#x27;/var/run/clickhouse-server/&#x27;</span><br><span class="line">Will run su -s /bin/sh &#x27;clickhouse&#x27; -c &#x27;/usr/bin/clickhouse-server --config-file /etc/clickhouse-server/config.xml --pid-file /var/run/clickhouse-server/clickhouse-server.pid --daemon&#x27;</span><br><span class="line">Waiting for server to start</span><br><span class="line">Waiting for server to start</span><br><span class="line">Server started</span><br><span class="line">[root@hadoop102 clickhouse]# clickhouse status</span><br><span class="line">/var/run/clickhouse-server/clickhouse-server.pid file exists and contains pid = 6745.</span><br><span class="line">The process with pid = 6745 is running.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">clickhouse自带的服务器端启停命令</span></span><br><span class="line">clickhouse start</span><br><span class="line">clickhouse stop</span><br><span class="line">cliskhouse status</span><br><span class="line">clickhouse restart</span><br></pre></td></tr></table></figure>
+
+<p>（7）三台机器上关闭开机自启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# systemctl disable clickhouse-server</span><br><span class="line">[root@hadoop103 clickhouse]# systemctl disable clickhouse-server</span><br><span class="line">[root@hadoop104 clickhouse]# systemctl disable clickhouse-server</span><br></pre></td></tr></table></figure>
+
+<p>（8）使用client连接server</p>
+<p>（-m :可以在命令窗口输入多行命令）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# clickhouse-client -m</span><br><span class="line">ClickHouse client version 21.7.3.14 (official build).</span><br><span class="line">Connecting to localhost:9000 as user default.</span><br><span class="line">Connected to ClickHouse server version 21.7.3 revision 54449.</span><br><span class="line"></span><br><span class="line">hadoop102 :) </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hadoop102 :) show databases;</span><br><span class="line"></span><br><span class="line">SHOW DATABASES</span><br><span class="line"></span><br><span class="line">Query id: 01c3aacb-41ff-485a-bfda-1451c9bf3529</span><br><span class="line"></span><br><span class="line">┌─name────┐</span><br><span class="line">│ default │</span><br><span class="line">│ system  │</span><br><span class="line">└─────────┘</span><br><span class="line"></span><br><span class="line">2 rows in set. Elapsed: 0.015 sec. </span><br><span class="line"></span><br><span class="line">hadoop102 :) quit;</span><br><span class="line">Bye.</span><br></pre></td></tr></table></figure>
+
+<p>也可以不使用交互式，直接写查询语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# clickhouse-client --query &quot;show databases;&quot;;</span><br><span class="line">default</span><br><span class="line">system</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三章-数据类型"><a href="#第三章-数据类型" class="headerlink" title="第三章 数据类型"></a>第三章 数据类型</h1><h2 id="3-1-整形"><a href="#3-1-整形" class="headerlink" title="3.1 整形"></a>3.1 整形</h2><p>固定长度的整型，包括有符号整型或无符号整型。clickhouse中没有byte、short、int、long、bigint等整数类型，统一都叫int，范围根据后面的8，16，32，64控制</p>
+<p>整型范围（-2n-1~2n-1-1）：</p>
+<p><strong>Int8</strong> - [-128 : 127]</p>
+<p><strong>Int16</strong> - [-32768 : 32767]</p>
+<p><strong>Int32</strong> - [-2147483648 : 2147483647]</p>
+<p><strong>Int64</strong> - [-9223372036854775808 : 9223372036854775807]</p>
+<p>无符号整型范围（0~2n-1）：</p>
+<p><strong>UInt8</strong> - [0 : 255]</p>
+<p><strong>UInt16</strong> - [0 : 65535]</p>
+<p><strong>UInt32</strong> - [0 : 4294967295]</p>
+<p><strong>UInt64</strong> - [0 : 18446744073709551615]</p>
+<p><strong>使用场景： 个数、数量、也可以存储型</strong> <strong>id</strong>。</p>
+<h2 id="3-2-浮点型"><a href="#3-2-浮点型" class="headerlink" title="3.2 浮点型"></a>3.2 浮点型</h2><p><strong>Float32</strong> - float</p>
+<p><strong>Float64</strong> – double</p>
+<p>建议尽可能以整数形式存储数据。例如，将固定精度的数字转换为整数值，如时间用毫秒为单位表示，因为浮点型进行计算时可能引起四舍五入的误差。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hadoop102 :) select 1.0-0.9;</span><br><span class="line"></span><br><span class="line">SELECT 1. - 0.9</span><br><span class="line"></span><br><span class="line">Query id: ed0f0f55-724a-4815-8128-1afd39cb7357</span><br><span class="line"></span><br><span class="line">┌──────minus(1., 0.9)─┐</span><br><span class="line">│ 0.09999999999999998 │</span><br><span class="line">└─────────────────────┘</span><br><span class="line"></span><br><span class="line">1 rows in set. Elapsed: 0.019 sec.</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用场景：一般数据值比较小，不涉及大量的统计计算，精度要求不高的时候。比如保存商品的重量。</strong></p>
+<p>存钱这种数据的时候，一般使用decimal</p>
+<h2 id="3-3-布尔型"><a href="#3-3-布尔型" class="headerlink" title="3.3 布尔型"></a>3.3 布尔型</h2><p>没有单独的类型来存储布尔值，可以使用<strong>UInt8</strong>类型，取值限制为0或1</p>
+<h2 id="3-4-Decimal"><a href="#3-4-Decimal" class="headerlink" title="3.4 Decimal"></a>3.4 Decimal</h2><p>有符号的浮点数，可在加、减和乘法运算过程中保持精度。对于除法，最低有效数字会被丢弃（不舍入）。</p>
+<p>有三种声明：</p>
+<p>➢ Decimal32(s)，相当于 Decimal(9-s,s)，有效位数为 1~9；<strong>整数+小数一共9位，小数部分s位</strong></p>
+<p>➢ Decimal64(s)，相当于 Decimal(18-s,s)，有效位数为 1~18；<strong>整数+小数一共18位，小数部分s位</strong></p>
+<p>➢ Decimal128(s)，相当于 Decimal(38-s,s)，有效位数为 1~38；<strong>整数+小数一共38位，小数部分s位</strong></p>
+<p>s 标识小数位</p>
+<p>使用场景： 一般金额字段、汇率、利率等字段为了保证小数点精度，都使用 Decimal进行存储。</p>
+<h2 id="3-5-字符串"><a href="#3-5-字符串" class="headerlink" title="3.5 字符串"></a>3.5 字符串</h2><p>1）<strong>String</strong></p>
+<p>字符串可以任意长度的。它可以包含任意的字节集，包含空字节。</p>
+<p>2）<strong>FixedString(N)</strong></p>
+<p>固定长度 N 的字符串，N 必须是严格的正自然数。当服务端读取长度小于 N 的字符串时候，通过在字符串末尾添加空字节来达到 N 字节长度。 当服务端读取长度大于 N 的字符串时候，将返回错误消息。</p>
+<p>与 String 相比，极少会使用 FixedString，因为使用起来不是很方便。</p>
+<p>使用场景：名称、文字描述、字符型编码。 固定长度的可以保存一些定长的内容，比如一些编码，性别等但是考虑到一定的变化风险，带来收益不够明显，所以定长字符串使用意义有限。</p>
+<h2 id="3-6-枚举类型"><a href="#3-6-枚举类型" class="headerlink" title="3.6 枚举类型"></a>3.6 枚举类型</h2><p>包括 Enum8 和 Enum16 类型。Enum 保存 ‘string’&#x3D; integer 的对应关系。</p>
+<p><strong>Enum8</strong> 用 ‘String’&#x3D; Int8 对描述。</p>
+<p><strong>Enum16</strong> 用 ‘String’&#x3D; Int16 对描述。</p>
+<p>用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--创建一个数据库</span><br><span class="line">create database test;</span><br><span class="line">--枚举数据类型</span><br><span class="line">--创建一张表</span><br><span class="line">create table t_enum</span><br><span class="line">(</span><br><span class="line">    x Enum8(&#x27;hello&#x27; = 1, &#x27;world&#x27; = 2)</span><br><span class="line">)</span><br><span class="line">ENGINE = TinyLog;--TinyLog代表表引擎，表引擎在建表的时候必须使用</span><br><span class="line">--插入数据</span><br><span class="line">--这个 x 列只能存储类型定义中列出的值：&#x27;hello&#x27;或&#x27;world&#x27;</span><br><span class="line">insert into t_enum values (&#x27;hello&#x27;),(&#x27;world&#x27;),(&#x27;hello&#x27;);</span><br><span class="line">--查询表</span><br><span class="line">select * from t_enum;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_10-48-25.png" alt="Snipaste_2024-05-21_10-48-25" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--插入枚举值也可以</span><br><span class="line">insert into t_enum (x)</span><br><span class="line">values (1),(2),(1);</span><br><span class="line">select * from t_enum;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_10-53-32.png" alt="Snipaste_2024-05-21_10-53-32" style="zoom:43%;">
+
+<img src="Snipaste_2024-05-21_10-49-03.png" alt="Snipaste_2024-05-21_10-49-03" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--如果需要看到对应行的数值，则必须将 Enum 值转换为整数类型</span><br><span class="line">SELECT CAST(x, &#x27;Int8&#x27;) FROM t_enum;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_10-50-15.png" alt="Snipaste_2024-05-21_10-50-15" style="zoom:43%;">
+
+<p><strong>使用场景：对一些状态、类型的字段算是一种空间优化，也算是一种数据约束。但是实际使用中往往因为一些数据内容的变化增加一定的维护成本，甚至是数据丢失问题。所以谨慎使用。</strong></p>
+<h2 id="3-7-时间类型"><a href="#3-7-时间类型" class="headerlink" title="3.7 时间类型"></a>3.7 时间类型</h2><p>目前 ClickHouse 有三种时间类型</p>
+<p>➢ <strong>Date</strong> 接受<strong>年-月-日</strong>的字符串比如 ‘2019-12-16’</p>
+<p>➢ <strong>Datetime</strong> 接受<strong>年-月-日 时:分:秒</strong>的字符串比如 ‘2019-12-16 20:50:10’</p>
+<p>➢ <strong>Datetime64</strong> 接受<strong>年-月-日 时:分:秒.亚秒</strong>的字符串比如‘2019-12-16 20:50:10.66’</p>
+<p>日期类型，用两个字节存储，表示从 1970-01-01 (无符号) 到当前的日期值。</p>
+<p>还有很多数据结构，可以参考官方文档：<a target="_blank" rel="noopener" href="https://clickhouse.yandex/docs/zh/data_types/">https://clickhouse.yandex/docs/zh/data_types/</a></p>
+<h2 id="3-8-数组"><a href="#3-8-数组" class="headerlink" title="3.8 数组"></a>3.8 数组</h2><p>**Array(T)：由 T 类型元素组成的数组。</p>
+<p>T 可以是任意类型，包含数组类型。 但不推荐使用多维数组，ClickHouse 对多维数组的支持有限。例如，不能在 MergeTree 表中存储多维数组。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--（1））创建数组方式 1，使用 array 函数</span><br><span class="line">--toTypeName(x)函数，返回x列的数据类型</span><br><span class="line">select array(1,2,3) as x, toTypeName(x);</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_11-13-00.png" alt="Snipaste_2024-05-21_11-13-00" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--（2）创建数组方式 2：使用方括号</span><br><span class="line">select [1,2,3] as x, toTypeName(x);</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_11-13-00.png" alt="Snipaste_2024-05-21_11-13-00" style="zoom:43%;">
+
+<h1 id="第四章-表引擎"><a href="#第四章-表引擎" class="headerlink" title="第四章 表引擎"></a>第四章 表引擎</h1><h2 id="4-1-表引擎的使用"><a href="#4-1-表引擎的使用" class="headerlink" title="4.1 表引擎的使用"></a>4.1 表引擎的使用</h2><p>表引擎是 ClickHouse 的一大特色。可以说， 表引擎决定了如何存储表的数据。包括：</p>
+<p>➢ 数据的存储方式和位置，写到哪里以及从哪里读取数据。</p>
+<p>➢ 支持哪些查询以及如何支持。</p>
+<p>➢ 并发数据访问。</p>
+<p>➢ 索引的使用（如果存在）。</p>
+<p>➢ 是否可以执行多线程请求。</p>
+<p>➢ 数据复制参数。</p>
+<p><strong>表引擎的使用方式就是必须显式在创建表时定义该表使用的引擎，以及引擎使用的相关参数。</strong></p>
+<p><strong>特别注意：引擎的名称大小写敏感</strong></p>
+<h2 id="4-2-TinyLog"><a href="#4-2-TinyLog" class="headerlink" title="4.2 TinyLog"></a>4.2 TinyLog</h2><p>以列文件的形式保存在磁盘上，不支持索引，没有并发控制。一般保存少量数据的小表，生产环境上作用有限。可以用于平时练习测试用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table t_enum</span><br><span class="line">(</span><br><span class="line">    x Enum8(&#x27;hello&#x27; = 1, &#x27;world&#x27; = 2)</span><br><span class="line">)</span><br><span class="line">ENGINE = TinyLog;--TinyLog代表表引擎，表引擎在建表的时候必须使用</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-Memory"><a href="#4-3-Memory" class="headerlink" title="4.3 Memory"></a>4.3 Memory</h2><p>内存引擎，数据以未压缩的原始形式直接保存在内存当中，服务器重启数据就会消失。读写操作不会相互阻塞，不支持索引。简单查询下有非常非常高的性能表现（超过 10G&#x2F;s）。</p>
+<p>一般用到它的地方不多，除了用来测试，就是在需要非常高的性能，同时数据量又不太大（上限大概 1 亿行）的场景。</p>
+<h2 id="4-4-MergeTree"><a href="#4-4-MergeTree" class="headerlink" title="4.4 MergeTree"></a>4.4 MergeTree</h2><p>ClickHouse 中最强大的表引擎当属 MergeTree（合并树）引擎及该系列（*MergeTree）中的其他引擎，支持索引和分区，地位可以相当于 innodb 之于 Mysql。而且基于 MergeTree，还衍生除了很多小弟，也是非常有特色的引擎。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">--建表</span><br><span class="line">create table t_order_mt(</span><br><span class="line">   id UInt32,</span><br><span class="line">   sku_id String,</span><br><span class="line">   total_amount Decimal(16,2),</span><br><span class="line">   create_time Datetime</span><br><span class="line">) engine =MergeTree</span><br><span class="line">  partition by toYYYYMMDD(create_time) --toYYYYMMDD()日期格式化函数</span><br><span class="line">  primary key (id) --主键约束，注意：ck中的主键没有唯一性约束，也就是id可以重复</span><br><span class="line">  order by (id,sku_id);</span><br><span class="line">--插入数据</span><br><span class="line">insert into t_order_mt values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;) ,</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 11:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,12000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;);</span><br><span class="line">--查询</span><br><span class="line">select * from t_order_mt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2024-05-21_11-55-53.png" alt="Snipaste_2024-05-21_11-55-53"></p>
+<h3 id="4-4-1-partition-by分区（可选）"><a href="#4-4-1-partition-by分区（可选）" class="headerlink" title="4.4.1 partition by分区（可选）"></a>4.4.1 partition by分区（可选）</h3><p>（1）作用：分区的目的是降低扫描的范围，优化查询速度</p>
+<p><strong>若不填，只会使用一个分区，目录名即为all</strong></p>
+<p>（2）分区目录</p>
+<p>MergeTree 是以列文件+索引文件+表定义文件组成的，但是如果设定了分区那么这些文件就会保存到不同的分区目录中。</p>
+<p>（3）并行</p>
+<p>分区后，面对涉及跨分区的查询统计，ClickHouse 会以分区为单位并行处理。<strong>一个分区一个线程</strong></p>
+<p>（4）数据写入与分区合并</p>
+<p>任何一个批次的数据写入都会产生一个临时分区，不会纳入任何一个已有的分区。写入后的某个时刻（大概 10-15 分钟后），ClickHouse 会自动执行合并操作（等不及也可以手动通过 optimize 执行），把临时分区的数据，合并到已有分区中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimize table xxxx（表名） final;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-1-1-ck数据文件解析"><a href="#4-4-1-1-ck数据文件解析" class="headerlink" title="4.4.1.1 ck数据文件解析"></a>4.4.1.1 ck数据文件解析</h4><p>进入到本地磁盘中存储clickhouse数据文件的目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 metadata]# cd /var/lib/clickhouse/</span><br><span class="line">[root@hadoop102 clickhouse]# ll</span><br><span class="line">总用量 4</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse 116 5月  19 23:08 access</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 cores</span><br><span class="line">drwxr-x---  5 clickhouse clickhouse  47 5月  21 10:44 data</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 dictionaries_lib</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 flags</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 format_schemas</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse 100 5月  21 11:28 metadata</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 metadata_dropped</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse  41 5月  19 23:08 preprocessed_configs</span><br><span class="line">-rw-r-----  1 clickhouse clickhouse  58 5月  20 14:45 status</span><br><span class="line">drwxr-x--- 13 clickhouse clickhouse 127 5月  21 11:45 store</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 tmp</span><br><span class="line">drwxr-x---  2 clickhouse clickhouse   6 5月  19 23:08 user_files</span><br></pre></td></tr></table></figure>
+
+<p>进入ck的元数据目录，可以看到数据库和库中的数据表，还有每张表的建表语句</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# cd metadata</span><br><span class="line">[root@hadoop102 metadata]# ll</span><br><span class="line">总用量 12</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  19 23:08 default -&gt; /var/lib/clickhouse/store/69c/69cbf2dd-f23d-4c51-a9cb-f2ddf23dfc51/</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 78 5月  19 23:08 default.sql</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  19 23:08 system -&gt; /var/lib/clickhouse/store/cda/cdadbf5e-1fef-466a-8dad-bf5e1fef366a/</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 78 5月  19 23:08 system.sql</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  21 10:44 test -&gt; /var/lib/clickhouse/store/122/122b549c-a10a-41ce-922b-549ca10a41ce/</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 78 5月  21 10:44 test.sql</span><br><span class="line">[root@hadoop102 metadata]# cd test</span><br><span class="line">[root@hadoop102 test]# ll</span><br><span class="line">总用量 8</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 151 5月  21 10:56 t_enum_1.sql</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 120 5月  21 10:44 t_enum.sql</span><br><span class="line">[root@hadoop102 test]# vim t_enum.sql </span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-21_14-20-32.png" alt="Snipaste_2024-05-21_14-20-32" style="zoom:43%;">
+
+<p>进入ck的数据目录，可以用一个目录去存储一个数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse]# cd data/</span><br><span class="line">[root@hadoop102 data]# ll</span><br><span class="line">总用量 0</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse  24 5月  21 11:45 default</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse 113 5月  20 14:45 system</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse  36 5月  21 10:56 test</span><br></pre></td></tr></table></figure>
+
+<p>先看一下使用TinyLog引擎的数据表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 data]# cd test/</span><br><span class="line">[root@hadoop102 test]# ll</span><br><span class="line">总用量 0</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  21 10:44 t_enum -&gt; /var/lib/clickhouse/store/967/967e6ef6-91be-4d1e-967e-6ef691be9d1e/</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  21 10:56 t_enum_1 -&gt; /var/lib/clickhouse/store/7b5/7b59fc27-75f0-43d8-bb59-fc2775f0d3d8/</span><br><span class="line">[root@hadoop102 test]# cd t_enum_1/</span><br><span class="line">[root@hadoop102 t_enum_1]# ll</span><br><span class="line">总用量 16</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 84 5月  21 10:57 sizes.json</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 55 5月  21 10:57 x.bin</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 58 5月  21 10:57 y.bin</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 63 5月  21 10:57 z.bin</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#######</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以发现使用TinyLog引擎的数据表的数据文件包含两类，一类是json文件，一类是bin文件代表每个列，每个列有一个文件，印证了ck是列式存储的事实（.bin文件存储的是真正的数据）</span></span><br></pre></td></tr></table></figure>
+
+<p>再看一下使用MergeTree引擎的数据表：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 data]# cd default/</span><br><span class="line">[root@hadoop102 default]# ll</span><br><span class="line">总用量 0</span><br><span class="line">lrwxrwxrwx 1 clickhouse clickhouse 67 5月  21 11:45 t_order_mt -&gt; /var/lib/clickhouse/store/d55/d55da05f-ce1a-4e57-955d-a05fce1aae57/</span><br><span class="line">[root@hadoop102 default]# cd t_order_mt/</span><br><span class="line">[root@hadoop102 t_order_mt]# ll</span><br><span class="line">总用量 4</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse 203 5月  21 11:45 20200601_1_1_0</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse 203 5月  21 11:45 20200602_2_2_0</span><br><span class="line">drwxr-x--- 2 clickhouse clickhouse   6 5月  21 11:45 detached</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse   1 5月  21 11:45 format_version.txt</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#######</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以发现使用MergeTree引擎的数据表的数据文件包含三类，一类是detached文件，一类是format_version文件，一类是分区数据，每一个分区拥有一个目录</span></span><br><span class="line">[root@hadoop102 t_order_mt]# cd 20200601_1_1_0/</span><br><span class="line">[root@hadoop102 20200601_1_1_0]# ll</span><br><span class="line">总用量 36</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 259 5月  21 11:45 checksums.txt</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 118 5月  21 11:45 columns.txt</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse   1 5月  21 11:45 count.txt</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 189 5月  21 11:45 data.bin</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse 144 5月  21 11:45 data.mrk3</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse  10 5月  21 11:45 default_compression_codec.txt</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse   8 5月  21 11:45 minmax_create_time.idx</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse   4 5月  21 11:45 partition.dat</span><br><span class="line">-rw-r----- 1 clickhouse clickhouse   8 5月  21 11:45 primary.idx</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#######</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打开某个分区目录，可以看到以上文件</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">data.bin：记录了该分区下的数据</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">data.mrk3：记录了该分区的数据偏移量（标记文件），标记文件在idx索引文件和bin数据文件之间起到了桥梁的作用，以mrk3结尾的文件，表示该表启用了自适应索引间隔</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">count.txt：记录了该分区下的数据的行数</span></span><br><span class="line">[root@hadoop102 20200601_1_1_0]# cat count.txt </span><br><span class="line">5</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">columns.txt：记录了表的列的信息</span></span><br><span class="line">[root@hadoop102 20200601_1_1_0]# cat columns.txt </span><br><span class="line">columns format version: 1</span><br><span class="line">4 columns:</span><br><span class="line">`id` UInt32</span><br><span class="line">`sku_id` String</span><br><span class="line">`total_amount` Decimal(16, 2)</span><br><span class="line">`create_time` DateTime</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">checksums.txt：校验信息，用于校验各个文件的正确性。存放各个文件的size以及<span class="built_in">hash</span>值</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">primary.idx：主键的索引文件，用于加快查询效率</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">partition.dat：分区索引</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">minmax_create_time.idx：分区键的最大最小值</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>关于分区目录名20200601_1_1_0的解析</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">PartitionId_MinBlockNum_MaxBlockNum_Level</span><br><span class="line">分区值_最小分区块编号_最大分区块编号_合并层级</span><br><span class="line">    =》PartitionId</span><br><span class="line">        数据分区ID生成规则</span><br><span class="line">        数据分区规则由分区ID决定，分区ID由PARTITION BY分区键决定。根据分区键字段类型，ID生成规则可分为：</span><br><span class="line">            未定义分区键</span><br><span class="line">                没有定义PARTITION BY，默认生成一个目录名为all的数据分区，所有数据均存放在all目录下。</span><br><span class="line"></span><br><span class="line">            整型分区键</span><br><span class="line">                分区键为整型，那么直接用该整型值的字符串形式做为分区ID。</span><br><span class="line"></span><br><span class="line">            日期类分区键</span><br><span class="line">                分区键为日期类型，或者可以转化成日期类型。</span><br><span class="line"></span><br><span class="line">            其他类型分区键</span><br><span class="line">                String、Float类型等，通过128位的Hash算法取其Hash值作为分区ID。</span><br><span class="line">    =》MinBlockNum</span><br><span class="line">        最小分区块编号，自增类型，从1开始向上递增。每产生一个新的目录分区就向上递增一个数字。</span><br><span class="line">    =》MaxBlockNum</span><br><span class="line">        最大分区块编号，新创建的分区MinBlockNum等于MaxBlockNum的编号。</span><br><span class="line">    =》Level</span><br><span class="line">        合并的层级，被合并的次数。合并次数越多，层级值越大。</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-4-2-primary-key主键（可选）"><a href="#4-4-2-primary-key主键（可选）" class="headerlink" title="4.4.2 primary key主键（可选）"></a>4.4.2 primary key主键（可选）</h3><p>ClickHouse 中的主键，和其他数据库不太一样，<strong>它只提供了数据的一级索引，但是却不是唯一约束。</strong>这就意味着是可以存在相同 primary key 的数据的。</p>
+<p>主键的设定主要依据是查询语句中的 where 条件。</p>
+<p>根据条件通过对主键进行某种形式的二分查找，能够定位到对应的 index granularity,避免了全表扫描。</p>
+<p>index granularity： 直接翻译的话就是索引粒度，指在稀疏索引中两个相邻索引对应数据的间隔。ClickHouse 中的 MergeTree 默认是 8192。官方不建议修改这个值，除非该列存在大量重复值，比如在一个分区中几万行才有一个不同数据。</p>
+<p>稀疏索引：</p>
+<p><img src="Snipaste_2024-05-21_15-20-34.png" alt="Snipaste_2024-05-21_15-20-34"></p>
+<p>稀疏索引的好处就是可以用很少的索引数据，定位更多的数据，代价就是只能定位到索引粒度的第一行，然后再进行进行一点扫描。</p>
+<h3 id="4-4-3-order-by（必选）"><a href="#4-4-3-order-by（必选）" class="headerlink" title="4.4.3 order by（必选）"></a>4.4.3 order by（必选）</h3><p><strong>注意：这里面工作有涉及</strong></p>
+<p>order by 设定了分区内的数据按照哪些字段顺序进行有序保存。</p>
+<p>order by 是 MergeTree 中唯一一个必填项，甚至比 primary key 还重要，因为当用户不设置主键的情况，很多处理会依照 order by 的字段进行处理（比如后面会讲的去重和汇总）。</p>
+<p><strong>要求：主键必须是 order by 字段的前缀字段。</strong></p>
+<p>比如 order by 字段是 (id,sku_id) 那么主键必须是 id 或者(id,sku_id)</p>
+<h3 id="4-4-4-二级索引"><a href="#4-4-4-二级索引" class="headerlink" title="4.4.4 二级索引"></a>4.4.4 二级索引</h3><p>目前在 ClickHouse 的官网上二级索引的功能在 v20.1.2.4 之前是被标注为实验性的，在这个版本之后默认是开启的。（v20.1.2.4 开始，这个参数已被删除，默认开启）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set allow_experimental_data_skipping_indices=1;</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">--建表</span><br><span class="line">create table t_order_mt2(</span><br><span class="line">    id UInt32,</span><br><span class="line">    sku_id String,</span><br><span class="line">    total_amount Decimal(16,2),</span><br><span class="line">    create_time Datetime,</span><br><span class="line">    INDEX a total_amount TYPE minmax GRANULARITY 5</span><br><span class="line">) engine =MergeTree</span><br><span class="line">partition by toYYYYMMDD(create_time)</span><br><span class="line">primary key (id)</span><br><span class="line">order by (id, sku_id);</span><br><span class="line">--INDEX：二级索引语法</span><br><span class="line">--a total_amount：a表示索引名，total_amount表示以该列建立索引</span><br><span class="line">--TYPE minmax：索引类型位最小最大值，[min,max]</span><br><span class="line">--GRANULARITY N ：设定二级索引对于一级索引粒度的粒度</span><br><span class="line"></span><br><span class="line">--插入数据</span><br><span class="line">insert into t_order_mt2 values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;) ,</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 11:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,12000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">那么在使用下面语句进行测试，可以看出二级索引能够为非主键字段的查询发挥作用</span></span><br><span class="line">[root@hadoop102 20200601_1_1_0]#  clickhouse-client --send_logs_level=trace &lt;&lt;&lt; &#x27;select </span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">* from t_order_mt2 <span class="built_in">where</span> total_amount &gt; toDecimal32(900., 2)<span class="string">&#x27;;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2024-05-21_15-50-31.png" alt="Snipaste_2024-05-21_15-50-31"></p>
+<p>进入对应表的分区目录中，可以看到对应的索引文件</p>
+<p><img src="Snipaste_2024-05-21_15-53-01.png" alt="Snipaste_2024-05-21_15-53-01"></p>
+<h3 id="4-4-5-数据TTL"><a href="#4-4-5-数据TTL" class="headerlink" title="4.4.5 数据TTL"></a>4.4.5 数据TTL</h3><p>TTL 即 Time To Live，MergeTree 提供了可以管理数据<strong>表</strong>或者<strong>列</strong>的生命周期的功能。超过过期时间，表级别TTL将符合条件的一行删除，列级别TTL将符合条件的列值置为默认值。</p>
+<p>（1）列级别TTL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--建表</span><br><span class="line">create table t_order_mt3(</span><br><span class="line">    id UInt32,</span><br><span class="line">    sku_id String,</span><br><span class="line">    total_amount Decimal(16,2) TTL create_time+interval 10 SECOND,--列级别TTL</span><br><span class="line">    create_time Datetime</span><br><span class="line">) engine =MergeTree</span><br><span class="line">partition by toYYYYMMDD(create_time)</span><br><span class="line">primary key (id)</span><br><span class="line">order by (id, sku_id);</span><br><span class="line">--插入数据</span><br><span class="line">insert into t_order_mt3 values</span><br><span class="line">(106,&#x27;sku_001&#x27;,1000.00,&#x27;2024-05-21 16:06:30&#x27;),</span><br><span class="line">(107,&#x27;sku_002&#x27;,2000.00,&#x27;2024-05-21 16:06:40&#x27;),</span><br><span class="line">(110,&#x27;sku_003&#x27;,600.00,&#x27;2024-05-21 16:06:50&#x27;);</span><br><span class="line">--手动合并</span><br><span class="line">optimize table t_order_mt3 final;</span><br><span class="line">select * from t_order_mt3;</span><br></pre></td></tr></table></figure>
+
+<p>发现超时的列值变为默认值</p>
+<p><img src="Snipaste_2024-05-21_16-08-47.png" alt="Snipaste_2024-05-21_16-08-47"></p>
+<p>（2）表级别TTL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--下面的这条语句是数据会在 create_time 之后 10 秒丢失</span><br><span class="line">alter table t_order_mt3 MODIFY TTL create_time + INTERVAL 10 SECOND;</span><br><span class="line">select * from t_order_mt3;</span><br></pre></td></tr></table></figure>
+
+<p>已经将超时的行都删除了</p>
+<p><img src="Snipaste_2024-05-21_16-12-09.png" alt="Snipaste_2024-05-21_16-12-09"></p>
+<p>涉及判断的字段必须是 Date 或者 Datetime 类型，推荐使用分区的日期字段。</p>
+<p>能够使用的时间周期：</p>
+<p>- SECOND</p>
+<p>- MINUTE</p>
+<p>- HOUR</p>
+<p>- DAY</p>
+<p>- WEEK</p>
+<p>- MONTH</p>
+<p>- QUARTER</p>
+<p>- YEAR</p>
+<h2 id="4-5-ReplacingMergeTree"><a href="#4-5-ReplacingMergeTree" class="headerlink" title="4.5 ReplacingMergeTree"></a>4.5 ReplacingMergeTree</h2><p>ReplacingMergeTree 是 MergeTree 的一个变种，它存储特性完全继承 MergeTree，只是多了一个<strong>去重</strong>的功能。 尽管 MergeTree 可以设置主键，但是 primary key 其实没有唯一约束的功能。如果你想处理掉重复的数据，可以借助这个 ReplacingMergeTree。<strong>该引擎的去重是按照排序字段去重的</strong></p>
+<p>（1）去重时机</p>
+<p><strong>数据的去重只会在合并的过程中出现</strong>。合并会在未知的时间在后台进行，所以你无法预先作出计划。有一些数据可能仍未被处理。</p>
+<p>（2）去重范围</p>
+<p><strong>如果表经过了分区，去重只会在分区内部进行去重，不能执行跨分区的去重。</strong></p>
+<p>所以 ReplacingMergeTree 能力有限， ReplacingMergeTree 适用于在后台清除重复的数据以节省空间，但是它不保证没有重复的数据出现。</p>
+<p>（3）例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">--建表</span><br><span class="line">create table t_order_rmt(</span><br><span class="line">    id UInt32,</span><br><span class="line">    sku_id String,</span><br><span class="line">    total_amount Decimal(16,2) ,</span><br><span class="line">    create_time Datetime</span><br><span class="line">) engine =ReplacingMergeTree(create_time)--去重后保留create_time字段值最大的</span><br><span class="line">--ReplacingMergeTree() 填入的参数为版本字段，重复数据保留版本字段值最大的。如果不填版本字段，默认按照插入顺序保留最后一条。</span><br><span class="line">partition by toYYYYMMDD(create_time)</span><br><span class="line">primary key (id)</span><br><span class="line">order by (id, sku_id);--排序字段是(id,sku_id)，那么就是按照(id,sku_id)去重</span><br><span class="line">--插入数据</span><br><span class="line">insert into t_order_rmt values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;) ,</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 11:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,12000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;);</span><br><span class="line">--查询</span><br><span class="line">select * from t_order_rmt;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，查询的结果已经是按规定去重之后的了</p>
+<p><img src="Snipaste_2024-05-21_16-47-44.png" alt="Snipaste_2024-05-21_16-47-44"></p>
+<p>（4）结论</p>
+<p>➢ 实际上是使用 order by 字段作为唯一键</p>
+<p>➢ 去重不能跨分区</p>
+<p>➢ 只有同一批插入（新版本）或合并分区时才会进行去重</p>
+<p>➢ 认定重复的数据保留，版本字段值最大的</p>
+<p>➢ 如果版本字段相同则按插入顺序保留最后一笔</p>
+<h2 id="4-6-SummingMergeTree"><a href="#4-6-SummingMergeTree" class="headerlink" title="4.6 SummingMergeTree"></a>4.6 SummingMergeTree</h2><p>对于不查询明细，只关心<strong>以维度进行汇总聚合结果</strong>的场景。如果只使用普通的MergeTree的话，无论是存储空间的开销，还是查询时临时聚合的开销都比较大。</p>
+<p>ClickHouse 为了这种场景，提供了一种能够<strong>“预聚合”</strong>的引擎 SummingMergeTree</p>
+<p>（1）例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">--建表</span><br><span class="line">create table t_order_smt(</span><br><span class="line">    id UInt32,</span><br><span class="line">    sku_id String,</span><br><span class="line">    total_amount Decimal(16,2) ,</span><br><span class="line">    create_time Datetime</span><br><span class="line">) engine =SummingMergeTree(total_amount) --聚合字段为total_amount，进行sum(total_amount)</span><br><span class="line">partition by toYYYYMMDD(create_time)</span><br><span class="line">primary key (id)</span><br><span class="line">order by (id,sku_id );--排序字段是(id,sku_id)，那么就是按照(id,sku_id)去分组聚合</span><br><span class="line">--插入数据</span><br><span class="line">insert into t_order_smt values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 11:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,12000.00,&#x27;2020-06-01 13:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;);</span><br><span class="line">--查询</span><br><span class="line">select * from t_order_smt;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，查询结果已经是分组聚合（sum(total_amount) group by id,sku_id）</p>
+<p><img src="Snipaste_2024-05-21_17-06-54.png" alt="Snipaste_2024-05-21_17-06-54"></p>
+<p>（2）结论</p>
+<p>➢ 以 SummingMergeTree（）中指定的列作为汇总数据列</p>
+<p>➢ 可以填写多列必须数字列，如果不填，以所有非维度列且为数字列的字段为汇总数据列</p>
+<p>➢ 以 order by 的列为准，作为维度列</p>
+<p>➢ 其他的列按插入顺序保留第一行</p>
+<p>➢ 不在一个分区的数据不会被聚合</p>
+<p>➢ 只有在同一批次插入(新版本)或分片合并时才会进行聚合</p>
+<p>（3）开发建议</p>
+<p>设计聚合表的话，唯一键值、流水号可以去掉，所有字段全部是维度、度量或者时间戳。</p>
+<p>（4）问题</p>
+<p>能不能直接执行以下 SQL 得到汇总值 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select total_amount from XXX where province_name=’’ and create_date=’xxx’</span><br></pre></td></tr></table></figure>
+
+<p>不行，可能会包含一些还没来得及聚合的临时明细，如果要是获取汇总值，还是需要使用 sum 进行聚合，这样效率会有一定的提高，但本身 ClickHouse 是列式存储的，效率提升有限，不会特别明显。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sum(total_amount) from XXX province_name=’’ and create_date=‘xxx’</span><br></pre></td></tr></table></figure>
+
+<h1 id="第五章-SQL操作"><a href="#第五章-SQL操作" class="headerlink" title="第五章 SQL操作"></a>第五章 SQL操作</h1><p>基本上来说传统关系型数据库（以 MySQL 为例）的 SQL 语句，ClickHouse 基本都支持，这里不会从头讲解 SQL 语法只介绍 ClickHouse 与标准 SQL（MySQL）不一致的地方。</p>
+<h2 id="5-1-Insert"><a href="#5-1-Insert" class="headerlink" title="5.1 Insert"></a>5.1 Insert</h2><p>基本与标准 SQL（MySQL）基本一致</p>
+<p>（1）标准</p>
+<p>insert into [table_name] values(…),(….) </p>
+<p>（2）从表到表的插入</p>
+<p>insert into [table_name] select a,b,c from [table_name_2]</p>
+<h2 id="5-2-Update和Delete"><a href="#5-2-Update和Delete" class="headerlink" title="5.2 Update和Delete"></a>5.2 Update和Delete</h2><p>ClickHouse 提供了 Delete 和 Update 的能力，这类操作被称为 Mutation 查询，它可以看做 Alter 的一种。</p>
+<p>虽然可以实现修改和删除，但是和一般的 OLTP 数据库不一样，<strong>Mutation</strong> <strong>语句是一种很“重”的操作，而且不支持事务。</strong></p>
+<p>“重”的原因主要是每次修改或者删除都会导致放弃目标数据的原有分区，重建新分区。所以尽量做批量的变更，不要进行频繁小数据的操作。</p>
+<p>（1）删除操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table t_order_smt delete where sku_id =&#x27;sku_001&#x27;;</span><br><span class="line">select * from t_order_smt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2024-05-21_17-43-12.png" alt="Snipaste_2024-05-21_17-43-12"></p>
+<p>（2）修改操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table t_order_smt update total_amount=toDecimal32(2000.00,2) where id = 102;</span><br><span class="line">select * from t_order_smt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="Snipaste_2024-05-21_17-47-11.png" alt="Snipaste_2024-05-21_17-47-11"></p>
+<p>由于操作比较“重”，所以 Mutation 语句分两步执行，同步执行的部分其实只是进行新增数据新增分区和并把旧分区打上逻辑上的失效标记。直到触发分区合并的时候，才会删除旧数据释放磁盘空间，一般不会开放这样的功能给用户，由管理员完成。</p>
+<p><strong>由此引申几个问题</strong></p>
+<p><strong>①Clickhouse是否支持事务     —不支持</strong></p>
+<p><strong>②Clickhouse是否支持更新和删除       –支持，只是是间接实现的</strong></p>
+<p><strong>③如何实现高性能update或delete</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">--实现高性能update或delete的思路：</span><br><span class="line">create table  A</span><br><span class="line">(</span><br><span class="line">a xxx,</span><br><span class="line">b xxx,</span><br><span class="line">c xxx,</span><br><span class="line">_sign UInt8,</span><br><span class="line">_version UInt32</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">==&gt; 更新 ：  插入一条新的数据，   _version + 1 </span><br><span class="line">    =》 查询的时候加上一个过滤条件，  where version最大</span><br><span class="line"></span><br><span class="line">==&gt; 删除： _sign,   0表示未删除，1表示已删除， 同时 version + 1</span><br><span class="line">    =》 查询的时候加上一个过滤条件， where  _sign=0 and version最大</span><br><span class="line">    </span><br><span class="line">==&gt; 时间久了，数据膨胀了 ==》 类似合并机制，怎么把过期数据清除掉</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-3-查询操作"><a href="#5-3-查询操作" class="headerlink" title="5.3 查询操作"></a>5.3 查询操作</h2><p>ClickHouse 基本上与标准 SQL 差别不大</p>
+<p>➢ 支持子查询</p>
+<p>➢ 支持 CTE(Common Table Expression 公用表表达式 with 子句)</p>
+<p>➢ 支持各种 JOIN，但是 JOIN 操作无法使用缓存，所以即使是两次相同的 JOIN 语句，ClickHouse 也会视为两条新 SQL</p>
+<p>➢ 窗口函数(官方正在测试中…)</p>
+<p>➢ 不支持自定义函数</p>
+<p>➢ GROUP BY 操作增加了 with rollup\with cube\with total 用来计算小计和总计。</p>
+<p><strong>详细解析with rollup\with cube\with total</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--rollup上卷</span><br><span class="line">select a,b,sum(c) from tmp group by a,b with rollup;</span><br><span class="line">--以上语句等价于</span><br><span class="line">select null,null,sum(c) from tmp </span><br><span class="line">union </span><br><span class="line">select a,null,sum(c) from tmp group by a</span><br><span class="line">union </span><br><span class="line">select a,b,sum(c) from tmp group by a,b</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">--cube多维分析</span><br><span class="line">select a,b,sum(c) from tmp group by a,b with cube;</span><br><span class="line">--以上语句等价于</span><br><span class="line">select null,null,sum(c) from tmp </span><br><span class="line">union </span><br><span class="line">select a,null,sum(c) from tmp group by a</span><br><span class="line">union </span><br><span class="line">select null,b,sum(c) from tmp group by b</span><br><span class="line">union </span><br><span class="line">select a,b,sum(c) from tmp group by a,b</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--total总计</span><br><span class="line">select a,b,sum(c) from tmp group by a,b with total;</span><br><span class="line">--以上语句等价于</span><br><span class="line">select null,null,sum(c) from tmp  </span><br><span class="line">union </span><br><span class="line">select a,b,sum(c) from tmp group by a,b</span><br></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">--先将表中数据都删除</span><br><span class="line">alter table t_order_mt delete where 1=1;</span><br><span class="line">--再重新插入数据</span><br><span class="line">insert into t_order_mt values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(101,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(103,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(104,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(105,&#x27;sku_003&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;),</span><br><span class="line">(106,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-04 12:00:00&#x27;),</span><br><span class="line">(107,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-04 12:00:00&#x27;),</span><br><span class="line">(108,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-04 12:00:00&#x27;),</span><br><span class="line">(109,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-04 12:00:00&#x27;),</span><br><span class="line">(110,&#x27;sku_003&#x27;,600.00,&#x27;2020-06-01 12:00:00&#x27;);</span><br><span class="line">--查询</span><br><span class="line">select * from t_order_mt;</span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-22_20-46-29.png" alt="Snipaste_2024-05-22_20-46-29" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--with rollup:从右至左去掉维度进行统计</span><br><span class="line">select id,</span><br><span class="line">       sku_id,</span><br><span class="line">       sum(total_amount)</span><br><span class="line">from t_order_mt</span><br><span class="line">group by id,sku_id with rollup;</span><br></pre></td></tr></table></figure>
+
+<p>​                                                                           group by id, sku_id</p>
+<img src="Snipaste_2024-05-22_20-56-12.png" alt="Snipaste_2024-05-22_20-56-12" style="zoom:43%;">
+
+<p>​																			group by id</p>
+<img src="Snipaste_2024-05-22_20-56-38.png" alt="Snipaste_2024-05-22_20-56-38" style="zoom:43%;">
+
+<p>​																			group by </p>
+<img src="Snipaste_2024-05-22_20-56-57.png" alt="Snipaste_2024-05-22_20-56-57" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--with cube : 从右至左去掉维度进行统计，再从左至右去掉维度进行统计</span><br><span class="line">select id,</span><br><span class="line">       sku_id,</span><br><span class="line">       sum(total_amount)</span><br><span class="line">from t_order_mt</span><br><span class="line">group by id,sku_id with cube;</span><br></pre></td></tr></table></figure>
+
+<p>​																		    group by id, sku_id</p>
+<img src="Snipaste_2024-05-22_20-56-12.png" alt="Snipaste_2024-05-22_20-56-12" style="zoom:43%;">
+
+<p>​																			group by id</p>
+<img src="Snipaste_2024-05-22_20-56-38.png" alt="Snipaste_2024-05-22_20-56-38" style="zoom:43%;">
+
+<p>​																			group by sku_id</p>
+<img src="Snipaste_2024-05-22_21-04-48.png" alt="Snipaste_2024-05-22_21-04-48" style="zoom:43%;">
+
+<p>​																			group by</p>
+<img src="Snipaste_2024-05-22_20-56-57.png" alt="Snipaste_2024-05-22_20-56-57" style="zoom:43%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- with totals: 只计算合计--注意：此处使用第三方数据库图形化操作工具查询出的结果不符合预期，使用clickhouse终端查询符合预期</span><br><span class="line">select id,</span><br><span class="line">       sku_id,</span><br><span class="line">       sum(total_amount)</span><br><span class="line">from t_order_mt</span><br><span class="line">group by id,sku_id with totals ;           </span><br></pre></td></tr></table></figure>
+
+<img src="Snipaste_2024-05-22_21-13-09.png" alt="Snipaste_2024-05-22_21-13-09" style="zoom:43%;">
+
+<h2 id="5-4-alter操作"><a href="#5-4-alter操作" class="headerlink" title="5.4 alter操作"></a>5.4 alter操作</h2><p>与Mysql的修改字段基本一致（<strong>注意：Hive表一般不会删除表的字段</strong>），ck是基于列式存储的，对于新增和删除字段自由度很大</p>
+<p>（1）新增字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tableName add column newcolname String after col1;</span><br></pre></td></tr></table></figure>
+
+<p>（2）修改字段类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tableName modify column newcolname String;</span><br></pre></td></tr></table></figure>
+
+<p>（3）删除字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table tableName drop column newcolname;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-5-导出数据（很少使用）"><a href="#5-5-导出数据（很少使用）" class="headerlink" title="5.5 导出数据（很少使用）"></a>5.5 导出数据（很少使用）</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clickhouse-client --query &quot;select * from t_order_mt where create_time=&#x27;2020-06-01 12:00:00&#x27;&quot; --format CSVWithNames&gt; /opt/module/data/rs1.csv</span><br></pre></td></tr></table></figure>
+
+<p>用ck存的表一般为宽表，一般直接用BI工具查询或者看板展示就可以了</p>
+<p>更多支持格式参照：<a target="_blank" rel="noopener" href="https://clickhouse.tech/docs/en/interfaces/formats/">https://clickhouse.tech/docs/en/interfaces/formats/</a></p>
+<h1 id="第六章-副本"><a href="#第六章-副本" class="headerlink" title="第六章 副本"></a>第六章 副本</h1><p>副本的目的主要是保障数据的高可用性，即使一台 ClickHouse 节点宕机，那么也可以从其他服务器获得相同的数据。</p>
+<p><a target="_blank" rel="noopener" href="https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replication/">https://clickhouse.tech/docs/en/engines/table-engines/mergetree-family/replication/</a></p>
+<h2 id="6-1-副本写入流程"><a href="#6-1-副本写入流程" class="headerlink" title="6.1 副本写入流程"></a>6.1 副本写入流程</h2><img src="Snipaste_2024-05-23_14-08-48.png" alt="Snipaste_2024-05-23_14-08-48" style="zoom: 50%;">
+
+<h2 id="6-2-配置步骤"><a href="#6-2-配置步骤" class="headerlink" title="6.2 配置步骤"></a>6.2 配置步骤</h2><p>（1）启动zookeeper集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse-server]# zk.sh start</span><br></pre></td></tr></table></figure>
+
+<p>（2）在hadoop102的&#x2F;etc&#x2F;clickhouse-server&#x2F;config.d 目录下创建一个名为 metrika.xml的配置文件,内容如下：（注：也可以不创建外部文件，直接在 config.xml 中指定<zookeeper>）</zookeeper></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 ~]# cd /etc/clickhouse-server/config.d/</span><br><span class="line">[root@hadoop102 config.d]# ll</span><br><span class="line">总用量 0</span><br><span class="line">[root@hadoop102 config.d]# vim metrika.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">yandex</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">zookeeper-servers</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">host</span>&gt;</span>hadoop102<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">host</span>&gt;</span>hadoop103<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">node</span> <span class="attr">index</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">host</span>&gt;</span>hadoop104<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">port</span>&gt;</span>2181<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">node</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">zookeeper-servers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">yandex</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）修改用户组，并同步到hadoop103和hadoop104上</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 config.d]# chown clickhouse:clickhouse metrika.xml</span><br><span class="line">[root@hadoop102 config.d]# xsync /etc/clickhouse-server/config.d/metrika.xml</span><br></pre></td></tr></table></figure>
+
+<p>（4）在hadoop102 的&#x2F;etc&#x2F;clickhouse-server&#x2F;config.xml 中增加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse-server]# vim config.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">zookeeper</span> <span class="attr">incl</span>=<span class="string">&quot;zookeeper-servers&quot;</span> <span class="attr">optional</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">include_from</span>&gt;</span>/etc/clickhouse-server/config.d/metrika.xml<span class="tag">&lt;/<span class="name">include_from</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（5）同步到hadoop103和hadoop104上</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse-server]# xsync config.xml</span><br></pre></td></tr></table></figure>
+
+<p>重启hadoop102上的ck服务器，并开启hadoop103上的ck服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop102 clickhouse-server]# clickhouse start</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop103 ~]# clickhouse start</span><br></pre></td></tr></table></figure>
+
+<p>（6）在 hadoop102 和 hadoop103 上分别建表</p>
+<p><strong>副本只能同步数据，不能同步表结构，所以我们需要在每台机器上自己手动建表</strong></p>
+<p>在hadoop102中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table t_order_rep2 (</span><br><span class="line"> id UInt32,</span><br><span class="line"> sku_id String,</span><br><span class="line"> total_amount Decimal(16,2),</span><br><span class="line"> create_time Datetime</span><br><span class="line">) engine =ReplicatedMergeTree(&#x27;/clickhouse/table/01/t_order_rep&#x27;,&#x27;rep_102&#x27;)</span><br><span class="line"> partition by toYYYYMMDD(create_time)</span><br><span class="line"> primary key (id)</span><br><span class="line"> order by (id,sku_id);</span><br></pre></td></tr></table></figure>
+
+<p>在hadoop103中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table t_order_rep2 (</span><br><span class="line"> id UInt32,</span><br><span class="line"> sku_id String,</span><br><span class="line"> total_amount Decimal(16,2),</span><br><span class="line"> create_time Datetime</span><br><span class="line">) engine =ReplicatedMergeTree(&#x27;/clickhouse/table/01/t_order_rep&#x27;,&#x27;rep_103&#x27;)</span><br><span class="line"> partition by toYYYYMMDD(create_time)</span><br><span class="line"> primary key (id)</span><br><span class="line"> order by (id,sku_id);</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数解释</strong></p>
+<p>ReplicatedMergeTree 中，<strong>第一个参数</strong>是分片的 zk_path 一般按照：</p>
+<p>&#x2F;clickhouse&#x2F;table&#x2F;{shard}&#x2F;{table_name} 的格式写，如果只有一个分片就写 01 即可。</p>
+<p><strong>第二个参数</strong>是副本名称，相同的分片副本名称不能相同。</p>
+<p>查看zookeeper监控器：</p>
+<p><img src="Snipaste_2024-05-23_23-37-03.png" alt="Snipaste_2024-05-23_23-37-03"></p>
+<p> （7）在 hadoop102 上执行 insert 语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">insert into t_order_rep2 values</span><br><span class="line">(101,&#x27;sku_001&#x27;,1000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(102,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(103,&#x27;sku_004&#x27;,2500.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(104,&#x27;sku_002&#x27;,2000.00,&#x27;2020-06-01 12:00:00&#x27;),</span><br><span class="line">(105,&#x27;sku_003&#x27;,600.00,&#x27;2020-06-02 12:00:00&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>（8）在 hadoop103 上执行 select，可以查询出结果，说明副本配置正确</p>
+<img src="Snipaste_2024-05-23_23-33-47.png" alt="Snipaste_2024-05-23_23-33-47" style="zoom:43%;">
+
+<h1 id="第七章-集群分片"><a href="#第七章-集群分片" class="headerlink" title="第七章 集群分片"></a>第七章 集群分片</h1><p>副本虽然能够提高数据的可用性，降低丢失风险，但是每台服务器实际上必须容纳全量数据，对数据的横向扩容没有解决。</p>
+<p>要解决数据水平切分的问题，需要引入分片的概念。<strong>通过分片把一份完整的数据进行切分，不同的分片分布到不同的节点上，再通过 Distributed 表引擎把数据拼接起来一同使用。</strong></p>
+<p><strong>Distributed 表引擎本身不存储数据</strong>，有点类似于 MyCat 之于 MySql，成为一种中间件，通过分布式逻辑表来写入、分发、路由来操作多台节点不同分片的分布式数据。</p>
+<blockquote>
+<p>注意：ClickHouse 的集群是表级别的，实际企业中，大部分做了高可用，但是没有用分片，避免降低查询性能以及操作集群的复杂性。</p>
+</blockquote>
+<h2 id="7-1-集群写入流程（3分片2副本共6个节点）"><a href="#7-1-集群写入流程（3分片2副本共6个节点）" class="headerlink" title="7.1 集群写入流程（3分片2副本共6个节点）"></a>7.1 集群写入流程（3分片2副本共6个节点）</h2><p><img src="Snipaste_2024-05-23_23-50-13.png" alt="Snipaste_2024-05-23_23-50-13"></p>
+
       
 
       
@@ -332,7 +800,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-Clickhouse%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">第一章 Clickhouse入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-clickhouse%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 clickhouse的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E5%88%97%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 列式存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-DBMS%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 DBMS的功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-%E5%A4%9A%E6%A0%B7%E5%8C%96%E5%BC%95%E6%93%8E"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.1.3 多样化引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4-%E9%AB%98%E5%90%9E%E5%90%90%E5%86%99%E5%85%A5%E8%83%BD%E5%8A%9B"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.1.4 高吞吐写入能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-5-%E6%95%B0%E6%8D%AE%E5%88%86%E5%8C%BA%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%BA%A7%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.1.5 数据分区与线程级并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-6-%E6%80%A7%E8%83%BD%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.1.6.</span> <span class="toc-text">1.1.6 性能查询</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-clickhouse%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">第二章 clickhouse安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E7%A1%AE%E5%AE%9A%E9%98%B2%E7%81%AB%E5%A2%99%E5%A4%84%E4%BA%8E%E5%85%B3%E9%97%AD%E7%8A%B6%E6%80%81"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 确定防火墙处于关闭状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-CentOS-%E5%8F%96%E6%B6%88%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E6%95%B0%E9%99%90%E5%88%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2  CentOS 取消打开文件数限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4-CentOS-%E5%8F%96%E6%B6%88-SELINUX"><span class="toc-number">2.1.4.</span> <span class="toc-text">2.1.4  CentOS 取消 SELINUX</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%8D%95%E6%9C%BA%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 单机安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">第三章 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%95%B4%E5%BD%A2"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 整形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 浮点型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%B8%83%E5%B0%94%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 布尔型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-Decimal"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Decimal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 枚举类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 时间类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8-%E6%95%B0%E7%BB%84"><span class="toc-number">3.8.</span> <span class="toc-text">3.8 数组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%A1%A8%E5%BC%95%E6%93%8E"><span class="toc-number">4.</span> <span class="toc-text">第四章 表引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E8%A1%A8%E5%BC%95%E6%93%8E%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 表引擎的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-TinyLog"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 TinyLog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-Memory"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-MergeTree"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 MergeTree</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-1-partition-by%E5%88%86%E5%8C%BA%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.4.1.</span> <span class="toc-text">4.4.1 partition by分区（可选）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-1-1-ck%E6%95%B0%E6%8D%AE%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="toc-number">4.4.1.1.</span> <span class="toc-text">4.4.1.1 ck数据文件解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2-primary-key%E4%B8%BB%E9%94%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.4.2.</span> <span class="toc-text">4.4.2 primary key主键（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-3-order-by%EF%BC%88%E5%BF%85%E9%80%89%EF%BC%89"><span class="toc-number">4.4.3.</span> <span class="toc-text">4.4.3 order by（必选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-4-%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-number">4.4.4.</span> <span class="toc-text">4.4.4 二级索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-5-%E6%95%B0%E6%8D%AETTL"><span class="toc-number">4.4.5.</span> <span class="toc-text">4.4.5 数据TTL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-ReplacingMergeTree"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 ReplacingMergeTree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-SummingMergeTree"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 SummingMergeTree</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-SQL%E6%93%8D%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">第五章 SQL操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-Insert"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Insert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-Update%E5%92%8CDelete"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 Update和Delete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 查询操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-alter%E6%93%8D%E4%BD%9C"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 alter操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%EF%BC%88%E5%BE%88%E5%B0%91%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="toc-number">5.5.</span> <span class="toc-text">5.5 导出数据（很少使用）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%89%AF%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">第六章 副本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%89%AF%E6%9C%AC%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 副本写入流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 配置步骤</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E9%9B%86%E7%BE%A4%E5%88%86%E7%89%87"><span class="toc-number">7.</span> <span class="toc-text">第七章 集群分片</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E9%9B%86%E7%BE%A4%E5%86%99%E5%85%A5%E6%B5%81%E7%A8%8B%EF%BC%883%E5%88%86%E7%89%872%E5%89%AF%E6%9C%AC%E5%85%B16%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%89"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 集群写入流程（3分片2副本共6个节点）</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
