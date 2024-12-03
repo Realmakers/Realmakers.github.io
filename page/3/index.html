@@ -60,7 +60,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 50
+			总文章数 51
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -152,6 +152,227 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-AI可解释性的模型、方法与实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/05/27/AI%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E8%B7%B5/">AI可解释性的模型、方法与实践</a>
+    </h1>
+  
+
+        
+        <a href="/2023/05/27/AI%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="archive-article-date">
+  	<time datetime="2023-05-27T07:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本部分内容将与多因子投资相结合，部分内容来源于《可解释机器学习：模型、方法与实践》和《AI可解释性（Python语言版）》的读书笔记与个人感悟，并辅以具体代码实例和论文研读</p>
+</blockquote>
+<h1 id="第一部分-背景"><a href="#第一部分-背景" class="headerlink" title="第一部分 背景"></a>第一部分 背景</h1><h2 id="第一章-引言"><a href="#第一章-引言" class="headerlink" title="第一章 引言"></a>第一章 引言</h2><p>可解释机器学习（Interpretable Machine Learning，IML）的研究目的是解决机器学习模型的可解释性问题，让机器学习模型能够更广泛地应用到各行各业。</p>
+<h3 id="1-1-可解释机器学习的研究背景"><a href="#1-1-可解释机器学习的研究背景" class="headerlink" title="1.1 可解释机器学习的研究背景"></a>1.1 可解释机器学习的研究背景</h3><p>尽管深度学习模型、集成学习模型在很多领域都取得了很好的效果，但这类模型有一个共同特点就是：内部结构十分复杂，运作机制如同黑箱，难以用人类可以理解的语言去描述，模型的输出结果既难以预测又难以被解释，针对于一些重要的决策领域的应用受到巨大挑战，比如医疗、金融、证券、自动驾驶等领域，对于决策者，在不清楚黑盒模型运作原理的情况下，是不敢仅凭借模型的预测结果就轻易做出决策的。</p>
+<p>模型黑箱问题具体包括如下三点：</p>
+<p>（1）无法挖掘因果关系问题或者因果错判问题</p>
+<p>在金融、证券、医疗等高风险领域，我们不仅希望模型能够给出正确的预测结果，还希望模型能够为我们提出判断依据。即使一些模型的评价指标很高（如AUC值很高），我们也依然不清楚黑箱模型的判断依据是否正确。如果模型无法给出合理的因果关系，那么模型的结果也将很难使人信服。</p>
+<p>（2）黑箱模型的不安全性问题</p>
+<p>对于建模人员来讲，如果黑客在原始模型的输入样本中添加了一些扰动（对抗样本），则模型很有可能产生误判，建模人员如果不及时调整模型，就会造成非常严重的后果。</p>
+<p>对于模型的使用者来说，他们并不了解模型的运作机制，只是利用模型的结果做出预测。黑箱模型无法解释模型的结果，结果通常是以概率或者评分的形式给出的，使用者对模型结果的风险却少有了解，这就好比病人不了解药物的不良反应一样。如果有人使用欺诈或伪造的方式，提升自己在黑箱模型的评分，使用者很难从黑箱模型的结果中发现异常，这就会造成模型结果在使用中存在不安全的问题。</p>
+<p>（3）黑箱模型可能存在偏见问题</p>
+<p>我们应该避免模型做出带有偏见性的预测。</p>
+<h3 id="1-2-模型可解释性的重要性"><a href="#1-2-模型可解释性的重要性" class="headerlink" title="1.2 模型可解释性的重要性"></a>1.2 模型可解释性的重要性</h3><p>针对于模型可解释的重要性问题，与模型在不同应用场景中产生的影响有很大关系。比如相较于做药物效果、癌细胞识别、选择股票所使用的模型，用来做电影推荐的模型其影响力要小得多。</p>
+<p>在解决机器学习问题的时候，我们倾向于关注模型的性能指标（比如准确性、精确率和召回率等等），事实上，性能指标只是模型预测能力的部分体现。随着时间的推移，环境的各种因素可能发生变化，从而导致模型的前提假设条件也在发生变化，模型的性能也可能发生变化。</p>
+<p>了解模型的决策机制和影响模型决策的重要因素是至关重要的事情，而这两点主要是通过模型的可解释性来实现的。</p>
+<p> 可解释性模型带来的五个好处：</p>
+<p>（1）可靠性强，易于产生信任</p>
+<p>不管什么复杂的模型，如果用户不信任模型或模型预测的结果，他们就不会放心地使用它。比如我们的量化Boosting选股模型，用户在使用过程中，会不断提出如下问题：我为什么要相信这个选股模型？选股模型给出的预测结果的原因是否清晰？模型的决策机制是否合理？我是否会对预测结果和做出的决策感到满意？这都是模型可解释性需要做的工作。</p>
+<p>（2）判别和减少模型的误差</p>
+<p>（3）启发特征工程思路</p>
+<p>（4）改进泛化能力和性能</p>
+<p>可解释模型通常有更好的泛化能力。可解释模型并不是要了解所有数据点的模型的全部信息。只有将可靠的数据、模型和问题理解结合起来，才能获得更高性能的解决方案。</p>
+<p>（5）满足道德和法律的需要</p>
+<h2 id="第二章-可解释机器学习"><a href="#第二章-可解释机器学习" class="headerlink" title="第二章 可解释机器学习"></a>第二章 可解释机器学习</h2><h3 id="2-1-模型的可解释性"><a href="#2-1-模型的可解释性" class="headerlink" title="2.1 模型的可解释性"></a>2.1 模型的可解释性</h3><p>可解释机器学习（IML）的核心思想在于选择模型时需要同时考虑模型的预测精度和可解释性，并尽量找到二者之间的最佳平衡。它不像传统黑盒模型仅考虑预测精度这一单项指标（如低MSE或高AUC），它不仅能够给出模型的预测值，还能给出得到该预测值的理由。</p>
+<p>我们在使用机器学习模型时，常用的模型性能评价指标有精度、查准率、查全率、ROC曲线、代价曲线等。但模型的高性能意味着模型足够智能和聪明，但是不足以让我们了解它的运作原理，除了单一的性能评价之外，模型的评价还应该增加一个维度，以表示模型的“表达能力”，可解释性就是其中之一。</p>
+<p>可解释性实际上就是将模型的预测过程转化成具备逻辑关系的规则的能力。</p>
+<p>下面是一个基金营销场景：</p>
+<blockquote>
+<p>尽管一个模型能够判断一个客户有很大的可能性购买低风险、低收益的产品，但是模型不能解释客户倾向于购买低风险、低收益产品的更详细的原因，因此也就无法提出对这个客户来说更有针对性的营销策略，从而导致营销的效果不佳。具备可解释性的模型在做预测时，除了给出推荐的产品之外，还要能给出推荐的理由。例如：模型会推荐一个低收益产品的原因是，该客户刚大学毕业，年纪还比较小，缺乏理财意识，金融知识也比较薄弱，尽管个人账户中金额不少，但是盲目推荐购买高收益产品，可能会由于其风险意识不足而导致更多的损失，因此可以通过一些简单的低风险理财产品，让客户先体验一下金融市场，培养客户的理财兴趣，过一段时间再购买高收益的产品</p>
+</blockquote>
+<h4 id="2-1-1-可解释模型的分类"><a href="#2-1-1-可解释模型的分类" class="headerlink" title="2.1.1 可解释模型的分类"></a>2.1.1 可解释模型的分类</h4><p>（1）内在可解释VS.事后可解释</p>
+<p>内在可解释（Intrinsic Interpretability）指的是模型自身结构比较简单，使用者可以清晰地看到模型的内部结构，模型的结果带有解释的效果，模型再设计的时候就已经具备了可解性性。比如逻辑回归、线性回归、深度较浅的决策树、K近邻等。</p>
+<p>事后可解释（Post-hoc Interpretability）指的是模型训练完之后，使用一定的方法增强模型的可解释性，挖掘模型学习到的信息。（可以参考论文“Why Should I Trust You?——Explaining the Predictions of Any Classifier”，其中介绍了Lime解释方法）</p>
+<p>（2）局部解释VS.全局解释</p>
+<p>对于整个数据集而言，我们需要了解整体的预测情况；对于个体而言，我们需要了解特定个体中预测的差异情况。</p>
+<p>局部解释指的是当一个样本或一组样本的输入值发生变化时，解释其预测结果会发生怎样的变化。</p>
+<p>全局解释指的是整个模型从输入到输出之间的解释，从全局解释中，我们可以得到普遍规律或统计推断，理解每个特征对模型的影响。</p>
+<h4 id="2-1-2-可解释机器学习的研究方向"><a href="#2-1-2-可解释机器学习的研究方向" class="headerlink" title="2.1.2 可解释机器学习的研究方向"></a>2.1.2 可解释机器学习的研究方向</h4><p>模型的设计或优化时，需要从精度和解释性两个角度进行考虑（对于量化投资而言是三个维度：模型的精度和可解释性、回测指标），如下图：横轴代表模型的可解释性，越往正方向代表模型的可解释越高；纵轴代表模型的精度，越往正方向代表模型的精度越高。</p>
+<img src="图片1.png" alt="图片1" style="zoom:43%;">
+
+<p>针对模型评价的两个指标，可解释机器学习有两个大研究方向，具体说明如下：</p>
+<p><strong>第一</strong>，对于传统统计学模型（比如决策树、逻辑回归、线性回归等），模型的可解释性较强，我们在使用模型时可以清楚看到模型的内部结构，结果具有很高的可解释性。然而一般情况下，这些模型的精度较低。在保持模型的可解释性前提下，我们可以适当地改良模型的结构，通过增加模型的灵活表征能力，提高其精度，使得模型往纵轴正向移动，形成内在可解释机器学习模型。</p>
+<p><strong>第二</strong>，当下的机器学习模型（集成学习、神经网络）其内部结构十分复杂，我们难以通过逐层神经网络或逐个神经元观察数据的变化，模型的可解释性较低。为了提高模型的可解释性，我们可以采取采用以下两种方法：<strong>①降低模型结构的复杂度，如减少树模型的深度，以牺牲模型的精度换取可解释性</strong>；<strong>②保持模型原有的精度，在模型训练完之后，利用事后辅助的归因解析方法及可视化工具，来获得模型的可解释性。</strong>无论采取哪一种方法其目的都是让模型往横轴的正方向移动，获取更多的可解释性。LIME和SHAP等方法均属于事后解析方法。</p>
+<h3 id="2-2-可解释的作用"><a href="#2-2-可解释的作用" class="headerlink" title="2.2 可解释的作用"></a>2.2 可解释的作用</h3><p>并非所有的机器学习模型都需要可解释性，如天气预报、导航系统等。但对于一些目前还不完整、正处于探索阶段中的领域，模型的可解释性是很有必要的。可解释性的必要性体现在模型的拟合的目标与人类现实问题不相符的情况中。通常，模型的拟合的目的是使得预测误差最小化，而在实际应用中，我们不仅要求模型误差量最小，还要求模型能够挖掘出因果关系，具有安全性且不存在偏见；<strong>当模型落地应用之后，还要求模型能在不同的数据环境中都有良好的表现</strong>。</p>
+<h4 id="2-2-1-产生信任"><a href="#2-2-1-产生信任" class="headerlink" title="2.2.1 产生信任"></a>2.2.1 产生信任</h4><p>可解释性最大的作用是<strong>产生信任</strong>。我们要对模型产生信任，并不是简单地要求模型表现好，否则我们只需要不断地加强模型的学习能力，提升模型的精度即可。</p>
+<p>信任是主观的，如果一个专家告诉你：“我们的模型精度高达99%，其预测A公司的股票未来一定翻倍，你去买吧。”我们不深究这种99%精度的预测模型到底存不存在，即使存在，我们也会有所迟疑。但假如他告诉你的是：“<strong>A公司产品市场空间很大，其产品与家电行业一样，与每个人的生活息息相关，且有大量的市场需求，是亿万级别的市场；A公司是该行业的龙头企业，收入与利润非常可观，专业技术一流，技术力量和科研能力对其未来的持续发展有很强的支撑力….因此A公司的股票未来会翻倍，你去买吧。</strong>”这样的话术就很吸引客户。</p>
+<h4 id="2-2-2-提供因果关系依据"><a href="#2-2-2-提供因果关系依据" class="headerlink" title="2.2.2 提供因果关系依据"></a>2.2.2 提供因果关系依据</h4><p>机器学习模型可以挖掘输入与输出之间的相关关系，但这不一定是因果关系。可解释机器学习可以提供相关关系的依据，科学家可以根据模型给出的解释和结果作进一步的假设检验。再比如，模型设计者可以将因果关系推断的思想放到模型当中，使模型的结果展现出因果关系，比如概率图模型中的因果推断模型。</p>
+<h4 id="2-2-3-帮助模型诊断（对于量化而言很重要）"><a href="#2-2-3-帮助模型诊断（对于量化而言很重要）" class="headerlink" title="2.2.3 帮助模型诊断（对于量化而言很重要）"></a>2.2.3 帮助模型诊断（对于量化而言很重要）</h4><p>黑箱模型虽然可以发现模型产生了错误的结果，但难以找到错误的原因，因为其内部结构过于复杂，模型诊断需要花费大量的时间，错误也很难被发现。对于模型设计者来说，可解释机器学习模型结构相对简单，通过直接观察模型和模型的结果，就可以诊断模型，进而优化模型；对于模型使用者来说，当模型给出的解释与我们的经验相违背时，我们可以通过观察数据和模型，判断是数据或模型出现了错误还是模型挖掘出了新的关系。</p>
+<h4 id="2-2-4-安全使用模型"><a href="#2-2-4-安全使用模型" class="headerlink" title="2.2.4 安全使用模型"></a>2.2.4 安全使用模型</h4><p>可解释机器学习模型可以为使用者提供决策过程，当有新的样本进入模型或者场景发生变化时，使用者仍然可以依据对结果的解释，放心制定相关决策。</p>
+<h4 id="2-2-5-避免发生偏见与歧视"><a href="#2-2-5-避免发生偏见与歧视" class="headerlink" title="2.2.5 避免发生偏见与歧视"></a>2.2.5 避免发生偏见与歧视</h4><h3 id="2-3-可解释性的实现"><a href="#2-3-可解释性的实现" class="headerlink" title="2.3 可解释性的实现"></a>2.3 可解释性的实现</h3><h4 id="2-3-1-建模前的可解释性实现"><a href="#2-3-1-建模前的可解释性实现" class="headerlink" title="2.3.1 建模前的可解释性实现"></a>2.3.1 建模前的可解释性实现</h4><p>建模前的可解释性可以通过一些传统的方法来实现，如：</p>
+<p>（1）可视化</p>
+<p>（2）异常点排查</p>
+<p>（3）代表性样本选择</p>
+<p>（4）样本分析</p>
+<h4 id="2-3-2-建模中的可解释性实现"><a href="#2-3-2-建模中的可解释性实现" class="headerlink" title="2.3.2 建模中的可解释性实现"></a>2.3.2 建模中的可解释性实现</h4><p>（1）可加性</p>
+<p>（2）稀疏性</p>
+<p>（3）单调性</p>
+<h4 id="2-3-3-建模后的可解释性实现"><a href="#2-3-3-建模后的可解释性实现" class="headerlink" title="2.3.3 建模后的可解释性实现"></a>2.3.3 建模后的可解释性实现</h4><p>建模后的可解释性主要侧重于对<strong>已建立好</strong>的复杂的机器学习模型或深度学习模型的结果进行解释。倘若我们使用了黑箱模型进行建模，则可以通过对比<strong>敏感性分析、LIME、SHAP</strong>等一些列事后解析方法，用<strong>多个技术指标</strong>对影响模型结果的重要特征进行对比分析，以弥补单个模型事后解析方法对模型本身固有的依赖性的局限。另外，事后解析方法也能反向验证模型的优劣，为模型的调优提供辅助信息。</p>
+<h1 id="第二部分-理论"><a href="#第二部分-理论" class="headerlink" title="第二部分 理论"></a>第二部分 理论</h1><h2 id="第三章-内在可解释机器学习模型"><a href="#第三章-内在可解释机器学习模型" class="headerlink" title="第三章 内在可解释机器学习模型"></a>第三章 内在可解释机器学习模型</h2><p>内在可解释机器学习模型是指那些自身就具有良好的解释性的模型，这类模型最早的代表主要有统计学中的<strong>回归模型</strong>、<strong>加性模型</strong>和<strong>决策树</strong>。但是精度不够高，尤其在面对当前大数据时，三者的精度往往比集成学习和神经网络要低。</p>
+<p>为了解决传统内在可解释模型精度不够的问题，如下学者做了相关研究：</p>
+<p><strong>Yin Lou、Rich Caruana和Johannes Gehrke于2012年在加性模型的基础上，融入梯度提升树的思路，提出了EBM（Explainable Boosting Machine，可解释提升机）模型</strong></p>
+<p><strong>Zebin Yang和Aijun Zhang于2020年在加性模型的基础上，融入神经网络的思想，提出了GAMI-Net，GAMI-Net将加性模型中的特征与响应变量之间的关系由光滑非参函数改进为用神经网络来刻画，同时加入了具有遗传效应和边界清晰性质的交互项信息，这能进一步提升模型的可解释性。</strong></p>
+<p><strong>Friedman和Popescu于2008年基于树模型能抓取特征交互信息的思想提出了RuleFit，RuleFit方法利用树模型中的规则来抓取特征间的交互信息，再将规则视作新特征，与原特征一起训练回归模型。</strong></p>
+<p><strong>Fulton Wang和Cynthia Rudin于2015年使用关联分析和贝叶斯思想优化的规则提出了Falling Rule Lists，该方法通过关联分析找到一系列支持度从大到小的规则，并以贝叶斯的方法来优化迭代超参数，最后根据优化好的规则对样本进行概率预测。</strong></p>
+<h3 id="3-1-传统统计模型（略）"><a href="#3-1-传统统计模型（略）" class="headerlink" title="3.1 传统统计模型（略）"></a>3.1 传统统计模型（略）</h3><p>线性回归</p>
+<p>逻辑回归</p>
+<p>KNN</p>
+<p>决策树</p>
+<p>朴素贝叶斯</p>
+<h3 id="3-2-EBM模型"><a href="#3-2-EBM模型" class="headerlink" title="3.2 EBM模型"></a>3.2 EBM模型</h3><h2 id="第四章-复杂模型的事后解析方法"><a href="#第四章-复杂模型的事后解析方法" class="headerlink" title="第四章 复杂模型的事后解析方法"></a>第四章 复杂模型的事后解析方法</h2><p>内在可解释模型机器学习模型本身虽然具有较好的解释性，但其再精度上依旧无法与复杂模型相媲美。再某些场景下，如果既想使用复杂模型，又想要模型的结果具有可解释性，那么我们可以采用事后解析方法，弥补复杂模型难以被解释的不足。生物统计学中常用的<strong>敏感性分析</strong>，<strong>数理统计中经典的PDP（Partial Dependence Plot，部分依赖图）</strong>和<strong>ALE（Accumulated Local Effect，累积局部效应）</strong>、<strong>合作博弈论中的公平分配贡献</strong>，以及近几年流行的新方法，如<strong>代理模型</strong>等。</p>
+<p><strong>Marco Tulio Riberio、Sameer Singh和Carlos Guestrin于2016年提出了LIME（Local Interpretable Model-Agnostic Explanation，与模型无关的局部解释算法）的概念，即用代理模型的思想对单个样本的模型预测值进行解析。</strong></p>
+<p><strong>Scott M.Lunberg和Su-In Lee于2017年再NIPS会议（神经信息处理系统大会）上提出SHAP（Shapley Additive Explanation）的概念，引入合作博弈论中的Shapley Value来计算样本中每个特征的贡献值，并以此作为局部解释。</strong></p>
+<h3 id="4-1-部分依赖图"><a href="#4-1-部分依赖图" class="headerlink" title="4.1 部分依赖图"></a>4.1 部分依赖图</h3><h3 id="4-2-累积局部效应图"><a href="#4-2-累积局部效应图" class="headerlink" title="4.2 累积局部效应图"></a>4.2 累积局部效应图</h3><h3 id="4-3-LIME事后解析方法"><a href="#4-3-LIME事后解析方法" class="headerlink" title="4.3 LIME事后解析方法"></a>4.3 LIME事后解析方法</h3><p>LIME（Local Interpretable Model-Agnostic Explanation），是一个与<strong>模型无关</strong>的的<strong>局部解释</strong>算法。关于LIME算法的理解，主要侧重于两个方面：一个是<strong>与模型无关</strong>，另一个是<strong>局部解释</strong>，由于LIME算法使用的数据只有原始输入特征集及模型预测值，因此LIME算法对模型的种类并无要求，可以是像XGBoost的集成树模型，也可以是神经网络模型，这就是与模型无关的含义。同时，LIME还是一个局部解释算法，通过对<strong>单个样本</strong>构建局部代理模型，可以找到该样本的各个特征取值对最后的模型预测值的影响。</p>
+<p>LIME可以对任何机器学习甚至未来才会出现的机器学习模型（量子机器学习模型）进行可解释性分析，行业适配性和广泛性很强。</p>
+<h4 id="4-3-1-局部代理模型"><a href="#4-3-1-局部代理模型" class="headerlink" title="4.3.1 局部代理模型"></a>4.3.1 局部代理模型</h4><p>局部代理模型属于可解释机器学习中的一种事后解释思想。<strong>局部</strong>，顾名思义，是只解释单个样本的模型预测值。代理模型的意思是，使用黑盒模型对样本进行预测，得到结果后，再运用简单易懂的模型（比如，线性回归模型、决策树等），重新拟合<strong>样本特征</strong>与<strong>黑盒模型的预测值</strong>之间的关系。这里的简单易懂模型，相当于是黑盒模型的一个代理人。模型使用者可以通过简单模型理解黑盒模型所发现的规律。</p>
+<p>LIME可以处理不同输入类型的数据，如常用的表格数据、图像数据或文本数据。</p>
+<p>（1）对于表格数据，例如用银行客户的行为数据来预测理财产品的销售，训练完复杂模型后，可以用LIME得到影响产品销售额成功的那些特征；</p>
+<p>（2）对于图像数据，例如，识别图片中的动物是否为猫，训练完复杂模型后，可以用LIME得到图片中的动物被识别为猫，是因为哪一个或几个像素块；（类似于专门解释CNN图像分类任务的CAM工具包，可以给出算法识别图片为某个分类的特征像素热力图）</p>
+<p>（3）对于文本数据，例如，识别短信是否为垃圾短信，训练完复杂模型后，可以用LIME得到一条信息被判断为垃圾信息，是因为哪一个或几个关键词。</p>
+<p>LIME目标是找到<strong>单个样本的模型预测值于特征之间的线性关系</strong>。思路为：当变动单个样本的特征数据时，观察黑盒模型的预测结果会有什么样的变化。收集这些新的特征数据及对应的模型预测值，来拟合稀疏线性回归模型，同时也对模型的复杂度加入惩罚。</p>
+<h4 id="4-3-2-LIME方法的基本流程"><a href="#4-3-2-LIME方法的基本流程" class="headerlink" title="4.3.2 LIME方法的基本流程"></a>4.3.2 LIME方法的基本流程</h4><img src="Snipaste_2023-05-28_15-20-40.png" alt="Snipaste_2023-05-28_15-20-40" style="zoom: 33%;">
+
+<p>LIME算法需要输入<strong>某个想要解释的样本</strong>和已经<strong>训练好的复杂模型</strong>。基于表格数据的整套算法步骤：</p>
+<p>（1）在预测样本附近随机取样（图1，图2）</p>
+<p>（2）对新生成的样本打标签（图2）</p>
+<p>（3）根据新生成的样本到输入样本的距离，计算相应的权重（图3）</p>
+<p>新生成的样本距离要解释的样本越近，意味着新样本可以更好地代表要解释的样本，因此会对其赋予更高的权重。我们可以用指数核函数（支持向量机中使用到）来定义权重</p>
+<p>（4）用黑盒模型预测这些新样本得到预测结果（图4）</p>
+<p>（5）选择一个可解释性强的模型（线性回归）（图5）</p>
+<p>（6）筛选出特征，再拟合出该线性回归模型作为原黑盒模型的解释（图6）</p>
+<blockquote>
+<p>思想如泰勒展开，任何在展开点附近任意阶可导的函数，都可以展开成一个多项式函数。LIME即任何一个机器学习模型都可以被一个样本点及其周边随机样本拟合而成的可解释机器学习模型进行模型解释</p>
+</blockquote>
+<h4 id="4-3-3-LIME方法的解释"><a href="#4-3-3-LIME方法的解释" class="headerlink" title="4.3.3 LIME方法的解释"></a>4.3.3 LIME方法的解释</h4><p>一句话：对于单个样本，我们在其附近抽样得到新的样本，并用训练好的复杂模型得到预测值。基于这些新模拟的特征值和目标值，我们最终拟合出线性回归来代理复杂模型。所以，我们要充分挖掘线性回归模型中的信息。其中线性回归模型中的系数的<strong>大小</strong>代表该特征的<strong>重要性高低</strong>，系数的<strong>正负</strong>代表该特征对最终模型预测值<strong>影响的方向</strong>，正号代表当该特征增加一个单位时，模型的预测值会相应地增加，反之亦然。系数为负，代表当该特征增加一个单位时，模型的预测值会相应地下降。</p>
+<h4 id="4-3-4-LIME方法的优劣"><a href="#4-3-4-LIME方法的优劣" class="headerlink" title="4.3.4 LIME方法的优劣"></a>4.3.4 LIME方法的优劣</h4><p>作为一种与模型无关的事后解释方法，LIME的第一个优点是<strong>应用比较广泛</strong>，表格数据、图像或文本领域都可以使用。另一方面，无论之前对数据集使用的是哪种模型，都可以用LIME来解释。LIME的第二个优点是，所得到的解释结果，也可以用来<strong>诊断复杂模型</strong>，例如，如果发现某些特征变量对目标变量的影响是不符合业务经验的，就可以用其检验模型发现的规律。LIME的第三个优点是，我们可以度量出该局部代理模型接近单个样本的黑盒模型预测值的程度。具体可以通过计算LIME对单个样本的预测值，与黑盒模型预测值之间的距离来作为度量标准。LIME的第四个优点是，LIME可能会使用原有模型中未使用到的，但是易于理解的特征。</p>
+<p>LIME的局限性首先在于解释的<strong>不稳定性</strong>，不稳定性主要来自于对要解释的样本进行抽样所带来的随机性，重新抽样后再拟合模型，单个样本中关于特征的重要性可能会发生些许变化。第二点，只进行正态抽样会忽略掉特征之间的相关性，导致产生一些不合理的样本。最后，关于核函数（权重）的设置需要进行多次尝试，以判断得到的解释是是否合理。</p>
+<p>针对不同样本如何计算邻域样本权重的问题，Giorgio Visani, Enrico Bagli and Federico Chesani在2020年对LIME进行了改进——OptiLIME，即自适应距离的LIME算法</p>
+<h1 id="第三部分-实例"><a href="#第三部分-实例" class="headerlink" title="第三部分 实例"></a>第三部分 实例</h1><h1 id="第四部分-可解释性论文研读"><a href="#第四部分-可解释性论文研读" class="headerlink" title="第四部分 可解释性论文研读"></a>第四部分 可解释性论文研读</h1><h2 id="4-1-Lime论文研读（KDD2016）"><a href="#4-1-Lime论文研读（KDD2016）" class="headerlink" title="4.1 Lime论文研读（KDD2016）"></a>4.1 Lime论文研读（KDD2016）</h2><img src="Snipaste_2023-05-28_14-04-50.png" alt="Snipaste_2023-05-28_14-04-50" style="zoom: 50%;">
+
+<p>本篇论文是机器学习可解释性的必读论文，开创了LIME事后解析方法的先河。</p>
+<p>一句话：<strong>使用“可解释特征”训练“可解释模型”，在“特定样本的局部线性邻域”拟合“原模型”</strong></p>
+<h3 id="4-1-1-Abstract"><a href="#4-1-1-Abstract" class="headerlink" title="4.1.1 Abstract"></a>4.1.1 Abstract</h3><p>理解一个机器学习模型预测背后的原因对于评估信任来说十分重要，我们只有信任这个模型，才能让这个模型帮我们做出决策并且放心部署一个模型应用在人类的金融、医疗和军工场景。</p>
+<p>本论文提出LIME范式，可以对<strong>任何</strong>一种机器学习模型做出<strong>局部</strong>可解释分析，通过对具有代表性的个体预测的解释，在解释文本和图像分类任务中进行实验，测试我们如何相信一个预测结果，如何从两个模型中选出一个更好的模型，如何改进一个模型以及解释一个模型为什么不可信。</p>
+<h3 id="4-1-2-Introduction"><a href="#4-1-2-Introduction" class="headerlink" title="4.1.2 Introduction"></a>4.1.2 Introduction</h3><p>机器学习重在“机器”，这使得我们往往忽视了人的重要性——如果用户不信任一个模型或者预测，即使模型精度很高，他们也不会使用它，所以我们要<strong>让模型的使用者信任模型，让用户信任预测</strong>，而不是把它当作黑箱看待。</p>
+<p>尤其在决策领域（金融风控、信用卡评级、量化选股、癌细胞分类识别、药物推荐），可解性性更为重要。并且在真实场景下，用户上传和提供的数据很可能和训练数据大不相同，这导致我们在可用的验证集上得到的评价指标并不一定科学，尤其是在大型数据集上，所以，除了模型本身的精度评价指标外，还需要辅以可解释性进行模型度量。</p>
+<p>本文提供单个（局部）预测的解释作为“信任一个预测”问题的解决方案，并选择多个这样的预测和解释作为“信任模型”问题的解决方案，本文的贡献如下：</p>
+<p>（1）提出LIME：用单一局部样本解释预测</p>
+<p>（2）提出SP-LIME：用一组具有代表性的样本解释模型</p>
+<p>（3）实验</p>
+<h3 id="4-1-3-Method"><a href="#4-1-3-Method" class="headerlink" title="4.1.3 Method"></a>4.1.3 Method</h3><p>解释单个样本：</p>
+<img src="Snipaste_2023-05-28_19-32-32.png" alt="Snipaste_2023-05-28_19-32-32" style="zoom: 67%;">
+
+<p>通过模型的预测拿出一个预测样本，该样本有很多特征，并且被预测为“流感”，通过LIME解释器的解释，可以得到不同特征对预测类别的影响，可以看到“打喷嚏”和“头疼”为模型预测提供了正向贡献，而“没有疲劳”为模型提供了负向贡献，将这些结果给医生参考，医生就会根据自己的先验知识接受或者拒绝该模型的预测</p>
+<p>解释整个模型：</p>
+<h3 id="4-1-4-Experiments"><a href="#4-1-4-Experiments" class="headerlink" title="4.1.4 Experiments"></a>4.1.4 Experiments</h3><h3 id="4-1-5-Conclusion"><a href="#4-1-5-Conclusion" class="headerlink" title="4.1.5 Conclusion"></a>4.1.5 Conclusion</h3><h2 id="4-2-OptiLIME论文研读"><a href="#4-2-OptiLIME论文研读" class="headerlink" title="4.2 OptiLIME论文研读"></a>4.2 OptiLIME论文研读</h2><img src="Snipaste_2023-05-28_18-45-08.png" alt="Snipaste_2023-05-28_18-45-08" style="zoom: 50%;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据科学</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/机器学习与深度学习//" class="article-tag-list-link color5">机器学习与深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/05/27/AI%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E7%9A%84%E6%A8%A1%E5%9E%8B%E3%80%81%E6%96%B9%E6%B3%95%E4%B8%8E%E5%AE%9E%E8%B7%B5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-个人面试准备及知识点复习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -4210,107 +4431,9 @@
 
 
   
-    <article id="post-贝叶斯在量化投资中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/14/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%9C%A8%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">贝叶斯在量化投资中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/14/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%9C%A8%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2023-02-14T08:23:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-贝叶斯方法在量化投资中的应用"><a href="#1-贝叶斯方法在量化投资中的应用" class="headerlink" title="1. 贝叶斯方法在量化投资中的应用"></a>1. 贝叶斯方法在量化投资中的应用</h1><h2 id="1-1-股票分类"><a href="#1-1-股票分类" class="headerlink" title="1.1 股票分类"></a>1.1 股票分类</h2><ul>
-<li>构造投资组合的方法是买入好的 股票(未来收益率高)或卖出(空) 差的股票(未来收益率为负)</li>
-<li>如何甄别好坏的股票——对股票进行分类或者打分（贝叶斯分类器）</li>
-<li>具体做法：我们之前通过股票多因子的打分（多因子的PCA分析）从沪深300中进行选股，还可以进行多维贝叶斯选股</li>
-</ul>
-<h2 id="1-2-市场趋势识别"><a href="#1-2-市场趋势识别" class="headerlink" title="1.2 市场趋势识别"></a>1.2 市场趋势识别</h2><ul>
-<li>有些投资策略在单边下跌行情中会无效， 因而，需要识别市场趋 势是上涨、下跌，还是震荡。</li>
-</ul>
-<h2 id="1-3-波动率估计"><a href="#1-3-波动率估计" class="headerlink" title="1.3 波动率估计"></a>1.3 波动率估计</h2><h2 id="1-4-投资组合风险"><a href="#1-4-投资组合风险" class="headerlink" title="1.4 投资组合风险"></a>1.4 投资组合风险</h2><h1 id="2-《人工智能选股之朴素贝叶斯模型——华泰金工林晓明团队》研报分析"><a href="#2-《人工智能选股之朴素贝叶斯模型——华泰金工林晓明团队》研报分析" class="headerlink" title="2. 《人工智能选股之朴素贝叶斯模型——华泰金工林晓明团队》研报分析"></a>2. 《人工智能选股之朴素贝叶斯模型——华泰金工林晓明团队》研报分析</h1><blockquote>
-<p><strong>本报告对朴素贝叶斯模型及线性判别分析、二次判别分析进行系统测试</strong></p>
-<p><strong>朴素贝叶斯模型构建细节：月频滚动训练，结合基于时间序列的交叉验证</strong></p>
-<p><strong>朴素贝叶斯在指数成份内（沪深300和中证500）选股效果较好，线性判别分析全A选股效果较好</strong></p>
-<p><strong>线性判别分析法的分类效果最佳，其在某种意义下等价于线性回归</strong> </p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">贝叶斯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/量化交易//" class="article-tag-list-link color5">量化交易</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/14/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%9C%A8%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
