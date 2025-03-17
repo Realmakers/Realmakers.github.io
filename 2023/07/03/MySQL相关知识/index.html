@@ -445,7 +445,7 @@
 <meta property="og:image" content="http://example.com/2023/07/03/MySQL%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Snipaste_2023-08-11_12-36-56.png">
 <meta property="og:image" content="http://example.com/2023/07/03/MySQL%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/Snipaste_2023-08-13_21-02-44.png">
 <meta property="article:published_time" content="2023-07-03T05:38:15.000Z">
-<meta property="article:modified_time" content="2023-08-13T13:09:01.454Z">
+<meta property="article:modified_time" content="2025-02-03T13:53:44.607Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -495,7 +495,7 @@
 			</ul>
 		</nav>
 		<nav>
-			总文章数 51
+			总文章数 54
 		</nav>		
 		<nav class="header-smart-menu">
     		
@@ -705,11 +705,12 @@
 
 <img src="Snipaste_2023-07-04_15-48-38.png" alt="Snipaste_2023-07-04_15-48-38" style="zoom:43%;">
 
-<h3 id="3-3-去除重复行"><a href="#3-3-去除重复行" class="headerlink" title="3.3 去除重复行"></a>3.3 去除重复行</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 默认情况下，查询会返回全部行，包括重复行,在<span class="keyword">SELECT</span>语句中使用关键字<span class="keyword">DISTINCT</span>去除重复行</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> department_id</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br><span class="line"># 仅仅是没有报错，但是没有实际意义</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> department_id,salary</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-去除重复行"><a href="#3-3-去除重复行" class="headerlink" title="3.3 去除重复行"></a>3.3 去除重复行</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 默认情况下，查询会返回全部行，包括重复行,在<span class="keyword">SELECT</span>语句中使用关键字<span class="keyword">DISTINCT</span>去除重复行</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> department_id</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br><span class="line"># <span class="keyword">distinct</span> 后面跟多个列名，是将多个列的数据进行组合，将重复的数据合并为一条</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> department_id,salary</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-07-04_15-50-03.png" alt="Snipaste_2023-07-04_15-50-03" style="zoom:43%;">
 
-<h3 id="3-4-空值参与运算"><a href="#3-4-空值参与运算" class="headerlink" title="3.4 空值参与运算"></a>3.4 空值参与运算</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">4.</span>空值参与运算</span><br><span class="line"># 空值：<span class="keyword">null</span>;空值不等于<span class="string">&#x27;&#x27;</span>或<span class="number">0</span>，空字符串长度为<span class="number">0</span>，空值长度是空，在MySQL中，空值是占用空间的</span><br><span class="line"># 所有运算符或列值遇到<span class="keyword">null</span>值，运算结果都为<span class="keyword">null</span></span><br><span class="line"><span class="keyword">SELECT</span> employee_id,salary &quot;月工资&quot;,salary<span class="operator">*</span>(<span class="number">1</span> <span class="operator">+</span> commission_pct)<span class="operator">*</span><span class="number">12</span> &quot;年工资&quot;</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
+<p><strong>在使用distinct时，null也被视为一类数据，null存在于多行中时，也被合并为一条null数据</strong> </p>
+<h3 id="3-4-空值参与运算"><a href="#3-4-空值参与运算" class="headerlink" title="3.4 空值参与运算"></a>3.4 空值参与运算</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">4.</span>空值参与运算</span><br><span class="line"># 空值：<span class="keyword">null</span>;空值不等于<span class="string">&#x27;&#x27;</span>或<span class="number">0</span>，空字符串长度为<span class="number">0</span>，空值长度是空，在MySQL中，空值是占用空间的</span><br><span class="line"># 所有运算符或列值遇到<span class="keyword">null</span>值，运算结果都为<span class="keyword">null</span>，即使是<span class="keyword">null</span><span class="operator">/</span><span class="number">0</span>和<span class="number">0</span><span class="operator">/</span><span class="keyword">null</span>的情况</span><br><span class="line"><span class="keyword">SELECT</span> employee_id,salary &quot;月工资&quot;,salary<span class="operator">*</span>(<span class="number">1</span> <span class="operator">+</span> commission_pct)<span class="operator">*</span><span class="number">12</span> &quot;年工资&quot;</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-07-04_15-51-10.png" alt="Snipaste_2023-07-04_15-51-10" style="zoom:43%;">
 
@@ -774,6 +775,7 @@
 
 <img src="Snipaste_2023-07-04_21-36-46.png" alt="Snipaste_2023-07-04_21-36-46" style="zoom:43%;">
 
+<p><strong>sql不识别&#x3D;null和&lt;&gt;null，只能使用is null或is not null判断null值。</strong></p>
 <p>![webwxgetmsgimg (12)](MySQL相关知识&#x2F;webwxgetmsgimg (12).jpg)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#① <span class="keyword">IS</span> <span class="keyword">NULL</span>\<span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>\ISNULL</span><br><span class="line"><span class="keyword">SELECT</span> last_name,salary,commission_pct</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> commission_pct <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br><span class="line"># <span class="keyword">WHERE</span> commission_pct <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> last_name,salary,commission_pct</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> ISNULL(commission_pct);</span><br></pre></td></tr></table></figure>
 
@@ -1775,6 +1777,7 @@
 
 <img src="Snipaste_2023-07-26_16-31-09.png" alt="Snipaste_2023-07-26_16-31-09" style="zoom:33%;">
 
+<p><strong>注意：定义视图的时候不能使用ORDER BY语句</strong></p>
 <h2 id="4-查看视图"><a href="#4-查看视图" class="headerlink" title="4. 查看视图"></a>4. 查看视图</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">4.</span>查看视图</span><br><span class="line"># 语法<span class="number">1</span>：查看数据库的表对象、视图对象</span><br><span class="line"><span class="keyword">SHOW</span> TABLES ;</span><br></pre></td></tr></table></figure>
 
 <img src="Snipaste_2023-07-26_16-35-02.png" alt="Snipaste_2023-07-26_16-35-02" style="zoom:33%;">
@@ -2738,7 +2741,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2024 John Doe
+    		&copy; 2025 John Doe
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2821,15 +2824,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">常用算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据科学</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">常用算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">面试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2841,15 +2852,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">面试</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">聚宽</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
